@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="issues">
+    <option name="index">
+      <map>
+        <entry key="/a.dummy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/src/main/java/ca/nengo/config/ClassRegistry.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/src/main/java/ca/nengo/config/JavaSourceParser.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/src/main/java/ca/nengo/io/MatlabExporter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/src/main/java/ca/nengo/math/impl/MultiLevelKLNetworkPartitioner.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/src/main/java/ca/nengo/math/impl/PostfixFunction.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/src/main/java/ca/nengo/math/impl/WeightedCostApproximator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/src/test/java/ca/nengo/examples/IntegratorExample.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/core/src/test/java/ca/nengo/plot/Scope.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/gui.iml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/brainView/BrainViewer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/dataList/DataListView.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/AppFrame.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/objects/activities/TransientMessage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/util/Util.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/WorldObject.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/activities/Fader.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/activities/Pulsator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/elastic/ElasticGround.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/elastic/ElasticWorld.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/AbstractPickHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/AbstractStatusHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/EventConsumer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/KeyboardFocusHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/KeyboardHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/MouseHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/PanEventHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/ScrollZoomHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/SelectionHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/TooltipPickHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/WorldGroundImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/WorldImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/WorldLayerImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/WorldObjectImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/WorldSkyImpl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/objects/BoundsHandle.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/objects/TooltipWrapper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/objects/Window.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/primitives/PXCamera.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/primitives/PXGrid.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/primitives/PXImage.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/primitives/PXLayer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/primitives/PXNode.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/primitives/PXPath.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/primitives/PXText.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/piccolo/primitives/Universe.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/models/nodes/widgets/UIStateProbe.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/models/viewers/NetworkViewer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/models/viewers/NodeViewer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
