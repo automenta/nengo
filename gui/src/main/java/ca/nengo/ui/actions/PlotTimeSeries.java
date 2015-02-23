@@ -34,7 +34,7 @@ import ca.nengo.ui.configurable.descriptors.PFloat;
 import ca.nengo.ui.configurable.descriptors.PInt;
 import ca.nengo.ui.configurable.managers.ConfigManager.ConfigMode;
 import ca.nengo.ui.configurable.managers.UserConfigurer;
-import ca.nengo.ui.dataList.ProbePlotHelper;
+import ca.nengo.ui.data.ProbePlotHelper;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.util.UIEnvironment;

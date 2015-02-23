@@ -36,9 +36,9 @@ import ca.nengo.ui.configurable.IConfigurable;
  * 
  * @author Shu Wu
  */
-public abstract class AbstractConstructable implements IConfigurable {
+public abstract class AbstractConstructable<M> implements IConfigurable {
 
-	private Object model;
+	private M model;
 
 	public AbstractConstructable() {
 		super();
@@ -53,7 +53,7 @@ public abstract class AbstractConstructable implements IConfigurable {
 	 * @param configuredProperties
 	 *            the configured properties
 	 */
-	protected abstract Object configureModel(ConfigResult configuredProperties)
+	protected abstract M configureModel(ConfigResult configuredProperties)
 			throws ConfigException;
 
 	public void completeConfiguration(final ConfigResult properties) throws ConfigException {
@@ -62,10 +62,10 @@ public abstract class AbstractConstructable implements IConfigurable {
 	}
 
 	public String getDescription() {
-		return getTypeName() + " Constructor";
+		return "New " + getTypeName();
 	}
 
-	public Object getModel() {
+	public M getModel() {
 		return model;
 	}
 

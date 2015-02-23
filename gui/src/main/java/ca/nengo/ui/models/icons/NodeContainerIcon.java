@@ -67,10 +67,13 @@ public abstract class NodeContainerIcon extends ModelIcon {
 
 		myNumOfNodes = numOfNodes;
 
-		String neuronsText = myNumOfNodes + " Neuron" + (myNumOfNodes == 1 ? "" : "s");
-		if (getModelParent().getModel().getMode() == SimulationMode.DIRECT) {
-			neuronsText = "Direct Mode";
-		}
+        String neuronsText = myNumOfNodes + " Neuron" + (myNumOfNodes == 1 ? "" : "s");
+
+        //if (getModelParent().getModel()!=null) {
+            if (getModelParent().getModel().getMode() == SimulationMode.DIRECT) {
+                neuronsText = "Direct Mode";
+            }
+        //}
 		
 		String dimensionalityText = "";
 		if (dimensionality > 0) {

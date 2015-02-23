@@ -7,8 +7,10 @@ Software distributed under the License is distributed on an "AS IS" basis, WITHO
 WARRANTY OF ANY KIND, either express or implied. See the License for the specific 
 language governing rights and limitations under the License.
 
-The Original Code is "CopyAndPasteTest.java". Description: 
-""
+The Original Code is "BrainViewExample.java". Description: 
+"In this example, an Integrator network is constructed
+  
+  @author Shu Wu"
 
 The Initial Developer of the Original Code is Bryan Tripp & Centre for Theoretical Neuroscience, University of Waterloo. Copyright (C) 2006-2008. All Rights Reserved.
 
@@ -22,8 +24,41 @@ provisions required by the GPL License.  If you do not delete the provisions abo
 a recipient may use your version of this file under either the MPL or the GPL License.
 */
 
-package ca.nengo.ui.test;
+package ca.nengo.ui.test.depr;
 
-public class CopyAndPasteTest {
+import ca.nengo.model.Network;
+import ca.nengo.model.impl.NetworkImpl;
+import ca.nengo.ui.models.nodes.UINetwork;
+
+/**
+ * In this example, an Integrator network is constructed
+ * 
+ * @author Shu Wu
+ */
+public class BrainViewExample extends ExampleRunner {
+
+	public static void main(String[] args) {
+
+		//try {
+			new BrainViewExample();
+		/*} catch (StructuralException e) {
+			e.printStackTrace();
+		}*/
+	}
+
+	public BrainViewExample() {
+		super();
+	}
+
+    @Override
+    public Network getNetwork() {
+        return new NetworkImpl();
+    }
+
+    @Override
+	protected void processNetwork(UINetwork network) {
+		network.closeViewer();
+		network.createBrainViewer();
+	}
 
 }

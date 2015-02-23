@@ -27,10 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.configurable.managers;
 
 import ca.nengo.ui.AbstractNengo;
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.Property;
-import ca.nengo.ui.configurable.PropertyInputPanel;
+import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.objects.activities.TrackedAction;
 import ca.nengo.ui.lib.util.UserMessages;
@@ -228,14 +225,15 @@ public class ConfigDialog extends JDialog {
         myPropertyPanel = new VerticalLayoutPanel();
         myPanel.add(myPropertyPanel);
 
-        addDescriptors(configManager.getConfigurable().getSchema().getProperties());
+        ConfigSchema schema = configManager.getConfigurable().getSchema();
+        addDescriptors(schema.getProperties());
 
         initPanelBottom(myPanel);
 
         createButtons(myPanel);
-        
+
         //add(myPanel);
-        
+
         while (true) {
             try {
                 add(myPanel);
@@ -245,7 +243,7 @@ public class ConfigDialog extends JDialog {
                 // Ubuntu 11.04 throws a sun.awt.X11.XException ~80% of the time here
             }
         }
-        
+
 
         setMinimumSize(new Dimension(200, this.getHeight()));
         updateBounds();

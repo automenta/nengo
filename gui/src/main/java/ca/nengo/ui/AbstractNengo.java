@@ -7,7 +7,7 @@ import ca.nengo.model.Node;
 import ca.nengo.model.Origin;
 import ca.nengo.model.Termination;
 import ca.nengo.ui.actions.*;
-import ca.nengo.ui.dataList.DataListView;
+import ca.nengo.ui.data.DataListView;
 import ca.nengo.ui.lib.AppFrame;
 import ca.nengo.ui.lib.AuxillarySplitPane;
 import ca.nengo.ui.lib.Style.NengoStyle;
@@ -33,7 +33,7 @@ import ca.nengo.ui.util.NengoClipboard;
 import ca.nengo.ui.util.NengoConfigManager;
 import ca.nengo.ui.util.NeoFileChooser;
 import ca.nengo.ui.util.ProgressIndicator;
-import ca.nengo.ui.world.NengoWorld;
+import ca.nengo.ui.util.NengoWorld;
 import ca.nengo.util.Environment;
 import org.simplericity.macify.eawt.Application;
 
@@ -73,6 +73,8 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
     protected AuxillarySplitPane dataViewerPane;
     protected ArrayList<AuxillarySplitPane> splitPanes;
     private ProgressIndicator progressIndicator;
+
+    boolean confirmExit = false;
 
     public AbstractNengo() {
         super();
@@ -143,9 +145,9 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
 
         super.initialize();
 
-        //UIEnvironment.setDebugEnabled(true);
+        UIEnvironment.setDebugEnabled(true);
 
-        //initializeSimulatorSourceFiles();
+        initializeSimulatorSourceFiles();
 
         if (FileChooser == null) {
             FileChooser = new NeoFileChooser();
@@ -321,11 +323,15 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
             while (node.getNetworkParent() != null) {
                 node = node.getNetworkParent();
             }
+            if (node instanceof UINetwork) {
+                UINetwork network = (UINetwork) node;
 
-            UINetwork network = (UINetwork) node;
-
-            simulateAction = new RunSimulatorAction("Simulate " + network.getName(), network);
-            interactivePlotsAction = new RunInteractivePlotsAction(network);
+                simulateAction = new RunSimulatorAction("Simulate " + network.getName(), network);
+                interactivePlotsAction = new RunInteractivePlotsAction(network);
+            }
+            else {
+                throw new RuntimeException("Nodes not in a network");
+            }
         } else {
             simulateAction = new DisabledAction("Simulate", "No object selected");
             interactivePlotsAction = new DisabledAction("Interactive Plots", "No object selected");
@@ -389,7 +395,7 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
 
     @Override
     public void exitAppFrame() {
-        if (getWorld().getGround().getChildrenCount() > 0)
+        if (confirmExit && getWorld().getGround().getChildrenCount() > 0)
         {
             int response = JOptionPane.showConfirmDialog(this,
                     "Save models?",

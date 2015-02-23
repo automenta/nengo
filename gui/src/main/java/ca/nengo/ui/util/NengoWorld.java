@@ -1,4 +1,4 @@
-package ca.nengo.ui.world;
+package ca.nengo.ui.util;
 
 import ca.nengo.model.Network;
 import ca.nengo.model.Node;
@@ -34,9 +34,9 @@ public class NengoWorld extends ElasticWorld implements NodeContainer {
 
 
 	public UINeoNode addNodeModel(Node node, Double posX, Double posY) throws ContainerException {
-		if (!(node instanceof Network)) {
+		/*if (!(node instanceof Network)) {
 			throw new ContainerException("Only Networks are allowed to be added to the top-level Window");
-		}
+		}*/
 
 		UINeoNode nodeUI = UINeoNode.createNodeUI(node);
 

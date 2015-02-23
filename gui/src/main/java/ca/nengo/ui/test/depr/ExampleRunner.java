@@ -7,8 +7,9 @@ Software distributed under the License is distributed on an "AS IS" basis, WITHO
 WARRANTY OF ANY KIND, either express or implied. See the License for the specific 
 language governing rights and limitations under the License.
 
-The Original Code is "IntegratorExample.java". Description: 
-"In this example, an Integrator network is constructed
+The Original Code is "ExampleRunner.java". Description: 
+"Used to conveniently create a NeoGraphics instance with an existing Network
+  model
   
   @author Shu Wu"
 
@@ -22,59 +23,71 @@ others to use your version of this file under the MPL, indicate your decision
 by deleting the provisions above and replace  them with the notice and other 
 provisions required by the GPL License.  If you do not delete the provisions above,
 a recipient may use your version of this file under either the MPL or the GPL License.
- */
+*/
 
-package ca.nengo.ui.test;
+package ca.nengo.ui.test.depr;
 
-import ca.nengo.math.Function;
-import ca.nengo.math.impl.ConstantFunction;
 import ca.nengo.model.Network;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
-import ca.nengo.model.impl.FunctionInput;
-import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.ui.actions.RunSimulatorAction;
-import ca.nengo.ui.dev.ExampleRunner;
+import ca.nengo.model.Node;
+import ca.nengo.ui.Nengrow;
+import ca.nengo.ui.lib.objects.activities.TrackedStatusMsg;
 import ca.nengo.ui.models.nodes.UINetwork;
 
+import javax.swing.*;
+
 /**
- * Starts Nengo with a network viewer open
+ * Used to conveniently create a NeoGraphics instance with an existing Network
+ * model
  * 
  * @author Shu Wu
  */
-public class NetworkViewerTest extends ExampleRunner {
+abstract public class ExampleRunner extends Nengrow {
 
-	public static void main(String[] args) {
+	private UINetwork networkUI;
 
-		try {
-			new NetworkViewerTest();
-		} catch (StructuralException e) {
-			e.printStackTrace();
-		}
+	public ExampleRunner() {
+        super();
+
+		/**
+		 * All UI funcitons and constructors must be invoked from the Swing
+		 * Event Thread
+		 */
+
 	}
 
-	public NetworkViewerTest() throws StructuralException {
-		super(CreateNetwork());
-	}
-	
-	
-	public static Network CreateNetwork() throws StructuralException {
-		NetworkImpl network = new NetworkImpl();
-		
-		Function f = new ConstantFunction(1, 1f);
-		FunctionInput input = new FunctionInput("input", new Function[] { f }, Units.UNK);
-		
-		network .addNode(input);
-		
-		return network;
-	}
 
-	@Override
 	protected void doStuff(UINetwork network) {
-		(new RunSimulatorAction("Run", network, 0f, 1f, 0.002f)).doAction();
 
-
-		
 	}
 
+
+
+	protected void processNetwork(UINetwork network) {
+
+	}
+
+    public abstract Network getNetwork();
+
+    @Override
+    public void init() throws Exception {
+
+        TrackedStatusMsg task;
+        task = new TrackedStatusMsg("Creating Model UI");
+        if (networkUI == null) {
+
+            networkUI = new UINetwork(getNetwork());
+            getWorld().getGround().addChild(networkUI);
+            networkUI.openViewer();
+        }
+
+        processNetwork(networkUI);
+        task.finished();
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+
+                doStuff(networkUI);
+            }
+        });
+    }
 }

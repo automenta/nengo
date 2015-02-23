@@ -7,8 +7,8 @@ Software distributed under the License is distributed on an "AS IS" basis, WITHO
 WARRANTY OF ANY KIND, either express or implied. See the License for the specific 
 language governing rights and limitations under the License.
 
-The Original Code is "BrainViewExample.java". Description: 
-"In this example, an Integrator network is constructed
+The Original Code is "GFuzzyLogicExample.java". Description: 
+"In this example, a Fuzzy Logic network is constructed
   
   @author Shu Wu"
 
@@ -22,38 +22,49 @@ others to use your version of this file under the MPL, indicate your decision
 by deleting the provisions above and replace  them with the notice and other 
 provisions required by the GPL License.  If you do not delete the provisions above,
 a recipient may use your version of this file under either the MPL or the GPL License.
-*/
+ */
 
-package ca.nengo.ui.dev;
+package ca.nengo.ui.test.depr;
 
+import ca.nengo.model.Network;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.impl.NetworkImpl;
+import ca.nengo.ui.AbstractNengo;
+import ca.nengo.ui.actions.RunSimulatorAction;
 import ca.nengo.ui.models.nodes.UINetwork;
 
 /**
- * In this example, an Integrator network is constructed
+ * Creates a Fuzzy Network, and runs it for 1 second
  * 
  * @author Shu Wu
  */
-public class BrainViewExample extends ExampleRunner {
+public class DataViewerTest2 extends ExampleRunner {
 
 	public static void main(String[] args) {
 
-		//try {
-			new BrainViewExample();
-		/*} catch (StructuralException e) {
+		try {
+			new DataViewerTest2();
+		} catch (StructuralException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
-	public BrainViewExample() {
-		super(new NetworkImpl());
+	public DataViewerTest2() throws StructuralException {
+		super();
 	}
+
+    @Override
+    public Network getNetwork() {
+        try {
+            return FuzzyLogicExample.createNetwork();
+        } catch (StructuralException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 	@Override
-	protected void processNetwork(UINetwork network) {
-		network.closeViewer();
-		network.createBrainViewer();
+	protected void doStuff(UINetwork network) {
+		(new RunSimulatorAction("Run", network, 0f, 1f, 0.002f)).doAction();
+		AbstractNengo.getInstance().setDataViewerPaneVisible(true);
 	}
 
 }

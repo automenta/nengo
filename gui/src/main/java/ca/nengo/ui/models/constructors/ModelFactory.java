@@ -31,8 +31,8 @@ import ca.nengo.ui.models.UINeoNode;
 
 public class ModelFactory {
 
-	public static ConstructableNode[] getNodeConstructables(NodeContainer container) {
-		return new ConstructableNode[] { new CNetwork(), new CNEFEnsemble(), new CFunctionInput() };
+	public static CNode[] getNodeConstructables(NodeContainer container) {
+		return new CNode[] { new CNetwork(), new CNEFEnsemble(), new CFunctionInput() };
 	}
 
 	public static Object constructModel(AbstractConstructable configurable) throws ConfigException {

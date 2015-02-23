@@ -24,6 +24,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.constructors;
 
+import ca.nengo.model.Network;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.ui.configurable.ConfigException;
@@ -31,7 +32,7 @@ import ca.nengo.ui.configurable.ConfigResult;
 import ca.nengo.ui.configurable.ConfigSchemaImpl;
 import ca.nengo.ui.models.nodes.UINetwork;
 
-public class CNetwork extends ConstructableNode {
+public class CNetwork extends CNode<Network> {
 	public CNetwork() {
 		super();
 		pName.setDescription("Name of the network");
@@ -47,9 +48,9 @@ public class CNetwork extends ConstructableNode {
 	}
 
 	@Override
-	protected Object createNode(ConfigResult configuredProperties, String name)
+	protected Network createNode(ConfigResult configuredProperties, String name)
 			throws ConfigException {
-		NetworkImpl network = new NetworkImpl();
+        Network network = new NetworkImpl();
 
 		try {
 			network.setName(name);

@@ -7,10 +7,8 @@ Software distributed under the License is distributed on an "AS IS" basis, WITHO
 WARRANTY OF ANY KIND, either express or implied. See the License for the specific
 language governing rights and limitations under the License.
 
-The Original Code is "SortableMutableTreeNode.java". Description:
-"Has a sort() function to sort children
-
-  @author Shu Wu"
+The Original Code is "BrainSideImage.java". Description:
+""
 
 The Initial Developer of the Original Code is Bryan Tripp & Centre for Theoretical Neuroscience, University of Waterloo. Copyright (C) 2006-2008. All Rights Reserved.
 
@@ -24,37 +22,45 @@ provisions required by the GPL License.  If you do not delete the provisions abo
 a recipient may use your version of this file under either the MPL or the GPL License.
  */
 
-package ca.nengo.ui.dataList;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.Collections;
+package ca.nengo.ui.brain;
 
 /**
- * Has a sort() function to sort children
+ * TODO
  * 
- * @author Shu Wu
+ * @author TODO
  */
-public class SortableMutableTreeNode extends DefaultMutableTreeNode {
-
-    /**
-     * @param userObject TODO
-     */
-    public SortableMutableTreeNode(Object userObject) {
-        super(userObject);
-    }
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+public class BrainSideImage extends AbstractBrainImage2D {
 
     /**
      * TODO
      */
-    @SuppressWarnings("unchecked")
-    public void sort() {
-        if (children != null) {
-            Collections.sort(children, new NaturalOrderComparator());
-        }
+    public BrainSideImage() {
+        super(BrainData.Y_DIMENSIONS, BrainData.Z_DIMENSIONS);
+
+    }
+
+    @Override
+    public int getCoordMax() {
+        return BrainData.getVoxelData()[0][0].length - BrainData.X_START - 1;
+    }
+
+    @Override
+    public int getCoordMin() {
+        return -BrainData.X_START;
+    }
+
+    public byte getImageByte(int imageX, int imageY) {
+        return BrainData.getVoxelData()[imageY][imageX][getCoord()
+                                                        + BrainData.X_START];
+    }
+
+    @Override
+    public String getCoordName() {
+        return "X(mm)";
+    }
+
+    @Override
+    public String getViewName() {
+        return "Side View";
     }
 }

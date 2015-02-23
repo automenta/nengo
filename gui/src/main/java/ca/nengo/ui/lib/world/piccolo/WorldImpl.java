@@ -200,6 +200,8 @@ public class WorldImpl extends WorldObjectImpl implements World, Interactable {
 		/*
 		 * Create the grid
 		 */
+
+
 		gridLayer = PXGrid.createGrid(getSky().getCamera(), UIEnvironment.getInstance()
                 .getUniverse().getRoot(), NengoStyle.COLOR_DARKBORDER, 1500);
 

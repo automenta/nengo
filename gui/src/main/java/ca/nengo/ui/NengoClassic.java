@@ -3,8 +3,8 @@ package ca.nengo.ui;
 //import org.java.ayatana.ApplicationMenu;
 //import org.java.ayatana.AyatanaDesktop;
 
-import ca.nengo.ui.dataList.DataListView;
-import ca.nengo.ui.dataList.SimulatorDataModel;
+import ca.nengo.ui.data.DataListView;
+import ca.nengo.ui.data.SimulatorDataModel;
 import ca.nengo.ui.lib.AuxillarySplitPane;
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.actions.ZoomToFitAction;

@@ -7,8 +7,10 @@ Software distributed under the License is distributed on an "AS IS" basis, WITHO
 WARRANTY OF ANY KIND, either express or implied. See the License for the specific 
 language governing rights and limitations under the License.
 
-The Original Code is "CFunctionInput.java". Description: 
-""
+The Original Code is "GFuzzyLogicExample.java". Description: 
+"In this example, a Fuzzy Logic network is constructed
+  
+  @author Shu Wu"
 
 The Initial Developer of the Original Code is Bryan Tripp & Centre for Theoretical Neuroscience, University of Waterloo. Copyright (C) 2006-2008. All Rights Reserved.
 
@@ -22,50 +24,45 @@ provisions required by the GPL License.  If you do not delete the provisions abo
 a recipient may use your version of this file under either the MPL or the GPL License.
 */
 
-package ca.nengo.ui.models.constructors;
+package ca.nengo.ui.test.depr;
 
-import ca.nengo.math.Function;
+import ca.nengo.model.Network;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
-import ca.nengo.model.impl.FunctionInput;
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.ConfigSchemaImpl;
-import ca.nengo.ui.configurable.Property;
-import ca.nengo.ui.configurable.descriptors.PFunctionArray;
-import ca.nengo.ui.models.nodes.UIFunctionInput;
+import ca.nengo.model.impl.NetworkImpl;
+import ca.nengo.ui.models.nodes.UINetwork;
 
-public class CFunctionInput extends CNode<FunctionInput> {
+/**
+ * In this example, a Fuzzy Logic network is constructed
+ * 
+ * @author Shu Wu
+ */
+public class GFuzzyLogicExample extends ExampleRunner {
 
-	public CFunctionInput() {
-		super();
-		pName.setDescription("Name of function input");
-		pFunctions.setDescription("Defines the function to be used as an input to other components");
-	}
-
-	private static final Property pFunctions = new PFunctionArray("Function Generators", 1);
-
-	@Override
-	protected FunctionInput createNode(ConfigResult props, String name) throws ConfigException {
-
-		Function[] functions = (Function[]) props.getValue(pFunctions);
+	public static void main(String[] args) {
 
 		try {
-			// setName((String) getProperty(pName));
-			return new FunctionInput(name, functions, Units.UNK);
+			new GFuzzyLogicExample();
 		} catch (StructuralException e) {
-			throw new ConfigException(e.getMessage());
-
+			e.printStackTrace();
 		}
-
 	}
+
+	public GFuzzyLogicExample() throws StructuralException {
+		super();
+	}
+
+    @Override
+    public Network getNetwork() {
+        try {
+            return FuzzyLogicExample.createNetwork();
+        } catch (StructuralException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 	@Override
-	public ConfigSchemaImpl getNodeConfigSchema() {
-		return new ConfigSchemaImpl(pFunctions);
+	protected void doStuff(UINetwork network) {
+		// (new RunSimulatorAction("Run", network)).doAction();
 	}
 
-	public String getTypeName() {
-		return UIFunctionInput.typeName;
-	}
 }

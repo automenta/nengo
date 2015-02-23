@@ -24,18 +24,26 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.constructors;
 
+import ca.nengo.model.Node;
 import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PString;
+import ca.nengo.ui.lib.actions.UserCancelledException;
+import ca.nengo.ui.lib.util.UserMessages;
+import ca.nengo.ui.models.NodeContainer;
+import ca.nengo.ui.models.nodes.UINodeViewable;
 
-public abstract class ConstructableNode extends AbstractConstructable {
-	protected static final Property pName = new PString("Name", "Name of the item to create", "");
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
-	public ConstructableNode() {
+public abstract class CNode<N extends Node> extends AbstractConstructable<N> {
+	protected static final Property pName = new PString("Name", "Item identifier", "");
+
+	public CNode() {
 		super();
 	}
 
 	@Override
-	protected final Object configureModel(ConfigResult configuredProperties) throws ConfigException {
+	protected final N configureModel(ConfigResult configuredProperties) throws ConfigException {
 		String name = (String) configuredProperties.getValue(pName);
 
 		// if (nodeContainer.getNodeModel(name) != null) {
@@ -46,11 +54,12 @@ public abstract class ConstructableNode extends AbstractConstructable {
 		return createNode(configuredProperties, name);
 	}
 
-	protected abstract Object createNode(ConfigResult configuredProperties, String name)
+	protected abstract N createNode(ConfigResult configuredProperties, String name)
 			throws ConfigException;
 
 	public final ConfigSchema getSchema() {
 		ConfigSchema nodeConfigSchema = getNodeConfigSchema();
+        if (nodeConfigSchema==null) return null;
 
         java.util.List<Property> var = nodeConfigSchema.getAdvancedProperties();
         java.util.List<Property> var2 = nodeConfigSchema.getProperties();
@@ -62,4 +71,5 @@ public abstract class ConstructableNode extends AbstractConstructable {
 	}
 
 	public abstract ConfigSchema getNodeConfigSchema();
+
 }

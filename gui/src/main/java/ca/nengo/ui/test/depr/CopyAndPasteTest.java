@@ -7,10 +7,8 @@ Software distributed under the License is distributed on an "AS IS" basis, WITHO
 WARRANTY OF ANY KIND, either express or implied. See the License for the specific 
 language governing rights and limitations under the License.
 
-The Original Code is "GFuzzyLogicExample.java". Description: 
-"In this example, a Fuzzy Logic network is constructed
-  
-  @author Shu Wu"
+The Original Code is "CopyAndPasteTest.java". Description: 
+""
 
 The Initial Developer of the Original Code is Bryan Tripp & Centre for Theoretical Neuroscience, University of Waterloo. Copyright (C) 2006-2008. All Rights Reserved.
 
@@ -22,41 +20,10 @@ others to use your version of this file under the MPL, indicate your decision
 by deleting the provisions above and replace  them with the notice and other 
 provisions required by the GPL License.  If you do not delete the provisions above,
 a recipient may use your version of this file under either the MPL or the GPL License.
- */
+*/
 
-package ca.nengo.ui.test;
+package ca.nengo.ui.test.depr;
 
-import ca.nengo.model.StructuralException;
-import ca.nengo.ui.AbstractNengo;
-import ca.nengo.ui.actions.RunSimulatorAction;
-import ca.nengo.ui.dev.ExampleRunner;
-import ca.nengo.ui.dev.FuzzyLogicExample;
-import ca.nengo.ui.models.nodes.UINetwork;
-
-/**
- * Creates a Fuzzy Network, and runs it for 1 second
- * 
- * @author Shu Wu
- */
-public class DataViewerTest2 extends ExampleRunner {
-
-	public static void main(String[] args) {
-
-		try {
-			new DataViewerTest2();
-		} catch (StructuralException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public DataViewerTest2() throws StructuralException {
-		super(FuzzyLogicExample.createNetwork());
-	}
-
-	@Override
-	protected void doStuff(UINetwork network) {
-		(new RunSimulatorAction("Run", network, 0f, 1f, 0.002f)).doAction();
-		AbstractNengo.getInstance().setDataViewerPaneVisible(true);
-	}
+public class CopyAndPasteTest {
 
 }

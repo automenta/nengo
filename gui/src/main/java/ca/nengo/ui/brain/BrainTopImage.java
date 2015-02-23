@@ -7,7 +7,7 @@ Software distributed under the License is distributed on an "AS IS" basis, WITHO
 WARRANTY OF ANY KIND, either express or implied. See the License for the specific
 language governing rights and limitations under the License.
 
-The Original Code is "NeoTreeNode.java". Description:
+The Original Code is "BrainTopImage.java". Description:
 ""
 
 The Initial Developer of the Original Code is Bryan Tripp & Centre for Theoretical Neuroscience, University of Waterloo. Copyright (C) 2006-2008. All Rights Reserved.
@@ -22,36 +22,44 @@ provisions required by the GPL License.  If you do not delete the provisions abo
 a recipient may use your version of this file under either the MPL or the GPL License.
  */
 
-package ca.nengo.ui.dataList;
-
-import ca.nengo.model.Node;
-
-import java.lang.ref.WeakReference;
+package ca.nengo.ui.brain;
 
 /**
  * TODO
  * 
  * @author TODO
  */
-public class NengoTreeNode extends SortableMutableTreeNode {
-    private static final long serialVersionUID = 1L;
-
-    private final WeakReference<Node> nengoNodeRef;
+public class BrainTopImage extends AbstractBrainImage2D {
 
     /**
-     * @param name TODO
-     * @param neoNode TODO
+     * TODO
      */
-    public NengoTreeNode(String name, Node neoNode) {
-        super(name);
-        this.nengoNodeRef = new WeakReference<Node>(neoNode);
+    public BrainTopImage() {
+        super(BrainData.X_DIMENSIONS, BrainData.Y_DIMENSIONS);
+
     }
 
-    /**
-     * @return Reference to NeoNode, otherwise null
-     */
-    public Node getNeoNode() {
-        return nengoNodeRef.get();
+    @Override
+    public int getCoordMax() {
+        return BrainData.getVoxelData().length - BrainData.Z_START - 1;
     }
 
+    @Override
+    public int getCoordMin() {
+        return -BrainData.Z_START;
+    }
+
+    @Override
+    public String getCoordName() {
+        return "Z(mm)";
+    }
+
+    @Override
+    public String getViewName() {
+        return "Top View";
+    }
+
+    public byte getImageByte(int imageX, int imageY) {
+        return BrainData.getVoxelData()[getCoord() + BrainData.Z_START][imageY][imageX];
+    }
 }

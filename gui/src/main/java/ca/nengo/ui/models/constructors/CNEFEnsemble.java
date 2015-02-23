@@ -55,7 +55,7 @@ import java.awt.event.ActionListener;
 import java.security.InvalidParameterException;
 import java.text.DecimalFormat;
 
-public class CNEFEnsemble extends ConstructableNode {
+public class CNEFEnsemble extends CNode {
     static final Property pApproximator = new PApproximator("Decoding Sign");
 
     static final Property pDim = new PInt("Dimensions");

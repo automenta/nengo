@@ -4,20 +4,32 @@ package ca.nengo.ui;
 import org.simplericity.macify.eawt.Application;
 import org.simplericity.macify.eawt.DefaultApplication;
 
-public class Nengrow extends AbstractNengo {
+abstract public class Nengrow extends AbstractNengo {
+
+    public Nengrow() {
+        this(new DefaultApplication());
+    }
+    public Nengrow(Application app) {
+        super();
+        setApplication(app);
+    }
 
     @Override
     protected void initialize() {
         super.initialize();
 
         add(getUniverse());
+
+        try {
+            init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void main(String[] args) {
-        Application application = new DefaultApplication();
+    abstract public void init() throws Exception;
 
-        Nengrow ng = new Nengrow();
-        ng.setApplication(application);
-
-    }
+/*    public static void main(String[] args) {
+        new Nengrow();
+    }*/
 }

@@ -9,7 +9,7 @@ import ca.nengo.ui.lib.AppFrame;
  */
 public class UIEnvironment {
 	public static final double SEMANTIC_ZOOM_LEVEL = 0.2;
-	public static final double ANIMATION_TARGET_FRAME_RATE = 25;
+	public static final double ANIMATION_TARGET_FRAME_RATE = 30;
 
 	private static AppFrame uiInstance;
 

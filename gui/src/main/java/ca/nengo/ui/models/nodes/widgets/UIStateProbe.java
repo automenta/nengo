@@ -27,7 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.models.nodes.widgets;
 
 import ca.nengo.model.*;
-import ca.nengo.ui.dataList.ProbePlotHelper;
+import ca.nengo.ui.data.ProbePlotHelper;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.objects.activities.TrackedAction;
