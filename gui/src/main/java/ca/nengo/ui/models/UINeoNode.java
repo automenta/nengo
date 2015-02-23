@@ -32,7 +32,7 @@ import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.model.neuron.Neuron;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.actions.*;
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.UserDialogs;
@@ -495,7 +495,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	 * @return The default file name for this node
 	 */
 	public String getFileName() {
-		return this.getName() + "." + NengoGraphics.NEONODE_FILE_EXTENSION;
+		return this.getName() + "." + AbstractNengo.NEONODE_FILE_EXTENSION;
 	}
 
 	@Override

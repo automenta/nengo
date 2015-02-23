@@ -27,7 +27,8 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.actions;
 
 import ca.nengo.model.Node;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
+import ca.nengo.ui.NengoClassic;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.objects.activities.TrackedAction;
@@ -68,9 +69,9 @@ public class OpenNeoFileAction extends StandardAction {
 
     @Override
     protected void action() throws ActionException {
-        int response = NengoGraphics.FileChooser.showOpenDialog();
+        int response = AbstractNengo.FileChooser.showOpenDialog();
         if (response == JFileChooser.APPROVE_OPTION) {
-            file = NengoGraphics.FileChooser.getSelectedFile();
+            file = AbstractNengo.FileChooser.getSelectedFile();
 
 
             TrackedAction loadActivity = new TrackedAction("Loading network") {
@@ -81,13 +82,13 @@ public class OpenNeoFileAction extends StandardAction {
 
                     if (file.getName().endsWith(".py")) {
                     	try {
-                    		NengoGraphics.getInstance().getProgressIndicator().start("Running "+file.getPath());
-                    		NengoGraphics.getInstance().getScriptConsole().addVariable("scriptname", file.getPath());
-                    		NengoGraphics.getInstance().getPythonInterpreter().execfile(file.getPath());
+                    		AbstractNengo.getInstance().getProgressIndicator().start("Running "+file.getPath());
+                    		NengoClassic.getInstance().getScriptConsole().addVariable("scriptname", file.getPath());
+                            NengoClassic.getInstance().getPythonInterpreter().execfile(file.getPath());
                     	} catch (RuntimeException e) {
                     		if (e.toString()=="ca.nengo.ui.util.ScriptInterruptException") {
                     			
-                        		NengoGraphics.getInstance().getProgressIndicator().stop();
+                        		AbstractNengo.getInstance().getProgressIndicator().stop();
                     			UserMessages.showDialog("Stopped","Stopped opening "+file.getName());                    			
                     		} else {
                     			UserMessages.showError("Runtime exception:<br>" + e);
@@ -104,7 +105,7 @@ public class OpenNeoFileAction extends StandardAction {
                         // loading sometimes fails if a new interpreter is
                         // created, so
                         // we use the one from the NengoGraphics.
-                        PythonInterpreter pi = NengoGraphics.getInstance().getPythonInterpreter();
+                        PythonInterpreter pi = NengoClassic.getInstance().getPythonInterpreter();
                         pi.set("___inStream",
                                 new PythonObjectInputStream(new FileInputStream(file)));
                         org.python.core.PyObject obj = pi.eval("___inStream.readObject()");

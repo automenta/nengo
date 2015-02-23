@@ -28,7 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.script;
 
 import ca.nengo.config.JavaSourceParser;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.objects.activities.TrackedAction;
@@ -387,7 +387,7 @@ public class ScriptConsole extends JPanel {
 
             @Override
             protected void action() throws ActionException {
-            	NengoGraphics.getInstance().getProgressIndicator().start(initText.trim());
+            	AbstractNengo.getInstance().getProgressIndicator().start(initText.trim());
             	myCommandField.setEnabled(false);
                 try {
         			if (initText.startsWith("run ")) {

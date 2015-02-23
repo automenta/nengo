@@ -26,7 +26,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.managers;
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.Util;
@@ -45,9 +45,9 @@ public abstract class ConfigManager {
     /**
      * Name of directory where to store saved configuration
      */
-    static final String SAVED_CONFIG_DIR = NengoGraphics.USER_FILE_DIR + "/Config";
+    static final String SAVED_CONFIG_DIR = AbstractNengo.USER_FILE_DIR + "/Config";
     
-    static final String DEV_DIST_DIR = "dist-files/" + NengoGraphics.USER_FILE_DIR + "/Config";
+    static final String DEV_DIST_DIR = "dist-files/" + AbstractNengo.USER_FILE_DIR + "/Config";
 
     /**
      * Creates a saved objects folder if it isn't already there

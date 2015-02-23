@@ -24,7 +24,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 
@@ -66,6 +66,6 @@ public class ConfigureAction extends StandardAction {
 
     @Override
     protected void action() throws ActionException {
-        NengoGraphics.getInstance().configureObject(model);
+        AbstractNengo.getInstance().configureObject(model);
     }
 }

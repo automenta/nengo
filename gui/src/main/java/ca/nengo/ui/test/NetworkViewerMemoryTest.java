@@ -37,7 +37,7 @@ import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFEnsembleFactory;
 import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.models.nodes.UINetwork;
 
 import javax.swing.*;
@@ -50,7 +50,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class NetworkViewerMemoryTest {
 	private static int i;
-	private static NengoGraphics neoGraphics;
+	private static AbstractNengo neoGraphics;
 	// private static NetworkViewer netView;
 	private static final int NUM_OF_LOOPS = 500;
 //	private static Window window;
@@ -107,7 +107,7 @@ public class NetworkViewerMemoryTest {
 	public static void main(String[] args) {
 
 		printMemoryUsed("Start");
-		neoGraphics = new NengoGraphics();
+		neoGraphics = new AbstractNengo();
 
 		// Window windows = new Window[NUM_OF_LOOPS];
 		for (i = 0; i < NUM_OF_LOOPS; i++) {

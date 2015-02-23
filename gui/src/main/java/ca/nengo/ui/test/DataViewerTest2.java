@@ -27,7 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.test;
 
 import ca.nengo.model.StructuralException;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.actions.RunSimulatorAction;
 import ca.nengo.ui.dev.ExampleRunner;
 import ca.nengo.ui.dev.FuzzyLogicExample;
@@ -56,7 +56,7 @@ public class DataViewerTest2 extends ExampleRunner {
 	@Override
 	protected void doStuff(UINetwork network) {
 		(new RunSimulatorAction("Run", network, 0f, 1f, 0.002f)).doAction();
-		NengoGraphics.getInstance().setDataViewerPaneVisible(true);
+		AbstractNengo.getInstance().setDataViewerPaneVisible(true);
 	}
 
 }

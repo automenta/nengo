@@ -29,7 +29,7 @@ package ca.nengo.ui.test;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.actions.RunSimulatorAction;
 import ca.nengo.ui.models.nodes.UINetwork;
 
@@ -46,11 +46,11 @@ public class DataViewerTest {
 
 	private UINetwork network;
 
-	public void createUINetwork(NengoGraphics nengoGraphics)
+	public void createUINetwork(AbstractNengo abstractNengo)
 			throws StructuralException, SimulationException {
 
 		network = new UINetwork(new NetworkImpl());
-		nengoGraphics.getWorld().getGround().addChild(network);
+		abstractNengo.getWorld().getGround().addChild(network);
 		network.openViewer();
 		network.getViewer().getGround().setElasticEnabled(true);
 
@@ -90,7 +90,7 @@ public class DataViewerTest {
 				network, 0f, 1f, 0.0002f);
 		simulatorRunner.doAction();
 
-		NengoGraphics.getInstance().setDataViewerPaneVisible(true);
+		AbstractNengo.getInstance().setDataViewerPaneVisible(true);
 	}
 
 	// private UIStateProbe integratorProbe;
@@ -115,7 +115,7 @@ public class DataViewerTest {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				try {
-					createUINetwork(new NengoGraphics());
+					createUINetwork(new AbstractNengo());
 				} catch (StructuralException e) {
 					e.printStackTrace();
 				} catch (SimulationException e) {

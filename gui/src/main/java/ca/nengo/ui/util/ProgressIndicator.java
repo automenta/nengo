@@ -2,7 +2,6 @@ package ca.nengo.ui.util;
 
 import ca.nengo.sim.SimulatorEvent;
 import ca.nengo.sim.SimulatorListener;
-import ca.nengo.ui.NengoGraphics;
 import org.python.core.*;
 
 import javax.swing.*;
@@ -104,17 +103,17 @@ public class ProgressIndicator extends JPanel implements ActionListener, Simulat
 		bar.setIndeterminate(true);		
 		percentage=-1;
 		
-		// TODO: figure out why this needs a 100ms delay before scrolling to the bottom
-		//        (without this delay, the console ends up a few lines above the bottom)
-		timer.schedule(
-		        new TimerTask() {
-					@Override
-		            public void run() {
-		        		NengoGraphics.getInstance().getScriptConsole().scrollToBottom();
-		            }
-		        }, 
-		        100 
-		);
+//		// TODO: figure out why this needs a 100ms delay before scrolling to the bottom
+//		//        (without this delay, the console ends up a few lines above the bottom)
+//		timer.schedule(
+//		        new TimerTask() {
+//					@Override
+//		            public void run() {
+//                        //NengoClassic.getInstance().getScriptConsole().scrollToBottom();
+//		            }
+//		        },
+//		        100
+//		);
 		
 	}
 	

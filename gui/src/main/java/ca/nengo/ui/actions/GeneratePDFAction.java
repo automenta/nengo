@@ -1,6 +1,6 @@
 package ca.nengo.ui.actions;
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.world.piccolo.primitives.Text;
 import ca.nengo.ui.lib.world.piccolo.primitives.Universe;
@@ -40,12 +40,12 @@ public class GeneratePDFAction extends StandardAction {
         fileChooser.setDialogTitle("Save layout as PDF");
         fileChooser.setSelectedFile(new File(name + ".pdf"));
         
-        Component ng = NengoGraphics.getInstance();
+        Component ng = AbstractNengo.getInstance();
         
         if (fileChooser.showSaveDialog(ng)==JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
 
-            Universe universe = ((NengoGraphics) ng).getUniverse();
+            Universe universe = ((AbstractNengo) ng).getUniverse();
             double w = universe.getSize().getWidth();
             double h = universe.getSize().getHeight();
 

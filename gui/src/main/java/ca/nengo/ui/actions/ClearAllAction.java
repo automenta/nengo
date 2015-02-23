@@ -25,7 +25,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.actions;
 
 import ca.nengo.model.Node;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.NengoClassic;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.actions.UserCancelledException;
 import ca.nengo.ui.lib.objects.models.ModelObject;
@@ -46,7 +46,6 @@ public class ClearAllAction extends StandardAction {
 
     /**
      * @param description TODO
-     * @param nodeUI TODO
      */
     public ClearAllAction(String description) {
         super(description);
@@ -61,7 +60,7 @@ public class ClearAllAction extends StandardAction {
                 "Are you sure you want to remove all objects from Nengo?",
                 "Clear all?", JOptionPane.YES_NO_OPTION);
         if (response == 0) {
-        	NengoGraphics nengo = NengoGraphics.getInstance();
+            NengoClassic nengo = NengoClassic.getInstance();
             Iterable<WorldObject> modelsToRemove = nengo.getWorld().getGround().getChildren();
             Iterator<WorldObject> iter = modelsToRemove.iterator();
             List<WorldObject> copy = new ArrayList<WorldObject>();

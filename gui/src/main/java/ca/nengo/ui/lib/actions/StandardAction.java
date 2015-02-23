@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.actions;
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.util.UserMessages;
 
 import javax.swing.*;
@@ -53,7 +53,6 @@ public abstract class StandardAction implements Serializable {
 	 *            Description of the action
 	 * @param actionName
 	 *            Name to give to the Swing Action Object
-	 * @param threadType
 	 */
 	public StandardAction(String description, String actionName, boolean isSwingAction) {
 		super();
@@ -127,7 +126,7 @@ public abstract class StandardAction implements Serializable {
 			try {
 				action();
 			} catch (ThreadDeath e) {
-				NengoGraphics.getInstance().getProgressIndicator().stop();
+				AbstractNengo.getInstance().getProgressIndicator().stop();
 				UserMessages.showWarning("Interrupted action: Thread was forced to quit.");
 			}
 			postAction();

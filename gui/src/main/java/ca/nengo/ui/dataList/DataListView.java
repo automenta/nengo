@@ -35,7 +35,6 @@ import ca.nengo.ui.lib.actions.UserCancelledException;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.menus.PopupMenuBuilder;
-import ca.nengo.ui.script.ScriptConsole;
 import ca.nengo.ui.util.FileExtensionFilter;
 
 import javax.swing.*;
@@ -72,13 +71,11 @@ public class DataListView extends JPanel implements TreeSelectionListener {
     private SimulatorDataModel dataModel;
     private JTree tree;
 
-    private ScriptConsole scriptConsole;
 
     /**
      * @param data TODO
-     * @param scriptConsole TODO
      */
-    public DataListView(SimulatorDataModel data, ScriptConsole scriptConsole) {
+    public DataListView(SimulatorDataModel data) {
         super(new GridLayout(1, 0));
 
         this.dataModel = data;
@@ -106,8 +103,6 @@ public class DataListView extends JPanel implements TreeSelectionListener {
 
         Dimension minimumSize = new Dimension(100, 50);
         scrollPane.setMinimumSize(minimumSize);
-
-        this.scriptConsole=scriptConsole;
     }
 
     /** Required by TreeSelectionListener interface. */
@@ -288,9 +283,9 @@ public class DataListView extends JPanel implements TreeSelectionListener {
                 if (leafNodes.size() == 1 && leafNodes.get(0) instanceof TimeSeriesNode) {
                     TimeSeriesNode dataNode = (TimeSeriesNode) (leafNodes.get(0));
 
-                    if (dataNode != null && scriptConsole!=null) {
-                        scriptConsole.setCurrentData(dataNode.getUserObject());
-                    }
+                    //if (dataNode != null && scriptConsole!=null) {
+                        //scriptConsole.setCurrentData(dataNode.getUserObject());
+                    //}
                 }
             }
 

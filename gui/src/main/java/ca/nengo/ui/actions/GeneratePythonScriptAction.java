@@ -26,7 +26,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.actions.UserCancelledException;
@@ -81,12 +81,12 @@ public class GeneratePythonScriptAction extends StandardAction {
         saveSuccessful = false;
         int returnVal = JFileChooser.CANCEL_OPTION;
 
-        NengoGraphics.FileChooser.setSelectedFile(new File(nodeUI.getFileName().replace(' ', '_').replace(".nef","") + ".py"));
+        AbstractNengo.FileChooser.setSelectedFile(new File(nodeUI.getFileName().replace(' ', '_').replace(".nef","") + ".py"));
 		
-        returnVal = NengoGraphics.FileChooser.showSaveDialog();
+        returnVal = AbstractNengo.FileChooser.showSaveDialog();
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            file = NengoGraphics.FileChooser.getSelectedFile();
+            file = AbstractNengo.FileChooser.getSelectedFile();
             new TrackedAction("Generating script") {
                 private static final long serialVersionUID = 1L;
 

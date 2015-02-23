@@ -1,7 +1,7 @@
 package ca.nengo.ui.lib.world.piccolo;
 
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.actions.PasteAction;
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.actions.ActionException;
@@ -237,7 +237,7 @@ public class WorldImpl extends WorldObjectImpl implements World, Interactable {
 	 * @return Menu builder
 	 */
 	protected void constructMenu(PopupMenuBuilder menu, Double posX, Double posY) {
-		NengoClipboard clipboard = NengoGraphics.getInstance().getClipboard();
+		NengoClipboard clipboard = AbstractNengo.getInstance().getClipboard();
 		if (clipboard.hasContents()) {
 			ArrayList<String> clipboardNames = clipboard.getContentsNames();
 			String selectionName = "";

@@ -37,7 +37,7 @@ import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFEnsembleFactory;
 import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.models.nodes.UINetwork;
 import ca.nengo.util.Probe;
@@ -55,11 +55,11 @@ public class IntegratorExample {
 
 	private UINetwork network;
 
-	public void createUINetwork(NengoGraphics nengoGraphics) throws StructuralException,
+	public void createUINetwork(AbstractNengo abstractNengo) throws StructuralException,
 			SimulationException {
 
 		network = new UINetwork(new NetworkImpl());
-		nengoGraphics.getWorld().getGround().addChild(network);
+		abstractNengo.getWorld().getGround().addChild(network);
 		network.openViewer();
 		network.getViewer().getGround().setElasticEnabled(true);
 
@@ -189,7 +189,7 @@ public class IntegratorExample {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
 				try {
-					createUINetwork(new NengoGraphics());
+					createUINetwork(new AbstractNengo());
 				} catch (StructuralException e) {
 					e.printStackTrace();
 				} catch (SimulationException e) {

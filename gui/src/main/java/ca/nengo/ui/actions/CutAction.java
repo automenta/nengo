@@ -25,7 +25,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.actions;
 
 import ca.nengo.model.Node;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.world.piccolo.WorldImpl;
@@ -86,7 +86,7 @@ public class CutAction extends StandardAction {
     		nodeUI.destroyModel();
     	}
 
-        NengoGraphics.getInstance().getClipboard().setContents(nodes, offsets, world);
+        AbstractNengo.getInstance().getClipboard().setContents(nodes, offsets, world);
     }
 
 }

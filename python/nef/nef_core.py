@@ -1084,8 +1084,8 @@ class Network:
         then do nothing.
         """
         try:
-            import ca.nengo.ui.NengoGraphics
-            ng=ca.nengo.ui.NengoGraphics.getInstance()
+            import ca.nengo.ui.AbstractNengo
+            ng=ca.nengo.ui.AbstractNengo.getInstance()
             if ng is not None:
                 world=ca.nengo.ui.util.ScriptWorldWrapper(ng)
                 n=world.getNode(self.network.name)
@@ -1106,8 +1106,8 @@ class Network:
 
         warnings.warn("net.add_to(world) has been deprecated.  Use net.add_to_nengo() instead.")
         if world is None:
-            import ca.nengo.ui.NengoGraphics
-            ng=ca.nengo.ui.NengoGraphics.getInstance()
+            import ca.nengo.ui.AbstractNengo
+            ng=ca.nengo.ui.AbstractNengo.getInstance()
             if ng is not None:
                 world=ca.nengo.ui.util.ScriptWorldWrapper(ng)
         if world is None: return
@@ -1271,8 +1271,8 @@ class Network:
         
         ng=None
         try:
-            import ca.nengo.ui.NengoGraphics
-            ng=ca.nengo.ui.NengoGraphics.getInstance()
+            import ca.nengo.ui.AbstractNengo
+            ng=ca.nengo.ui.AbstractNengo.getInstance()
         except:
             pass        
         if ng is not None and self.run_time==0.0: self.network.simulator.addSimulatorListener(ng.progressIndicator)

@@ -26,7 +26,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.util;
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.util.NengoConfigManager.UserProperties;
 
@@ -124,7 +124,7 @@ class AllNeoFiles extends FileExtensionFilter {
 	@Override
 	public boolean acceptExtension(String str) {
 
-		return (str.equals(NengoGraphics.NEONODE_FILE_EXTENSION) || str.equals("py"));
+		return (str.equals(AbstractNengo.NEONODE_FILE_EXTENSION) || str.equals("py"));
 	}
 
 	@Override

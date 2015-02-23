@@ -17,16 +17,21 @@ from javax.swing import Box
 import ca.nengo
 import sys
 
-import template
+from ca.nengo.ui.configurable.descriptors import PString
+from ca.nengo.ui.configurable.descriptors import PInt
+from ca.nengo.ui.configurable.descriptors import PFloat
+from ca.nengo.ui.configurable.descriptors import PLong
+from ca.nengo.ui.configurable.descriptors import PBoolean
+from ca.nengo.ui.configurable import IConfigurable
+
 from ca.nengo.ui.lib.world.handlers import SelectionHandler
 
-SelectionHandler = SelectionHandler
 
 from ca.nengo.math.impl import WeightedCostApproximator
 from ca.nengo.util.impl import NEFGPUInterface, NodeThreadPool
 from ca.nengo.ui.configurable.panels import BooleanPanel, IntegerPanel
-from ca.nengo.ui.configurable.descriptors import *
-from ca.nengo.ui.configurable import *
+#from ca.nengo.ui.configurable.descriptors import *
+#from ca.nengo.ui.configurable import *
 
 
 class GpuCountPanel(IntegerPanel):
@@ -165,7 +170,7 @@ class ToolBar(
 
     def __init__(self):
         #color = Color(.25,.25,.25,1)
-        self.ng = ca.nengo.ui.NengoGraphics.getInstance()
+        self.ng = ca.nengo.ui.AbstractNengo.getInstance()
         self.toolbar = JToolBar("Nengo actions", floatable=False)
         #self.toolbar.setBackground(color)
 
@@ -276,4 +281,4 @@ class ToolBar(
 
 ################################################################################
 ### Main
-toolbar = ToolBar()
+#toolbar = ToolBar()

@@ -73,7 +73,47 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/AbstractNengo.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/NengoClassic.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/NengoGraphics.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/NengoLauncher.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/Nengrow.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/RunNengoClassic.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/actions/ClearAllAction.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/actions/OpenNeoFileAction.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/actions/RunInteractivePlotsAction.java">
           <value>
             <set />
           </value>
@@ -88,7 +128,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/dev/ExampleRunner.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/AppFrame.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/actions/StandardAction.java">
           <value>
             <set />
           </value>
@@ -273,7 +323,37 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/test/DataViewerTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/test/IntegratorExample.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/test/NetworkViewerMemoryTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/util/ProgressIndicator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/util/ScriptWorldWrapper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/python/nef/nef_core.py">
           <value>
             <set />
           </value>
@@ -284,6 +364,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/python/startup_common.py">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/python/startup_ui.py">
           <value>
             <set />
           </value>

@@ -25,7 +25,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.actions;
 
 import ca.nengo.model.Node;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.world.piccolo.WorldImpl;
@@ -64,7 +64,7 @@ public class PasteAction extends StandardAction {
 
     @Override
     protected void action() throws ActionException {
-    	NengoClipboard clipboard = NengoGraphics.getInstance().getClipboard();
+    	NengoClipboard clipboard = AbstractNengo.getInstance().getClipboard();
         if (clipboard.hasContents()) {
 			ArrayList<Node> nodes = clipboard.getContents();
 			ArrayList<Point2D> offsets = clipboard.getOffsets();

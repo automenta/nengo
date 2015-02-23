@@ -30,7 +30,7 @@ import ca.nengo.model.SimulationException;
 import ca.nengo.sim.Simulator;
 import ca.nengo.sim.SimulatorEvent;
 import ca.nengo.sim.SimulatorListener;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.ConfigResult;
 import ca.nengo.ui.configurable.ConfigSchemaImpl;
@@ -164,21 +164,21 @@ public class RunSimulatorAction extends StandardAction {
                 Simulator simulator = uiNetwork.getSimulator();
 
                 simulator.resetNetwork(false, true);
-                simulator.addSimulatorListener(NengoGraphics.getInstance().getProgressIndicator());
+                simulator.addSimulatorListener(AbstractNengo.getInstance().getProgressIndicator());
                 
                 try {
                     simulator.run(startTime, endTime, stepTime);
                 } finally {
-                    simulator.removeSimulatorListener(NengoGraphics.getInstance().getProgressIndicator());
+                    simulator.removeSimulatorListener(AbstractNengo.getInstance().getProgressIndicator());
                 }
 
-                ((NengoGraphics) (UIEnvironment.getInstance())).captureInDataViewer(uiNetwork
+                ((AbstractNengo) (UIEnvironment.getInstance())).captureInDataViewer(uiNetwork
                         .getModel());
 
                 if (showDataViewer) {
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            ((NengoGraphics) (UIEnvironment.getInstance()))
+                            ((AbstractNengo) (UIEnvironment.getInstance()))
                             .setDataViewerVisible(true);
                         }
                     });

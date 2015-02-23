@@ -1,6 +1,5 @@
 package ca.nengo.ui.lib.util;
 
-import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.piccolo.WorldImpl;
@@ -86,7 +85,6 @@ public class Util {
 		StringBuilder assertMsg = new StringBuilder(
 				"An unexpected error has occured \n"
 						+ "Please report this log at: https://github.com/ctn-waterloo/nengo/issues\nIf possible, please include a record of what you were doing preceding this screen \n\n");
-		assertMsg.append("*** " + NengoGraphics.APP_NAME + " ***\n");
 
 		if (msg != null && !"".equals(msg)) {
 			assertMsg.append(msg + "\n");

@@ -16,17 +16,18 @@ from javax.swing import BorderFactory
 from javax.swing import SwingConstants
 from javax.swing import ImageIcon
 
-
-import java
-
-
-
 from ca.nengo.ui.configurable.descriptors import PString
 from ca.nengo.ui.configurable.descriptors import PInt
 from ca.nengo.ui.configurable.descriptors import PFloat
 from ca.nengo.ui.configurable.descriptors import PLong
 from ca.nengo.ui.configurable.descriptors import PBoolean
 from ca.nengo.ui.configurable import IConfigurable
+
+import java
+
+
+
+
 
 
 #from ca.nengo.ui.configurable.descriptors import *
@@ -134,7 +135,7 @@ class TemplateBar(TransferHandler):
         self.panels = []
 
         
-        self.ng = ca.nengo.ui.NengoGraphics.getInstance()
+        self.ng = ca.nengo.ui.AbstractNengo.getInstance()
         dh = DropHandler()
         self.ng.universe.transferHandler = dh
         self.ng.universe.getDropTarget().addDropTargetListener(dh)
@@ -194,7 +195,7 @@ class TemplateBar(TransferHandler):
             p.maximumSize = p.preferredSize
             p.revalidate()
         self.panel.revalidate()
-        ca.nengo.ui.NengoGraphics.getInstance().contentPane.revalidate()
+        ca.nengo.ui.AbstractNengo.getInstance().contentPane.revalidate()
 
 ################################################################################
 class DropHandler(TransferHandler,DropTargetListener):
@@ -237,7 +238,7 @@ class DropHandler(TransferHandler,DropTargetListener):
         return net,netpos
 
     def find_target(self,point):
-        ng = ca.nengo.ui.NengoGraphics.getInstance()
+        ng = ca.nengo.ui.AbstractNengo.getInstance()
         top = ng.getTopWindow()
         if top is None:
             top = ng.world
@@ -266,7 +267,7 @@ class DropHandler(TransferHandler,DropTargetListener):
 
         net,pos = self.find_target(support.dropLocation.dropPoint)
 
-        if net is ca.nengo.ui.NengoGraphics.getInstance().world:
+        if net is ca.nengo.ui.AbstractNengo.getInstance().world:
             return False
 
         if drop_on_ensemble:
@@ -384,4 +385,4 @@ class TemplateTransferable(Transferable):
         
 ################################################################################
 ### Main
-template = TemplateBar()
+#template = TemplateBar()

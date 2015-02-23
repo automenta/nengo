@@ -28,7 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.dev;
 
 import ca.nengo.model.Network;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.objects.activities.TrackedStatusMsg;
 import ca.nengo.ui.models.nodes.UINetwork;
 
@@ -86,14 +86,14 @@ public class ExampleRunner {
 	 * Builds a NeoGraphics User Interface
 	 */
 	private UINetwork buildUI() {
-		NengoGraphics nengoGraphics = new NengoGraphics();
+		AbstractNengo abstractNengo = new AbstractNengo();
 
 		TrackedStatusMsg task;
 		task = new TrackedStatusMsg("Creating Model UI");
 		if (networkUI == null) {
 
 			networkUI = new UINetwork(network);
-			nengoGraphics.getWorld().getGround().addChild(networkUI);
+			abstractNengo.getWorld().getGround().addChild(networkUI);
 			networkUI.openViewer();
 		}
 

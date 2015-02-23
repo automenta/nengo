@@ -1,7 +1,7 @@
 package ca.nengo.ui.lib.world.handlers;
 
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.lib.world.Interactable;
@@ -253,7 +253,7 @@ public class MouseHandler extends PBasicInputEventHandler {
 				if (v != null)
 					obj = v.getViewer();
 				else
-					obj = NengoGraphics.getInstance().getWorld();
+					obj = AbstractNengo.getInstance().getWorld();
 			} else {
 				obj = null;
 			}

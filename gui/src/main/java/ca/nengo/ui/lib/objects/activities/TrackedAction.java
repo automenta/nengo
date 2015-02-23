@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.objects.activities;
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 
@@ -43,20 +43,20 @@ public abstract class TrackedAction extends StandardAction {
 			}
 		});
 		
-    	NengoGraphics.getInstance().getProgressIndicator().start(taskName);
+    	AbstractNengo.getInstance().getProgressIndicator().start(taskName);
 		super.doAction();
 
 	}
 	
 	protected void doActionInternal() {
-    	NengoGraphics.getInstance().getProgressIndicator().setThread();
+    	AbstractNengo.getInstance().getProgressIndicator().setThread();
   		super.doActionInternal();
 	}
 
 	@Override
 	protected void postAction() {
 		super.postAction();
-    	NengoGraphics.getInstance().getProgressIndicator().stop();
+    	AbstractNengo.getInstance().getProgressIndicator().stop();
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				trackedMsg.finished();

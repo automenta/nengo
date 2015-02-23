@@ -25,13 +25,13 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.util;
 
 import ca.nengo.model.Node;
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.NengoClassic;
 import ca.nengo.ui.models.NodeContainer.ContainerException;
 
 public class ScriptWorldWrapper {
-	private NengoGraphics nengoGraphics;
+	private NengoClassic nengoGraphics;
 
-	public ScriptWorldWrapper(NengoGraphics neoGraphics) {
+	public ScriptWorldWrapper(NengoClassic neoGraphics) {
 		super();
 		this.nengoGraphics = neoGraphics;
 	}

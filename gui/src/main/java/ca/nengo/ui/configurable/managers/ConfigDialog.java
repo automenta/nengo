@@ -26,7 +26,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.managers;
 
-import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.ConfigResult;
 import ca.nengo.ui.configurable.Property;
@@ -301,7 +301,7 @@ public class ConfigDialog extends JDialog {
                         }
                         
                         if (configException!=null) {
-                        	JOptionPane.showMessageDialog(NengoGraphics.getInstance(), configException.getMessage());
+                        	JOptionPane.showMessageDialog(AbstractNengo.getInstance(), configException.getMessage());
                         }
 
                         myConfigManager.dialogConfigurationFinished(configException);
