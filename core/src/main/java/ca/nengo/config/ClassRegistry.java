@@ -47,7 +47,7 @@ import java.util.*;
  */
 public final class ClassRegistry {
 
-	private static Logger ourLogger = Logger.getLogger(ClassRegistry.class);
+	private static final Logger ourLogger = Logger.getLogger(ClassRegistry.class);
 	private static ClassRegistry ourInstance;
 
 	/**
@@ -70,7 +70,7 @@ public final class ClassRegistry {
 		return ourInstance;
 	}
 	
-	private Map<Class<?>, List<Class<?>>> myImplementations;
+	private final Map<Class<?>, List<Class<?>>> myImplementations;
 
 	private ClassRegistry() {
 		myImplementations = new HashMap<Class<?>, List<Class<?>>>(100);
@@ -116,7 +116,7 @@ public final class ClassRegistry {
 			ourLogger.warn("Can't load list from " + resource, e);
 		}
 
-		return result.toArray(new String[0]);
+		return result.toArray(new String[result.size()]);
 	}
 
 	/**

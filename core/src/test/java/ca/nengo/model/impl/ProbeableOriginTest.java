@@ -49,7 +49,7 @@ public class ProbeableOriginTest extends TestCase {
 		
 		assertEquals(Units.UNK, origin.getValues().getUnits());
 		assertTrue(origin.getValues() instanceof RealOutput);
-		assertEquals(1, ((RealOutput) origin.getValues()).getDimension());
+		assertEquals(1, origin.getValues().getDimension());
 		assertTrue(((RealOutput) origin.getValues()).getValues()[0] > 0);
 	}
 	

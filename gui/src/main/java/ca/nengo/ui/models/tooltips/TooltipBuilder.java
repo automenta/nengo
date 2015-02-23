@@ -35,9 +35,9 @@ import java.util.Vector;
  * @author Shu Wu
  */
 public class TooltipBuilder {
-	private String name;
+	private final String name;
 
-	private Vector<ITooltipPart> tooltipParts;
+	private final Vector<ITooltipPart> tooltipParts;
 
 	/**
 	 * @param name

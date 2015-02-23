@@ -36,10 +36,10 @@ public class PreciseSpikeOutputImpl implements PreciseSpikeOutput {
 
 	private static final long serialVersionUID = 1L;
 
-	private boolean[] myValues;
-	private float[] mySpikeTimes;
-	private Units myUnits;
-	private float myTime;
+	private final boolean[] myValues;
+	private final float[] mySpikeTimes;
+	private final Units myUnits;
+	private final float myTime;
 
 	/**
 	 * @param spikeTimes @see #getSpikeTimes()

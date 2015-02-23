@@ -64,7 +64,7 @@ public class DecodedOrigin implements Origin, Resettable, SimulationMode.ModeCon
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger ourLogger = Logger.getLogger(DecodedOrigin.class);
+	private static final Logger ourLogger = Logger.getLogger(DecodedOrigin.class);
 
 	private Node myNode; //parent node
 	private String myName;
@@ -173,8 +173,7 @@ public class DecodedOrigin implements Origin, Resettable, SimulationMode.ModeCon
 	 * @param targetSignal Signal over time that this origin should produce.
 	 * @param approximator A LinearApproximator that can be used to approximate new signals as a weighted sum of the node outputs.
 	 */
-	public DecodedOrigin(Node node, String name, Node[] nodes, String nodeOrigin, TimeSeries targetSignal, LinearApproximator approximator)
-	throws StructuralException {
+	public DecodedOrigin(Node node, String name, Node[] nodes, String nodeOrigin, TimeSeries targetSignal, LinearApproximator approximator) {
 		
 		myNode = node;
 		myName = name;
@@ -273,9 +272,7 @@ public class DecodedOrigin implements Origin, Resettable, SimulationMode.ModeCon
 		}
 		myNoise = noises[0];
 		myNoises = new Noise[getDimensions()];
-		for (int i = 0; i < myNoises.length; i++) {
-			myNoises[i] = noises[i];
-		}
+        System.arraycopy(noises, 0, myNoises, 0, myNoises.length);
 	}
 
 	/**

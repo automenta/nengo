@@ -41,9 +41,9 @@ import java.util.List;
  */
 public class HistoryCompletor extends CommandCompletor {
 
-	public static String HISTORY_LOCATION_PROPERTY = "HistoryCompletor.File";
+	public static final String HISTORY_LOCATION_PROPERTY = "HistoryCompletor.File";
 
-	private File myFile;
+	private final File myFile;
 	private final int NUM_COMMANDS_SAVED = 1000;
 
 	public HistoryCompletor() {

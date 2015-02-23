@@ -50,8 +50,8 @@ import java.util.List;
  */
 public class ConfigurationTreeModel implements TreeModel {
 
-	private Value myRoot;
-	private List<TreeModelListener> myListeners;
+	private final Value myRoot;
+	private final List<TreeModelListener> myListeners;
 
 	/**
 	 * @param configurable Root of the configuration tree

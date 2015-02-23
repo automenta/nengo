@@ -70,9 +70,9 @@ public class WorldGroundImpl extends WorldLayerImpl implements WorldLayer {
 	/*
 	 * Convenient storage of all children
 	 */
-	private ObjectSet<WorldObject> children = new ObjectSet<WorldObject>();
+	private final ObjectSet<WorldObject> children = new ObjectSet<WorldObject>();
 
-	private GroundNode myLayerNode;
+	private final GroundNode myLayerNode;
 
 	public WorldGroundImpl() {
 		super("Ground", new GroundNode());
@@ -130,7 +130,7 @@ public class WorldGroundImpl extends WorldLayerImpl implements WorldLayer {
 	}
 
 	@Override
-	public Iterable<WorldObject> getChildren() {
+	public Collection<WorldObject> getChildren() {
 		return children;
 	}
 
@@ -159,7 +159,7 @@ class GroundNode extends PXNode {
 
 	private static final long serialVersionUID = 1L;
 
-	private PNode edgeHolder;
+	private final PNode edgeHolder;
 
 	public GroundNode() {
 		super();

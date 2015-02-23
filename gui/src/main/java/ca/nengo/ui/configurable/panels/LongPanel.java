@@ -35,7 +35,7 @@ import ca.nengo.ui.configurable.descriptors.PLong;
  */
 public class LongPanel extends PropertyTextPanel {
 
-	private static int COLUMNS = 10;
+	private static final int COLUMNS = 10;
 
     public LongPanel(PLong property) {
         super(property, COLUMNS);

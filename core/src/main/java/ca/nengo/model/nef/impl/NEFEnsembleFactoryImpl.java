@@ -60,7 +60,7 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger ourLogger = Logger.getLogger(NEFEnsembleFactoryImpl.class);
+	private static final Logger ourLogger = Logger.getLogger(NEFEnsembleFactoryImpl.class);
 
 	private ApproximatorFactory myApproximatorFactory;
 	private VectorGenerator myEncoderFactory;
@@ -148,7 +148,7 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 		NEFEnsemble result = null;
 
         if( storageName.length() > 0 ){
-            File ensembleFile = new File(myDatabase, storageName + "." + FileManager.ENSEMBLE_EXTENSION);
+            File ensembleFile = new File(myDatabase, storageName + '.' + FileManager.ENSEMBLE_EXTENSION);
 
             FileManager fm = new FileManager();
 
@@ -219,60 +219,58 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 		myNodeFactory = factory;
 	}
 
-	//common make(...) implementation
-	private NEFEnsemble doMake(String name, int n, float[] radii, int attempts) throws StructuralException {
-		
-		try
-		{
-			int dim = radii.length;
-			NEFNode[] nodes = new NEFNode[n];
+    //common make(...) implementation
+    private NEFEnsemble doMake(String name, int n, float[] radii, int attempts) throws StructuralException {
+        while (true) {
 
-			if(n < 1) {
-                ourLogger.error("Calling doMake with n = " + n);
+            try {
+                int dim = radii.length;
+                NEFNode[] nodes = new NEFNode[n];
+
+                if (n < 1) {
+                    ourLogger.error("Calling doMake with n = " + n);
+                }
+
+                for (int i = 0; i < n; i++) {
+                    Node node = myNodeFactory.make("node" + i);
+                    if (!(node instanceof NEFNode)) {
+                        throw new StructuralException("Nodes must be NEFNodes");
+                    }
+                    nodes[i] = (NEFNode) node;
+
+                    nodes[i].setMode(SimulationMode.CONSTANT_RATE);
+                    if (!nodes[i].getMode().equals(SimulationMode.CONSTANT_RATE)) {
+                        throw new StructuralException("Neurons in an NEFEnsemble must support CONSTANT_RATE mode");
+                    }
+
+                    nodes[i].setMode(SimulationMode.DEFAULT);
+                }
+
+                float[][] encoders = myEncoderFactory.genVectors(n, dim);
+                float[][] evalPoints = getEvalPointFactory().genVectors(getNumEvalPoints(dim), dim);
+                NEFEnsemble result = construct(name, nodes, encoders, myApproximatorFactory, evalPoints, radii);
+
+                addDefaultOrigins(result);
+
+                result.setEnsembleFactory(this);
+
+                return result;
+            } catch (RuntimeException re) {
+                // a singular gamma matrix can produce a runtime exception.  If this occurs,
+                // call make again.
+                if (re.getMessage() != null && re.getMessage().equals("Matrix is singular.")) {
+                    if (attempts < 10) {
+                        attempts = attempts + 1;
+                    } else {
+                        throw new StructuralException("Error creating ensemble: With the given parameters, there is insufficient\nneural activity to construct a decoder (the activity matrix is singular)");
+                    }
+                } else {
+                    System.err.println(re);
+                    return (null);
+                }
             }
-
-			for (int i = 0; i < n; i++) {
-				Node node = myNodeFactory.make("node" + i);
-				if ( !(node instanceof NEFNode) ) {
-					throw new StructuralException("Nodes must be NEFNodes");
-				}
-				nodes[i] = (NEFNode) node;
-
-				nodes[i].setMode(SimulationMode.CONSTANT_RATE);
-				if ( !nodes[i].getMode().equals(SimulationMode.CONSTANT_RATE) ) {
-					throw new StructuralException("Neurons in an NEFEnsemble must support CONSTANT_RATE mode");
-				}
-
-				nodes[i].setMode(SimulationMode.DEFAULT);
-			}
-
-			float[][] encoders = myEncoderFactory.genVectors(n, dim);
-			float[][] evalPoints = getEvalPointFactory().genVectors(getNumEvalPoints(dim), dim);
-			NEFEnsemble result = construct(name, nodes, encoders, myApproximatorFactory, evalPoints, radii);
-
-			addDefaultOrigins(result);
-
-			result.setEnsembleFactory(this);
-
-			return result;
-		}
-		catch(RuntimeException re)
-		{
-			// a singular gamma matrix can produce a runtime exception.  If this occurs,
-			// call make again.
-			if(re.getMessage() != null && re.getMessage().equals("Matrix is singular.")) {
-				if (attempts<10) {
-					return doMake(name,n,radii,attempts+1);
-				} else {
-					throw new StructuralException("Error creating ensemble: With the given parameters, there is insufficient\nneural activity to construct a decoder (the activity matrix is singular)");
-				}
-            } else
-			{
-				System.err.println(re);
-				return(null);
-			}
-		}
-	}
+        }
+    }
 
 	/**
 	 * This method is exposed so that it can be over-ridden to change behaviour.

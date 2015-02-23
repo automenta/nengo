@@ -60,9 +60,9 @@ public class ProjectionImpl implements Projection {
 
 	private static final long serialVersionUID = 1L;
 
-	private Origin myOrigin;
-	private Termination myTermination;
-	private Network myNetwork;
+	private final Origin myOrigin;
+	private final Termination myTermination;
+	private final Network myNetwork;
 
 	private boolean myBiasIsEnabled;
 	private NEFEnsemble myInterneurons;
@@ -140,7 +140,7 @@ public class ProjectionImpl implements Projection {
 		NEFEnsemble pre = (NEFEnsemble) baseOrigin.getNode();
 		NEFEnsemble post = (NEFEnsemble) baseTermination.getNode();
 
-		myBiasOrigin = pre.addBiasOrigin(baseOrigin, numInterneurons, getUniqueNodeName(post.getName() + "_" + baseTermination.getName()), excitatory);
+		myBiasOrigin = pre.addBiasOrigin(baseOrigin, numInterneurons, getUniqueNodeName(post.getName() + '_' + baseTermination.getName()), excitatory);
 		myInterneurons = myBiasOrigin.getInterneurons();
 		myNetwork.addNode(myInterneurons);
 		BiasTermination[] bt = post.addBiasTerminations(baseTermination, tauBias, myBiasOrigin.getDecoders(), baseOrigin.getDecoders());
@@ -242,7 +242,7 @@ public class ProjectionImpl implements Projection {
 	    StringBuilder py = new StringBuilder();
 	    
 	    String pythonNetworkName = scriptData.get("prefix") 
-	    			+ getNetwork().getName().replaceAll("\\p{Blank}|\\p{Punct}", ((Character) scriptData.get("spaceDelim")).toString());
+	    			+ getNetwork().getName().replaceAll("\\p{Blank}|\\p{Punct}", scriptData.get("spaceDelim").toString());
 	    
 	    py.append(String.format("%1s.connect(", pythonNetworkName));
 	    
@@ -251,7 +251,7 @@ public class ProjectionImpl implements Projection {
 
 	    while(tempOrigin instanceof OriginWrapper)
 	    {
-	    	originNodeFullName.append(tempOrigin.getNode().getName() + ".");
+	    	originNodeFullName.append(tempOrigin.getNode().getName()).append('.');
 	    	tempOrigin = ((OriginWrapper) tempOrigin).getWrappedOrigin();
 	    }
 	    
@@ -260,7 +260,7 @@ public class ProjectionImpl implements Projection {
 
 	    while(tempTermination instanceof TerminationWrapper)
 	    {
-	    	terminationNodeFullName.append(tempTermination.getNode().getName() + ".");
+	    	terminationNodeFullName.append(tempTermination.getNode().getName()).append('.');
 	    	tempTermination = ((TerminationWrapper) tempTermination).getWrappedTermination();
 	    }
 	    
@@ -286,7 +286,7 @@ public class ProjectionImpl implements Projection {
 	    		{
 	    			first = false;
 	    		}else {
-	    			transformString.append(",\n" + new String(new char["transform = ".length() + 1]).replace("\0", " "));
+	    			transformString.append(",\n").append(new String(new char["transform = ".length() + 1]).replace("\0", " "));
 	    		}
 	    		
 	    		// this relies on the decoded terminations in the child nodes having the 
@@ -342,14 +342,14 @@ public class ProjectionImpl implements Projection {
 		    functionName = addFunctionScript(py, dOrigin);
 	    }
 	    
-	    py.append("\'" + originNodeFullName + "\'");
-	    py.append(", \'" + terminationNodeFullName + "\'");
+	    py.append("\'").append(originNodeFullName).append('\'');
+	    py.append(", \'").append(terminationNodeFullName).append('\'');
 	    
 	    py.insert(0, "transform = " + transformString);
 	    py.append(", transform=transform");
 	    
 	    if(functionName != ""){
-	    	py.append(", func="+functionName);
+	    	py.append(", func=").append(functionName);
 	    }
 	    
 	    py.append(")\n\n");
@@ -357,18 +357,17 @@ public class ProjectionImpl implements Projection {
 	    return py.toString();
 	}
 	
-	String getTransformScript(DecodedTermination dTermination, int offset) throws ScriptGenException
-	{
+	String getTransformScript(DecodedTermination dTermination, int offset) {
 		StringBuilder transformString = new StringBuilder();
 		float[][] transform = dTermination.getTransform();
 	    
 	    for(int i = 0; i < transform.length; i++)
 	    {
 	    	if(i != 0) {
-	    		transformString.append(",\n " + new String(new char[offset]).replace("\0", " "));
+	    		transformString.append(",\n ").append(new String(new char[offset]).replace("\0", " "));
 	    	}
 	    	
-	    	transformString.append("[");
+	    	transformString.append('[');
 	    	
 	    	for(int j = 0; j < transform[i].length; j++)
 	    	{
@@ -378,7 +377,7 @@ public class ProjectionImpl implements Projection {
 		    	transformString.append(transform[i][j]);
 	    	}
 	    	
-	    	transformString.append("]");
+	    	transformString.append(']');
 	    }
 	    
 	    return transformString.toString();
@@ -422,7 +421,7 @@ public class ProjectionImpl implements Projection {
     		
     		if(i > 0){
 	    		for(String s: split){
-	    			indentedCode.append(s.substring(i) + "\n");
+	    			indentedCode.append(s.substring(i)).append('\n');
 	    		}
     		}
     		
@@ -454,14 +453,14 @@ public class ProjectionImpl implements Projection {
 	    		
 	    		for(int j = 0; j < f.getDimension(); j++)
 	    		{
-	    			String find = "x"+ Integer.toString(j);
-	    			String replace = "x["+ Integer.toString(j) + "]";
+	    			String find = 'x' + Integer.toString(j);
+	    			String replace = "x["+ Integer.toString(j) + ']';
 	    			exp=exp.replaceAll(find, replace);
 	    		}
 	    	}
 	    	else if(f instanceof IdentityFunction)
 	    	{
-	    		exp = "x[" + Integer.toString(((IdentityFunction) f).getIdentityDimension()) + "]";
+	    		exp = "x[" + Integer.toString(((IdentityFunction) f).getIdentityDimension()) + ']';
 	    	}
 	    	else if(f instanceof ConstantFunction)
 	    	{
@@ -479,7 +478,7 @@ public class ProjectionImpl implements Projection {
     		}
     		else
     		{
-    			funcString.append(", " + exp);	
+    			funcString.append(", ").append(exp);
     		}
 	    }
 	    

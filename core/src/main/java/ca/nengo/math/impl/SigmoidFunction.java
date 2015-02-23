@@ -166,9 +166,9 @@ public class SigmoidFunction extends AbstractFunction implements DifferentiableF
 
 		private static final long serialVersionUID = 1L;
 		
-		private float myScale;
-		private float myInflection;
-		private float myMultiplier;
+		private final float myScale;
+		private final float myInflection;
+		private final float myMultiplier;
 		
 		public SigmoidDerivative(float scale, float inflection, float multiplier) {
 			super(1);

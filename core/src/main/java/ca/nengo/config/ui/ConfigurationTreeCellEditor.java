@@ -47,7 +47,7 @@ public class ConfigurationTreeCellEditor extends DefaultCellEditor {
 
 	private static final long serialVersionUID = 1L;
 	
-	private JTree myTree;
+	private final JTree myTree;
 	
 	/**
 	 * @param tree Configuration tree to which this cell editor is to belong

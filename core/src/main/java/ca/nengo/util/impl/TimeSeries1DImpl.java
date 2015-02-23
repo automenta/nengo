@@ -81,15 +81,15 @@ public class TimeSeries1DImpl implements TimeSeries1D, Serializable {
 		result.removeProperty("labels");
 		
 		try {
-			Method unitsGetter = this.getClass().getMethod("getUnits1D", new Class[0]);
-			Method unitsSetter = this.getClass().getMethod("setUnits", new Class[]{Units.class});
+			Method unitsGetter = this.getClass().getMethod("getUnits1D");
+			Method unitsSetter = this.getClass().getMethod("setUnits", Units.class);
 			result.defineProperty(new SingleValuedPropertyImpl(result, "units", Units.class, unitsGetter, unitsSetter));
 			
-			Method valuesGetter = this.getClass().getMethod("getValues1D", new Class[0]);
+			Method valuesGetter = this.getClass().getMethod("getValues1D");
 			result.defineProperty(new SingleValuedPropertyImpl(result, "values", float[].class, valuesGetter));
 
-			final Method labelGetter = this.getClass().getMethod("getLabels", new Class[0]);
-			Method labelSetter = this.getClass().getMethod("setLabel", new Class[]{String.class});
+			final Method labelGetter = this.getClass().getMethod("getLabels");
+			Method labelSetter = this.getClass().getMethod("setLabel", String.class);
 			SingleValuedProperty labelProp = new SingleValuedPropertyImpl(result, "label", String.class, labelGetter, labelSetter) {
 
 				@Override
@@ -97,7 +97,7 @@ public class TimeSeries1DImpl implements TimeSeries1D, Serializable {
 					Object result = null;
 					try {
 						Object configurable = getConfiguration().getConfigurable();
-						String[] labels = (String[]) labelGetter.invoke(configurable, new Object[0]);
+						String[] labels = (String[]) labelGetter.invoke(configurable);
 						result = labels[0];
 					} catch (Exception e) {
 						throw new RuntimeException("Can't get label value", e);

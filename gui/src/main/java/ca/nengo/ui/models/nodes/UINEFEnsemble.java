@@ -109,7 +109,7 @@ public class UINEFEnsemble extends UIEnsemble {
 	@Override
 	protected void constructTooltips(TooltipBuilder tooltips) {
 		super.constructTooltips(tooltips);
-		tooltips.addProperty("# Dimension", "" + getModel().getDimension());
+		tooltips.addProperty("# Dimension", String.valueOf(getModel().getDimension()));
 
 	}
 
@@ -258,7 +258,7 @@ public class UINEFEnsemble extends UIEnsemble {
 	 */
 	class PlotDecodedOriginDistortion extends StandardAction {
 		private static final long serialVersionUID = 1L;
-		String decodedOriginName;
+		final String decodedOriginName;
 
 		public PlotDecodedOriginDistortion(String decodedOriginName) {
 			super("Plot distortion: " + decodedOriginName,false);
@@ -278,7 +278,7 @@ public class UINEFEnsemble extends UIEnsemble {
 	 */
 	class PlotDecodedOriginMSE extends StandardAction {
 		private static final long serialVersionUID = 1L;
-		String decodedOriginName;
+		final String decodedOriginName;
 
 		public PlotDecodedOriginMSE(String decodedOriginName) {
 			super("Plot MSE: " + decodedOriginName,false);

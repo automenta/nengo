@@ -139,13 +139,14 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 	public Origin getOrigin(String name) throws StructuralException {
 //		assert (name.equals(Neuron.AXON) || name.equals(CURRENT)); //this is going to be called a lot, so let's skip the exception
 		//Shu: I added the exception back in because the UI needs it for reflection.
-		if (name.equals(Neuron.AXON)) {
-			return mySpikeOrigin;
-		} else if (name.equals(CURRENT)){
-			return myCurrentOrigin;
-		} else {
-			throw new StructuralException("Origin does not exist");
-		}
+        switch (name) {
+            case Neuron.AXON:
+                return mySpikeOrigin;
+            case CURRENT:
+                return myCurrentOrigin;
+            default:
+                throw new StructuralException("Origin does not exist");
+        }
 	}
 
 	/**
@@ -358,7 +359,7 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 		SpikingNeuron result = (SpikingNeuron) super.clone();
 		result.myCurrent = (TimeSeries1D) myCurrent.clone();
 
-		result.myCurrentOrigin = (BasicOrigin) myCurrentOrigin.clone();
+		result.myCurrentOrigin = myCurrentOrigin.clone();
 
 		result.myGenerator = myGenerator.clone();
 
@@ -390,7 +391,7 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 	}
 
 	public Node[] getChildren() {
-		return new Node[0];
+		return Node.EMPTY;
 	}
 
 	public String toScript(HashMap<String, Object> scriptData) throws ScriptGenException {

@@ -28,9 +28,10 @@ public class TooltipPickHandler extends AbstractPickHandler {
 	private TooltipWrapper keyboardTooltip;
 	private TooltipWrapper mouseOverTooltip;
 
-	private SelectionBorder tooltipFrame;
+	private final SelectionBorder tooltipFrame;
 
-	private int myPickDelay, myKeepPickDelay;
+	private final int myPickDelay;
+    private final int myKeepPickDelay;
 
 	public TooltipPickHandler(WorldImpl world, int pickDelay, int keepPickDelay) {
 		super(world);

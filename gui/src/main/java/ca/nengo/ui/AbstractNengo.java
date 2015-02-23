@@ -542,8 +542,10 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
     }
 
     protected void updateConfigurationPane() {
-        if (configPane.toJComponent().isAuxVisible()) {
-            configPane.configureObj(SelectionHandler.getActiveModel());
+        if (configPane!=null) {
+            if (configPane.toJComponent().isAuxVisible()) {
+                configPane.configureObj(SelectionHandler.getActiveModel());
+            }
         }
     }
 
@@ -559,10 +561,10 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
      *
      * @author TODO
      */
-    public class ToggleScriptPane extends StandardAction {
+    public static class ToggleScriptPane extends StandardAction {
 
         private static final long serialVersionUID = 1L;
-        private AuxillarySplitPane splitPane;
+        private final AuxillarySplitPane splitPane;
 
         /**
          * @param description TODO
@@ -580,8 +582,8 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
 
     }
 
-    class ConfigurationPane {
-        AuxillarySplitPane auxSplitPane;
+    static class ConfigurationPane {
+        final AuxillarySplitPane auxSplitPane;
         Object currentObj;
 
         public ConfigurationPane(Container mainPanel) {
@@ -626,7 +628,7 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
                     name = "Inspector";
                 }
                 auxSplitPane.setAuxPane(configurationPane, name + " (" + obj.getClass().getSimpleName()
-                        + ")");
+                        + ')');
             }
             auxSplitPane.setDividerLocation(location);
 

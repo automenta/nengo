@@ -69,7 +69,8 @@ public abstract class AbstractBrainImage2D extends BufferedImage {
 
     int viewCoord;
 
-    int imageWidth, imageHeight;
+    final int imageWidth;
+    final int imageHeight;
 
     /**
      * @param width TODO

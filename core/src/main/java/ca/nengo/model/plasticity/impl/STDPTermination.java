@@ -65,14 +65,14 @@ public class STDPTermination extends PlasticEnsembleTermination {
     private float[] myPreTrace1;
     private float[] myPreTrace2;
 
-    private float myA2Minus = 6.6e-3f;
-    private float myA3Minus = 3.1e-3f;
-    private float myTauMinus = 33.7f;
-    private float myTauX = 101.0f;
-    private float myA2Plus = 8.8e-11f;
-    private float myA3Plus = 5.3e-2f;
-    private float myTauPlus = 16.8f;
-    private float myTauY = 125.0f;
+    private final float myA2Minus = 6.6e-3f;
+    private final float myA3Minus = 3.1e-3f;
+    private final float myTauMinus = 33.7f;
+    private final float myTauX = 101.0f;
+    private final float myA2Plus = 8.8e-11f;
+    private final float myA3Plus = 5.3e-2f;
+    private final float myTauPlus = 16.8f;
+    private final float myTauY = 125.0f;
 
     /**
      * @param node The parent Node

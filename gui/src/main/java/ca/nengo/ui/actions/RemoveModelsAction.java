@@ -42,9 +42,9 @@ import java.util.Collection;
 public class RemoveModelsAction extends StandardAction {
 
     private static final long serialVersionUID = 1L;
-    private Collection<ModelObject> objectsToRemove;
-    private String typeName;
-    private boolean showWarning;
+    private final Collection<ModelObject> objectsToRemove;
+    private final String typeName;
+    private final boolean showWarning;
 
     /**
      * @param objectsToRemove TODO
@@ -60,7 +60,7 @@ public class RemoveModelsAction extends StandardAction {
      */
     public RemoveModelsAction(Collection<ModelObject> objectsToRemove, String typeName,
             boolean showWarning) {
-        super("Remove " + typeName + "s");
+        super("Remove " + typeName + 's');
         this.objectsToRemove = objectsToRemove;
         this.typeName = typeName;
         this.showWarning = showWarning;

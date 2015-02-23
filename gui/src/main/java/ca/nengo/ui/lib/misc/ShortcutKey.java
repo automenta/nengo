@@ -4,9 +4,9 @@ import ca.nengo.ui.lib.actions.StandardAction;
 
 public class ShortcutKey {
 
-	private StandardAction action;
-	private int keyCode;
-	private int modifiers;
+	private final StandardAction action;
+	private final int keyCode;
+	private final int modifiers;
 
 	public ShortcutKey(int modifiers, int keyCode, StandardAction action) {
 		super();

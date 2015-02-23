@@ -43,10 +43,10 @@ import java.awt.event.ActionListener;
  */
 public class ConfigurationChangeListener implements ActionListener {
 
-	private JTree myTree;
-	private ConfigurationTreeModel myModel;
-	private TreeCellEditor myEditor;
-	private TreePath myPath;
+	private final JTree myTree;
+	private final ConfigurationTreeModel myModel;
+	private final TreeCellEditor myEditor;
+	private final TreePath myPath;
 	private EditorProxy myEditorProxy;
 	private boolean isChangeCommited = false;
 	private boolean isChangeCancelled = false;

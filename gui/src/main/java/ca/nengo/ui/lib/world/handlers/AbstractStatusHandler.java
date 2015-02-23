@@ -12,7 +12,7 @@ import org.piccolo2d.event.PInputEvent;
  * @author Shu Wu
  */
 public abstract class AbstractStatusHandler extends PBasicInputEventHandler {
-	private WorldImpl world;
+	private final WorldImpl world;
 
 	/**
 	 * @param world

@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
  */
 public class Memory {
 	
-	private static Logger ourLogger = Logger.getLogger(Memory.class);
+	private static final Logger ourLogger = Logger.getLogger(Memory.class);
 
 	/**
 	 * Prints a message to the console regarding current memory usage. 
@@ -47,6 +47,6 @@ public class Memory {
 		long total = Runtime.getRuntime().totalMemory();
 		long max = Runtime.getRuntime().maxMemory();
 		
-		ourLogger.info("Used: " + (total-free) + " Total: " + total + " Max: " + max + " (" + context + ")");
+		ourLogger.info("Used: " + (total-free) + " Total: " + total + " Max: " + max + " (" + context + ')');
 	}
 }

@@ -38,6 +38,7 @@ import ca.nengo.util.Memory;
 import org.apache.log4j.Logger;
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -52,7 +53,7 @@ import java.util.Random;
  */
 public class WeightedCostApproximator implements LinearApproximator {
 
-	private static Logger ourLogger = Logger.getLogger(WeightedCostApproximator.class);
+	private static final Logger ourLogger = Logger.getLogger(WeightedCostApproximator.class);
 	private static final long serialVersionUID = 1L;
 
 	private float[][] myEvalPoints;
@@ -92,7 +93,7 @@ public class WeightedCostApproximator implements LinearApproximator {
 			myGPUErrorMessage = "Couldn't load native library NengoUtilsGPU - General exception:";
 			System.out.println(myGPUErrorMessage);
 			System.out.println(e.getMessage());
-			System.out.println(e.getStackTrace());
+			System.out.println(Arrays.toString(e.getStackTrace()));
 		}
 	}
 
@@ -205,10 +206,7 @@ public class WeightedCostApproximator implements LinearApproximator {
 			myValues[n] = new float[values[n].length*mySignalLength];
 			for(int s=0; s < values[n].length; s++)
 			{
-				for(int t=0; t < values[n][s].length; t++)
-				{
-					myValues[n][s*mySignalLength+t] = values[n][s][t];
-				}
+                System.arraycopy(values[n][s], 0, myValues[n], s * mySignalLength + 0, values[n][s].length);
 			}
 		}
 
@@ -425,10 +423,10 @@ public class WeightedCostApproximator implements LinearApproximator {
 	            
 	            Process process;
 				if (System.getProperty("os.name").startsWith("Windows")) {
-					process=runtime.exec("cmd /c pseudoInverse.bat "+filename+" "+filename+".inv"+" "+minSV+" "+nSV,null,path);
+					process=runtime.exec("cmd /c pseudoInverse.bat "+filename+ ' ' +filename+".inv"+ ' ' +minSV+ ' ' +nSV,null,path);
 					process.waitFor();
 				} else {
-					process=runtime.exec("external"+java.io.File.separatorChar+"pseudoInverse external/"+filename+" external/"+filename+".inv"+" "+minSV+" "+nSV,null,null);
+					process=runtime.exec("external"+java.io.File.separatorChar+"pseudoInverse external/"+filename+" external/"+filename+".inv"+ ' ' +minSV+ ' ' +nSV,null,null);
 					process.waitFor();	
 				}
 				
@@ -566,7 +564,7 @@ public class WeightedCostApproximator implements LinearApproximator {
     	if(targetSignal.length != mySignalLength)
     	{
     		System.err.println("Warning, finding coefficients with a different length target signal than evaluation signals (" + 
-    				targetSignal.length + " vs " + mySignalLength + ")");
+    				targetSignal.length + " vs " + mySignalLength + ')');
     		//could do some interpolation/subsampling to match them up, for now we'll just do the rough measure of 
     		//chopping/repeating the end of the target signal
     		float[] newSignal = new float[mySignalLength];
@@ -580,8 +578,7 @@ public class WeightedCostApproximator implements LinearApproximator {
     	int numRepeat = myEvalPoints.length/mySignalLength;
     	for(int i=0; i < numRepeat; i++)
     	{
-    		for(int j=0; j < mySignalLength; j++)
-    			targetValues[i*mySignalLength+j] = targetSignal[j];
+            System.arraycopy(targetSignal, 0, targetValues, i * mySignalLength + 0, mySignalLength);
     	}
     	
     	float[] upsilon = new float[myNoisyValues.length];

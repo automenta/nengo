@@ -40,10 +40,10 @@ import java.lang.reflect.Method;
  */
 public abstract class AbstractProperty implements Property {
 		
-	private Configuration myConfiguration;
+	private final Configuration myConfiguration;
 	private String myName;
-	private Class<?> myClass;
-	private boolean myMutable;
+	private final Class<?> myClass;
+	private final boolean myMutable;
 	private String myDocumentation;
 	
 	/**
@@ -123,7 +123,7 @@ public abstract class AbstractProperty implements Property {
 	
 	private static void appendDocs(StringBuffer buf, Method method) {
 		if (method != null) {
-			buf.append("<p><i>" + JavaSourceParser.getSignature(method) + "</i><br>");
+			buf.append("<p><i>").append(JavaSourceParser.getSignature(method)).append("</i><br>");
 			String docs = JavaSourceParser.getDocs(method); 
 			if (docs != null) buf.append(docs);
 			buf.append("</p>");

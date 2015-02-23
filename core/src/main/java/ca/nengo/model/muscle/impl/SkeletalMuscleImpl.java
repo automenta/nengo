@@ -63,7 +63,7 @@ public class SkeletalMuscleImpl implements SkeletalMuscle {
 	private static final long serialVersionUID = 1L;
 
 	private String myName;
-	private BasicTermination myTermination;
+	private final BasicTermination myTermination;
 	private DynamicalSystem myEADynamics; //excitation-activation dynamics
 	private DynamicalSystem myAFDynamics; //activation-force dynamics
 	private Integrator myIntegrator;
@@ -219,13 +219,17 @@ public class SkeletalMuscleImpl implements SkeletalMuscle {
 	public TimeSeries getHistory(String stateName) throws SimulationException {
 		TimeSeries result = null;
 
-		if (stateName.equals(SkeletalMuscle.ACTIVATION)) {
-			result = myActivationHistory;
-		} else if (stateName.equals(SkeletalMuscle.FORCE)) {
-			result = myForceHistory;
-		} else if (stateName.equals(SkeletalMuscle.LENGTH)) {
-			result = myLengthHistory;
-		}
+        switch (stateName) {
+            case SkeletalMuscle.ACTIVATION:
+                result = myActivationHistory;
+                break;
+            case SkeletalMuscle.FORCE:
+                result = myForceHistory;
+                break;
+            case SkeletalMuscle.LENGTH:
+                result = myLengthHistory;
+                break;
+        }
 
 		return result;
 	}

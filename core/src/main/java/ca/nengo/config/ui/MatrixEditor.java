@@ -56,9 +56,9 @@ public class MatrixEditor extends JPanel {
 	/**
 	 * This cell editor selects the Text Cell Editor on edit, so that it's contents are replaced automatically
 	 */
-	private class MyCellEditor extends DefaultCellEditor {
+	private static class MyCellEditor extends DefaultCellEditor {
 		private static final long serialVersionUID = 7289808186710531L;
-		private JTextField myTextField;
+		private final JTextField myTextField;
 
 		public MyCellEditor() {
 			super(new JTextField());
@@ -94,8 +94,8 @@ public class MatrixEditor extends JPanel {
 	private float[][] myMatrix;
 	private final MatrixTableModel myTableModel;
 	private final RowHeaderTableModel myRowHeaderModel;
-	private JTable myTable;
-	private JPanel myControlPanel;
+	private final JTable myTable;
+	private final JPanel myControlPanel;
 
 	/**
 	 * Creates an editor for the given matrix.
@@ -193,7 +193,7 @@ public class MatrixEditor extends JPanel {
 	private int promptForNum(String name, int initialValue) {
 		int n = -1;
 
-		String nString = JOptionPane.showInputDialog("Number of " + name + ":",
+		String nString = JOptionPane.showInputDialog("Number of " + name + ':',
 				String.valueOf(initialValue));
 		try {
 			if (nString != null) {
@@ -300,11 +300,11 @@ public class MatrixEditor extends JPanel {
 	}
 
 	// a TableModel for the row header
-	private class RowHeaderTableModel extends AbstractTableModel {
+	private static class RowHeaderTableModel extends AbstractTableModel {
 
 		private static final long serialVersionUID = 1L;
 
-		private TableModel myTableModel;
+		private final TableModel myTableModel;
 
 		public RowHeaderTableModel(TableModel model) {
 			myTableModel = model;
@@ -330,7 +330,7 @@ public class MatrixEditor extends JPanel {
 	}
 
 	// a TableModel for the main part of the table
-	private class MatrixTableModel extends AbstractTableModel {
+	private static class MatrixTableModel extends AbstractTableModel {
 
 		private static final long serialVersionUID = 1L;
 		private float[][] myMatrix;

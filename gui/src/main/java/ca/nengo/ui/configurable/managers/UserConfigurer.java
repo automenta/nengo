@@ -56,7 +56,7 @@ public class UserConfigurer extends ConfigManager {
     /**
      * Parent, if there is one
      */
-    protected Container parent;
+    protected final Container parent;
 
     /**
      * @param configurable

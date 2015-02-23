@@ -193,14 +193,14 @@ class PApproximator extends Property {
     }
 
     private static class Panel extends PropertyInputPanel {
-        private static SignItem unconstrained = new SignItem("Unconstrained", Sign.Unconstrained);
-        private static SignItem positive = new SignItem("Positive", Sign.Positive);
-        private static SignItem negative = new SignItem("Negative", Sign.Negative);
+        private static final SignItem unconstrained = new SignItem("Unconstrained", Sign.Unconstrained);
+        private static final SignItem positive = new SignItem("Positive", Sign.Positive);
+        private static final SignItem negative = new SignItem("Negative", Sign.Negative);
 
-        private static SignItem[] items = { unconstrained, positive, negative };
+        private static final SignItem[] items = { unconstrained, positive, negative };
 
-        private JComboBox comboBox;
-        private JButton setButton;
+        private final JComboBox comboBox;
+        private final JButton setButton;
 
         public Panel(Property property) {
             super(property);
@@ -318,8 +318,8 @@ class PEncodingDistribution extends Property {
     static class Slider extends PropertyInputPanel {
         private static final int NUMBER_OF_TICKS = 1000;
 
-        private JSlider sliderSwing;
-        private JLabel sliderValueLabel;
+        private final JSlider sliderSwing;
+        private final JLabel sliderValueLabel;
 
         public Slider(Property property) {
             super(property);
@@ -417,10 +417,10 @@ class PSign extends Property {
 
     private static class Panel extends PropertyInputPanel {
 
-        private static SignItem[] items = { new SignItem("Unconstrained", Sign.Unconstrained),
+        private static final SignItem[] items = { new SignItem("Unconstrained", Sign.Unconstrained),
             new SignItem("Positive", Sign.Positive), new SignItem("Negative", Sign.Negative) };
 
-        private JComboBox comboBox;
+        private final JComboBox comboBox;
 
         public Panel(Property property) {
             super(property);
@@ -451,8 +451,8 @@ class PSign extends Property {
 }
 
 class SignItem {
-    String name;
-    Sign type;
+    final String name;
+    final Sign type;
 
     public SignItem(String name, Sign type) {
         super();

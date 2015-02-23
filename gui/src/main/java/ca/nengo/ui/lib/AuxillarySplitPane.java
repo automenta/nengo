@@ -36,7 +36,7 @@ public class AuxillarySplitPane extends JSplitPane {
     private JPanel auxPanelWr;
     private boolean resizable;
 
-    private Container mainPanel;
+    private final Container mainPanel;
 
     private final Orientation orientation;
     private final Dimension minimumSize;
@@ -339,7 +339,7 @@ public class AuxillarySplitPane extends JSplitPane {
     }
 
     class HideButtonListener implements MouseListener {
-        private Container hideButton;
+        private final Container hideButton;
 
         public HideButtonListener(Container hideButton) {
             super();

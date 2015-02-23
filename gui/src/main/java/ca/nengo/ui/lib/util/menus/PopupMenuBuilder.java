@@ -16,7 +16,7 @@ public class PopupMenuBuilder extends AbstractMenuBuilder {
 
 	boolean isFirstSection = true;
 
-	JPopupMenu menu;
+	final JPopupMenu menu;
 
 	public PopupMenuBuilder(String label) {
 		super(false);

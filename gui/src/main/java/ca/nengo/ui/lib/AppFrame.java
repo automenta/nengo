@@ -43,7 +43,7 @@ public abstract class AppFrame extends JFrame implements ApplicationListener {
     /**
      * TODO
      */
-    public static int MENU_SHORTCUT_KEY_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+    public static final int MENU_SHORTCUT_KEY_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 
     /**
      * Name of the directory where UI Files are stored
@@ -293,7 +293,7 @@ public abstract class AppFrame extends JFrame implements ApplicationListener {
          */
         List<ShortcutKey> shortcuts = new ArrayList<ShortcutKey>();
         constructShortcutKeys(shortcuts);
-        this.shortcutKeys = shortcuts.toArray(new ShortcutKey[] {});
+        this.shortcutKeys = shortcuts.toArray(new ShortcutKey[shortcuts.size()]);
 
         validate();
         setFullScreenMode(false);
@@ -931,7 +931,7 @@ public abstract class AppFrame extends JFrame implements ApplicationListener {
 
         private static final long serialVersionUID = 1L;
 
-        private boolean welcome;
+        private final boolean welcome;
 
         public TipsAction(String actionName, boolean isWelcomeScreen) {
             super("Show UI tips", actionName);
@@ -1121,7 +1121,7 @@ public abstract class AppFrame extends JFrame implements ApplicationListener {
      * 
      * @author Daniel Rasmussen
      */
-    class CloseAllPlots extends StandardAction {
+    static class CloseAllPlots extends StandardAction {
         private static final long serialVersionUID = 1L;
 
         public CloseAllPlots() {

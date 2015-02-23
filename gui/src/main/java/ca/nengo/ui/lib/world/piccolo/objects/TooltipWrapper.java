@@ -18,9 +18,9 @@ import java.awt.geom.Rectangle2D;
 public class TooltipWrapper extends WorldObjectImpl implements Listener {
 
 	private PActivity fadeInActivity, fadeInPhase2Activity;
-	private WorldObject target;
-	private WorldSky parent;
-	private WorldObject tooltip;
+	private final WorldObject target;
+	private final WorldSky parent;
+	private final WorldObject tooltip;
 
 	/**
 	 * @param parent

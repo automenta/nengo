@@ -120,7 +120,7 @@ public abstract class UITermination extends Widget implements ILineTermination {
 				getNodeParent().getNetworkParent().getModel().addProjection(source.getModel(),
 						getModel());
 				getNodeParent().showPopupMessage(
-						"NEW Projection to " + getNodeParent().getName() + "." + getName());
+						"NEW Projection to " + getNodeParent().getName() + '.' + getName());
 				successful = true;
 			} catch (StructuralException e) {
 				disconnect();
@@ -137,7 +137,7 @@ public abstract class UITermination extends Widget implements ILineTermination {
 	protected void constructTooltips(TooltipBuilder tooltips) {
 		super.constructTooltips(tooltips);
 
-		tooltips.addProperty("Dimensions", "" + getModel().getDimensions());
+		tooltips.addProperty("Dimensions", String.valueOf(getModel().getDimensions()));
 
 		// tooltips.addTitle("Configuration");
 		tooltips.addProperty("Time Constant", String.valueOf(getModel().getTau()));
@@ -200,7 +200,7 @@ public abstract class UITermination extends Widget implements ILineTermination {
 			try {
 				getNodeParent().getNetworkParent().getModel().removeProjection(getModel());
 				getNodeParent().showPopupMessage(
-						"REMOVED Projection to " + getNodeParent().getName() + "." + getName());
+						"REMOVED Projection to " + getNodeParent().getName() + '.' + getName());
 
 				getConnector().destroy();
 			} catch (StructuralException e) {

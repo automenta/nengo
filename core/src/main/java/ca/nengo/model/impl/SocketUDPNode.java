@@ -58,7 +58,7 @@ public class SocketUDPNode implements Node, Resettable {
 
 	//implementation note: this class doesn't nicely extend AbstractNode
 
-	private static Logger ourLogger = Logger.getLogger(SocketUDPNode.class);
+	private static final Logger ourLogger = Logger.getLogger(SocketUDPNode.class);
 
 	/**
 	 * Default name for a termination
@@ -328,7 +328,8 @@ public class SocketUDPNode implements Node, Resettable {
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
 	public Termination[] getTerminations() {
-		return myTerminations.values().toArray(new PassthroughTermination[0]);
+        Collection<PassthroughTermination> var = myTerminations.values();
+        return var.toArray(new PassthroughTermination[var.size()]);
 	}
 
 	/**
@@ -396,7 +397,7 @@ public class SocketUDPNode implements Node, Resettable {
 			boolean foundFutureItem = false;
 			int i = 0;
 			while (!mySocketBuffer.isEmpty()) {
-				tempValues = (float[]) mySocketBuffer.peek();
+				tempValues = mySocketBuffer.peek();
 				foundItem = (tempValues[0] >= startTime && tempValues[0] <= endTime) ||  myIgnoreTimestamp;
 				foundFutureItem = tempValues[0] > endTime;
 				if (foundItem)
@@ -596,7 +597,7 @@ public class SocketUDPNode implements Node, Resettable {
     public void releaseMemory() {
 	}	
 	
-	private class NengoUDPPacketComparator implements Comparator<float[]> {
+	private static class NengoUDPPacketComparator implements Comparator<float[]> {
 		public int compare(float[] o1, float[] o2) {
 			return o1[0] < o2[0] ? -1 : o1[0] == o2[0] ? 0 : 1; 
 		}

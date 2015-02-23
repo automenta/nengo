@@ -43,7 +43,7 @@ public abstract class AbstractFunction implements Function {
 	 */
 	public static final String DIMENSION_PROPERTY = "dimension";
 
-	private int myDim;
+	private final int myDim;
 	private String myCode;
 	private String myName;
 

@@ -53,7 +53,7 @@ public class PoissonSpikeGenerator implements SpikeGenerator {
 
 	private static final long serialVersionUID = 1L;
 
-	private static SimulationMode[] ourSupportedModes
+	private static final SimulationMode[] ourSupportedModes
 		= new SimulationMode[]{SimulationMode.DEFAULT, SimulationMode.CONSTANT_RATE, SimulationMode.RATE};
 
 	private Function myRateFunction;
@@ -243,10 +243,10 @@ public class PoissonSpikeGenerator implements SpikeGenerator {
 
 		private static final long serialVersionUID = 1L;
 
-		private static float ourMaxTimeStep = .0005f;
-		private static Units ourCurrentUnits = Units.ACU;
+		private static final float ourMaxTimeStep = .0005f;
+		private static final Units ourCurrentUnits = Units.ACU;
 
-		private LinearFactory mySpikeGeneratorFactory;
+		private final LinearFactory mySpikeGeneratorFactory;
 
 		/**
 		 * @param maxRate PDF for maximum spike rate
@@ -361,10 +361,10 @@ public class PoissonSpikeGenerator implements SpikeGenerator {
 
 		private static final long serialVersionUID = 1L;
 
-		private static float ourMaxTimeStep = .0005f;
-		private static Units ourCurrentUnits = Units.ACU;
+		private static final float ourMaxTimeStep = .0005f;
+		private static final Units ourCurrentUnits = Units.ACU;
 
-		private SigmoidFactory mySigmoidFactory;
+		private final SigmoidFactory mySigmoidFactory;
 
 		/**
 		 * Neurons from this factory will have Poisson firing rates that are sigmoidal functions

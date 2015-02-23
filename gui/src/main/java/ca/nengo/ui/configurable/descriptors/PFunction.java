@@ -45,9 +45,9 @@ public class PFunction extends Property {
 
     private static final long serialVersionUID = 1L;
 
-    private int myInputDimension;
+    private final int myInputDimension;
 
-    private boolean isInputDimensionEditable;
+    private final boolean isInputDimensionEditable;
 
     /**
      * @param name TODO
@@ -102,7 +102,7 @@ public class PFunction extends Property {
             }
         }
 
-        return functions.toArray(new ConfigurableFunction[0]);
+        return functions.toArray(new ConfigurableFunction[functions.size()]);
     }
 
     @Override

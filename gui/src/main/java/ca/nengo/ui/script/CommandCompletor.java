@@ -39,7 +39,7 @@ import java.util.List;
  */
 public abstract class CommandCompletor {
 
-	private List<String> myOptions;
+	private final List<String> myOptions;
 	private int myIndex;
 
 	public CommandCompletor() {

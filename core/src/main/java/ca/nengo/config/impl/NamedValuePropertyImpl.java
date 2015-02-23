@@ -50,7 +50,7 @@ import java.util.Map;
  */
 public class NamedValuePropertyImpl extends AbstractProperty implements NamedValueProperty {
 
-	private Object myTarget;
+	private final Object myTarget;
 
 	private Method myGetter;
 	private Method myNamesGetter;
@@ -76,10 +76,10 @@ public class NamedValuePropertyImpl extends AbstractProperty implements NamedVal
 		String[] namesGetterNames = new String[]{"get"+uname+"Names"};
 		String[] namedSetterNames = new String[]{"set"+uname};
 		String[] removerNames = new String[]{"remove"+uname};
-		String[] mapGetterNames = new String[]{"get"+uname, "get"+uname+"s", "get"+uname+"Map"};
+		String[] mapGetterNames = new String[]{"get"+uname, "get"+uname+ 's', "get"+uname+"Map"};
 
 		String[] unnamedSetterNames = new String[]{"set"+uname};
-		String[] arrayGetterNames = new String[]{"get"+uname, "get"+uname+"s", "get"+uname+"Array", "getAll"+uname};
+		String[] arrayGetterNames = new String[]{"get"+uname, "get"+uname+ 's', "get"+uname+"Array", "getAll"+uname};
 
 		Method getter = ListPropertyImpl.getMethod(targetClass, getterNames, new Class[]{String.class}, type);
 		Method namesGetter = ListPropertyImpl.getMethod(targetClass, namesGetterNames, new Class[0], String[].class);
@@ -230,7 +230,7 @@ public class NamedValuePropertyImpl extends AbstractProperty implements NamedVal
 			Object[] array = (Object[]) invoke(myTarget, myArrayGetter, new Object[0]);
 			for (Object o : array) {
 				try {
-					String name = (String) invoke(o, o.getClass().getMethod("getName", new Class[0]), new Object[0]);
+					String name = (String) invoke(o, o.getClass().getMethod("getName"), new Object[0]);
 					result.add(name);
 				} catch (SecurityException e) {
 					throw new RuntimeException(e);

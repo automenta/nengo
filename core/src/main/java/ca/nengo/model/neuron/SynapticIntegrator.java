@@ -60,7 +60,7 @@ public interface SynapticIntegrator extends Resettable, Serializable, Cloneable 
 	 * @return The named Termination if it exists
 	 * @throws StructuralException if the named Termination does not exist
 	 */
-	public Termination getTermination(String name) throws StructuralException;
+	public Termination getTermination(String name);
 
 	/**
 	 * This method should be called by the neuron that incorporates this SynapticIntegrator

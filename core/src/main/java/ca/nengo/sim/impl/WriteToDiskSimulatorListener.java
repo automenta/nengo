@@ -98,7 +98,7 @@ public class WriteToDiskSimulatorListener implements SimulatorListener {
 	
 	                myWriter.write(Float.toString(times[times.length-1]));
 	                for (int i=0; i < data[0].length; i++) {
-	                	myWriter.write("," + Float.toString(data[times.length-1][i]));
+	                	myWriter.write(',' + Float.toString(data[times.length-1][i]));
 	                }
 	                myWriter.newLine();
 	                myWriter.flush();

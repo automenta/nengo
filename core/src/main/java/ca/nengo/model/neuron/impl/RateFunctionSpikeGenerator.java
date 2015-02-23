@@ -53,14 +53,14 @@ public class RateFunctionSpikeGenerator implements SpikeGenerator {
 
     private static final long serialVersionUID = 1L;
 
-    private static SimulationMode[] ourSupportedModes =
+    private static final SimulationMode[] ourSupportedModes =
         new SimulationMode[]{SimulationMode.DEFAULT, SimulationMode.CONSTANT_RATE, SimulationMode.RATE};
 
     private Function myRateFunction;
     private SimulationMode myMode;
 
     private float myVoltage;
-    private boolean smooth;
+    private final boolean smooth;
 
     /**
      * @param rateFunction Maps input current to spiking rate
@@ -229,7 +229,7 @@ public class RateFunctionSpikeGenerator implements SpikeGenerator {
     /**
      * Currently unused, but could act as a model of the soma
      */
-    public class PoiraziSomaSigmoid extends AbstractFunction
+    public static class PoiraziSomaSigmoid extends AbstractFunction
     {
         private static final long serialVersionUID = 1L;
 

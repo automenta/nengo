@@ -86,7 +86,7 @@ public enum SimulationMode {
 	 */
 	PRECISE(DEFAULT);
 	
-	private SimulationMode myFallbackMode;
+	private final SimulationMode myFallbackMode;
 	
 	private SimulationMode(SimulationMode fallbackMode) {
 		myFallbackMode = fallbackMode;

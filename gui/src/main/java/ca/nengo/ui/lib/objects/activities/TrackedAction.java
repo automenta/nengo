@@ -17,11 +17,11 @@ public abstract class TrackedAction extends StandardAction {
 
 	private static final long serialVersionUID = 1L;
 
-	private String taskName;
+	private final String taskName;
 
 	private TrackedStatusMsg trackedMsg;
 
-	private WorldObjectImpl wo;
+	private final WorldObjectImpl wo;
 
 	public TrackedAction(String taskName) {
 		this(taskName, null);

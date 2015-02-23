@@ -5,8 +5,8 @@ import ca.nengo.ui.lib.AuxillarySplitPane;
 public class SetSplitPaneVisibleAction extends StandardAction {
 
 	private static final long serialVersionUID = 1L;
-	private boolean visible;
-	private AuxillarySplitPane splitPane;
+	private final boolean visible;
+	private final AuxillarySplitPane splitPane;
 
 	public SetSplitPaneVisibleAction(String actionName, AuxillarySplitPane splitPane, boolean visible) {
 		super(actionName);

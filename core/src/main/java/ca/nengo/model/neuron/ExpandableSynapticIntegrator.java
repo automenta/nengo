@@ -64,7 +64,7 @@ public interface ExpandableSynapticIntegrator extends SynapticIntegrator {
 	 * @throws StructuralException if there is no Termination of the given name on this
      *      SynapticIntegrator
 	 */
-	public Termination removeTermination(String name) throws StructuralException;
+	public Termination removeTermination(String name);
 
 	public ExpandableSynapticIntegrator clone() throws CloneNotSupportedException;
 

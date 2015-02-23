@@ -43,7 +43,7 @@ public abstract class ModelObject extends ElasticObject implements Interactable 
 
 	private boolean isModelBusy = false;
 
-	private HashSet<ModelListener> modelListeners = new HashSet<ModelListener>();
+	private final HashSet<ModelListener> modelListeners = new HashSet<ModelListener>();
 
 	/**
 	 * Model
@@ -193,7 +193,7 @@ public abstract class ModelObject extends ElasticObject implements Interactable 
 			}
 		}
 
-		for (ModelListener listener : modelListeners.toArray(new ModelListener[] {})) {
+		for (ModelListener listener : modelListeners.toArray(new ModelListener[modelListeners.size()])) {
 			listener.modelDestroyed(getModel());
 		}
 
@@ -229,7 +229,7 @@ public abstract class ModelObject extends ElasticObject implements Interactable 
 	}
 
 	public String getFullName() {
-		return getName() + " (" + getTypeName() + ")";
+		return getName() + " (" + getTypeName() + ')';
 	}
 
 	/**

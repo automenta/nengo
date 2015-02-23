@@ -46,10 +46,10 @@ public class ALIFNeuronFactory implements NodeFactory {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger ourLogger = Logger.getLogger(ALIFNeuronFactory.class);
+	private static final Logger ourLogger = Logger.getLogger(ALIFNeuronFactory.class);
 	
-	private static float ourMaxTimeStep = 0.001f;
-	private static Units ourCurrentUnits = Units.ACU;
+	private static final float ourMaxTimeStep = 0.001f;
+	private static final Units ourCurrentUnits = Units.ACU;
 	
 	private PDF myMaxRate;
 	private PDF myIntercept;

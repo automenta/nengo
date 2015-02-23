@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public abstract class LineWell extends WorldObjectImpl {
-	private LineOriginIcon myIcon;
+	private final LineOriginIcon myIcon;
 
 	public LineWell() {
 		super();
@@ -24,11 +24,12 @@ public abstract class LineWell extends WorldObjectImpl {
 	 * @return The new LineEnd which has been created and added to the
 	 *         LineEndWell
 	 */
-	protected LineConnector createProjection() {
+	abstract protected LineConnector createProjection();
+    /*{
 		LineConnector newLineEnd = createProjection();
 		addChild(newLineEnd);
 		return newLineEnd;
-	}
+	}*/
 
 	public Color getColor() {
 		return myIcon.getColor();
@@ -48,7 +49,7 @@ public abstract class LineWell extends WorldObjectImpl {
  */
 class CreateLineEndHandler extends PBasicInputEventHandler {
 
-	private LineWell lineEndWell;
+	private final LineWell lineEndWell;
 
 	private LineConnector newLineEnd;
 

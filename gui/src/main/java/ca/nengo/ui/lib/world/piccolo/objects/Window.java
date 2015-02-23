@@ -45,9 +45,9 @@ public class Window extends WorldObjectImpl implements Interactable {
 
 	private final MenuBar menubar;
 
-	private Border myBorder;
+	private final Border myBorder;
 
-	private PClip myClippingRectangle;
+	private final PClip myClippingRectangle;
 
 	private final WorldObjectImpl myContent;
 
@@ -326,7 +326,7 @@ class MenuBar extends WorldObjectImpl implements PInputEventListener {
 
 	private WorldObject buttonHolder;
 	private AbstractButton maximizeButton, minimizeButton, closeButton, normalButton;
-	private Window myWindow;
+	private final Window myWindow;
 	private Path rectangle;
 
 	private Text title;

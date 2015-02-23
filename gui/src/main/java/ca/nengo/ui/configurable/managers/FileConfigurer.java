@@ -40,7 +40,7 @@ public class FileConfigurer extends ConfigManager {
 	/**
 	 * Name of file to be loaded
 	 */
-	private String configFileName;
+	private final String configFileName;
 
 	/**
 	 * Configures an object using default properties

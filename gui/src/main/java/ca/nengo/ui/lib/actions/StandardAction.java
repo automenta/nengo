@@ -18,9 +18,9 @@ public abstract class StandardAction implements Serializable {
 
 	private boolean actionCompleted = false;
 
-	private String actionName;
+	private final String actionName;
 
-	private String description;
+	private final String description;
 
 	private boolean isEnabled = true;
 

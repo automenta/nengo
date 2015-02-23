@@ -32,6 +32,7 @@ import ca.nengo.util.Probe;
 import ca.nengo.util.TimeSeries;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -127,10 +128,8 @@ public class ProbeImpl implements Probe, java.io.Serializable {
 			myTimes = times;
 			myValues = new ArrayList<float[]>(10);
 		}
-		
-		for (int i = 0; i < len; i++) {
-			myValues.add(values[i]);
-		}
+
+        myValues.addAll(Arrays.asList(values).subList(0, len));
 		
 		if (myUnits == null) {
 			myUnits = stepData.getUnits();
@@ -153,7 +152,7 @@ public class ProbeImpl implements Probe, java.io.Serializable {
 		float[][] values = myValues.toArray(new float[0][]);
 		
 		TimeSeriesImpl result = new TimeSeriesImpl(times, values, (myUnits == null) ? new Units[]{Units.UNK} : myUnits);
-		result.setName(((myTarget instanceof Node) ? ((Node) myTarget).getName()+":" : "") + myStateName);
+		result.setName(((myTarget instanceof Node) ? ((Node) myTarget).getName()+ ':' : "") + myStateName);
 		return result;
 	}
 

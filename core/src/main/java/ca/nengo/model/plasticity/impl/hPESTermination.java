@@ -94,9 +94,7 @@ public class hPESTermination extends PESTermination  {
     @Override
     public void reset(boolean randomize) {
     	super.reset(randomize);
-    	for (int i = 0; i < myTheta.length; i++) {
-    		myTheta[i] = myInitialTheta[i];
-    	}
+        System.arraycopy(myInitialTheta, 0, myTheta, 0, myTheta.length);
     }
 
     /**

@@ -203,9 +203,9 @@ public class ElasticObject extends WorldObjectImpl {
 }
 
 class Anchor implements Destroyable, Listener {
-	private ElasticObject obj;
-	private Path border;
-	private Path line;
+	private final ElasticObject obj;
+	private final Path border;
+	private final Path line;
 
 	public Anchor(ElasticObject obj) {
 		super();
@@ -242,7 +242,7 @@ class Anchor implements Destroyable, Listener {
 		}
 	}
 
-	private static int SIZE_ANCHOR = 15;
+	private static final int SIZE_ANCHOR = 15;
 
 	private void updateBounds() {
 		border.moveToFront();
@@ -263,7 +263,7 @@ class Anchor implements Destroyable, Listener {
 			x += SIZE_ANCHOR * 2;
 			points.add(new Point2D.Double(x, y));
 
-			line.setPathToPolyline(points.toArray(new Point2D[] {}));
+			line.setPathToPolyline(points.toArray(new Point2D[points.size()]));
 		}
 	}
 

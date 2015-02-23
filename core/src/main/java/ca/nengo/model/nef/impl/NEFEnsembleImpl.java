@@ -72,13 +72,13 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	/**
 	 * Append to bias termination names
 	 */
-	public static String BIAS_SUFFIX = " (bias)";
+	public static final String BIAS_SUFFIX = " (bias)";
 
 
 	/**
 	 * Append to interneuron names
 	 */
-	public static String INTERNEURON_SUFFIX = " (interneuron)";
+	public static final String INTERNEURON_SUFFIX = " (interneuron)";
 
 	private final int myDimension;
 	private float[][] myEncoders;
@@ -188,9 +188,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 		float[] oldRadii=null;
 		if (myRadii!=null) {
 			oldRadii=new float[radii.length];
-			for (int i=0; i<radii.length; i++) {
-				oldRadii[i]=myRadii[i];
-			}
+            System.arraycopy(myRadii, 0, oldRadii, 0, radii.length);
 		}
 
 
@@ -254,7 +252,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	public void setEvalPoints(float[][] evalPoints) {
 		if (!MU.isMatrix(evalPoints) || evalPoints[0].length != getDimension()) {
 			throw new IllegalArgumentException("Expected eval points of length "
-					+ getDimension() + " (was " + evalPoints[0].length + ")");
+					+ getDimension() + " (was " + evalPoints[0].length + ')');
 		}
 
 		myEvalPoints = evalPoints;
@@ -385,9 +383,8 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 			} catch (SimulationException e) {
 				throw new StructuralException("Node " + i + " does not have the Origin " + origin);
 			}
-			
-			for(int j=0; j < output.length; j++)
-				result[i][j] = output[j];
+
+            System.arraycopy(output, 0, result[i], 0, output.length);
 		}
 
 		return result;

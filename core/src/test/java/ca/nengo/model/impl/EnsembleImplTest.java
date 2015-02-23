@@ -35,7 +35,7 @@ public class EnsembleImplTest extends TestCase {
 		EnsembleImpl ensemble = new EnsembleImpl("ensemble", new Node[]{node1, node2});
 		ensemble.addTermination("new", MU.uniform(2, 2, 1), .005f, false);
 
-		EnsembleImpl copy = (EnsembleImpl) ensemble.clone();
+		EnsembleImpl copy = ensemble.clone();
         System.out.println("Termination Length");
         System.out.println( copy.getTerminations().length);
 		assertEquals(2, copy.getTerminations().length);

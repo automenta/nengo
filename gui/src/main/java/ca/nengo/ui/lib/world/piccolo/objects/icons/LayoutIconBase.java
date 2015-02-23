@@ -8,9 +8,9 @@ import java.awt.*;
 
 public abstract class LayoutIconBase extends WorldObjectImpl {
 
-    private int size;
-    public static int STROKE_WIDTH = 2;
-    public static int PADDING = 5;
+    private final int size;
+    public static final int STROKE_WIDTH = 2;
+    public static final int PADDING = 5;
 
     public LayoutIconBase(int size) {
         this.size = size;

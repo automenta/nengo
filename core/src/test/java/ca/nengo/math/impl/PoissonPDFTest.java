@@ -71,7 +71,7 @@ public class PoissonPDFTest extends TestCase {
 		int n = 1000;
 		int[] bins = new int[100];
 		for (int i = 0; i < n; i++) {
-			int sample = (int) Math.round(pdf.sample()[0]);
+			int sample = Math.round(pdf.sample()[0]);
 			if (sample < bins.length) bins[sample]++;
 		}
 		for (int i = 0; i < bins.length; i++) {

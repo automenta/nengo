@@ -54,9 +54,9 @@ public class ModelsContextMenu {
 		new ModelsContextMenu(menuBuilder, selectedObjects);
 	}
 
-	private Collection<ModelObject> selectedObjects;
+	private final Collection<ModelObject> selectedObjects;
 
-	private HashMap<Class<? extends ModelObject>, LinkedList<ModelObject>> selectionMap = new HashMap<Class<? extends ModelObject>, LinkedList<ModelObject>>();
+	private final HashMap<Class<? extends ModelObject>, LinkedList<ModelObject>> selectionMap = new HashMap<Class<? extends ModelObject>, LinkedList<ModelObject>>();
 	private PopupMenuBuilder menuBuilder;
 
 	protected ModelsContextMenu(PopupMenuBuilder menuBuilder, Collection<ModelObject> models) {
@@ -99,12 +99,13 @@ public class ModelsContextMenu {
 	}
 
 	protected void constructMenu() {
-		for (Class<? extends ModelObject> type : selectionMap.keySet().toArray(new Class[0])) {
+        java.util.Set<Class<? extends ModelObject>> var = selectionMap.keySet();
+        for (Class<? extends ModelObject> type : var.toArray(new Class[var.size()])) {
 
 			LinkedList<ModelObject> homogeneousModels = selectionMap.get(type);
 			String typeName = homogeneousModels.getFirst().getTypeName();
 
-			String typeMenuName = homogeneousModels.size() + " " + typeName + "s";
+			String typeMenuName = homogeneousModels.size() + " " + typeName + 's';
 
 			AbstractMenuBuilder typeMenu;
 			if (menuBuilder == null) {

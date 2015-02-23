@@ -106,7 +106,8 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
         	myProbeTasks = new ArrayList<ThreadTask>(20);
         }
 
-        myTasks = NodeThreadPool.collectTasks(myNodes).toArray(new ThreadTask[0]);
+        List<ThreadTask> var = NodeThreadPool.collectTasks(myNodes);
+        myTasks = var.toArray(new ThreadTask[var.size()]);
     }
 
     /**
@@ -196,7 +197,7 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
         while (time < endTime && !interrupt) {
 
             if (c++ % 100 == 99 && myDisplayProgress) {
-                System.out.println("Step " + c + " " + Math.min(endTime, time + thisStepSize));
+                System.out.println("Step " + c + ' ' + Math.min(endTime, time + thisStepSize));
             }
 
             if (time + 1.5*thisStepSize > endTime) { //fudge step size to hit end exactly
@@ -264,7 +265,7 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
         }
     }
 
-    public void endRun() throws SimulationException {
+    public void endRun() {
     	// Find all instances of the SocketUDPNodes and shut them down. (get them to unbind from their
     	// respective sockets).
     	Iterator<Node> it = mySocketNodes.iterator();
@@ -408,7 +409,7 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
      * @see ca.nengo.sim.Simulator#getProbes()
      */
     public Probe[] getProbes() {
-        return myProbes.toArray(new Probe[0]);
+        return myProbes.toArray(new Probe[myProbes.size()]);
     }
     
     public void makeNodeThreadPool(boolean interactive) {

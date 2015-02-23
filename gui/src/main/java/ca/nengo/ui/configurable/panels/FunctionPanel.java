@@ -54,13 +54,12 @@ public class FunctionPanel extends PropertyInputPanel {
      */
     private JComboBox comboBox;
 
-    private ConfigurableFunction[] configurableFunctionsList;
+    private final ConfigurableFunction[] configurableFunctionsList;
 
     /**
      * Function
      */
     private Function function = new ca.nengo.math.impl.ConstantFunction(1,0f);
-    ;
 
     private JButton newBtn;
 

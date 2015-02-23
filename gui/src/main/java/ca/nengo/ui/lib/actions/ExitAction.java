@@ -3,7 +3,7 @@ package ca.nengo.ui.lib.actions;
 import ca.nengo.ui.lib.AppFrame;
 
 public class ExitAction extends StandardAction {
-	private AppFrame appFrame;
+	private final AppFrame appFrame;
 
 	public ExitAction(AppFrame appFrame, String description) {
 		super(description);

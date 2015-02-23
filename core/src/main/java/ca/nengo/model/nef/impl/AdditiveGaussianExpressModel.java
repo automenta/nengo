@@ -21,8 +21,8 @@ import ca.nengo.util.MU;
  */
 public abstract class AdditiveGaussianExpressModel implements ExpressModel, Resettable {
 
-    private int myDim;
-    private GaussianPDF myPDF;
+    private final int myDim;
+    private final GaussianPDF myPDF;
     private float[][] myPreviousNoiseSamples;
     private float[][] myR; //autocorrelation for each output
     private float[][] myX; //we multiply new and previous samples by these coefficients to model myR

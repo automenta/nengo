@@ -34,7 +34,7 @@ public class GeneratePDFAction extends StandardAction {
     }
 
     protected void action() {
-    	String name = new String("Nengo");
+    	String name = "Nengo";
         
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Save layout as PDF");

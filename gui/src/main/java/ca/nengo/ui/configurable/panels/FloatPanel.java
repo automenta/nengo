@@ -35,7 +35,7 @@ import ca.nengo.ui.configurable.Property;
  */
 public class FloatPanel extends PropertyTextPanel {
 	
-	private static int COLUMNS = 10;
+	private static final int COLUMNS = 10;
 
     public FloatPanel(Property property) {
         super(property, COLUMNS);
@@ -49,7 +49,7 @@ public class FloatPanel extends PropertyTextPanel {
 
     @Override
     protected TextError checkValue(String textValue) {
-        if (textValue == null || textValue.equals("")) {
+        if (textValue == null || textValue.isEmpty()) {
         	return TextError.ValueNotSet;
         } else if (!textValue.matches("\\s*-??[0-9]*[.]??[0-9]*([eE][-|\\+]??[0-9]+)??\\s*")) {
         	return TextError.InvalidFormat;

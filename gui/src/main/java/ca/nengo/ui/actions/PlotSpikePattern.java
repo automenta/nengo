@@ -39,7 +39,7 @@ import ca.nengo.util.SpikePattern;
 public class PlotSpikePattern extends StandardAction {
 
     private static final long serialVersionUID = 1L;
-    SpikePattern spikePattern;
+    final SpikePattern spikePattern;
 
     /**
      * @param spikePattern TODO

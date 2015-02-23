@@ -36,10 +36,7 @@ import ca.nengo.util.TaskSpawner;
 import ca.nengo.util.ThreadTask;
 import ca.nengo.util.impl.LearningTask;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>An extension of the default ensemble; connection weights can be modified
@@ -67,7 +64,7 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
      * @throws StructuralException if the given Nodes contain Terminations with the same
      *      name but different dimensions
      */
-    public PlasticEnsembleImpl(String name, Node[] nodes) throws StructuralException {
+    public PlasticEnsembleImpl(String name, Node[] nodes) {
         super(name, nodes);
         myTasks = new ArrayList<LearningTask>();
         myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticEnsembleTermination>(6);
@@ -173,7 +170,7 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
      * @see ca.nengo.util.TaskSpawner#getTasks
      */
     public ThreadTask[] getTasks() {
-        return myTasks.toArray(new LearningTask[0]);
+        return myTasks.toArray(new LearningTask[myTasks.size()]);
     }
 
     /**
@@ -192,14 +189,12 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
     public Termination[] getTerminations() {
         ArrayList<Termination> result = new ArrayList<Termination>(10);
         Termination[] composites = super.getTerminations();
-        for (Termination composite : composites) {
-            result.add(composite);
-        }
+        Collections.addAll(result, composites);
 
         for (Termination t : myPlasticEnsembleTerminations.values()) {
             result.add(t);
         }
-        return result.toArray(new Termination[0]);
+        return result.toArray(new Termination[result.size()]);
     }
 
     /**
@@ -228,9 +223,9 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
         
         
         result.myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticEnsembleTermination>(6);
-        for (String key : myPlasticEnsembleTerminations.keySet()) {
-        	PlasticEnsembleTermination term = myPlasticEnsembleTerminations.get(key);
-        	result.myPlasticEnsembleTerminations.put(key, term.clone(result));
+        for (Map.Entry<String, PlasticEnsembleTermination> stringPlasticEnsembleTerminationEntry : myPlasticEnsembleTerminations.entrySet()) {
+        	PlasticEnsembleTermination term = stringPlasticEnsembleTerminationEntry.getValue();
+        	result.myPlasticEnsembleTerminations.put(stringPlasticEnsembleTerminationEntry.getKey(), term.clone(result));
         }
         
         return result;

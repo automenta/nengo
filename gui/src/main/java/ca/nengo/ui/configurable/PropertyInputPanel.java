@@ -45,9 +45,9 @@ public abstract class PropertyInputPanel {
     private final JPanel innerPanel;
     private final JPanel outerPanel;
 
-    private Property propDescriptor;
+    private final Property propDescriptor;
 
-    private JLabel statusMessage;
+    private final JLabel statusMessage;
 
     /**
      * @param property

@@ -362,7 +362,7 @@ public abstract class NodeViewer extends ElasticWorld implements Interactable {
     public static enum SortMode {
         BY_NAME("Name"), BY_TYPE("Type");
 
-        private String name;
+        private final String name;
 
         SortMode(String name) {
             this.name = name;
@@ -381,7 +381,7 @@ public abstract class NodeViewer extends ElasticWorld implements Interactable {
     class SortNodesAction extends LayoutAction {
 
         private static final long serialVersionUID = 1L;
-        SortMode sortMode;
+        final SortMode sortMode;
 
         public SortNodesAction(SortMode sortMode) {
             super(NodeViewer.this, "Sort nodes by " + sortMode.getName(), sortMode.getName());
@@ -436,10 +436,10 @@ class NodeViewerStatus extends AbstractStatusHandler {
         if (getWorld().getGround().isElasticMode()) {
             statusStr.append("Elastic layout enabled | ");
         }
-        statusStr.append(getWorld().getViewerParent().getFullName() + " -> ");
+        statusStr.append(getWorld().getViewerParent().getFullName()).append(" -> ");
 
         if (getWorld().getSelection().size() > 1) {
-            statusStr.append(getWorld().getSelection().size() + " Objects selected");
+            statusStr.append(getWorld().getSelection().size()).append(" Objects selected");
 
         } else {
 

@@ -51,7 +51,7 @@ public class UIProjectionWell extends LineWell {
 		addChild(projection);
 
 		final RemoveProjectionListener removeProjectionListener = new RemoveProjectionListener(
-				projection);
+                projection);
 		myOrigin.addModelListener(removeProjectionListener);
 
 		/*
@@ -67,8 +67,8 @@ public class UIProjectionWell extends LineWell {
 		return projection;
 	}
 
-	class RemoveProjectionListener implements ModelListener {
-		private UIProjection projection;
+	static class RemoveProjectionListener implements ModelListener {
+		private final UIProjection projection;
 
 		public RemoveProjectionListener(UIProjection projection) {
 			super();

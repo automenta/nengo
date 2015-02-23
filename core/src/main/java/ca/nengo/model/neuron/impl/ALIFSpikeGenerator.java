@@ -77,7 +77,7 @@ public class ALIFSpikeGenerator implements SpikeGenerator, Probeable {
 	private float myTauRC;
 	private float myTauN;
 	private float myIncN; //increment of N with each spike
-	private float myInitialVoltage = 0;
+	private final float myInitialVoltage = 0;
 
 	private float myV;
 	private float myN;

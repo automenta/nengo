@@ -53,7 +53,7 @@ import java.util.List;
  */
 public class IconRegistry {
 
-	private static Logger ourLogger = Logger.getLogger(IconRegistry.class);
+	private static final Logger ourLogger = Logger.getLogger(IconRegistry.class);
 	private static IconRegistry ourInstance;
 
 	private final List<Class<?>> myIconClasses;

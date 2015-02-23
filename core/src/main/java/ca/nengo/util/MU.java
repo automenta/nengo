@@ -41,7 +41,7 @@ import java.text.NumberFormat;
  */
 public class MU {
 	
-	private static Logger ourLogger = Logger.getLogger(MU.class);
+	private static final Logger ourLogger = Logger.getLogger(MU.class);
 
 	/**
 	 * @param matrix An array of arrays that is expected to be in matrix form
@@ -122,9 +122,7 @@ public class MU {
 		assert destColPos+dest[0].length>src[0].length;
 		
 		for (int i = 0; i < length; i++) {
-			for (int j = 0; j < src[0].length; j++) {
-				dest[i+destRowPos][j+destColPos]=src[i][j];	
-			}
+            System.arraycopy(src[i], 0, dest[i + destRowPos], 0 + destColPos, src[0].length);
 		}
 		return;
 	}
@@ -182,9 +180,7 @@ public class MU {
 		float[][] result = new float[lengthRow][lengthCol];
 		
 		for (int i = 0; i < lengthRow; i++) {
-			for (int j = 0; j < lengthCol; j++){
-				result[i][j] = matrix[i + startRow][j + startCol];
-			}
+            System.arraycopy(matrix[i + startRow], 0 + startCol, result[i], 0, lengthCol);
 		}
 		
 		return result;
@@ -537,10 +533,8 @@ public class MU {
 	 */
 	public static float[][] transpose(float[] vector) {		
 		float[][] result = new float[1][vector.length];
-		
-		for (int i = 0; i < vector.length; i++) {
-			result[0][i] = vector[i];
-		}
+
+        System.arraycopy(vector, 0, result[0], 0, vector.length);
 		return result;
 	}
 	
@@ -946,7 +940,7 @@ public class MU {
 	
 	private static void appendSpaces(StringBuffer buf, int n) {
 		for (int i = 0; i < n; i++) {
-			buf.append(" ");
+			buf.append(' ');
 		}
 	}
 	
@@ -957,7 +951,7 @@ public class MU {
 	 * @return A vector with elements evenly incremented from <code>start</code> to <code>end</code> 
 	 */
 	public static float[] makeVector(float start, float increment, float end) {
-		int len = 1 + (int) Math.round((end - start) / increment);
+		int len = 1 + Math.round((end - start) / increment);
 		
 		float[] result = new float[len];
 		for (int i = 0; i < len-1; i++) {
@@ -975,7 +969,7 @@ public class MU {
 		int[] result = new int[vector.length];
 		
 		for (int i = 0; i < result.length; i++) {
-			result[i] = (int) Math.round(vector[i]);
+			result[i] = Math.round(vector[i]);
 		}
 		
 		return result;

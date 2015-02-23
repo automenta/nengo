@@ -36,12 +36,12 @@ import java.awt.*;
  */
 public class ConfigExceptionHandler {
 
-	private static Logger ourLogger = Logger.getLogger(ConfigExceptionHandler.class);
+	private static final Logger ourLogger = Logger.getLogger(ConfigExceptionHandler.class);
 
 	/**
 	 * Show this message if a better one isn't defined
 	 */
-	public static String DEFAULT_BUG_MESSAGE
+	public static final String DEFAULT_BUG_MESSAGE
 		= "There is a programming bug in the object you are editing. Its properties may not "
 			+ "display properly. The log file may contain additional information. ";
 

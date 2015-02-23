@@ -108,7 +108,8 @@ public class LinkSegmentModelImpl implements LinkSegmentModel {
 	 * @see ca.nengo.model.muscle.LinkSegmentModel#getJointNames()
 	 */
 	public String[] getJointNames() {
-		return myJointDefinitions.keySet().toArray(new String[0]);
+        Set<String> var = myJointDefinitions.keySet();
+        return var.toArray(new String[var.size()]);
 	}
 
 	/**
@@ -278,12 +279,12 @@ public class LinkSegmentModelImpl implements LinkSegmentModel {
 		result.myDynamics = myDynamics.clone();
 
 		Map<String, Function[]> jointDefs = new HashMap<String, Function[]>(10);
-		for (String key : myJointDefinitions.keySet()) {
-			Function[] functions  = new Function[myJointDefinitions.get(key).length];
+		for (Map.Entry<String, Function[]> stringEntry : myJointDefinitions.entrySet()) {
+			Function[] functions  = new Function[stringEntry.getValue().length];
 			for (int i = 0; i < functions.length; i++) {
-				functions[i] = myJointDefinitions.get(key)[i];
+				functions[i] = stringEntry.getValue()[i];
 			}
-			jointDefs.put(key, functions);
+			jointDefs.put(stringEntry.getKey(), functions);
 		}
 		result.myJointDefinitions = jointDefs;
 

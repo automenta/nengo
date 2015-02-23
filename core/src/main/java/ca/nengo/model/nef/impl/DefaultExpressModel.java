@@ -73,7 +73,7 @@ public class DefaultExpressModel extends AdditiveGaussianExpressModel {
         }
     }
 
-    private float[][] setNoise(DecodedOrigin origin) throws SimulationException {
+    private float[][] setNoise(DecodedOrigin origin) {
         int nSamples = 500;
 
         float input0 = .5f; //our example input will be [.5; 0; 0; ...], because [0] may not have typical enough firing rates

@@ -54,9 +54,9 @@ public class SaveNodeAction extends StandardAction {
     /**
      * if blocking, then saving occurs in the same thread before returning
      */
-    private boolean blocking;
+    private final boolean blocking;
 
-    private UINeoNode nodeUI;
+    private final UINeoNode nodeUI;
 
     /**
      * Whether or not the last save attempt was successful.

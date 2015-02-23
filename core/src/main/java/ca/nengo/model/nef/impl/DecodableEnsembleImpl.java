@@ -67,7 +67,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
 	private Map<String, LinearApproximator> myApproximators;
 	private float myTime; //used to support Probeable
 	
-	private static Logger ourLogger = Logger.getLogger(DecodableEnsembleImpl.class);
+	private static final Logger ourLogger = Logger.getLogger(DecodableEnsembleImpl.class);
 
 	/**
 	 * @param name Name of the Ensemble
@@ -357,7 +357,8 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
      * @return all DecodedTerminations
      */
     public DecodedTermination[] getDecodedTerminations(){
-        return myDecodedTerminations.values().toArray(new DecodedTermination[0]);
+        Collection<DecodedTermination> var = myDecodedTerminations.values();
+        return var.toArray(new DecodedTermination[var.size()]);
         //return (OrderedTerminations != null) ? (DecodedTermination[])OrderedTerminations.toArray(new DecodedTermination[0]) : new DecodedTermination[0];
     }
 
@@ -393,20 +394,18 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
     public Origin[] getOrigins() {
         ArrayList<Origin> result = new ArrayList<Origin>(10);
         Origin[] composites = super.getOrigins();
-        for (Origin composite : composites) {
-            result.add(composite);
-        }
+        Collections.addAll(result, composites);
 
         // getOrigins is called by NEFEnsembleImpl in the constructor
         if (myDecodedOrigins == null) {
-            return result.toArray(new Origin[0]);
+            return result.toArray(new Origin[result.size()]);
         }
 
 
         for (Origin o : myDecodedOrigins.values()) {
             result.add(o);
         }
-        return result.toArray(new Origin[0]);
+        return result.toArray(new Origin[result.size()]);
 	}
 
     /**
@@ -419,7 +418,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
         for (DecodedOrigin o : myDecodedOrigins.values()) {
             result.add(o);
         }
-        return result.toArray(new DecodedOrigin[0]);
+        return result.toArray(new DecodedOrigin[result.size()]);
     }
 
     /**
@@ -429,14 +428,12 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
     public Termination[] getTerminations() {
         ArrayList<Termination> result = new ArrayList<Termination>(10);
         Termination[] composites = super.getTerminations();
-        for (Termination composite : composites) {
-            result.add(composite);
-        }
+        Collections.addAll(result, composites);
 
         for (Termination t : myDecodedTerminations.values()) {
             result.add(t);
         }
-        return result.toArray(new Termination[0]);
+        return result.toArray(new Termination[result.size()]);
     }
 
 	/**
@@ -519,13 +516,13 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
 
 		Iterator<String> it = myDecodedTerminations.keySet().iterator();
         while (it.hasNext()) {
-            String termName = it.next().toString();
+            String termName = it.next();
             result.setProperty(termName, "Output of Termination " + termName);
         }
 		
 		it = myDecodedOrigins.keySet().iterator();
 		while (it.hasNext()) {
-			String name = it.next().toString();
+			String name = it.next();
 			result.setProperty(name, "Function of NEFEnsemble state"); //TODO: could put function.toString() here
 		}
 
@@ -558,9 +555,9 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
 		}
 		
         result.myDecodedTerminations = new LinkedHashMap<String,DecodedTermination>(10);
-        for (String key : myDecodedTerminations.keySet()) {
-            DecodedTermination t = myDecodedTerminations.get(key).clone(result);
-            result.myDecodedTerminations.put(key, t);
+        for (Map.Entry<String, DecodedTermination> stringDecodedTerminationEntry : myDecodedTerminations.entrySet()) {
+            DecodedTermination t = stringDecodedTerminationEntry.getValue().clone(result);
+            result.myDecodedTerminations.put(stringDecodedTerminationEntry.getKey(), t);
         }
 
         //change scaling terminations references to the new copies

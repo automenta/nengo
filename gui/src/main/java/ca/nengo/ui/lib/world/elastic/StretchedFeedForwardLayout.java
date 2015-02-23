@@ -95,6 +95,6 @@ public class StretchedFeedForwardLayout extends FeedForwardLayout {
 	 * VoidVertex serves as place holder in LinkedList
 	 * 
 	 */
-	class VoidVertex extends SimpleSparseVertex {
+    static class VoidVertex extends SimpleSparseVertex {
 	}
 }

@@ -66,7 +66,7 @@ public class RunSimulatorAction extends StandardAction {
     private static final ConfigSchemaImpl zProperties = new ConfigSchemaImpl(new Property[] {
             pStartTime, pStepSize, pEndTime, pShowDataViewer});
 
-    private UINetwork uiNetwork;
+    private final UINetwork uiNetwork;
 
     /**
      * @param actionName
@@ -143,11 +143,11 @@ public class RunSimulatorAction extends StandardAction {
 
         private static final long serialVersionUID = 1L;
         private float currentProgress = 0;
-        private float endTime;
+        private final float endTime;
         private TrackedStatusMsg progressMsg;
-        private boolean showDataViewer;
-        private float startTime;
-        private float stepTime;
+        private final boolean showDataViewer;
+        private final float startTime;
+        private final float stepTime;
 
         public RunSimulatorActivity(float startTime, float endTime, float stepTime,
                 boolean showDataViewer) {

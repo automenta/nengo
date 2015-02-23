@@ -47,7 +47,7 @@ import java.util.*;
 public class SimulatorDataModel extends DefaultTreeModel {
 
     private static final long serialVersionUID = 1L;
-    private ProbePlotHelper plotterStrategy;
+    private final ProbePlotHelper plotterStrategy;
 
     /**
      * Creates a new node in the parent only if a node with the same name does
@@ -134,9 +134,9 @@ public class SimulatorDataModel extends DefaultTreeModel {
         }
     }
 
-    private HashSet<String> nameLUT = new HashSet<String>();
+    private final HashSet<String> nameLUT = new HashSet<String>();
 
-    private Hashtable<Integer, DefaultMutableTreeNode> topLevelNetworks = new Hashtable<Integer, DefaultMutableTreeNode>();
+    private final Hashtable<Integer, DefaultMutableTreeNode> topLevelNetworks = new Hashtable<Integer, DefaultMutableTreeNode>();
 
     /**
      * TODO
@@ -307,9 +307,9 @@ public class SimulatorDataModel extends DefaultTreeModel {
         Calendar cal = new GregorianCalendar();
 
         SortableMutableTreeNode captureNode = new SortableMutableTreeNode("Simulation "
-                + cal.get(Calendar.HOUR_OF_DAY) + "h" + cal.get(Calendar.MINUTE) + "m"
-                + cal.get(Calendar.SECOND) + "s " + cal.get(Calendar.MONTH) + "M"
-                + cal.get(Calendar.DATE) + "D");
+                + cal.get(Calendar.HOUR_OF_DAY) + 'h' + cal.get(Calendar.MINUTE) + 'm'
+                + cal.get(Calendar.SECOND) + "s " + cal.get(Calendar.MONTH) + 'M'
+                + cal.get(Calendar.DATE) + 'D');
 
         addSpikePatterns(captureNode, network);
         addTimeSeries(captureNode, network, network);
@@ -331,14 +331,14 @@ public class SimulatorDataModel extends DefaultTreeModel {
         name = name.substring(1, name.length()-1);
         try
         {
-            net_name = name.substring(0, name.indexOf("["));
+            net_name = name.substring(0, name.indexOf('['));
         }
         catch(IndexOutOfBoundsException ioobe)
         {
             result.add(name);
             return result;
         }
-        String recur_name = name.substring(name.indexOf("["));
+        String recur_name = name.substring(name.indexOf('['));
 
         result.add(net_name);
         result.addAll(parseEnsembleName(recur_name));

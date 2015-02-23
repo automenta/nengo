@@ -74,23 +74,24 @@ public class UINetwork extends UINodeViewable {
     }
 
     /**
-     * @param wo
-     *            WorldObject
+     * @param wo WorldObject
      * @return The closest parent Network to wo
      */
     public static UINetwork getClosestNetwork(WorldObject wo) {
-        if (wo == null) {
-            return null;
-        }
+        while (true) {
+            if (wo == null) {
+                return null;
+            }
 
-        if (wo instanceof UINetwork) {
-            return (UINetwork) wo;
-        } else if (wo instanceof NodeViewer) {
-            return getClosestNetwork(((NodeViewer) wo).getViewerParent());
-        } else if (wo instanceof UINeoNode) {
-            return getClosestNetwork(((UINeoNode) wo).getNetworkParent());
-        } else {
-            return getClosestNetwork(wo.getParent());
+            if (wo instanceof UINetwork) {
+                return (UINetwork) wo;
+            } else if (wo instanceof NodeViewer) {
+                wo = ((NodeViewer) wo).getViewerParent();
+            } else if (wo instanceof UINeoNode) {
+                wo = ((UINeoNode) wo).getNetworkParent();
+            } else {
+                wo = wo.getParent();
+            }
         }
     }
 
@@ -116,8 +117,8 @@ public class UINetwork extends UINodeViewable {
     @Override
     protected void constructTooltips(TooltipBuilder tooltips) {
         super.constructTooltips(tooltips);
-        tooltips.addProperty("# Projections", "" + getModel().getProjections().length);
-        tooltips.addProperty("Simulator", "" + getSimulator().getClass().getSimpleName());
+        tooltips.addProperty("# Projections", String.valueOf(getModel().getProjections().length));
+        tooltips.addProperty("Simulator", getSimulator().getClass().getSimpleName());
     }
 
     @Override

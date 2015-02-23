@@ -92,8 +92,9 @@ public class FeedForwardLayout extends AbstractLayout {
 
 	protected LinkedList<LinkedList<Vertex>> sortVertices() {
 		LinkedList<LinkedList<Vertex>> sortedVertices = new LinkedList<LinkedList<Vertex>>();
-		@SuppressWarnings("unchecked")
-		Vertex[] vArray = (Vertex[]) this.getVisibleVertices().toArray(new Vertex[0]);
+        java.util.Set var = this.getVisibleVertices();
+        @SuppressWarnings("unchecked")
+		Vertex[] vArray = (Vertex[]) var.toArray(new Vertex[var.size()]);
 		LinkedList<Vertex> verticesLeft =  new LinkedList<Vertex>(Arrays.asList(vArray));
 		Vertex v = null;
 		

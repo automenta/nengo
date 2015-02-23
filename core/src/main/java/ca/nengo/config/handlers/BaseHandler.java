@@ -44,7 +44,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public abstract class BaseHandler implements ConfigurationHandler {
 
-	private Class<?> myClass;
+	private final Class<?> myClass;
 
 	/**
 	 * @param c Class of objects handled by this handler
@@ -67,7 +67,7 @@ public abstract class BaseHandler implements ConfigurationHandler {
 	 */
 	public Object fromString(String s) {
 		try {
-			return myClass.getConstructor(new Class[]{String.class}).newInstance(new Object[]{s});
+			return myClass.getConstructor(new Class[]{String.class}).newInstance(s);
 		} catch (Exception e) {
 			Throwable t = e;
 			if (t instanceof InvocationTargetException) {

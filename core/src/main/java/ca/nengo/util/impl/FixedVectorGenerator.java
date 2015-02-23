@@ -36,7 +36,7 @@ import ca.nengo.util.VectorGenerator;
  */
 public class FixedVectorGenerator implements VectorGenerator, java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	private float[][] myVectors;
+	private final float[][] myVectors;
 
 	public FixedVectorGenerator(float[][] vectors)
 	{

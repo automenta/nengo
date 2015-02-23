@@ -12,7 +12,7 @@ import ca.nengo.util.ThreadTask;
  */
 public class GPUThread extends NodeThread {
 
-	NEFGPUInterface myNEFGPUInterface;
+	final NEFGPUInterface myNEFGPUInterface;
 	
 	public GPUThread(NodeThreadPool nodePool, boolean interactive) {
 		super(nodePool, new Node[0], 0, -1, new Projection[0], 0, -1, new ThreadTask[0], 0, -1);

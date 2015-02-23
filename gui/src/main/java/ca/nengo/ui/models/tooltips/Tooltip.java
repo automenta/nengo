@@ -41,8 +41,8 @@ import java.util.Iterator;
  */
 public class Tooltip extends WorldObjectImpl {
 
-	private TooltipBuilder tooltipBuilder;
-	private double tooltipWidth;
+	private final TooltipBuilder tooltipBuilder;
+	private final double tooltipWidth;
 	public static final double DEFAULT_WIDTH = 250;
 
 	public Tooltip(TooltipBuilder tooltipBuilder) {

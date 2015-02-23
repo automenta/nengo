@@ -56,7 +56,7 @@ import java.util.Stack;
 public class PostfixFunction implements Function {
 
 	private static final long serialVersionUID = 1L;
-	private static Logger ourLogger = Logger.getLogger(PostfixFunction.class);
+	private static final Logger ourLogger = Logger.getLogger(PostfixFunction.class);
 
 	private List<Serializable> myExpressionList;
 

@@ -16,8 +16,8 @@ public class Pulsator {
 
 	private static final long PULSATION_STATE_TRANSITION = (1000 / (PULSATION_RATE_PER_SEC * 2));
 
-	private WorldObjectImpl target;
-	private float originalTransparency;
+	private final WorldObjectImpl target;
+	private final float originalTransparency;
 	private boolean isPulsating = true;
 	PActivity fadeActivity;
 
@@ -59,7 +59,7 @@ public class Pulsator {
 		}
 	}
 
-	PActivityDelegate myFaderDelegate = new PActivityDelegate() {
+	final PActivityDelegate myFaderDelegate = new PActivityDelegate() {
 		public void activityFinished(PActivity activity) {
 			pulsate();
 		}

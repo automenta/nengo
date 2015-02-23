@@ -73,7 +73,7 @@ public class SimulationException extends NengoException {
 		String message = super.getMessage();
 		
 		if (myEnsembleName != null) {
-			message = message + " (ensemble: " + myEnsembleName + ")";
+			message = message + " (ensemble: " + myEnsembleName + ')';
 		}
 		
 		return message;

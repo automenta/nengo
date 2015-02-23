@@ -114,9 +114,9 @@ public class UserDialogs {
  * @author Shu Wu
  */
 class UserMultiPropDialog {
-    private Property[] propertiesSchema;
+    private final Property[] propertiesSchema;
     private ConfigResult configResults;
-    private String dialogName;
+    private final String dialogName;
 
     public UserMultiPropDialog(String dialogName, Property[] configParameters) {
         this.dialogName = dialogName;

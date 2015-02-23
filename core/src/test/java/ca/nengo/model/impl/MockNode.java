@@ -124,7 +124,7 @@ public class MockNode implements Node, Cloneable {
 		node.setMode(SimulationMode.APPROXIMATE);
 
 		try {
-			MockNode other = (MockNode) node.clone();
+			MockNode other = node.clone();
 			System.out.println("equals? " + (node == other));
 			System.out.println(other.getName());
 			System.out.println(other.getDocumentation());

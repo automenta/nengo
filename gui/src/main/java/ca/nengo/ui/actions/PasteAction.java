@@ -45,7 +45,7 @@ public class PasteAction extends StandardAction {
 
     private static final long serialVersionUID = 1L;
 
-    private NodeContainer nodeContainer;
+    private final NodeContainer nodeContainer;
     
     private Double posX = null;
     private Double posY = null;

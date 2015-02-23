@@ -39,7 +39,7 @@ import javax.swing.*;
 public class ConfigException extends UIException {
 
     private static final long serialVersionUID = 1L;
-    private boolean isRecoverable;
+    private final boolean isRecoverable;
 
     /**
      * @param message

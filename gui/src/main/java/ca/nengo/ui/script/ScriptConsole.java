@@ -75,24 +75,24 @@ public class ScriptConsole extends JPanel {
 	public static final String ERROR_STYLE = "error";
 	public static final String HELP_STYLE = "help";
 
-	private PythonInterpreter myInterpreter;
-	private JEditorPane myDisplayArea;
-	private JTextArea myCommandField;
-	private JScrollPane myDisplayScroll;
-	private HistoryCompletor myHistoryCompletor;
-	private CallChainCompletor myCallChainCompletor;
+	private final PythonInterpreter myInterpreter;
+	private final JEditorPane myDisplayArea;
+	private final JTextArea myCommandField;
+	private final JScrollPane myDisplayScroll;
+	private final HistoryCompletor myHistoryCompletor;
+	private final CallChainCompletor myCallChainCompletor;
 	private boolean myInCallChainCompletionMode;
 	private String myTypedText;
 	private int myTypedCaretPosition;
 	private StyleContext myStyleContext;
-	private JSeparator seperator;
+	private final JSeparator seperator;
 	private Style rootStyle;
 	private Style commandStyle;
 	private boolean myToolTipVisible;
 	private int myDefaultDismissDelay;
 	private long myLastHelpTime = 0;
 	private Action myHideTip;
-	private ArrayList<String> myAddedVariables;
+	private final ArrayList<String> myAddedVariables;
 
 	/**
 	 * @param interpreter
@@ -212,7 +212,8 @@ public class ScriptConsole extends JPanel {
 	 */
 	public String[] getVariables() {
 		PyStringMap dict = (PyStringMap)myInterpreter.getLocals();
-		return (String[])dict.keys().toArray(new String[0]);
+        org.python.core.PyList var = dict.keys();
+        return (String[]) var.toArray(new String[var.size()]);
 	}
 	
 	/**
@@ -244,7 +245,7 @@ public class ScriptConsole extends JPanel {
 
 		// prepend "_" if name starts with a number
 		if (name.matches("\\A\\d.*")) {
-			name = "_" + name;
+			name = '_' + name;
 		}
 
 		// prepend "_" if name is reserved word
@@ -255,7 +256,7 @@ public class ScriptConsole extends JPanel {
 
 		for (int i = 0; i < reserved.length; i++) {
 			if (name.equals(reserved[i])) {
-				name = "_" + name;
+				name = '_' + name;
 			}
 		}
 
@@ -405,7 +406,7 @@ public class ScriptConsole extends JPanel {
         			}
                 } catch (RuntimeException e) {
           			ourLogger.error("Runtime error in interpreter", e);
-           			appendText(e.toString()+"\n", ERROR_STYLE);
+           			appendText(e.toString()+ '\n', ERROR_STYLE);
                 }
             }
                 
@@ -569,14 +570,14 @@ public class ScriptConsole extends JPanel {
 		KeyListener[] kl = myCommandField.getKeyListeners();
 		for( KeyListener listener : kl ) {
 			if (listener instanceof CommandKeyListener) {
-				((CommandKeyListener)listener).keyPressed(e);
+				listener.keyPressed(e);
 			}
 		}
 	}
 
 	private class CommandKeyListener implements KeyListener {
 
-		private ScriptConsole myConsole;
+		private final ScriptConsole myConsole;
 
 		public CommandKeyListener(ScriptConsole console) {
 			myConsole = console;
@@ -660,8 +661,8 @@ public class ScriptConsole extends JPanel {
 	 *
 	 * @author Terry Stewart
 	 */
-	private class ConsoleOutputWriter extends java.io.Writer {
-		private ScriptConsole myConsole;
+	private static class ConsoleOutputWriter extends java.io.Writer {
+		private final ScriptConsole myConsole;
 		public ConsoleOutputWriter(ScriptConsole console) {
 			myConsole=console;
 		}

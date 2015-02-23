@@ -55,7 +55,7 @@ public class MouseHandler extends PBasicInputEventHandler {
 	///////////////////////////////////////////////////////////////////////////
 	/// Members and constructor
 	
-	private SelectionBorder frame;
+	private final SelectionBorder frame;
 
 	private boolean handCursorShown = false;
 
@@ -66,7 +66,7 @@ public class MouseHandler extends PBasicInputEventHandler {
 	private Point2D mouseMovedCanvasPosition = null;
 	private Interactable mouseMovedInteractableObj = null;
 
-	private WorldImpl world;
+	private final WorldImpl world;
 
 	public MouseHandler(WorldImpl world) {
 		super();
@@ -160,7 +160,7 @@ public class MouseHandler extends PBasicInputEventHandler {
 				event.getComponent().pushCursor(HAND_CURSOR);
 			}
 
-			frame.setSelected((WorldObject) obj);
+			frame.setSelected(obj);
 		}
 	}
 	

@@ -33,7 +33,6 @@ import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.model.nef.impl.DecodedTermination;
 import ca.nengo.model.nef.impl.NEFEnsembleImpl;
 import ca.nengo.model.plasticity.impl.PESTermination;
-import ca.nengo.model.plasticity.impl.PlasticEnsembleImpl;
 import ca.nengo.util.MU;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
@@ -129,7 +128,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 		createEnsembleOrigin(name, origins);
 	}
 	
-	private void createEnsembleOrigin(String name, Origin[] origins) throws StructuralException {
+	private void createEnsembleOrigin(String name, Origin[] origins) {
 		myOrigins.put(name, new ArrayOrigin(this, name, origins));
 		this.exposeOrigin(this.myOrigins.get(name), name);
 	}
@@ -361,7 +360,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 			}
 		}
 		
-		EnsembleTermination term = new EnsembleTermination(this, name, terminations.toArray(new Termination[0]));
+		EnsembleTermination term = new EnsembleTermination(this, name, terminations.toArray(new Termination[terminations.size()]));
 		exposeTermination(term,name);
 		return getTermination(name);
 	}
@@ -411,7 +410,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 		}
 		nonDecodedTerminations.addAll(decodedTerminations);
 		
-		return nonDecodedTerminations.toArray(new Termination[0]);
+		return nonDecodedTerminations.toArray(new Termination[nonDecodedTerminations.size()]);
 		
 	}
 	
@@ -553,7 +552,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 */
 	public void setLearning(boolean learn) {
 		for(int i=0; i < myNumNodes; i++)
-			((PlasticEnsembleImpl)myNodes[i]).setLearning(learn);
+			myNodes[i].setLearning(learn);
 	}
 	
 	/**
@@ -617,12 +616,12 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * Origin representing the concatenation of origins on each of the
 	 * ensembles within the network array.
 	 */
-	public class ArrayOrigin extends BasicOrigin {
+	public static class ArrayOrigin extends BasicOrigin {
 
 		private static final long serialVersionUID = 1L;
 		
-		private String myName;
-		private NetworkArrayImpl myParent;
+		private final String myName;
+		private final NetworkArrayImpl myParent;
 		private Origin[] myOrigins;
 		private int myDimensions;
 
@@ -791,14 +790,14 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * Origin representing the concatenation of origins on each of the
 	 * ensembles within the network array.
 	 */
-	public class ArraySummedOrigin extends BasicOrigin {
+	public static class ArraySummedOrigin extends BasicOrigin {
 
 		private static final long serialVersionUID = 1L;
 		
-		private String myName;
-		private NetworkArrayImpl myParent;
+		private final String myName;
+		private final NetworkArrayImpl myParent;
 		private Origin[] myOrigins;
-		private int myDimensions;
+		private final int myDimensions;
 
 		public ArraySummedOrigin(NetworkArrayImpl parent, String name, Origin[] origins) {
 			myParent = parent;

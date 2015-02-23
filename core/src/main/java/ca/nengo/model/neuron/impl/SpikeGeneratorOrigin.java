@@ -45,8 +45,8 @@ public class SpikeGeneratorOrigin implements Origin {
     private static final long serialVersionUID = 1L;
 
     private String myName;
-    private Node myNode;
-    private SpikeGenerator myGenerator;
+    private final Node myNode;
+    private final SpikeGenerator myGenerator;
     private InstantaneousOutput myOutput;
     private boolean myRequiredOnCPU;
 
@@ -90,7 +90,7 @@ public class SpikeGeneratorOrigin implements Origin {
      * 		or values arrays have length 0 when in CONSTANT_RATE mode (the latter because the first
      * 		entries must be extracted).
      */
-    public void run(float[] times, float[] current) throws SimulationException {
+    public void run(float[] times, float[] current) {
         myOutput = myGenerator.run(times, current);
     }
 

@@ -48,8 +48,8 @@ public class SpikingNeuronFactory implements NodeFactory {
 
     private SynapticIntegratorFactory myIntegratorFactory;
     private SpikeGeneratorFactory myGeneratorFactory;
-    private PDF myScale;
-    private PDF myBias;
+    private final PDF myScale;
+    private final PDF myBias;
 
     /**
      * @param intFact Synaptic integrator factory

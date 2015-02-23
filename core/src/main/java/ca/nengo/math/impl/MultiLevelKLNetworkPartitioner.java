@@ -300,7 +300,7 @@ public class MultiLevelKLNetworkPartitioner implements NetworkPartitioner {
 				for(V curVertex : vertexSet){
 					double vertexCost = 0;
 					
-					Set<DefaultWeightedEdge> incidentEdges = graph.edgesOf((V) curVertex);
+					Set<DefaultWeightedEdge> incidentEdges = graph.edgesOf(curVertex);
 					
 					for(DefaultWeightedEdge curEdge : incidentEdges){
 						Vertex neighbourVertex = graph.getEdgeSource(curEdge);
@@ -607,7 +607,7 @@ public class MultiLevelKLNetworkPartitioner implements NetworkPartitioner {
 				}else{
 					edge = networkGraph.getEdge(originVertex, terminationVertex);
 					double newEdgeWeight = edgeWeight + networkGraph.getEdgeWeight(edge);
-					networkGraph.setEdgeWeight(edge, (double)newEdgeWeight);
+					networkGraph.setEdgeWeight(edge, newEdgeWeight);
 				}
 			}
 		}
@@ -731,7 +731,7 @@ public class MultiLevelKLNetworkPartitioner implements NetworkPartitioner {
 	private static class Vertex implements Comparable<Vertex>{
 		
 		double myWeight;
-		Set<Vertex> mySubordinates;
+		final Set<Vertex> mySubordinates;
 		Vertex myParent;
 		boolean myPartition;
 
@@ -825,7 +825,7 @@ public class MultiLevelKLNetworkPartitioner implements NetworkPartitioner {
 	 */
 	private static class EdgeComparator implements Comparator<DefaultWeightedEdge>{
 		
-		WeightedGraph<? extends Vertex, DefaultWeightedEdge> myGraph;
+		final WeightedGraph<? extends Vertex, DefaultWeightedEdge> myGraph;
 		
 		public EdgeComparator(WeightedGraph<? extends Vertex, DefaultWeightedEdge> graph){
 			myGraph = graph;
@@ -852,9 +852,9 @@ public class MultiLevelKLNetworkPartitioner implements NetworkPartitioner {
 	 * @author Eric Crawford
 	 */
 	private static class VertexPairContainer <V extends Vertex>{
-		private double myVal;
-		private V myVertexA;
-		private V myVertexB;
+		private final double myVal;
+		private final V myVertexA;
+		private final V myVertexB;
 		
 		public VertexPairContainer(double val, V vertexA, V vertexB){
 			myVal = val;

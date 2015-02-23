@@ -29,7 +29,7 @@ import ca.nengo.ui.NengoClassic;
 import ca.nengo.ui.models.NodeContainer.ContainerException;
 
 public class ScriptWorldWrapper {
-	private NengoClassic nengoGraphics;
+	private final NengoClassic nengoGraphics;
 
 	public ScriptWorldWrapper(NengoClassic neoGraphics) {
 		super();

@@ -12,9 +12,9 @@ import javax.swing.*;
  */
 public class TransientStatusMessage {
 
-	private long myDuration;
+	private final long myDuration;
 
-	private String myMessage;
+	private final String myMessage;
 
 	public TransientStatusMessage(String msg, long duration) {
 		super();

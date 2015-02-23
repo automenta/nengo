@@ -115,8 +115,8 @@ public class BrainViewer extends WorldImpl {
 
 class BrainImageWrapper extends WorldObjectImpl {
 
-    AbstractBrainImage2D myBrainImage;
-    Text myLabel;
+    final AbstractBrainImage2D myBrainImage;
+    final Text myLabel;
 
     public BrainImageWrapper(AbstractBrainImage2D brainImage) {
         super();
@@ -138,7 +138,7 @@ class BrainImageWrapper extends WorldObjectImpl {
 
     private void updateLabel() {
         myLabel.setText(myBrainImage.getViewName() + " (" + myBrainImage.getCoordName()
-                + " coord: " + myBrainImage.getCoord() + ")");
+                + " coord: " + myBrainImage.getCoord() + ')');
     }
 
     @Override

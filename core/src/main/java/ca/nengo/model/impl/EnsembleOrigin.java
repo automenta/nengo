@@ -44,7 +44,7 @@ public class EnsembleOrigin implements Origin {
 	
 	private Node myNode;
 	private Origin[] myNodeOrigins;
-	private String myName;
+	private final String myName;
 	private boolean myRequiredOnCPU;
 	
 	/**

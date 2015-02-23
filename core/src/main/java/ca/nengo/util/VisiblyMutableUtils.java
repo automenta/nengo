@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class VisiblyMutableUtils {
 	
-	private static Logger ourLogger = Logger.getLogger(VisiblyMutableUtils.class);
+	private static final Logger ourLogger = Logger.getLogger(VisiblyMutableUtils.class);
 
 	/**
 	 * Notifies listeners of a change to the given VisiblyMutable object.  

@@ -230,9 +230,9 @@ public class FuzzyLogicExample {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		private int myFromDim;
-		private float myMin;
-		private float myMax;
+		private final int myFromDim;
+		private final float myMin;
+		private final float myMax;
 
 		public Clip(int dim, int fromDim, float min, float max) {
 			super(dim);

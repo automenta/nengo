@@ -41,7 +41,7 @@ import java.io.Serializable;
  */
 public class GradientDescentApproximator implements LinearApproximator {
 
-	private static Logger ourLogger = Logger.getLogger(GradientDescentApproximator.class);
+	private static final Logger ourLogger = Logger.getLogger(GradientDescentApproximator.class);
 	private static final long serialVersionUID = 1L;
 
 	private float[][] myEvalPoints;
@@ -265,8 +265,8 @@ public class GradientDescentApproximator implements LinearApproximator {
 
 		private static final long serialVersionUID = 1L;
 
-		private Constraints myConstraints;
-		private boolean myIgnoreBiasFlag;
+		private final Constraints myConstraints;
+		private final boolean myIgnoreBiasFlag;
 
 		/**
 		 * @param constraints As in GradientDescentApproximator constructor
@@ -300,7 +300,7 @@ public class GradientDescentApproximator implements LinearApproximator {
 
 		private static final long serialVersionUID = 1L;
 
-		private boolean mySignPositive;
+		private final boolean mySignPositive;
 
 		/**
 		 * @param positive Sign to force all coefficients to

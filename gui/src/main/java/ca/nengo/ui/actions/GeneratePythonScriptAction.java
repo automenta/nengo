@@ -51,7 +51,7 @@ public class GeneratePythonScriptAction extends StandardAction {
      */
     private File file;
 
-    private UINeoNode nodeUI;
+    private final UINeoNode nodeUI;
 
     /**
      * Whether or not the last save attempt was successful.

@@ -101,7 +101,7 @@ public class TerminationWeightsInputPanel extends PropertyInputPanel {
      *            New dimensions
      */
     private void setDimensions(int dimensions) {
-        tf.setText(dimensions + "");
+        tf.setText(String.valueOf(dimensions));
     }
 
     /**

@@ -41,17 +41,17 @@ public class ModelIcon extends WorldObjectImpl implements Listener {
 	/**
 	 * The inner icon node which contains the actual icon representation
 	 */
-	private WorldObject iconReal;
+	private final WorldObject iconReal;
 
 	/**
 	 * Label of the icon
 	 */
-	private Text label;
+	private final Text label;
 
 	/**
 	 * Parent of this icon
 	 */
-	private ModelObject parent;
+	private final ModelObject parent;
 
 	/**
 	 * Whether to show the type of model in the label
@@ -175,7 +175,7 @@ public class ModelIcon extends WorldObjectImpl implements Listener {
 			if (parent.getName().compareTo("") == 0)
 				label.setText("unnamed " + parent.getTypeName());
 			else
-				label.setText(parent.getName() + " (" + parent.getTypeName() + ")");
+				label.setText(parent.getName() + " (" + parent.getTypeName() + ')');
 		} else {
 			if (parent.getName().compareTo("") == 0)
 				label.setText("unnamed");

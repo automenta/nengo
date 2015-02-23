@@ -23,7 +23,7 @@ import java.awt.geom.Rectangle2D;
  */
 public class WorldSkyImpl extends WorldLayerImpl implements WorldSky {
 
-	private PXCamera myCamera;
+	private final PXCamera myCamera;
 
 	/**
 	 * Create a new sky layer

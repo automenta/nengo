@@ -28,7 +28,7 @@ public class NodeThreadPool {
 	protected int myCurrentNumJavaThreads;
 	protected int myNumThreads;
 	protected NodeThread[] myThreads;
-	protected Object myLock;
+	protected final Object myLock = new Object();
 
 	protected Node[] myNodes;
 	protected Projection[] myProjections;
@@ -112,8 +112,7 @@ public class NodeThreadPool {
 	 */
 	protected void initialize(Network network, List<ThreadTask> threadTasks, boolean interactive){
 		
-		myLock = new Object();
-		
+
 		Node[] nodes = network.getNodes();
 		Projection[] projections = network.getProjections();
 		
@@ -122,9 +121,9 @@ public class NodeThreadPool {
 		List<ThreadTask> taskList = collectTasks(nodes);
 		taskList.addAll(threadTasks);
 		
-		myNodes = nodeList.toArray(new Node[0]);
-		myProjections = projList.toArray(new Projection[0]);
-		myTasks = taskList.toArray(new ThreadTask[0]);
+		myNodes = nodeList.toArray(new Node[nodeList.size()]);
+		myProjections = projList.toArray(new Projection[projList.size()]);
+		myTasks = taskList.toArray(new ThreadTask[taskList.size()]);
 		
 		threadsRunning = false;
 		runFinished = false;
@@ -176,7 +175,8 @@ public class NodeThreadPool {
 		//In the remaining nodes (non-GPU nodes), DO break down the NetworkArrays, we don't want to call the 
 		// "run" method of nodes which are members of classes which derive from the NetworkImpl class since 
 		// NetworkImpls create their own LocalSimulators when run.
-		myNodes = collectNodes(myNodes, true).toArray(new Node[0]);
+        List<Node> var = collectNodes(myNodes, true);
+        myNodes = var.toArray(new Node[var.size()]);
 
 		int nodesPerJavaThread = (int) Math.ceil((float) myNodes.length / (float) myCurrentNumJavaThreads);
 		int projectionsPerJavaThread = (int) Math.ceil((float) myProjections.length / (float) myCurrentNumJavaThreads);
@@ -343,13 +343,13 @@ public class NodeThreadPool {
 			}
 			
 			if(myCollectTimings){
-				StringBuffer timingOutput = new StringBuffer();
+				StringBuilder timingOutput = new StringBuilder();
 				timingOutput.append("Timings for NodeThreadPool:\n");
 				
 				long approxRunTime = new Date().getTime() - myRunStartTime;
-				timingOutput.append("Approximate total run time: " + approxRunTime + " ms\n");
+				timingOutput.append("Approximate total run time: ").append(approxRunTime).append(" ms\n");
 				
-				timingOutput.append("Average time per step: " + myAverageTimePerStep + " ms\n");
+				timingOutput.append("Average time per step: ").append(myAverageTimePerStep).append(" ms\n");
 				
 				System.out.print(timingOutput.toString());
 			}

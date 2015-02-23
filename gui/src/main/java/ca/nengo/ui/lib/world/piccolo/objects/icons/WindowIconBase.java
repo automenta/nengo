@@ -8,9 +8,9 @@ import java.awt.*;
 
 public abstract class WindowIconBase extends WorldObjectImpl {
 
-	private int size;
-	private static int STROKE_WIDTH = 3;
-	public static int PADDING = 6;
+	private final int size;
+	private static final int STROKE_WIDTH = 3;
+	public static final int PADDING = 6;
 
 	public WindowIconBase(int size) {
 		this.size = size;

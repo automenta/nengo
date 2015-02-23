@@ -16,7 +16,7 @@ import ca.nengo.util.Probe;
 
 
 public class TestUtil {
-	public static float tau = .05f;
+	public static final float tau = .05f;
 	public static void buildNetwork(NetworkImpl network) throws StructuralException,
 			InterruptedException, SimulationException {
 		network.setName("Integrator");

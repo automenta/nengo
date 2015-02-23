@@ -57,7 +57,7 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	public static final String DEFAULT_NAME = "Network";
 
 	private static final long serialVersionUID = 1L;
-	private static Logger ourLogger = Logger.getLogger(NetworkImpl.class);
+	private static final Logger ourLogger = Logger.getLogger(NetworkImpl.class);
 
 	private Map<String, Node> myNodeMap; //keyed on name
 	private Map<Termination, Projection> myProjectionMap; //keyed on Termination
@@ -66,8 +66,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	private List<SimulationMode> myFixedModes;
 	private Simulator mySimulator;
 	private float myStepSize;
-	private Map<String, Probeable> myProbeables;
-	private Map<String, String> myProbeableStates;
+	private final Map<String, Probeable> myProbeables;
+	private final Map<String, String> myProbeableStates;
 	private Map<String, Origin> myExposedOrigins;
 	private Map<String, Termination> myExposedTerminations;
 
@@ -273,7 +273,7 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 			 * 
 			 * Also only do the swap if the node being changed is already in myNodeMap.
 			 */
-			if (!ne.getOldName().equals(ne.getNewName()) && ((Node)ne.getObject() == getNode(ne.getOldName()))) {
+			if (!ne.getOldName().equals(ne.getNewName()) && (ne.getObject() == getNode(ne.getOldName()))) {
 				myNodeMap.put(ne.getNewName(), (Node)ne.getObject());
 				myNodeMap.remove(ne.getOldName());
 			}
@@ -289,13 +289,11 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	 */
 	public ArrayList<Termination> getNodeTerminations()
 	{
-		ArrayList<Termination> nodeTerminations = new ArrayList<Termination>();
 		Node[] nodes = getNodes();
+        ArrayList<Termination> nodeTerminations = new ArrayList<Termination>(nodes.length);
 		for (Node node : nodes) {
 			Termination[] terms = node.getTerminations();
-			for (Termination term : terms) {
-                nodeTerminations.add(term);
-            }
+            Collections.addAll(nodeTerminations, terms);
 		}
 
 		return nodeTerminations;
@@ -308,13 +306,11 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	 */
 	public ArrayList<Origin> getNodeOrigins()
 	{
-		ArrayList<Origin> nodeOrigins = new ArrayList<Origin>();
 		Node[] nodes = getNodes();
+        ArrayList<Origin> nodeOrigins = new ArrayList<Origin>(nodes.length);
 		for (Node node : nodes) {
 			Origin[] origs = node.getOrigins();
-			for (Origin orig : origs) {
-                nodeOrigins.add(orig);
-            }
+            Collections.addAll(nodeOrigins, origs);
 		}
 
 		return nodeOrigins;
@@ -324,7 +320,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	 * @see ca.nengo.model.Network#getNodes()
 	 */
 	public Node[] getNodes() {
-		return myNodeMap.values().toArray(new Node[0]);
+        Collection<Node> var = myNodeMap.values();
+        return var.toArray(new Node[var.size()]);
 	}
 
 	/**
@@ -442,7 +439,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	 * @see ca.nengo.model.Network#getProjections()
 	 */
 	public Projection[] getProjections() {
-		return myProjectionMap.values().toArray(new Projection[0]);
+        Collection<Projection> var = myProjectionMap.values();
+        return var.toArray(new Projection[var.size()]);
 	}
 	
 	public Map<Termination, Projection> getProjectionMap() {
@@ -648,6 +646,7 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 			try {
 				exposeState(p,origin.getName(),name);
 			} catch (StructuralException e) {
+                e.printStackTrace();
 			}
 		}
 		fireVisibleChangeEvent();
@@ -700,9 +699,10 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	 */
 	public Origin[] getOrigins() {
 		if (myExposedOrigins.values().size() == 0) {
-            return myExposedOrigins.values().toArray(new Origin[0]);
+            Collection<Origin> var = myExposedOrigins.values();
+            return var.toArray(new Origin[var.size()]);
         }
-		return OrderedExposedOrigins.toArray(new Origin [0]);
+		return OrderedExposedOrigins.toArray(new Origin[OrderedExposedOrigins.size()]);
 	}
 
 	/**
@@ -758,9 +758,10 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	 */
 	public Termination[] getTerminations() {
 		if (myExposedTerminations.values().size() == 0) {
-            return myExposedTerminations.values().toArray(new Termination[0]);
+            Collection<Termination> var = myExposedTerminations.values();
+            return var.toArray(new Termination[var.size()]);
         }
-		return OrderedExposedTerminations.toArray(new Termination[0]);
+		return OrderedExposedTerminations.toArray(new Termination[OrderedExposedTerminations.size()]);
 	}
 
 	/**
@@ -818,7 +819,7 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	 *
 	 * @author Bryan Tripp
 	 */
-	public class OriginWrapper implements Origin {
+	public static class OriginWrapper implements Origin {
 
 		private static final long serialVersionUID = 1L;
 
@@ -852,18 +853,21 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 			return myWrapped;
 		}
 
-		/**
-		 * Unwraps Origin until it finds one that isn't wrapped
-		 *
-		 * @return Base origin if there are multiple levels of wrapping
-		 */
-		public Origin getBaseOrigin(){
-			if(myWrapped instanceof OriginWrapper) {
-                return ((OriginWrapper) myWrapped).getBaseOrigin();
-            } else {
-                return myWrapped;
+        /**
+         * Unwraps Origin until it finds one that isn't wrapped
+         *
+         * @return Base origin if there are multiple levels of wrapping
+         */
+        public Origin getBaseOrigin() {
+            OriginWrapper other = this;
+            while (true) {
+                if (other.myWrapped instanceof OriginWrapper) {
+                    other = ((OriginWrapper) other.myWrapped);
+                } else {
+                    return other.myWrapped;
+                }
             }
-		}
+        }
 
 		/**
 		 * @param wrapped Set the underlying wrapped Origin
@@ -929,13 +933,13 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	 *
 	 * @author Bryan Tripp
 	 */
-	public class TerminationWrapper implements Termination {
+	public static class TerminationWrapper implements Termination {
 
 		private static final long serialVersionUID = 1L;
 
-		private Node myNode;
-		private Termination myWrapped;
-		private String myName;
+		private final Node myNode;
+		private final Termination myWrapped;
+		private final String myName;
 
 		/**
 		 * @param node Parent node
@@ -955,18 +959,21 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 			return myWrapped;
 		}
 
-		/**
-		 * Unwraps terminations until it finds one that isn't wrapped
-		 *
-		 * @return Underlying Termination, not wrapped
-		 */
-		public Termination getBaseTermination(){
-			if(myWrapped instanceof TerminationWrapper) {
-                return ((TerminationWrapper) myWrapped).getBaseTermination();
-            } else {
-                return myWrapped;
+        /**
+         * Unwraps terminations until it finds one that isn't wrapped
+         *
+         * @return Underlying Termination, not wrapped
+         */
+        public Termination getBaseTermination() {
+            TerminationWrapper other = this;
+            while (true) {
+                if (other.myWrapped instanceof TerminationWrapper) {
+                    other = ((TerminationWrapper) other.myWrapped);
+                } else {
+                    return other.myWrapped;
+                }
             }
-		}
+        }
 
 		public String getName() {
 			return myName;
@@ -1101,9 +1108,9 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 
     public String toScript(HashMap<String, Object> scriptData) throws ScriptGenException {
 		StringBuilder py = new StringBuilder();
-        String pythonNetworkName = scriptData.get("prefix") + myName.replaceAll("\\p{Blank}|\\p{Punct}", ((Character)scriptData.get("spaceDelim")).toString());
+        String pythonNetworkName = scriptData.get("prefix") + myName.replaceAll("\\p{Blank}|\\p{Punct}", scriptData.get("spaceDelim").toString());
 
-        py.append("\n\n# Network " + myName + " Start\n");
+        py.append("\n\n# Network ").append(myName).append(" Start\n");
 
         if ((Boolean)scriptData.get("isSubnet"))
         {
@@ -1120,7 +1127,7 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                     myName));
         }
 
-        py.append("\n# " + myName + " - Nodes\n");
+        py.append("\n# ").append(myName).append(" - Nodes\n");
         
         return py.toString();
     }
@@ -1193,13 +1200,13 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 		result.myListeners = new ArrayList<Listener>(5);
 
 		result.myMetaData = new HashMap<String, Object>(10);
-		for (String key : myMetaData.keySet()) {
-			Object o = myMetaData.get(key);
+		for (Map.Entry<String, Object> stringObjectEntry : myMetaData.entrySet()) {
+			Object o = stringObjectEntry.getValue();
 			if (o instanceof Cloneable) {
 				Object copy = tryToClone((Cloneable) o);
-				result.myMetaData.put(key, copy);
+				result.myMetaData.put(stringObjectEntry.getKey(), copy);
 			} else {
-				result.myMetaData.put(key, o);
+				result.myMetaData.put(stringObjectEntry.getKey(), o);
 			}
 		}
 
@@ -1246,8 +1253,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 		Object result = null;
 
 		try {
-			Method cloneMethod = o.getClass().getMethod("clone", new Class[0]);
-			result = cloneMethod.invoke(o, new Object[0]);
+			Method cloneMethod = o.getClass().getMethod("clone");
+			result = cloneMethod.invoke(o);
 		} catch (Exception e) {
 			ourLogger.warn("Couldn't clone data of type " + o.getClass().getName(), e);
 		}
@@ -1282,12 +1289,12 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	}
 
 	@SuppressWarnings("unchecked")
-	public String toPostScript(HashMap<String, Object> scriptData) throws ScriptGenException {
+	public String toPostScript(HashMap<String, Object> scriptData) {
 		StringBuilder py = new StringBuilder();
 
-		String pythonNetworkName = scriptData.get("prefix") + myName.replaceAll("\\p{Blank}|\\p{Punct}", ((Character)scriptData.get("spaceDelim")).toString());
+		String pythonNetworkName = scriptData.get("prefix") + myName.replaceAll("\\p{Blank}|\\p{Punct}", scriptData.get("spaceDelim").toString());
 
-        py.append("\n# " + myName + " - Templates\n");
+        py.append("\n# ").append(myName).append(" - Templates\n");
 		
         if (myMetaData.get("NetworkArray") != null) {
             Iterator iter = ((HashMap)myMetaData.get("NetworkArray")).values().iterator();
@@ -1318,26 +1325,26 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
             	 py.append(String.format("%s.make_array(name='%s', neurons=%d, length=%d, dimensions=%d",
             			 	pythonNetworkName,
             			 	array.get("name"),
-            			 	(Integer)array.get("neurons"),
-                            (Integer)array.get("length"),
-                            (Integer)array.get("dimensions")
+                         array.get("neurons"),
+                         array.get("length"),
+                         array.get("dimensions")
                             ));
             	 
-            	 if(array.containsKey("radius")){ py.append(", radius=" + Double.toString((Double)array.get("radius"))); }
+            	 if(array.containsKey("radius")){ py.append(", radius=").append(Double.toString((Double) array.get("radius"))); }
             	 
             	 if(array.containsKey("rLow") && array.containsKey("rHigh"))
-            	 { py.append(", max_rate=(" + Double.toString((Double)array.get("rLow")) + ", " + Double.toString((Double)array.get("rHigh")) + ")"); }
+            	 { py.append(", max_rate=(").append(Double.toString((Double) array.get("rLow"))).append(", ").append(Double.toString((Double) array.get("rHigh"))).append(')'); }
             	 
             	 if(array.containsKey("iLow") && array.containsKey("iHigh"))
-            	 { py.append(", intercept=(" + Double.toString((Double)array.get("iLow")) + ", " + Double.toString((Double)array.get("iHigh")) + ")"); }
+            	 { py.append(", intercept=(").append(Double.toString((Double) array.get("iLow"))).append(", ").append(Double.toString((Double) array.get("iHigh"))).append(')'); }
             	 
             	 if(array.containsKey("useQuick"))
             	 {  
             		String useQuick = (Boolean)array.get("useQuick") ? "True" : "False";
-            	 	py.append(", quick=" + useQuick);
+            	 	py.append(", quick=").append(useQuick);
             	 }
             	 
-            	 if(array.containsKey("encoders")){ py.append(", encoders=" + array.get("encoders")); }
+            	 if(array.containsKey("encoders")){ py.append(", encoders=").append(array.get("encoders")); }
             	 py.append(")\n");
             }
         } 
@@ -1359,9 +1366,9 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                 py.append(String.format("nef.templates.basalganglia.make(%s, name='%s', dimensions=%d, neurons=%d, pstc=%.3f, same_neurons=%s)\n",
                             pythonNetworkName,
                             bg.get("name"),
-                            (Integer)bg.get("dimensions"),
-                            (Integer)bg.get("neurons"),
-                            (Double)bg.get("pstc"),
+                        bg.get("dimensions"),
+                        bg.get("neurons"),
+                        bg.get("pstc"),
                             same_neurons));
             }
         } 
@@ -1383,10 +1390,10 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                 py.append(String.format("nef.templates.thalamus.make(%s, name='%s', neurons=%d, dimensions=%d, inhib_scale=%d, tau_inhib=%.3f, useQuick=%s)\n",
                             pythonNetworkName,
                             thal.get("name"),
-                            (Integer)thal.get("neurons"),
-                            (Integer)thal.get("dimensions"),
-                            (Integer)thal.get("inhib_scale"),
-                            (Double)thal.get("tau_inhib"),
+                        thal.get("neurons"),
+                        thal.get("dimensions"),
+                        thal.get("inhib_scale"),
+                        thal.get("tau_inhib"),
                             useQuick));
             }
         }
@@ -1406,11 +1413,11 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                 py.append(String.format("nef.templates.integrator.make(%s, name='%s', neurons=%d, dimensions=%d, tau_feedback=%g, tau_input=%g, scale=%g)\n",
                 			pythonNetworkName,
                             integrator.get("name"),
-                            (Integer)integrator.get("neurons"),
-                            (Integer)integrator.get("dimensions"),
-                            (Double)integrator.get("tau_feedback"),
-                            (Double)integrator.get("tau_input"),
-                            (Double)integrator.get("scale")));
+                        integrator.get("neurons"),
+                        integrator.get("dimensions"),
+                        integrator.get("tau_feedback"),
+                        integrator.get("tau_input"),
+                        integrator.get("scale")));
             }
         }  
 		
@@ -1431,12 +1438,12 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                 py.append(String.format("nef.templates.oscillator.make(%s, name='%s', neurons=%d, dimensions=%d, frequency=%g, tau_feedback=%g, tau_input=%g, scale=%g, controlled=%s)\n",
                 			pythonNetworkName,
                             oscillator.get("name"),
-                            (Integer)oscillator.get("neurons"),
-                            (Integer)oscillator.get("dimensions"),
-                            (Double)oscillator.get("frequency"),
-                            (Double)oscillator.get("tau_feedback"),
-                            (Double)oscillator.get("tau_input"),
-                            (Double)oscillator.get("scale"),
+                        oscillator.get("neurons"),
+                        oscillator.get("dimensions"),
+                        oscillator.get("frequency"),
+                        oscillator.get("tau_feedback"),
+                        oscillator.get("tau_input"),
+                        oscillator.get("scale"),
                             controlled));
             }
         }      
@@ -1457,29 +1464,29 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                 double[][] arr = (double[][])linear.get("A");
                 for (int i = 0; i < arr.length; i++)
                 {
-                    a.append("[");
+                    a.append('[');
                     for (int j = 0; j < arr[i].length; j++)
                     {
                         a.append(arr[i][j]);
                         if ((j+1) < arr[i].length)
                         {
-                            a.append(",");
+                            a.append(',');
                         }
                     }
-                    a.append("]");
+                    a.append(']');
                     if ((i + 1) < arr.length)
                     {
-                        a.append(",");
+                        a.append(',');
                     }
                 }
-                a.append("]");
+                a.append(']');
 
                 py.append(String.format("nef.templates.linear_system.make(%s, name='%s', neurons=%d, A=%s, tau_feedback=%g)\n",
                 			pythonNetworkName,
                             linear.get("name"),
-                            (Integer)linear.get("neurons"),
+                        linear.get("neurons"),
                             a.toString(),
-                            (Double)linear.get("tau_feedback")));
+                        linear.get("tau_feedback")));
             }
         } 
 
@@ -1498,10 +1505,10 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                 py.append(String.format("nef.templates.learned_termination.make(%s, errName='%s', N_err=%d, preName='%s', postName='%s', rate=%g)\n",
                 			pythonNetworkName,
                             learnedterm.get("errName"),
-                            (Integer)learnedterm.get("N_err"),
-                            (String)learnedterm.get("preName"),
-                            (String)learnedterm.get("postName"),
-                            (Double)learnedterm.get("rate")));
+                        learnedterm.get("N_err"),
+                        learnedterm.get("preName"),
+                        learnedterm.get("postName"),
+                        learnedterm.get("rate")));
             }
         }   
 
@@ -1520,47 +1527,47 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                 String invert_first = (Boolean)binding.get("invert_first") ? "True" : "False";
                 String invert_second = (Boolean)binding.get("invert_second") ? "True" : "False";
                 String quick = (Boolean)binding.get("quick") ? "True" : "False";
-                String A = (String)binding.get("A") == null ? "None" : "'" + (String)binding.get("A") + "'";
-                String B = (String)binding.get("B") == null ? "None" : "'" + (String)binding.get("B") + "'";
+                String A = binding.get("A") == null ? "None" : "'" + binding.get("A") + '\'';
+                String B = binding.get("B") == null ? "None" : "'" + binding.get("B") + '\'';
 
                 StringBuilder encoders = new StringBuilder("[");
                 double[][] arr = (double[][])binding.get("encoders");
                 for (int i = 0; i < arr.length; i++)
                 {
-                    encoders.append("[");
+                    encoders.append('[');
                     for (int j = 0; j < arr[i].length; j++)
                     {
                         encoders.append(arr[i][j]);
                         if ((j+1) < arr[i].length)
                         {
-                            encoders.append(",");
+                            encoders.append(',');
                         }
                     }
-                    encoders.append("]");
+                    encoders.append(']');
                     if ((i + 1) < arr.length)
                     {
-                        encoders.append(",");
+                        encoders.append(',');
                     }
                 }
-                encoders.append("]");
+                encoders.append(']');
                 
                 py.append(String.format("nef.convolution.make_convolution(%s, name='%s', A=%s, B=%s, C='%s', N_per_D=%d, quick=%s, encoders=%s, radius=%d, pstc_out=%g, pstc_in=%g, pstc_gate=%g, invert_first=%s, invert_second=%s, mode='%s', output_scale=%d)\n",
                 			pythonNetworkName,
                             binding.get("name"),
                             A,
                             B,
-                            (String)binding.get("C"),
-                            (Integer)binding.get("N_per_D"),
+                        binding.get("C"),
+                        binding.get("N_per_D"),
                             quick,
                             encoders.toString(),
-                            (Integer)binding.get("radius"),
-                            (Double)binding.get("pstc_out"),
-                            (Double)binding.get("pstc_in"),
-                            (Double)binding.get("pstc_gate"),
+                        binding.get("radius"),
+                        binding.get("pstc_out"),
+                        binding.get("pstc_in"),
+                        binding.get("pstc_gate"),
                             invert_first,
                             invert_second,
-                            (String)binding.get("mode"),
-                            (Integer)binding.get("output_scale")));
+                        binding.get("mode"),
+                        binding.get("output_scale")));
             }
         } 
 
@@ -1582,11 +1589,11 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                 py.append(String.format("nef.templates.basalganglia_rule.make(%s, %s.network.getNode('%s'), index=%d, dim=%d, pattern='%s', pstc=%g, use_single_input=%s)\n",
                             pythonNetworkName,
                             pythonNetworkName,
-                            (String)bgrule.get("name"),
-                            (Integer)bgrule.get("index"),
-                            (Integer)bgrule.get("dim"),
-                            (String)bgrule.get("pattern"),
-                            (Double)bgrule.get("pstc"),
+                        bgrule.get("name"),
+                        bgrule.get("index"),
+                        bgrule.get("dim"),
+                        bgrule.get("pattern"),
+                        bgrule.get("pstc"),
                             use_single_input));
             }
         } 
@@ -1606,9 +1613,9 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                 py.append(String.format("nef.templates.gate.make(%s, name='%s', gated='%s', neurons=%d, pstc=%g)\n",
                 			pythonNetworkName,
                             gate.get("name"),
-                            (String)gate.get("gated"),
-                            (Integer)gate.get("neurons"),
-                            (Double)gate.get("pstc")));
+                        gate.get("gated"),
+                        gate.get("neurons"),
+                        gate.get("pstc")));
             }
         }    
 

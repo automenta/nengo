@@ -237,9 +237,9 @@ public class PXImage extends PXNode {
 	 * @return a string representation of this node's state
 	 */
 	protected String paramString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
-		result.append("image=" + (image == null ? "null" : image.toString()));
+		result.append("image=").append(image == null ? "null" : image.toString());
 		result.append(',');
 		result.append(super.toString());
 

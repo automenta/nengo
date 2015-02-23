@@ -20,8 +20,8 @@ public class GruberNeuronFactory implements NodeFactory {
 	 */
 	public static final String DOPAMINE = "dopamine";
 
-	private PDF myScalePDF;
-	private PDF myBiasPDF;
+	private final PDF myScalePDF;
+	private final PDF myBiasPDF;
 
 	/**
 	 * @param scale PDF to pick neuron scale from
@@ -61,8 +61,8 @@ public class GruberNeuronFactory implements NodeFactory {
 
 		private static final long serialVersionUID = 1L;
 
-		private LinearExponentialTermination myDopamineTermination;
-		private GruberSpikeGenerator mySpikeGenerator;
+		private final LinearExponentialTermination myDopamineTermination;
+		private final GruberSpikeGenerator mySpikeGenerator;
 
 		/**
 		 * @param integrator synaptic integrator

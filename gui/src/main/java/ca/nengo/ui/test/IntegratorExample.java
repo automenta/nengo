@@ -51,12 +51,11 @@ import java.lang.reflect.InvocationTargetException;
  * @author Shu Wu
  */
 public class IntegratorExample {
-	public static float tau = .05f;
+	public static final float tau = .05f;
 
 	private UINetwork network;
 
-	public void createUINetwork(AbstractNengo abstractNengo) throws StructuralException,
-			SimulationException {
+	public void createUINetwork(AbstractNengo abstractNengo) {
 
 		network = new UINetwork(new NetworkImpl());
 		abstractNengo.getWorld().getGround().addChild(network);
@@ -188,13 +187,14 @@ public class IntegratorExample {
 
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
-				try {
+				//try {
 					createUINetwork(new AbstractNengo());
+                /*
 				} catch (StructuralException e) {
 					e.printStackTrace();
 				} catch (SimulationException e) {
 					e.printStackTrace();
-				}
+				}*/
 			}
 		});
 

@@ -9,7 +9,7 @@ import java.awt.*;
 public class MenuBuilder extends AbstractMenuBuilder {
 	boolean isFirstSection = true;
 
-	JMenu menu;
+	final JMenu menu;
 
 	public MenuBuilder(String label) {
 		this(label, false);

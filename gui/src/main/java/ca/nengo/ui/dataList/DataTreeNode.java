@@ -107,7 +107,7 @@ class ProbeDataExpandedNode extends TimeSeriesNode {
     private static final long serialVersionUID = 1L;
 
     public ProbeDataExpandedNode(TimeSeries userObject, int dim, boolean applyFilterByDefault) {
-        super(userObject, "" + dim, applyFilterByDefault);
+        super(userObject, String.valueOf(dim), applyFilterByDefault);
     }
 
     @Override
@@ -167,8 +167,8 @@ class SpikePatternNode extends DataTreeNode {
 abstract class TimeSeriesNode extends DataTreeNode {
     private static final long serialVersionUID = 1L;
 
-    protected String name;
-    private boolean applyFilterByDefault;
+    protected final String name;
+    private final boolean applyFilterByDefault;
 
     public TimeSeriesNode(TimeSeries userObject, String name, boolean applyFilterByDefault) {
         super(userObject);
@@ -190,7 +190,7 @@ abstract class TimeSeriesNode extends DataTreeNode {
     class ExtractDimenmsions extends StandardAction {
 
         private static final long serialVersionUID = 1L;
-        private SimulatorDataModel dataModel;
+        private final SimulatorDataModel dataModel;
 
         public ExtractDimenmsions(SimulatorDataModel dataModel) {
             super("Extract dimensions");

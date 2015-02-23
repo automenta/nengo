@@ -65,7 +65,7 @@ public class UIFunctionInput extends UINeoNode {
 	protected void constructTooltips(TooltipBuilder tooltips) {
 		super.constructTooltips(tooltips);
 
-		tooltips.addProperty("Dimensions", "" + getModel().getFunctions().length);
+		tooltips.addProperty("Dimensions", String.valueOf(getModel().getFunctions().length));
 	}
 
 	@Override

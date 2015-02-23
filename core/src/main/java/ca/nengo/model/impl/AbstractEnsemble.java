@@ -50,7 +50,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 
 	private static final long serialVersionUID = -5498397418584843304L;
 
-	private static Logger ourLogger = Logger.getLogger(AbstractEnsemble.class);
+	private static final Logger ourLogger = Logger.getLogger(AbstractEnsemble.class);
 
 	private String myName;
 	private Map<String, List<Integer>> myStateNames; // for Probeable
@@ -281,7 +281,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
         for (Origin o : myOrigins.values()) {
             result.add(o);
         }
-        return result.toArray(new Origin[0]);
+        return result.toArray(new Origin[result.size()]);
 	}
 
 	/**
@@ -292,7 +292,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	    for (Termination t : myTerminations.values()) {
             result.add(t);
         }
-	    return result.toArray(new Termination[0]);
+	    return result.toArray(new Termination[result.size()]);
 	}
 
 	/**
@@ -354,6 +354,8 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 		}
 	}
 
+    final static float[] emptyFloat = new float[0];
+
 	/**
 	 * @return Composite of Node states by given name. States of different nodes may be defined at different
 	 * 		times, so only the states at the end of the most recent step are given. Only the first
@@ -368,7 +370,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 		List<Integer> nodeNumbers = myStateNames.get(stateName);
 		float[] firstNodeTimes = ((Probeable) myNodes[nodeNumbers.get(0).intValue()]).getHistory(stateName).getTimes();
 
-		float[] times = new float[0];
+		float[] times = emptyFloat;
 		float[][] values = new float[0][];
 		Units[] units = Units.uniform(Units.UNK, myNodes.length);
 
@@ -420,10 +422,10 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 		while (it.hasNext()) {
 			String name = it.next();
 			List<Origin> group = groups.get(name);
-			result.add(new EnsembleOrigin(parent, name, group.toArray(new Origin[0])));
+			result.add(new EnsembleOrigin(parent, name, group.toArray(new Origin[group.size()])));
 		}
 
-		return result.toArray(new Origin[0]);
+		return result.toArray(new Origin[result.size()]);
 	}
 
 	/**
@@ -506,13 +508,13 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 			String name = it.next();
 			List<Termination> group = groups.get(name);
 			try {
-				result.add(new EnsembleTermination(parent, name, group.toArray(new Termination[0])));
+				result.add(new EnsembleTermination(parent, name, group.toArray(new Termination[group.size()])));
 			} catch (StructuralException e) {
 				throw new Error("Composite Termination should consist only of 1D Terminations, but apparently does not", e);
 			}
 		}
 
-		return result.toArray(new EnsembleTermination[0]);
+		return result.toArray(new EnsembleTermination[result.size()]);
 	}
 
 	private static Map<String, List<Integer>> findStateNames(Node[] nodes) {

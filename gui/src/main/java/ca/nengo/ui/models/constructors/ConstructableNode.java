@@ -52,9 +52,9 @@ public abstract class ConstructableNode extends AbstractConstructable {
 	public final ConfigSchema getSchema() {
 		ConfigSchema nodeConfigSchema = getNodeConfigSchema();
 
-		ConfigSchemaImpl newConfigSchema = new ConfigSchemaImpl(nodeConfigSchema.getProperties()
-				.toArray(new Property[] {}), nodeConfigSchema.getAdvancedProperties().toArray(
-				new Property[] {}));
+        java.util.List<Property> var = nodeConfigSchema.getAdvancedProperties();
+        java.util.List<Property> var2 = nodeConfigSchema.getProperties();
+        ConfigSchemaImpl newConfigSchema = new ConfigSchemaImpl(var.toArray(new Property[var.size()]), var2.toArray(new Property[var.size()]));
 
 		newConfigSchema.addProperty(pName, 0);
 

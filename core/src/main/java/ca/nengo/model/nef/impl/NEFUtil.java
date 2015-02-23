@@ -84,7 +84,7 @@ public class NEFUtil {
 							} else {
 								radialInput = MU.prod(input[i], encoders[j]);
 							}
-							((NEFNode) nodes[j]).setRadialInput(radialInput);
+							nodes[j].setRadialInput(radialInput);
 							if (mode.equals(SimulationMode.CONSTANT_RATE)) {
 								nodes[j].run(0f, 0f);
 							} else {

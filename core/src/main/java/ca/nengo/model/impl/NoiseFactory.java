@@ -208,7 +208,7 @@ public class NoiseFactory {
 		public NoiseImplPDF(float frequency, PDF pdf, DynamicalSystem dynamics, Integrator integrator) {
 			if (dynamics != null && pdf.getDimension() != dynamics.getInputDimension()) {
 				throw new IllegalArgumentException("PDF dimension (" + pdf.getDimension() + ") must equal dynamics input dimension ("
-						+ dynamics.getInputDimension() + ")");
+						+ dynamics.getInputDimension() + ')');
 			}
 
 			setFrequency(frequency);

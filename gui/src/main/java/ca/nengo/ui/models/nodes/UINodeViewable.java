@@ -58,7 +58,7 @@ public abstract class UINodeViewable extends UINeoNode {
     @Override
     protected void constructTooltips(TooltipBuilder tooltips) {
         super.constructTooltips(tooltips);
-        tooltips.addProperty("# Nodes", "" + getNodesCount());
+        tooltips.addProperty("# Nodes", String.valueOf(getNodesCount()));
     }
 
     /*@Override

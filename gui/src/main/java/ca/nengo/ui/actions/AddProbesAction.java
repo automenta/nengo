@@ -50,7 +50,7 @@ public class AddProbesAction extends ReversableAction {
 
     private HashMap<UINeoNode, UIProbe> myCreatedProbesMap;
 
-    private Collection<ModelObject> myNodes;
+    private final Collection<ModelObject> myNodes;
 
     /**
      * TODO
@@ -73,7 +73,7 @@ public class AddProbesAction extends ReversableAction {
                 .getInstance(), "State name to probe (Case Sensitive): ",
                 "Adding probes", JOptionPane.QUESTION_MESSAGE);
 
-        if (stateName != null && !stateName.equals("")) {
+        if (stateName != null && !stateName.isEmpty()) {
             int successCount = 0;
             int failed = 0;
 

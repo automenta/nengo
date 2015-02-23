@@ -55,7 +55,7 @@ public class NetworkIcon extends NodeContainerIcon {
 		private static final int NumberOfNodeRows = 3;
 		private static final int LineWidth = 4;
 		private static final int CircleDiameter = 18;
-		private static int CircleRadius = CircleDiameter / 2;
+		private static final int CircleRadius = CircleDiameter / 2;
 		private static final int RowHeight = 30;
 		private static final int ColumnWidth = 75;
 		private static final int Padding = 4;

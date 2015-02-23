@@ -10,7 +10,6 @@ import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.WorldObject.Listener;
 import ca.nengo.ui.lib.world.WorldObject.Property;
 import ca.nengo.ui.lib.world.elastic.ElasticEdge;
-import ca.nengo.ui.lib.world.piccolo.WorldGroundImpl;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import ca.nengo.ui.lib.world.piccolo.primitives.PXEdge;
 import org.piccolo2d.util.PPaintContext;
@@ -23,7 +22,7 @@ import java.util.Collection;
  */
 public abstract class LineConnector extends WorldObjectImpl implements Interactable, DroppableX {
 
-	private DestroyListener myDestroyListener;
+	private final DestroyListener myDestroyListener;
 
 	private final Edge myEdge;
 
@@ -39,7 +38,7 @@ public abstract class LineConnector extends WorldObjectImpl implements Interacta
 		setSelectable(true);
 		myEdge = new Edge(well, this, 300);
 		myEdge.setPointerVisible(true);
-		((WorldGroundImpl) well.getWorldLayer()).addEdge(myEdge);
+		well.getWorldLayer().addEdge(myEdge);
 
 		myIcon = new LineOriginIcon();
 		myIcon.setColor(NengoStyle.COLOR_LINEEND);
@@ -224,7 +223,7 @@ public abstract class LineConnector extends WorldObjectImpl implements Interacta
  * @author Shu Wu
  */
 class DestroyListener implements Listener {
-	private LineConnector parent;
+	private final LineConnector parent;
 
 	public DestroyListener(LineConnector parent) {
 		super();

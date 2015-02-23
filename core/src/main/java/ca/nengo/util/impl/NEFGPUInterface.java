@@ -83,7 +83,7 @@ public class NEFGPUInterface {
 			myErrorMessage = "Couldn't load native library NengoGPU - General exception:";
 			System.out.println(myErrorMessage);
 			System.out.println(e.getMessage());
-			System.out.println(e.getStackTrace());
+			System.out.println(Arrays.toString(e.getStackTrace()));
 		}
 	}
 
@@ -174,7 +174,7 @@ public class NEFGPUInterface {
 			}
 		}
 		
-		myGPUEnsembles = GPUNodeList.toArray(new NEFEnsembleImpl[0]);
+		myGPUEnsembles = GPUNodeList.toArray(new NEFEnsembleImpl[GPUNodeList.size()]);
 
 		if (myGPUEnsembles.length == 0)
 			return;
@@ -197,7 +197,7 @@ public class NEFGPUInterface {
 		int[] collectSpikes = new int[myGPUEnsembles.length];
 		int[][] outputRequiredOnCPU = new int[myGPUNetworkArrays.length][];
 		int[] isSpikingEnsemble = new int[myGPUEnsembles.length];
-		float maxTimeStep = ((LIFSpikeGenerator) ((SpikingNeuron) ((NEFEnsembleImpl) myGPUEnsembles[0])
+		float maxTimeStep = ((LIFSpikeGenerator) ((SpikingNeuron) myGPUEnsembles[0]
 				.getNodes()[0]).getGenerator()).getMaxTimeStep();
 		
 		
@@ -634,8 +634,8 @@ public class NEFGPUInterface {
 			}
 		}
 		
-		myGPUNetworkArrays = gpuNodeList.toArray(new Node[0]);
-		return nodeList.toArray(new Node[0]);
+		myGPUNetworkArrays = gpuNodeList.toArray(new Node[gpuNodeList.size()]);
+		return nodeList.toArray(new Node[nodeList.size()]);
 	}
 	
 	/**
@@ -671,8 +671,8 @@ public class NEFGPUInterface {
 			}
 		}
 		
-		myGPUProjections = gpuProjectionsList.toArray(new Projection[0]);
-		nonGPUProjections = projectionList.toArray(new Projection[0]);
+		myGPUProjections = gpuProjectionsList.toArray(new Projection[gpuProjectionsList.size()]);
+		nonGPUProjections = projectionList.toArray(new Projection[projectionList.size()]);
 		return nonGPUProjections;
 		
 	}
@@ -684,8 +684,8 @@ public class NEFGPUInterface {
 	 * 
 	 * @author Eric Crawford
 	 */
-	private class NetworkArrayData {
-		int numEntries = 7;
+	private static class NetworkArrayData {
+		final int numEntries = 7;
 		
 		public int indexOfFirstNode;
 		public int endIndex;
@@ -729,8 +729,8 @@ public class NEFGPUInterface {
 	 * 
 	 * @author Eric Crawford
 	 */
-	private class EnsembleData {
-		int numEntries = 10;
+	private static class EnsembleData {
+		final int numEntries = 10;
 
 		public int dimension;
 		public int numNeurons;

@@ -181,7 +181,8 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	 * @see ca.nengo.model.neuron.SynapticIntegrator#getTerminations()
 	 */
 	public Termination[] getTerminations() {
-		return myTerminations.values().toArray(new Termination[0]);
+        Collection<LinearExponentialTermination> var = myTerminations.values();
+        return var.toArray(new Termination[var.size()]);
 	}
 
 	/**
@@ -215,14 +216,14 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	/**
 	 * @see ca.nengo.model.neuron.ExpandableSynapticIntegrator#removeTermination(java.lang.String)
 	 */
-	public Termination removeTermination(String name) throws StructuralException {
+	public Termination removeTermination(String name) {
 		return myTerminations.remove(name);
 	}
 
 	/**
 	 * @see ca.nengo.model.neuron.SynapticIntegrator#getTermination(java.lang.String)
 	 */
-	public Termination getTermination(String name) throws StructuralException {
+	public Termination getTermination(String name) {
 		return myTerminations.get(name);
 	}
 

@@ -53,7 +53,7 @@ import java.util.StringTokenizer;
  */
 public class CallChainCompletor extends CommandCompletor {
 	
-	private PythonInterpreter myInterpreter;
+	private final PythonInterpreter myInterpreter;
 	private List<String> myDocumentation;
 	
 	/**
@@ -115,24 +115,24 @@ public class CallChainCompletor extends CommandCompletor {
 		myDocumentation = new ArrayList<String>(10);
 		
 		if (pc instanceof PyJavaType) {
-			String className = ((PyJavaType) pc).toString().split("'")[1];
+			String className = pc.toString().split("'")[1];
 			try {
 				Class<?> c = Class.forName(className);
 				Constructor<?>[] constructors = c.getConstructors();
 				for (int i = 0; i < constructors.length; i++) {
 					int mods = constructors[i].getModifiers();
 					if (Modifier.isPublic(mods)) {
-						StringBuffer buf = new StringBuffer(c.getSimpleName());
-						buf.append("(");
+						StringBuilder buf = new StringBuilder(c.getSimpleName());
+						buf.append('(');
 						String[] names = JavaSourceParser.getArgNames(constructors[i]);
 						Class<?>[] types = constructors[i].getParameterTypes();
 						for (int j = 0; j < types.length; j++) {
 							buf.append(types[j].getSimpleName());
-							buf.append(" ");
+							buf.append(' ');
 							buf.append(names[j]);
 							if (j < types.length - 1) buf.append(", ");
 						}
-						buf.append(")");
+						buf.append(')');
 						result.add(buf.toString());	
 						
 						myDocumentation.add(JavaSourceParser.getDocs(constructors[i]));						
@@ -153,12 +153,12 @@ public class CallChainCompletor extends CommandCompletor {
 		PyObject result = null;
 		
 		PyStringMap map = (PyStringMap) myInterpreter.getLocals();
-		PyList keys = (PyList) map.keys();
+		PyList keys = map.keys();
 		PyObject iter = keys.__iter__();
 
 		for (PyObject item; (item = iter.__iternext__()) != null && result == null; ) {
 			if (item.toString().equals(callChain) && (map.get(item) instanceof PyJavaType || map.get(item) instanceof PyClass)) {
-				result = (PyObject) map.get(item);
+				result = map.get(item);
 			}
 		}
 		
@@ -170,7 +170,7 @@ public class CallChainCompletor extends CommandCompletor {
 	 */
 	public List<String> getVariables() {
 		PyStringMap map = (PyStringMap) myInterpreter.getLocals();
-		PyList keys = (PyList) map.keys();
+		PyList keys = map.keys();
 		PyObject iter = keys.__iter__();
 
 		List<String> result = new ArrayList<String>(50);
@@ -226,7 +226,7 @@ public class CallChainCompletor extends CommandCompletor {
 		List<String> result = new ArrayList<String>(20);
 		myDocumentation = new ArrayList<String>(20);
 		if (po instanceof PyJavaType) {
-			String className = ((PyJavaType)po).toString().split("'")[1];
+			String className = po.toString().split("'")[1];
 			
 			try {
 				Class<?> c = Class.forName(className);
@@ -235,7 +235,7 @@ public class CallChainCompletor extends CommandCompletor {
 				for (int i = 0; i < fields.length; i++) {
 					int mods = fields[i].getModifiers();
 					if (Modifier.isStatic(mods) && Modifier.isPublic(mods)) {
-						result.add(base + "." + fields[i].getName());
+						result.add(base + '.' + fields[i].getName());
 						myDocumentation.add("");						
 					}					
 				}
@@ -262,7 +262,7 @@ public class CallChainCompletor extends CommandCompletor {
 				for (int i = 0; i < fields.length; i++) {
 					int mods = fields[i].getModifiers();
 					if (Modifier.isPublic(mods)) {
-						result.add(base + "." + fields[i].getName());
+						result.add(base + '.' + fields[i].getName());
 						myDocumentation.add("");						
 					}
 				}
@@ -289,11 +289,11 @@ public class CallChainCompletor extends CommandCompletor {
 				
 				for (PyString item; (item = (PyString) iter.__iternext__()) != null; ) {
 					PyObject attr = po.__findattr__(item);
-					StringBuffer buf = new StringBuffer(base + ".");					
+					StringBuilder buf = new StringBuilder(base + '.');
 					buf.append(item.toString());
 					
 					if (attr.isCallable()) {						
-						buf.append("(");
+						buf.append('(');
 //						try {
 //							String[] varnames = ((PyTableCode) ((PyFunction) ((PyMethod) attr).im_func).func_code).co_varnames;
 //							for (int i = 1; i < varnames.length; i++) { //skip 'self' arg
@@ -303,7 +303,7 @@ public class CallChainCompletor extends CommandCompletor {
 //						} catch (ClassCastException e) {
 //							e.printStackTrace();
 //						}
-						buf.append(")");
+						buf.append(')');
 					}
 					result.add(buf.toString());
 				}
@@ -314,14 +314,14 @@ public class CallChainCompletor extends CommandCompletor {
 	}
 	
 	private static String getMethodSignature(String base, Method m) {
-		StringBuffer buf = new StringBuffer(base + ".");
+		StringBuilder buf = new StringBuilder(base + '.');
 		buf.append(m.getName());
 		buf.append('(');
 		Class<?>[] paramTypes = m.getParameterTypes();
 		String[] paramNames = JavaSourceParser.getArgNames(m);
 		for (int j = 0; j < paramTypes.length; j++) {
 			buf.append(paramTypes[j].getSimpleName());
-			buf.append(" ");
+			buf.append(' ');
 			buf.append(paramNames[j]);
 			if (j < paramTypes.length - 1) buf.append(", ");
 		}
@@ -332,7 +332,7 @@ public class CallChainCompletor extends CommandCompletor {
 	private PyObject getObject(PyStringMap map, String key) {
 		PyObject result = null;
 		
-		PyList keys = (PyList) map.keys();
+		PyList keys = map.keys();
 		PyObject iter = keys.__iter__();
 		for (PyObject item; (item = iter.__iternext__()) != null && result == null; ) {
 			if (item.toString().equals(key)) {

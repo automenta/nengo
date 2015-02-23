@@ -51,7 +51,7 @@ public class WorldObjectImpl implements WorldObject {
 
     protected static Property piccoloEventToWorldEvent(String propertyName) {
         if (EVENT_CONVERSION_TABLE_1 == null) {
-            EVENT_CONVERSION_TABLE_1 = new Hashtable<String, Property>();
+            EVENT_CONVERSION_TABLE_1 = new Hashtable<String, Property>(CONVERSION_MAP.length);
             for (Object[] conversion : CONVERSION_MAP) {
                 EVENT_CONVERSION_TABLE_1.put((String) conversion[1], (Property) conversion[0]);
 
@@ -64,7 +64,7 @@ public class WorldObjectImpl implements WorldObject {
 
     protected static String worldEventToPiccoloEvent(Property type) {
         if (EVENT_CONVERSION_TABLE_2 == null) {
-            EVENT_CONVERSION_TABLE_2 = new Hashtable<Property, String>();
+            EVENT_CONVERSION_TABLE_2 = new Hashtable<Property, String>(CONVERSION_MAP.length);
             for (Object[] conversion : CONVERSION_MAP) {
                 EVENT_CONVERSION_TABLE_2.put((Property) conversion[0], (String) conversion[1]);
             }
@@ -72,7 +72,7 @@ public class WorldObjectImpl implements WorldObject {
         return EVENT_CONVERSION_TABLE_2.get(type);
     }
 
-    private HashSet<ChildListener> childListeners = new HashSet<ChildListener>();
+    private final HashSet<ChildListener> childListeners = new HashSet<ChildListener>();
 
     private boolean draggable = true;
 
@@ -380,7 +380,7 @@ public class WorldObjectImpl implements WorldObject {
         return myPNode.getBounds();
     }
 
-    public Iterable<WorldObject> getChildren() {
+    public Collection<WorldObject> getChildren() {
         return getChildrenInternal();
     }
 
@@ -881,8 +881,8 @@ public class WorldObjectImpl implements WorldObject {
     }
 
     class ListenerAdapter implements Destroyable {
-        private Property eventType;
-        private Listener listener;
+        private final Property eventType;
+        private final Listener listener;
         private PiccoloChangeListener piccoloListener;
 
         public ListenerAdapter(Property eventType, Listener listener) {
@@ -922,7 +922,7 @@ public class WorldObjectImpl implements WorldObject {
  * @author Shu Wu
  */
 class PiccoloChangeListener implements PropertyChangeListener {
-    Listener woChangeListener;
+    final Listener woChangeListener;
 
     public PiccoloChangeListener(Listener worldListener) {
         super();

@@ -11,7 +11,7 @@ public class ZoomToFitAction extends StandardAction {
 
 	private static final long serialVersionUID = 1L;
 
-	WorldImpl world;
+	final WorldImpl world;
 
 	public ZoomToFitAction(String actionName, WorldImpl world) {
 		super("Zoom to fit", actionName);

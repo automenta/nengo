@@ -35,7 +35,7 @@ public class ElasticLayoutRunner {
 		init();
 	}
 
-	class ElasticLengthFunction implements LengthFunction {
+	static class ElasticLengthFunction implements LengthFunction {
 
 		public double getLength(Edge e) {
 			if (e.containsUserDatumKey(ElasticGround.ELASTIC_LENGTH_KEY)) {

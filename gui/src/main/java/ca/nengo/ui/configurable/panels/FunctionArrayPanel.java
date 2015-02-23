@@ -55,7 +55,7 @@ public class FunctionArrayPanel extends PropertyInputPanel {
      * Text field component for entering the dimensions of the function array
      */
     private JTextField tf;
-    private int inputDimension;
+    private final int inputDimension;
 
     /**
      * @param property TODO
@@ -184,7 +184,7 @@ public class FunctionArrayPanel extends PropertyInputPanel {
      *            Dimensions of the function array
      */
     public void setDimensions(int dimensions) {
-        tf.setText(dimensions + "");
+        tf.setText(String.valueOf(dimensions));
 
     }
 
@@ -265,7 +265,7 @@ class ConfigurableFunctionArray implements IConfigurable {
      */
     private Function[] myFunctions;
 
-    private Function[] defaultValues;
+    private final Function[] defaultValues;
 
     /**
      * @param inputDimension TODO

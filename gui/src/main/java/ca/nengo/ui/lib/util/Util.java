@@ -24,7 +24,7 @@ public class Util {
 	private static final String ZEROES = "000000000000";
 
 	private static void arrayToStringRecursive(StringBuffer sb, Object array) {
-		sb.append("[");
+		sb.append('[');
 		if (array == null) {
 			sb.append("NULL");
 		} else {
@@ -61,7 +61,7 @@ public class Util {
 			}
 
 		}
-		sb.append("]");
+		sb.append(']');
 	}
 
 	public static String arrayToString(Object array) {
@@ -86,8 +86,8 @@ public class Util {
 				"An unexpected error has occured \n"
 						+ "Please report this log at: https://github.com/ctn-waterloo/nengo/issues\nIf possible, please include a record of what you were doing preceding this screen \n\n");
 
-		if (msg != null && !"".equals(msg)) {
-			assertMsg.append(msg + "\n");
+		if (msg != null && !msg.isEmpty()) {
+			assertMsg.append(msg).append('\n');
 		}
 
 		assertMsg.append("*** Stack Trace *** \n");
@@ -100,7 +100,7 @@ public class Util {
 			}
 		}
 
-		if (msg == null || "".equals(msg)) {
+		if (msg == null || msg.isEmpty()) {
 			msg = "Exception";
 		}
 
@@ -111,13 +111,13 @@ public class Util {
 	private static void exceptionToString(StringBuilder strBuilder, Exception e) {
 		StackTraceElement[] stackEls = e.getStackTrace();
 		int i = 0;
-		strBuilder.append(e.getMessage() + "\n");
+		strBuilder.append(e.getMessage()).append('\n');
 		for (StackTraceElement el : stackEls) {
 			if (i > 200) {
 				strBuilder.append("...");
 				break;
 			}
-			strBuilder.append(el.toString() + "\n");
+			strBuilder.append(el.toString()).append('\n');
 			i++;
 		}
 	}

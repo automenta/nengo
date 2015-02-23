@@ -43,7 +43,7 @@ import java.util.Collection;
 public class CopyAction extends StandardAction {
 
     private static final long serialVersionUID = 1L;
-    private Collection<UINeoNode> nodeUIs;
+    private final Collection<UINeoNode> nodeUIs;
 
     /**
      * TODO

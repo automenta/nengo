@@ -65,7 +65,7 @@ public abstract class ConfigManager {
             if (devConfigDir.exists()) {
             	File[] devConfigFiles = devConfigDir.listFiles();
             	for (File devConfigFile : devConfigFiles) {
-            		File newConfigFile = new File(SAVED_CONFIG_DIR + "/" + devConfigFile.getName());
+            		File newConfigFile = new File(SAVED_CONFIG_DIR + '/' + devConfigFile.getName());
             		try {
             			Util.copyFile(devConfigFile, newConfigFile);
             		} catch (IOException e) {
@@ -269,7 +269,7 @@ public abstract class ConfigManager {
         FileInputStream f_in;
 
         try {
-            f_in = new FileInputStream(SAVED_CONFIG_DIR + "/" + getFileNamePrefix(configurable)
+            f_in = new FileInputStream(SAVED_CONFIG_DIR + '/' + getFileNamePrefix(configurable)
                     + name);
 
             ObjectInputStream obj_in = new ObjectInputStream(f_in);
@@ -344,7 +344,7 @@ public abstract class ConfigManager {
  * @author Shu
  */
 class ConfigFilesFilter implements FilenameFilter {
-    IConfigurable parent;
+    final IConfigurable parent;
 
     public ConfigFilesFilter(IConfigurable parent) {
         super();
@@ -366,9 +366,9 @@ class Configureable implements IConfigurable {
 
     private ConfigResult properties;
 
-    private ConfigSchema schema;
-    private String typeName;
-    private String description;
+    private final ConfigSchema schema;
+    private final String typeName;
+    private final String description;
 
     public Configureable(ConfigSchema configSchema, String typeName, String description) {
         super();

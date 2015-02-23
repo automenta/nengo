@@ -53,11 +53,11 @@ public class PlotFunctionAction extends StandardAction {
     static final Property pStart = new PFloat("Start");
 
     static final Property[] propD = { pStart, pIncrement, pEnd };
-    private Function function;
+    private final Function function;
 
-    private String plotName;
+    private final String plotName;
 
-    private JDialog dialogParent;
+    private final JDialog dialogParent;
 
     /**
      * @param plotName TODO
@@ -96,7 +96,7 @@ public class PlotFunctionAction extends StandardAction {
 
             try {
                 plotter.doPlot(function, start, increment, end, title + " ("
-                        + function.getClass().getSimpleName() + ")");
+                        + function.getClass().getSimpleName() + ')');
             } catch (Exception e) {
                 throw new ConfigException(e.getMessage());
             }

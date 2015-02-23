@@ -62,7 +62,7 @@ import java.util.List;
  */
 public class ListPropertyImpl extends AbstractProperty implements ListProperty {
 
-	private Object myTarget;
+	private final Object myTarget;
 
 	private Method myGetter;
 	private Method mySetter;
@@ -88,10 +88,10 @@ public class ListPropertyImpl extends AbstractProperty implements ListProperty {
 		String[] getterNames = new String[]{"get"+uname};
 		String[] setterNames = new String[]{"set"+uname,
 				"set"+ConfigUtil.stripSuffix(uname, "s"), "set"+ConfigUtil.stripSuffix(uname, "es")};
-		String[] countGetterNames = new String[]{"getNum"+uname, "getNum"+uname+"s", "get"+uname+"Count"};
-		String[] arrayGetterNames = new String[]{"get"+uname, "get"+uname+"s", "get"+uname+"Array", "getAll"+uname};
-		String[] arraySetterNames = new String[]{"set"+uname, "set"+uname+"s", "set"+uname+"Array", "setAll"+uname};
-		String[] listGetterNames = new String[]{"get"+uname, "get"+uname+"s", "get"+uname+"List"};
+		String[] countGetterNames = new String[]{"getNum"+uname, "getNum"+uname+ 's', "get"+uname+"Count"};
+		String[] arrayGetterNames = new String[]{"get"+uname, "get"+uname+ 's', "get"+uname+"Array", "getAll"+uname};
+		String[] arraySetterNames = new String[]{"set"+uname, "set"+uname+ 's', "set"+uname+"Array", "setAll"+uname};
+		String[] listGetterNames = new String[]{"get"+uname, "get"+uname+ 's', "get"+uname+"List"};
 		String[] inserterNames = new String[]{"insert"+uname};
 		String[] adderNames = new String[]{"add"+uname};
 		String[] removerNames = new String[]{"remove"+uname};
@@ -256,9 +256,9 @@ public class ListPropertyImpl extends AbstractProperty implements ListProperty {
 
 		try {
 			if (myCountGetter != null) {
-				result = ((Integer) myCountGetter.invoke(myTarget, new Object[0])).intValue();
+				result = ((Integer) myCountGetter.invoke(myTarget)).intValue();
 			} else if (myArrayGetter != null) {
-				Object array = myArrayGetter.invoke(myTarget, new Object[0]);
+				Object array = myArrayGetter.invoke(myTarget);
 				result = Array.getLength(array);
 			} else if (myListGetter != null) {
 				result = getList(myTarget, myListGetter).size();
@@ -282,9 +282,9 @@ public class ListPropertyImpl extends AbstractProperty implements ListProperty {
 
 		try {
 			if (myGetter != null) {
-				result = myGetter.invoke(myTarget, new Object[]{Integer.valueOf(index)});
+				result = myGetter.invoke(myTarget, Integer.valueOf(index));
 			} else if (myArrayGetter != null) {
-				Object array = myArrayGetter.invoke(myTarget, new Object[0]);
+				Object array = myArrayGetter.invoke(myTarget);
 				result = Array.get(array, index);
 			} else if (myListGetter != null) {
 				result = getList(myTarget, myListGetter).get(index);
@@ -306,11 +306,11 @@ public class ListPropertyImpl extends AbstractProperty implements ListProperty {
 	public void setValue(int index, Object value) throws StructuralException {
 		try {
 			if (mySetter != null) {
-				mySetter.invoke(myTarget, new Object[]{Integer.valueOf(index), value});
+				mySetter.invoke(myTarget, Integer.valueOf(index), value);
 			} else if (myArrayGetter != null && myArraySetter != null) {
-				Object array = myArrayGetter.invoke(myTarget, new Object[0]);
+				Object array = myArrayGetter.invoke(myTarget);
 				Array.set(array, index, value);
-				myArraySetter.invoke(myTarget, new Object[]{array});
+				myArraySetter.invoke(myTarget, array);
 			} else if (myListGetter != null) {
 				getList(myTarget, myListGetter).set(index, value);
 			} else {
@@ -340,18 +340,18 @@ public class ListPropertyImpl extends AbstractProperty implements ListProperty {
 	public void addValue(Object value) throws StructuralException {
 		try {
 			if (myAdder != null) {
-				myAdder.invoke(myTarget, new Object[]{value});
+				myAdder.invoke(myTarget, value);
 			} else if (myInserter != null) {
 				int index = getNumValues();
-				myInserter.invoke(myTarget, new Object[]{Integer.valueOf(index), value});
+				myInserter.invoke(myTarget, Integer.valueOf(index), value);
 			} else if (myListGetter != null) {
 				getList(myTarget, myListGetter).add(value);
 			} else if (myArrayGetter != null && myArraySetter != null) {
-				Object array = myArrayGetter.invoke(myTarget, new Object[0]);
+				Object array = myArrayGetter.invoke(myTarget);
 				Object newArray = Array.newInstance(array.getClass().getComponentType(), Array.getLength(array) + 1);
 				System.arraycopy(array, 0, newArray, 0, Array.getLength(array));
 				Array.set(newArray, Array.getLength(array), value);
-				myArraySetter.invoke(myTarget, new Object[]{newArray});
+				myArraySetter.invoke(myTarget, newArray);
 			} else {
 				if (isFixedCardinality()) {
 					throw new StructuralException("This property has fixed cardinality");
@@ -375,16 +375,16 @@ public class ListPropertyImpl extends AbstractProperty implements ListProperty {
 	public void insert(int index, Object value) throws StructuralException {
 		try {
 			if (myInserter != null) {
-				myInserter.invoke(myTarget, new Object[]{Integer.valueOf(index), value});
+				myInserter.invoke(myTarget, Integer.valueOf(index), value);
 			} else if (myListGetter != null) {
 				getList(myTarget, myListGetter).add(index, value);
 			} else if (myArrayGetter != null && myArraySetter != null) {
-				Object array = myArrayGetter.invoke(myTarget, new Object[0]);
+				Object array = myArrayGetter.invoke(myTarget);
 				Object newArray = Array.newInstance(array.getClass().getComponentType(), Array.getLength(array) + 1);
 				System.arraycopy(array, 0, newArray, 0, index);
 				Array.set(newArray, index, value);
 				System.arraycopy(array, index, newArray, index+1, Array.getLength(array)-index);
-				myArraySetter.invoke(myTarget, new Object[]{newArray});
+				myArraySetter.invoke(myTarget, newArray);
 			} else {
 				if (isFixedCardinality()) {
 					throw new StructuralException("This property has fixed cardinality");
@@ -408,15 +408,15 @@ public class ListPropertyImpl extends AbstractProperty implements ListProperty {
 	public void remove(int index) throws StructuralException {
 		try {
 			if (myRemover != null) {
-				myRemover.invoke(myTarget, new Object[]{Integer.valueOf(index)});
+				myRemover.invoke(myTarget, Integer.valueOf(index));
 			} else if (myListGetter != null) {
 				getList(myTarget, myListGetter).remove(index);
 			} else if (myArrayGetter != null && myArraySetter != null) {
-				Object array = myArrayGetter.invoke(myTarget, new Object[0]);
+				Object array = myArrayGetter.invoke(myTarget);
 				Object newArray = Array.newInstance(array.getClass().getComponentType(), Array.getLength(array) - 1);
 				System.arraycopy(array, 0, newArray, 0, index);
 				System.arraycopy(array, index+1, newArray, index, Array.getLength(newArray) - index);
-				myArraySetter.invoke(myTarget, new Object[]{newArray});
+				myArraySetter.invoke(myTarget, newArray);
 			} else {
 				if (isFixedCardinality()) {
 					throw new StructuralException("This property has fixed cardinality");
@@ -437,7 +437,7 @@ public class ListPropertyImpl extends AbstractProperty implements ListProperty {
 	@SuppressWarnings("unchecked")
 	private static List<Object> getList(Object target, Method listGetter) {
 		try {
-			return (List<Object>) listGetter.invoke(target, new Object[0]);
+			return (List<Object>) listGetter.invoke(target);
 		} catch (IllegalArgumentException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {

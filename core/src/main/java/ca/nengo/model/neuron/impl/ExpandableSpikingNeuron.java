@@ -43,7 +43,7 @@ import org.apache.log4j.Logger;
 public class ExpandableSpikingNeuron extends SpikingNeuron implements ExpandableNode {
 
 	private static final long serialVersionUID = 1L;
-	private static Logger ourLogger = Logger.getLogger(ExpandableSpikingNeuron.class);
+	private static final Logger ourLogger = Logger.getLogger(ExpandableSpikingNeuron.class);
 
 	private ExpandableSynapticIntegrator mySynapticIntegrator;
 
@@ -77,7 +77,7 @@ public class ExpandableSpikingNeuron extends SpikingNeuron implements Expandable
 			throw new StructuralException("Underlying SynapticIntegrator is not expandable");
 		}
 		if (weights.length != 1) {
-			throw new StructuralException("Weights matrix must have one row (has " + weights.length + ")");
+			throw new StructuralException("Weights matrix must have one row (has " + weights.length + ')');
 		}
 
 		fireVisibleChangeEvent();
@@ -90,7 +90,7 @@ public class ExpandableSpikingNeuron extends SpikingNeuron implements Expandable
 			throw new StructuralException("Underlying SynapticIntegrator is not a LinearSynapticIntegrator");
 		}
 		if (weights.length != 1) {
-			throw new StructuralException("Weights matrix must have one row (has " + weights.length + ")");
+			throw new StructuralException("Weights matrix must have one row (has " + weights.length + ')');
 		}
 
 		fireVisibleChangeEvent();

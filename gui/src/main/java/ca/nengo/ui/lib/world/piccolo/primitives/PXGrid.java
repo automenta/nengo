@@ -21,9 +21,9 @@ import java.beans.PropertyChangeListener;
  */
 public class PXGrid extends PXLayer {
 
-	private static Line2D gridLine = new Line2D.Double();;
+	private static final Line2D gridLine = new Line2D.Double();
 
-	private static Stroke gridStroke = new BasicStroke(1);
+    private static final Stroke gridStroke = new BasicStroke(1);
 
 	private static boolean gridVisible = true;
 
@@ -61,9 +61,9 @@ public class PXGrid extends PXLayer {
 			UIEnvironment.getInstance().getWorld().repaint();
 	}
 
-	private Color gridPaint;
+	private final Color gridPaint;
 
-	private double gridSpacing;
+	private final double gridSpacing;
 
 	public PXGrid(Color gridPaint, double gridSpacing) {
 		super();
@@ -108,9 +108,9 @@ public class PXGrid extends PXLayer {
 }
 
 class CameraPropertyChangeListener implements PropertyChangeListener {
-	private PCamera camera;
+	private final PCamera camera;
 
-	private PLayer gridLayer;
+	private final PLayer gridLayer;
 
 	public CameraPropertyChangeListener(PCamera camera, PLayer gridLayer) {
 		super();

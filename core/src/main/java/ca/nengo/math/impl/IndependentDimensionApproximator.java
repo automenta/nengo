@@ -178,7 +178,7 @@ public class IndependentDimensionApproximator implements LinearApproximator {
 			int nodes = values.length;
 			int nodesPerDim = nodes / dimensions;
 			if (nodes % dimensions != 0) {
-				throw new IllegalArgumentException("Expected # nodes (" + nodes + ") to be evenly divisible by # dimensions (" + dimensions + ")");
+				throw new IllegalArgumentException("Expected # nodes (" + nodes + ") to be evenly divisible by # dimensions (" + dimensions + ')');
 			}
 
 			//TODO: this only work with axis-clustered ... is this enforced anywhere?

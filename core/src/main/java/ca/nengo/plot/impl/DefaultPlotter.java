@@ -62,7 +62,7 @@ import java.util.List;
  */
 public class DefaultPlotter extends Plotter {
 		
-	private static Color[] ourColors = {
+	private static final Color[] ourColors = {
 		ChartColor.BLACK, 
 		ChartColor.LIGHT_GRAY, 
 		ChartColor.DARK_BLUE, 
@@ -260,7 +260,7 @@ public class DefaultPlotter extends Plotter {
 				ensemble.setMode(SimulationMode.CONSTANT_RATE);
 				for (int j = 0; j < nodes.length; j++) {
 //					((NEFNode) nodes[j]).setRadialInput(x[i]*encoders[j][0]);
-					((NEFNode) nodes[j]).setRadialInput(getRadialInput(ensemble, j, x[i]));
+					nodes[j].setRadialInput(getRadialInput(ensemble, j, x[i]));
 					
 					nodes[j].run(0f, 0f);		
 				}
@@ -309,7 +309,7 @@ public class DefaultPlotter extends Plotter {
 				panel = getBarChart(error,"MSE per Dimension for Origin: "+origin.getName());
 				frame.getContentPane().removeAll();
 				frame.getContentPane().add(panel, BorderLayout.CENTER);
-				frame.setTitle("Origin MSE Plot (Overall MSE=" + mseAvg + ")");
+				frame.setTitle("Origin MSE Plot (Overall MSE=" + mseAvg + ')');
 				frame.validate();
 				
 				time=System.currentTimeMillis();
@@ -387,7 +387,7 @@ public class DefaultPlotter extends Plotter {
 		
 		float[] err = MU.transpose(error)[dim]; 
 		float mse = MU.prod(err, err) / (float) err.length;
-		showChart(chart, "Distortion Error Plot (MSE=" + mse + ")");
+		showChart(chart, "Distortion Error Plot (MSE=" + mse + ')');
 	}
 
 	/**
@@ -423,7 +423,7 @@ public class DefaultPlotter extends Plotter {
 					float radialInput = (ensemble.getDimension() == 1) ? x[j]*encoders[i][0] : x[j];
 	//				float radialInput = getRadialInput(ensemble, i, x[j]);
 					
-					((NEFNode) nodes[i]).setRadialInput(radialInput);
+					nodes[i].setRadialInput(radialInput);
 					try {
 						Noise noise=null;
 						if (nodes[i] instanceof SpikingNeuron) {
@@ -543,7 +543,7 @@ public class DefaultPlotter extends Plotter {
 			
 			float x2 = start;
 			while (x2 <= end) {
-				XYSeries series = new XYSeries(""+x2);
+				XYSeries series = new XYSeries(String.valueOf(x2));
 				float x = start;
 				while (x <= end) {
 					float y = function.map(new float[]{x, x2});

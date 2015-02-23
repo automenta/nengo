@@ -59,7 +59,7 @@ public abstract class Plotter {
 	
 	private static Plotter ourInstance;
 	
-	private List<Frame> myPlotFrames;
+	private final List<Frame> myPlotFrames;
 	
 	public Plotter() {
 		myPlotFrames = new ArrayList<Frame>(10);

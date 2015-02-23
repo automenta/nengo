@@ -39,9 +39,9 @@ public class SpikeOutputImpl implements SpikeOutput {
 
 	private static final long serialVersionUID = 1L;
 	
-	private boolean[] myValues;
-	private Units myUnits;
-	private float myTime;
+	private final boolean[] myValues;
+	private final Units myUnits;
+	private final float myTime;
 
 	/**
 	 * @param values @see #getValues()

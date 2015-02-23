@@ -47,7 +47,7 @@ public class LinearExponentialTermination implements PlasticNodeTermination {
     private static final long serialVersionUID = 1L;
 
     private Node myNode;
-    private String myName;
+    private final String myName;
     private float myTauPSC;
     private boolean myModulatory;
 

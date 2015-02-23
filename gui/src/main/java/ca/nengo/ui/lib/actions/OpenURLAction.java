@@ -11,7 +11,7 @@ public class OpenURLAction extends StandardAction {
     	"opera", "konqueror"};
 	
     private static final long serialVersionUID = 1L;
-    private String url;
+    private final String url;
 
     public OpenURLAction(String helpstring, String url) {
         super("Open URL", helpstring);

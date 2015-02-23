@@ -50,9 +50,9 @@ public class PlotFunctionNodeAction extends StandardAction {
     static final Property pIncrement = new PFloat("Increment");
     static final Property pStart = new PFloat("Start");
     // static final PropDescriptor pTitle = new PTString("Title");
-    private FunctionInput functionInput;
+    private final FunctionInput functionInput;
     private Property pFunctionIndex;
-    private String plotName;
+    private final String plotName;
 
     /**
      * @param plotName TODO
@@ -112,7 +112,7 @@ public class PlotFunctionNodeAction extends StandardAction {
         }
         Function function = functionInput.getFunctions()[functionIndex];
         Plotter.plot(function, start, increment, end, title + " ("
-                + function.getClass().getSimpleName() + ")");
+                + function.getClass().getSimpleName() + ')');
 
     }
 }

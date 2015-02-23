@@ -39,13 +39,13 @@ import ca.nengo.ui.lib.util.Util;
  */
 public class CouplingMatrixPanel extends PropertyInputPanel {
 
-    private CouplingMatrixImpl couplingMatrix;
+    private final CouplingMatrixImpl couplingMatrix;
 
     /**
      * Editor responsible for creating the spreadsheet-like matrix editing
      * Interface
      */
-    private MatrixEditor editor;
+    private final MatrixEditor editor;
 
     /**
      * @param property TODO

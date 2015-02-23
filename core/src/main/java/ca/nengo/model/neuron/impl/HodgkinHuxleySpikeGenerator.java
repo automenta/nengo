@@ -65,13 +65,13 @@ public class HodgkinHuxleySpikeGenerator extends DynamicalSystemSpikeGenerator {
 	public static class HodgkinHuxleySystem extends AbstractDynamicalSystem {
 
 		private static final long serialVersionUID = 1L;
-	    private static float G_Na = 120f;
-	    private static float E_Na = 115f; //this potential and others are relative to -60 mV
-	    private static float G_K = 36f;
-	    private static float E_K = -12f;
-	    private static float G_m = 0.3f;
-	    private static float V_rest = 10.613f;
-	    private static float C_m = 1f;
+	    private static final float G_Na = 120f;
+	    private static final float E_Na = 115f; //this potential and others are relative to -60 mV
+	    private static final float G_K = 36f;
+	    private static final float E_K = -12f;
+	    private static final float G_m = 0.3f;
+	    private static final float V_rest = 10.613f;
+	    private static final float C_m = 1f;
 
 		/**
 		 * @param state Initial state

@@ -41,8 +41,8 @@ import ca.nengo.ui.models.nodes.UINodeViewable;
  * @author TODO
  */
 public class CreateModelAdvancedAction extends StandardAction {
-    private Class<?> objType;
-    private NodeContainer container;
+    private final Class<?> objType;
+    private final NodeContainer container;
 
     /**
      * @param container TODO

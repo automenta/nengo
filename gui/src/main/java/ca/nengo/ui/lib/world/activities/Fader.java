@@ -11,11 +11,11 @@ import org.piccolo2d.activities.PInterpolatingActivity;
  */
 public class Fader extends PInterpolatingActivity {
 
-	private WorldObject node;
+	private final WorldObject node;
 
 	private float startingTransparency;
 
-	private float targetTransparency;
+	private final float targetTransparency;
 
 	/**
 	 * @param target

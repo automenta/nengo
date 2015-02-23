@@ -74,7 +74,7 @@ public abstract class NodeContainerIcon extends ModelIcon {
 		
 		String dimensionalityText = "";
 		if (dimensionality > 0) {
-			dimensionalityText = "   " + dimensionality + "D";
+			dimensionalityText = "   " + dimensionality + 'D';
 		}
 		sizeLabel.setText(neuronsText + dimensionalityText);
 

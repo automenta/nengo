@@ -68,8 +68,8 @@ public class DataListView extends JPanel implements TreeSelectionListener {
      */
     public static final String MATLAB_FILE_EXTENSION = "mat";
 
-    private SimulatorDataModel dataModel;
-    private JTree tree;
+    private final SimulatorDataModel dataModel;
+    private final JTree tree;
 
 
     /**
@@ -310,8 +310,8 @@ public class DataListView extends JPanel implements TreeSelectionListener {
 
         private static final long serialVersionUID = 1L;
 
-        private List<MutableTreeNode> nodesToRemove;
-        private List<MutableTreeNode> nodesRemoved;
+        private final List<MutableTreeNode> nodesToRemove;
+        private final List<MutableTreeNode> nodesRemoved;
 
         private Hashtable<MutableTreeNode, UndoInfo> undoLUT;
 
@@ -403,8 +403,8 @@ public class DataListView extends JPanel implements TreeSelectionListener {
     }
 
     private static class UndoInfo {
-        int nodeIndex;
-        TreeNode nodeParent;
+        final int nodeIndex;
+        final TreeNode nodeParent;
 
         public UndoInfo(TreeNode nodeParent, int nodeIndex) {
             super();
@@ -422,8 +422,8 @@ public class DataListView extends JPanel implements TreeSelectionListener {
  * @author Shu Wu
  */
 class DataPath {
-    private DataTreeNode dataNode;
-    private Collection<String> position;
+    private final DataTreeNode dataNode;
+    private final Collection<String> position;
 
     public DataPath(DataTreeNode dataNode, Collection<String> position) {
         super();
@@ -444,7 +444,7 @@ class DataPath {
 class RenameAction extends StandardAction {
     private static final long serialVersionUID = 1L;
 
-    DefaultMutableTreeNode myNode;
+    final DefaultMutableTreeNode myNode;
 
     public RenameAction(DefaultMutableTreeNode node)
     {
@@ -467,7 +467,7 @@ abstract class ExportAction extends StandardAction {
 
     private static final long serialVersionUID = 1L;
 
-    private static ExportFileChooser fileChooser = new ExportFileChooser();
+    private static final ExportFileChooser fileChooser = new ExportFileChooser();
 
     public static void findDataItemsRecursive(MutableTreeNode node,
             ArrayList<String> position,
@@ -500,7 +500,7 @@ abstract class ExportAction extends StandardAction {
         }
     }
 
-    private Component parent;
+    private final Component parent;
 
     private final MutableTreeNode rootNode;
 
@@ -580,7 +580,7 @@ class ExportDelimitedFileAction extends ExportAction {
         return false;
     }
 
-    private DelimitedFileExporter fileExporter;
+    private final DelimitedFileExporter fileExporter;
 
     public ExportDelimitedFileAction(Component parent, MutableTreeNode nodeToExport) {
         super(parent, nodeToExport, getActionDescription(nodeToExport));
@@ -618,7 +618,7 @@ class ExportDelimitedFileAction extends ExportAction {
                     }
                 }
 
-                dataFile = new File(dataFile, dataNode.toString() + "."
+                dataFile = new File(dataFile, dataNode.toString() + '.'
                         + DataListView.DATA_FILE_EXTENSION);
 
                 exportNode(dataNode, dataFile);
@@ -740,8 +740,8 @@ class ExportFileChooser extends JFileChooser {
 
 class ExtensionFileFilter extends FileExtensionFilter {
 
-    private String description;
-    private String extension;
+    private final String description;
+    private final String extension;
 
     public ExtensionFileFilter(String description, String extension) {
         super();

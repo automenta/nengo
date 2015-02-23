@@ -45,22 +45,22 @@ public class NodeLayout implements Serializable {
 	/**
 	 * Name of the layout
 	 */
-	private String layoutName;
+	private final String layoutName;
 
 	/**
 	 * Whether elastic layout is enabled
 	 */
-	private boolean elasticMode;
+	private final boolean elasticMode;
 
 	/**
 	 * Node positions referenced by name
 	 */
-	private Hashtable<String, PointSerializable> nodePositions;
+	private final Hashtable<String, PointSerializable> nodePositions;
 
 	/**
 	 * Saved view bounds
 	 */
-	private Rectangle2D savedViewBounds;
+	private final Rectangle2D savedViewBounds;
 
 	/**
 	 * @param layoutName
@@ -73,7 +73,7 @@ public class NodeLayout implements Serializable {
 		this.layoutName = layoutName;
 		this.elasticMode = elasticMode;
 
-		nodePositions = new Hashtable<String, PointSerializable>();
+		nodePositions = new Hashtable<String, PointSerializable>(world.getUINodes().size());
 
 		for (UINeoNode object : world.getUINodes()) {
 			addPosition(object, object.getOffset());
@@ -141,7 +141,8 @@ class PointSerializable implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	double x, y;
+	final double x;
+    final double y;
 
 	public PointSerializable(Point2D point) {
 		x = point.getX();

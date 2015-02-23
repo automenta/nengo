@@ -130,7 +130,7 @@ public class ElasticWorld extends WorldImpl {
 
         private Layout layout;
 
-        private Class<? extends Layout> layoutType;
+        private final Class<? extends Layout> layoutType;
 
         public DoJungLayout(Class<? extends Layout> layoutType) {
             super("Performing layout: " + layoutType.getSimpleName());
@@ -200,7 +200,7 @@ public class ElasticWorld extends WorldImpl {
 
         private static final long serialVersionUID = 1L;
 
-        Class<? extends Layout> layoutClass;
+        final Class<? extends Layout> layoutClass;
 
         public JungLayoutAction(Class<? extends Layout> layoutClass, String name) {
             super(ElasticWorld.this, "Apply layout " + name, name);
@@ -223,7 +223,7 @@ public class ElasticWorld extends WorldImpl {
     class SetElasticLayoutAction extends LayoutAction {
 
         private static final long serialVersionUID = 1L;
-        private boolean enabled;
+        private final boolean enabled;
 
         public SetElasticLayoutAction(String name, boolean enabled) {
             super(ElasticWorld.this, "Set Spring Layout: " + enabled, name);
@@ -250,7 +250,7 @@ class SetLayoutBoundsAction extends StandardAction {
     private static final long serialVersionUID = 1L;
     private static final Property[] zProperties = { pWidth, pHeight };
 
-    private ElasticWorld parent;
+    private final ElasticWorld parent;
 
     public SetLayoutBoundsAction(String actionName, ElasticWorld parent) {
         super("Set layout bounds", actionName);

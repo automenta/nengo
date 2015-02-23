@@ -45,9 +45,9 @@ public class DefaultFunctionInterpreter implements FunctionInterpreter {
 
 	private static DefaultFunctionInterpreter ourInstance;
 
-	private Map<String, Function> myFunctions;
-	private Map<String, AbstractOperator> myOperators;
-	private String myTokens;
+	private final Map<String, Function> myFunctions;
+	private final Map<String, AbstractOperator> myOperators;
+	private final String myTokens;
 
 	/**
 	 * @return A singleton instance of DefaultFunctionInterpreter
@@ -99,12 +99,12 @@ public class DefaultFunctionInterpreter implements FunctionInterpreter {
 		myOperators.put("&", new AndOperator());
 		myOperators.put("|", new OrOperator());
 
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		Iterator<String> it = myOperators.keySet().iterator();
 		while (it.hasNext()) {
 			buf.append(it.next());
 		}
-		myTokens = buf.toString() + "(), ";
+		myTokens = buf + "(), ";
 	}
 
 	/**
@@ -230,9 +230,9 @@ public class DefaultFunctionInterpreter implements FunctionInterpreter {
 
 		private static final long serialVersionUID = 1L;
 
-		private int myDimension;
-		private boolean myRightAssociative;
-		private int myPrecendence;
+		private final int myDimension;
+		private final boolean myRightAssociative;
+		private final int myPrecendence;
 
 		/**
 		 * @param dimension Dimension of the space that the Function maps from

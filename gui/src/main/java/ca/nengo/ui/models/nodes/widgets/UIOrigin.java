@@ -91,13 +91,13 @@ public abstract class UIOrigin extends Widget {
 	protected void constructTooltips(TooltipBuilder tooltips) {
 		super.constructTooltips(tooltips);
 
-		tooltips.addProperty("Dimensions", "" + getModel().getDimensions());
+		tooltips.addProperty("Dimensions", String.valueOf(getModel().getDimensions()));
 
 		try {
 			InstantaneousOutput value = getModel().getValues();
 
-			tooltips.addProperty("Time: ", "" + value.getTime());
-			tooltips.addProperty("Units: ", "" + value.getUnits());
+			tooltips.addProperty("Time: ", String.valueOf(value.getTime()));
+			tooltips.addProperty("Units: ", String.valueOf(value.getUnits()));
 
 		} catch (SimulationException e) {
 		}

@@ -56,12 +56,12 @@ public final class MainHandler implements ConfigurationHandler {
 	/**
 	 * Java package with handlers
 	 */
-	public static String HANDLERS_FILE_PROPERTY = "ca.nengo.config.handlers";
+	public static final String HANDLERS_FILE_PROPERTY = "ca.nengo.config.handlers";
 
-	private static Logger ourLogger = Logger.getLogger(ConfigurationHandler.class);
+	private static final Logger ourLogger = Logger.getLogger(ConfigurationHandler.class);
 	private static MainHandler ourInstance;
 
-	private List<ConfigurationHandler> myHandlers;
+	private final List<ConfigurationHandler> myHandlers;
 
 	/**
 	 * @return Singleton instance

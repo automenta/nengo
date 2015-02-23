@@ -43,7 +43,7 @@ public abstract class Property implements Serializable {
     private String description;
 
     private boolean isEditable = true;
-    private String name;
+    private final String name;
 
     /**
      * @param name TODO

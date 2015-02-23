@@ -53,7 +53,7 @@ public class PassthroughNode implements Node {
 
 	//implementation note: this class doesn't nicely extend AbstractNode
 
-	private static Logger ourLogger = Logger.getLogger(PassthroughNode.class);
+	private static final Logger ourLogger = Logger.getLogger(PassthroughNode.class);
 
 	/**
 	 * Default name for a termination
@@ -69,7 +69,7 @@ public class PassthroughNode implements Node {
 	private static final long serialVersionUID = 1L;
 
 	private String myName;
-	private int myDimension; //TODO: clean this up (can be obtained from transform)
+	private final int myDimension; //TODO: clean this up (can be obtained from transform)
 	private Map<String, PassthroughTermination> myTerminations;
 	private BasicOrigin myOrigin;
 	private String myDocumentation;
@@ -161,7 +161,8 @@ public class PassthroughNode implements Node {
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
 	public Termination[] getTerminations() {
-		return myTerminations.values().toArray(new PassthroughTermination[0]);
+        Collection<PassthroughTermination> var = myTerminations.values();
+        return var.toArray(new PassthroughTermination[var.size()]);
 	}
 
 	/**
@@ -345,7 +346,7 @@ public class PassthroughNode implements Node {
 
 		public void setValues(InstantaneousOutput values) throws SimulationException {
 			if (values.getDimension() != myDimension) {
-				throw new SimulationException("Input is wrong dimension (expected " + myDimension + " got " + values.getDimension() + ")");
+				throw new SimulationException("Input is wrong dimension (expected " + myDimension + " got " + values.getDimension() + ')');
 			}
 
 			if (myTransform != null) {

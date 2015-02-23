@@ -41,7 +41,9 @@ import java.util.HashMap;
  */
 public interface Node extends Serializable, Resettable, SimulationMode.ModeConfigurable, VisiblyMutable, Cloneable {
 
-	/**
+    public final static Node[] EMPTY = new Node[0];
+
+    /**
 	 * @return Name of Node (must be unique in a Network)
 	 */
 	public String getName();

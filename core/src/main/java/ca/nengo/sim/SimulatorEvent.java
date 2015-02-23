@@ -28,10 +28,10 @@ public class SimulatorEvent {
 
 	public enum Type {
 		STARTED, FINISHED, STEP_TAKEN
-	};
+	}
 
-	private float myProgress;
-	private Type myType;
+    private final float myProgress;
+	private final Type myType;
 	
 	private boolean interrupt=false;
 

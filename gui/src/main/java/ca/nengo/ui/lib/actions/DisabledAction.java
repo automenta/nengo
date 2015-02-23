@@ -3,7 +3,7 @@ package ca.nengo.ui.lib.actions;
 import ca.nengo.ui.lib.util.UserMessages;
 
 public class DisabledAction extends StandardAction {
-	private String disableMessage;
+	private final String disableMessage;
 
 	public DisabledAction(String description, String disableMessage) {
 		super(description);

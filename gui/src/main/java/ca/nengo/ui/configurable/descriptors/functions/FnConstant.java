@@ -37,8 +37,8 @@ import ca.nengo.ui.configurable.descriptors.PInt;
  */
 public class FnConstant extends AbstractFn {
 
-    private PInt pDimension;
-    private PFloat pValue = new PFloat("Value","Constant value for the function");
+    private final PInt pDimension;
+    private final PFloat pValue = new PFloat("Value","Constant value for the function");
 
     /**
      * @param dimension TODO

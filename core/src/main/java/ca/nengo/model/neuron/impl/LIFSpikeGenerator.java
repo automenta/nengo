@@ -61,7 +61,7 @@ public class LIFSpikeGenerator implements SpikeGenerator, Probeable {
 	private float myMaxTimeStep;
 	private float myTauRC;
 	private float myTauRef;
-	private float myInitialVoltage;
+	private final float myInitialVoltage;
 
 	private float myVoltage;
 	private float myTimeSinceLastSpike;
@@ -363,7 +363,7 @@ public class LIFSpikeGenerator implements SpikeGenerator, Probeable {
 
 		private static final long serialVersionUID = 1L;
 
-		private static float ourMaxTimeStep = .00025f;
+		private static final float ourMaxTimeStep = .00025f;
 
 		private PDF myTauRC;
 		private PDF myTauRef;

@@ -152,9 +152,7 @@ public abstract class PlasticEnsembleTermination extends EnsembleTermination {
                 throw new StructuralException("State is length "
                         + values.length + "; should be " + raw.length);
             }
-            for (int i = 0; i < values.length; i++) {
-                raw[i] = values[i];
-            }
+            System.arraycopy(values, 0, raw, 0, values.length);
         } else if (state instanceof SpikeOutput) {
             boolean[] values = ((SpikeOutput) state).getValues();
             if (values.length != raw.length) {

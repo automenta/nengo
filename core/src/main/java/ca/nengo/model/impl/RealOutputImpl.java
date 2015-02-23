@@ -39,9 +39,9 @@ public class RealOutputImpl implements RealOutput {
 
 	private static final long serialVersionUID = 1L;
 	
-	private float[] myValues;
-	private Units myUnits;
-	private float myTime;
+	private final float[] myValues;
+	private final Units myUnits;
+	private final float myTime;
 
 	/**
 	 * @param values @see #getValues()

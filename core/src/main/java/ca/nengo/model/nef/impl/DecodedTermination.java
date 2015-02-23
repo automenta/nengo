@@ -60,7 +60,7 @@ public class DecodedTermination implements Termination, Resettable, Probeable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger ourLogger = Logger.getLogger(DecodedTermination.class);
+	private static final Logger ourLogger = Logger.getLogger(DecodedTermination.class);
 
 	/**
 	 * Name of Probeable output state.
@@ -171,7 +171,7 @@ public class DecodedTermination implements Termination, Resettable, Probeable {
 	public void setValues(InstantaneousOutput values) throws SimulationException {
 		if (values.getDimension() != getDimensions()) {
 			throw new SimulationException("Dimension of input (" + values.getDimension()
-					+ ") does not equal dimension of this Termination (" + getDimensions() + ")");
+					+ ") does not equal dimension of this Termination (" + getDimensions() + ')');
 		}
 
 		if ( !(values instanceof RealOutput) ) {

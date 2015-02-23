@@ -176,7 +176,7 @@ public class UIStateProbe extends UIProbe {
 
 	@Override
 	public void modelUpdated() {
-		setName(((Probe) getModel()).getStateName());
+		setName(getModel().getStateName());
 	}
 
 	/**

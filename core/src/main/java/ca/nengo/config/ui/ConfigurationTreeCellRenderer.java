@@ -60,10 +60,10 @@ public class ConfigurationTreeCellRenderer extends DefaultTreeCellRenderer {
 		} else if (value instanceof Property) {
 			Property property = (Property) value;
 			
-			StringBuffer text = new StringBuffer(property.getName());
+			StringBuilder text = new StringBuilder(property.getName());
 			text.append(" (");
 			text.append(property.getType().getSimpleName());
-			text.append(")");
+			text.append(')');
 			setText(text.toString());
 			
 			setToolTipText(null);
@@ -72,7 +72,7 @@ public class ConfigurationTreeCellRenderer extends DefaultTreeCellRenderer {
 			Component customRenderer = MainHandler.getInstance().getRenderer(o);
 			
 			if (customRenderer == null) {
-				setText("UNKNOWN TYPE (" + o.toString() + ")"); 
+				setText("UNKNOWN TYPE (" + o.toString() + ')');
 				setToolTipText(o.getClass().getCanonicalName());			
 			} else {
 				customRenderer.setBackground(sel ? this.getBackgroundSelectionColor() : this.getBackgroundNonSelectionColor());

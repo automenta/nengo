@@ -51,9 +51,9 @@ class PXText extends PXNode {
 
 	private static final long serialVersionUID = 1L;
 	private static final TextLayout[] EMPTY_TEXT_LAYOUT_ARRAY = new TextLayout[0];
-	public static Font DEFAULT_FONT = new Font("Helvetica", Font.PLAIN, 12);
+	public static final Font DEFAULT_FONT = new Font("Helvetica", Font.PLAIN, 12);
 
-	public static double DEFAULT_GREEK_THRESHOLD = 5.5;
+	public static final double DEFAULT_GREEK_THRESHOLD = 5.5;
 	public static final int PROPERTY_CODE_FONT = 1 << 20;
 	
 
@@ -169,10 +169,10 @@ class PXText extends PXNode {
 	 * @return a string representation of this node's state
 	 */
 	protected String paramString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
-		result.append("text=" + (text == null ? "null" : text));
-		result.append(",font=" + (font == null ? "null" : font.toString()));
+		result.append("text=").append(text == null ? "null" : text);
+		result.append(",font=").append(font == null ? "null" : font.toString());
 		result.append(',');
 		result.append(super.toString());
 
@@ -277,7 +277,7 @@ class PXText extends PXNode {
 			}
 		}
 
-		lines = (TextLayout[]) linesList.toArray(EMPTY_TEXT_LAYOUT_ARRAY);
+		lines = linesList.toArray(new TextLayout[linesList.size()]);
 
 		if (constrainWidthToTextWidth || constrainHeightToTextHeight) {
 			double newWidth = getWidth();

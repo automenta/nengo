@@ -44,7 +44,7 @@ import java.util.List;
  */
 public class TemplateArrayProperty extends AbstractProperty implements ListProperty {
 
-	private List<Object> myValues;
+	private final List<Object> myValues;
 	
 	/**
 	 * @param configuration Configuration to which this Property belongs
@@ -127,7 +127,7 @@ public class TemplateArrayProperty extends AbstractProperty implements ListPrope
 	private void checkClass(Object value) throws StructuralException {
 		if (!getType().isAssignableFrom(value.getClass())) {
 			throw new StructuralException("Value must be of type " + getType() 
-					+ " (was " + value.getClass().getName() + ")");
+					+ " (was " + value.getClass().getName() + ')');
 		}
 	}
 

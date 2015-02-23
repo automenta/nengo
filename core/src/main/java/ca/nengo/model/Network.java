@@ -205,7 +205,7 @@ public interface Network extends Node, Probeable {
      * @return Python script for generating special or template ensembles and terminations in the network
      * @throws ScriptGenException if the node cannot be generated in script
      */
-	public String toPostScript(HashMap<String, Object> scriptData) throws ScriptGenException;
+	public String toPostScript(HashMap<String, Object> scriptData);
 
 	public void addStepListener(StepListener listener);
 	public void removeStepListener(StepListener listener);

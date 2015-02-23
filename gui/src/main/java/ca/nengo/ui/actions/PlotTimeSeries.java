@@ -50,8 +50,8 @@ import ca.nengo.util.TimeSeries;
 public class PlotTimeSeries extends StandardAction {
 
     private static final long serialVersionUID = 1L;
-    private TimeSeries timeSeries;
-    private String plotName;
+    private final TimeSeries timeSeries;
+    private final String plotName;
     private boolean showUserConfigDialog = false;
     private float tauFilter;
     private int subSampling;

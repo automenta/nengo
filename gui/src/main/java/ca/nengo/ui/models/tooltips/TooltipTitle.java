@@ -35,7 +35,7 @@ import ca.nengo.ui.lib.world.piccolo.primitives.Text;
  * @author Shu Wu
  */
 class TooltipTitle implements ITooltipPart {
-	String titleName;
+	final String titleName;
 
 	public TooltipTitle(String titleName) {
 		super();

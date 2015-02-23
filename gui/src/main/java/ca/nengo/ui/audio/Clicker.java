@@ -2,9 +2,9 @@ package ca.nengo.ui.audio;
 import javax.sound.sampled.*;
 
 public class Clicker {
-	boolean started=false;
+	final boolean started=false;
 	SourceDataLine line;
-	byte[] value=new byte[bufferSize];
+	final byte[] value=new byte[bufferSize];
 	int targetBytesAvailable=5000;
 
 	private static final int bufferSize=1000;
@@ -77,7 +77,7 @@ public class Clicker {
 		
 		//value[bufferSize-1]=b;
 		value[0]=b;
-		line.write(value,0,(int)steps);
+		line.write(value,0, steps);
 		
 		//line.write(value,(int)(bufferSize-steps),(int)steps);
 	}

@@ -49,9 +49,9 @@ public class MatrixEditor extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    private class MyCellEditor extends DefaultCellEditor {
+    private static class MyCellEditor extends DefaultCellEditor {
         private static final long serialVersionUID = 7289808186710531L;
-        private JTextField myTextField;
+        private final JTextField myTextField;
 
         public MyCellEditor() {
             super(new JTextField());
@@ -116,7 +116,7 @@ public class MatrixEditor extends JPanel {
     }
 
     private final TableModel myTableModel;
-    JTable myTable;
+    final JTable myTable;
 
     /**
      * Creates an editor for the given coupling matrix.
@@ -178,7 +178,7 @@ public class MatrixEditor extends JPanel {
         myTableModel.setValueAt(arg0, arg1, arg2);
     }
 
-    private class MatrixTableModel extends AbstractTableModel {
+    private static class MatrixTableModel extends AbstractTableModel {
 
         /**
          * 

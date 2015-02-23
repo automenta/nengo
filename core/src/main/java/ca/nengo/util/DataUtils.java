@@ -201,7 +201,7 @@ public class DataUtils {
 	 */
 	private static class ComparableNodeWrapper implements Comparable<ComparableNodeWrapper> {
 		
-		private int myIndex;
+		private final int myIndex;
 		private float myFirstDimEncoder;
 		private float myBias;
 		
@@ -241,7 +241,7 @@ public class DataUtils {
 		public int compareTo(ComparableNodeWrapper o) {
 			int result = 0;			
 
-			ComparableNodeWrapper c = (ComparableNodeWrapper) o;
+			ComparableNodeWrapper c = o;
 			if (getOrderingMetric() > c.getOrderingMetric()) {
 				result = 1;
 			} else if (getOrderingMetric() < c.getOrderingMetric()) {

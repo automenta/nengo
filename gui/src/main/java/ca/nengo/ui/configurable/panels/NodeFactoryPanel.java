@@ -52,7 +52,7 @@ import java.lang.reflect.Constructor;
  */
 public class NodeFactoryPanel extends PropertyInputPanel {
 
-    private static ConstructableNodeFactory[] NodeFactoryItems = new ConstructableNodeFactory[] {
+    private static final ConstructableNodeFactory[] NodeFactoryItems = new ConstructableNodeFactory[] {
         new CLinearNeuronFactory(), new CSigmoidNeuronFactory(), new CLIFNeuronFactory(),
         new CALIFNeuronFactory(), new CSpikingNeuronFactory() };
 
@@ -169,8 +169,8 @@ abstract class ConstructableNodeFactory extends AbstractConstructable {
     static final Property pTauRCDefault = new PFloat("tauRC [s]","Membrane time constant, in seconds [typically ~0.02s]");
     static final Property pTauRefDefault = new PFloat("tauRef [s]","Refractory period, in seconds [typically ~0.002s]");
 	
-    private String name;
-    private Class<? extends NodeFactory> type;
+    private final String name;
+    private final Class<? extends NodeFactory> type;
 
     public ConstructableNodeFactory(String name, Class<? extends NodeFactory> type) {
         super();
@@ -411,10 +411,12 @@ class CSpikingNeuronFactory extends ConstructableNodeFactory {
          * Generate these descriptors Just-In-Time, to show all possible
          * implementations in ClassRegistry
          */
-        pSynapticIntegrator = getClassSelector("Synaptic Integrator", ClassRegistry.getInstance()
-                .getImplementations(SynapticIntegratorFactory.class).toArray(new Class<?>[] {}));
-        pSpikeGenerator = getClassSelector("Spike Generator", ClassRegistry.getInstance()
-                .getImplementations(SpikeGeneratorFactory.class).toArray(new Class<?>[] {}));
+        java.util.List<Class<?>> var = ClassRegistry.getInstance()
+                .getImplementations(SynapticIntegratorFactory.class);
+        pSynapticIntegrator = getClassSelector("Synaptic Integrator", var.toArray(new Class<?>[var.size()]));
+        java.util.List<Class<?>> var2 = ClassRegistry.getInstance()
+                .getImplementations(SpikeGeneratorFactory.class);
+        pSpikeGenerator = getClassSelector("Spike Generator", var2.toArray(new Class<?>[var2.size()]));
 
         return new ConfigSchemaImpl(new Property[] { pSynapticIntegrator,
                 pSpikeGenerator, pScale, pBias });
@@ -424,7 +426,7 @@ class CSpikingNeuronFactory extends ConstructableNodeFactory {
      * Wraps a Class as a list item
      */
     private static class ClassWrapper {
-        Class<?> type;
+        final Class<?> type;
 
         public ClassWrapper(Class<?> type) {
             super();
@@ -443,7 +445,7 @@ class CSpikingNeuronFactory extends ConstructableNodeFactory {
             String canonicalName = type.getCanonicalName();
             String[] nameAtoms = canonicalName.split("\\.");
             if (nameAtoms.length > 2) {
-                return nameAtoms[nameAtoms.length - 2] + "." + nameAtoms[nameAtoms.length - 1];
+                return nameAtoms[nameAtoms.length - 2] + '.' + nameAtoms[nameAtoms.length - 1];
 
             } else {
                 return canonicalName;
@@ -477,8 +479,8 @@ class PIndicatorPDF extends Property {
     }
 
     private static class Panel extends PropertyInputPanel {
-        JTextField highValue;
-        JTextField lowValue;
+        final JTextField highValue;
+        final JTextField lowValue;
 
         public Panel(Property property) {
             super(property);
@@ -542,7 +544,7 @@ class PIndicatorPDF extends Property {
 class PListSelector extends Property {
     private static final long serialVersionUID = 1L;
 
-    private Object[] items;
+    private final Object[] items;
 
     public PListSelector(String name, Object[] items) {
         super(name);
@@ -566,7 +568,7 @@ class PListSelector extends Property {
     }
 
     private static class Panel extends PropertyInputPanel {
-        private JComboBox comboBox;
+        private final JComboBox comboBox;
 
         public Panel(Property property, Object[] items) {
             super(property);

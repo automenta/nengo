@@ -305,16 +305,12 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 
 		Origin[] modelOrigins = getModel().getOrigins();
 		HashSet<Origin> modelOriginSet = new HashSet<Origin>(modelOrigins.length);
-		for (Origin origin : modelOrigins) {
-			modelOriginSet.add(origin);
-		}
+        Collections.addAll(modelOriginSet, modelOrigins);
 
 		Termination[] modelTerminations = getModel().getTerminations();
 		HashSet<Termination> modelTerminationSet = new HashSet<Termination>(
 				modelTerminations.length);
-		for (Termination term : modelTerminations) {
-			modelTerminationSet.add(term);
-		}
+        Collections.addAll(modelTerminationSet, modelTerminations);
 
 		for (WorldObject wo : getChildren()) {
 			if (wo instanceof ModelObject) {
@@ -379,6 +375,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 			origin = getModel().getOrigin(probeUI.getName());
 
 		} catch (StructuralException e1) {
+            e1.printStackTrace();
 		}
 
 		if (origin != null) {
@@ -389,6 +386,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 				term = getModel().getTermination(probeUI.getName());
 
 			} catch (StructuralException e) {
+                e.printStackTrace();
 			}
 			if (term != null) {
                 probeHolder = showTermination(term.getName());
@@ -495,7 +493,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	 * @return The default file name for this node
 	 */
 	public String getFileName() {
-		return this.getName() + "." + AbstractNengo.NEONODE_FILE_EXTENSION;
+		return this.getName() + '.' + AbstractNengo.NEONODE_FILE_EXTENSION;
 	}
 
 	@Override
@@ -512,30 +510,34 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 		}
 	}
 
-	/**
-	 * @return The Network model the Node is attached to
-	 */
-	public UINetwork getNetworkParent() {
-		NodeViewer viewer = getParentViewer();
+    /**
+     * @return The Network model the Node is attached to
+     */
+    public UINetwork getNetworkParent() {
+        UINeoNode other = this;
+        while (true) {
+            NodeViewer viewer = other.getParentViewer();
 
 		/*
-		 * Can only access parent network if the Node is inside a Network Viewer
+         * Can only access parent network if the Node is inside a Network Viewer
 		 */
-		if (viewer instanceof NetworkViewer) {
-			return ((NetworkViewer) viewer).getViewerParent();
-		} else if (viewer != null) {
-			// Found the parent viewer, but it's not a network viewer
-			// Recursively iterate up the view graph until we find the NetworkViewer or not
-			//
-			WorldObject viewerParent = viewer.getViewerParent();
+            if (viewer instanceof NetworkViewer) {
+                return ((NetworkViewer) viewer).getViewerParent();
+            } else if (viewer != null) {
+                // Found the parent viewer, but it's not a network viewer
+                // Recursively iterate up the view graph until we find the NetworkViewer or not
+                //
+                WorldObject viewerParent = viewer.getViewerParent();
 
-			if (viewerParent instanceof UINeoNode) {
-				return ((UINeoNode) viewerParent).getNetworkParent();
-			}
-		}
+                if (viewerParent instanceof UINeoNode) {
+                    other = ((UINeoNode) viewerParent);
+                    continue;
+                }
+            }
 
-		return null;
-	}
+            return null;
+        }
+    }
 
 	/**
 	 * @return The viewer the node is contained in, this may be a regular world
@@ -990,7 +992,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	class ShowOriginAction extends StandardAction {
 
 		private static final long serialVersionUID = 1L;
-		String originName;
+		final String originName;
 
 		public ShowOriginAction(String originName) {
 			super(originName);
@@ -1011,7 +1013,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	class ShowTerminationAction extends StandardAction {
 
 		private static final long serialVersionUID = 1L;
-		String termName;
+		final String termName;
 
 		public ShowTerminationAction(String termName) {
 			super(termName);

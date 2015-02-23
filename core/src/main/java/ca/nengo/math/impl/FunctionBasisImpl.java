@@ -71,8 +71,8 @@ public class FunctionBasisImpl extends AbstractFunction implements FunctionBasis
 		ConfigurationImpl result = ConfigUtil.defaultConfiguration(this);
 		result.removeProperty("basisDimension");
 		try {
-			Method getter = this.getClass().getMethod("getFunction", new Class[]{Integer.TYPE});
-			Method countGetter = this.getClass().getMethod("getBasisDimension", new Class[0]);
+			Method getter = this.getClass().getMethod("getFunction", Integer.TYPE);
+			Method countGetter = this.getClass().getMethod("getBasisDimension");
 			result.defineProperty(new ListPropertyImpl(result, "functions", Function.class, getter, countGetter));			
 		} catch (Exception e) {
 			throw new RuntimeException("Can't find function-related methods (this is a bug)", e);

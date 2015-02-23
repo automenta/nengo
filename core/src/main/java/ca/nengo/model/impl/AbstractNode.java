@@ -105,7 +105,8 @@ public abstract class AbstractNode implements Node {
 	 * @see ca.nengo.model.Node#getOrigins()
 	 */
 	public Origin[] getOrigins() {
-		return myOrigins.values().toArray(new Origin[0]);
+        java.util.Collection<Origin> var = myOrigins.values();
+        return var.toArray(new Origin[var.size()]);
 	}
 
 	/**
@@ -119,7 +120,8 @@ public abstract class AbstractNode implements Node {
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
 	public Termination[] getTerminations() {
-		return myTerminations.values().toArray(new Termination[0]);
+        java.util.Collection<Termination> var = myTerminations.values();
+        return var.toArray(new Termination[var.size()]);
 	}
 
 	/**

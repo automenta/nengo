@@ -36,7 +36,7 @@ import java.lang.ref.WeakReference;
 public class NengoTreeNode extends SortableMutableTreeNode {
     private static final long serialVersionUID = 1L;
 
-    private WeakReference<Node> nengoNodeRef;
+    private final WeakReference<Node> nengoNodeRef;
 
     /**
      * @param name TODO

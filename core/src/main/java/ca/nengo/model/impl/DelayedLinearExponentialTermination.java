@@ -17,8 +17,8 @@ public class DelayedLinearExponentialTermination extends LinearExponentialTermin
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int myDelay;
-	private ArrayList<InstantaneousOutput> myQueue;
+	private final int myDelay;
+	private final ArrayList<InstantaneousOutput> myQueue;
 	
 	
 	 /**

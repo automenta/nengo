@@ -17,7 +17,7 @@ public class ActionException extends UIException {
 	 */
 	private final boolean showWarning;
 
-	private Exception targetException;
+	private final Exception targetException;
 
 	public ActionException(Exception e) {
 		this(e.getMessage(), true, e);

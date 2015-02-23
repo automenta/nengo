@@ -50,10 +50,10 @@ public class PyramidalNetwork extends NetworkImpl
     private IndicatorPDF myDendriteCount; //Range of subunit(dendrite) sizes
     private float mySubDifference; //Difference between high and low of subunit distribution
     private DefaultFunctionInterpreter interpreter;
-    private int ranges = 15; //range for random scale values in dendrite ensembles (this is an arbitrary number, appropriate scales have not yet been found)
+    private final int ranges = 15; //range for random scale values in dendrite ensembles (this is an arbitrary number, appropriate scales have not yet been found)
     private boolean LIFDendrites = false;
     private boolean spikingLIFDendrites = false;
-    private String myName;
+    private final String myName;
     private String myDendriteFunction; //function to be computer at the dendrites
     private String myConnectedOrigin; //name of the origin being connected to the soma (X is default unless a function is computed at the dendrites)
 
@@ -96,7 +96,7 @@ public class PyramidalNetwork extends NetworkImpl
         this.LIFDendrites = LIFDendrites;
         this.spikingLIFDendrites = spikingLIFDendrites;
 
-        if (!(f.equals(""))) {
+        if (!(f.isEmpty())) {
             this.myDendriteFunction = f;
 
             while (i < this.dim) {
@@ -684,12 +684,12 @@ public class PyramidalNetwork extends NetworkImpl
 
         private static final long serialVersionUID = 1L;
 
-        private PoiraziDendriteSigmoidFactory pf;
+        private final PoiraziDendriteSigmoidFactory pf;
 
-        private static float ourMaxTimeStep = .0005f;
-        private static Units ourCurrentUnits = Units.ACU;
+        private static final float ourMaxTimeStep = .0005f;
+        private static final Units ourCurrentUnits = Units.ACU;
 
-        private Random r;//random number generator for scale values
+        private final Random r;//random number generator for scale values
 
         private int range; //range of scales to pick from
 

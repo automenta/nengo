@@ -99,13 +99,13 @@ public class FourierFunction implements Function {
 			frequencies[0][i] = fundamental * (i+1);
 			
 			if (type == 1) {
-				amplitudes[i] = (float) random.nextFloat() * fundamental / frequencies[0][i]; //decreasing amplitude = pink noise
+				amplitudes[i] = random.nextFloat() * fundamental / frequencies[0][i]; //decreasing amplitude = pink noise
 			} else if (type == 0) {
-				amplitudes[i]	= (float) random.nextFloat(); //constant amplitude = white noise
+				amplitudes[i]	= random.nextFloat(); //constant amplitude = white noise
 			} else {
 				throw new IllegalArgumentException("FourierFunction noise type is invalid");
 			}
-			phases[0][i] = -.5f + 2f * (float) random.nextFloat();
+			phases[0][i] = -.5f + 2f * random.nextFloat();
 		}
 		
 		//find amplitude over one period and rescale to specified amplitude 

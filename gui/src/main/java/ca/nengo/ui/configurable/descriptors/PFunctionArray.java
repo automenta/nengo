@@ -40,7 +40,7 @@ public class PFunctionArray extends Property {
 
     private static final long serialVersionUID = 1L;
 
-    private int inputDimension;
+    private final int inputDimension;
 
     /**
      * @param name TODO

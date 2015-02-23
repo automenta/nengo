@@ -54,10 +54,10 @@ public class RK45Integrator implements Integrator {
 	
 	private static final long serialVersionUID = 1L;
 
-	private static Logger ourLogger = Logger.getLogger(RK45Integrator.class);
+	private static final Logger ourLogger = Logger.getLogger(RK45Integrator.class);
 	
 	//The Dormand-Prince 4(5) coefficients:
-	private static float[][] a = new float[][] {
+	private static final float[][] a = new float[][] {
 		new float[]{0},
 		new float[]{1f/5f},
 		new float[]{3f/40f, 9f/40f},
@@ -67,14 +67,14 @@ public class RK45Integrator implements Integrator {
 		new float[]{35f/384f, 0f, 500f/1113f, 125f/192f, -2187f/6784f, 11f/84f}
 	};
     
-    private static float[] b4 = new float[]{5179f/57600f, 0f, 7571f/16695f, 393f/640f, -92097f/339200f, 187f/2100f, 1f/40f};
-    private static float[] b5 = new float[]{35f/384f, 0, 500f/1113f, 125f/192f, -2187f/6784f, 11f/84f, 0f};
+    private static final float[] b4 = new float[]{5179f/57600f, 0f, 7571f/16695f, 393f/640f, -92097f/339200f, 187f/2100f, 1f/40f};
+    private static final float[] b5 = new float[]{35f/384f, 0, 500f/1113f, 125f/192f, -2187f/6784f, 11f/84f, 0f};
     
-    private static float[] c = new float[] {0f, 1f/5f, 3f/10f, 4f/5f, 8f/9f, 1f, 1f}; //sums of a[0] to a[6]
+    private static final float[] c = new float[] {0f, 1f/5f, 3f/10f, 4f/5f, 8f/9f, 1f, 1f}; //sums of a[0] to a[6]
         
     //Note: for this value Compere references p.91 of Ascher & Petzold, Computer Methods for Ordinary Differential Equations and Differential-Agebraic Equations, 
     //  Society for Industrial and Applied Mathematics (SIAM), Philadelphia, 1998
-    private double myPow = 1f/6f; 
+    private final double myPow = 1f/6f;
     private float myTolerance;
     
     /**
@@ -152,8 +152,8 @@ public class RK45Integrator implements Integrator {
 			}
 			
 			float[][] kt = MU.transpose(k);
-			float[] x4 = MU.sum(x, MU.prod(MU.prod(kt, b4), (float) h)); //4th order estimate			
-			float[] x5 = MU.sum(x, MU.prod(MU.prod(kt, b5), (float) h)); //5th order estimate
+			float[] x4 = MU.sum(x, MU.prod(MU.prod(kt, b4), h)); //4th order estimate
+			float[] x5 = MU.sum(x, MU.prod(MU.prod(kt, b5), h)); //5th order estimate
 			
 			float[] gamma1 = MU.difference(x5, x4); //truncation error
 			

@@ -46,8 +46,7 @@ public class DataViewerTest {
 
 	private UINetwork network;
 
-	public void createUINetwork(AbstractNengo abstractNengo)
-			throws StructuralException, SimulationException {
+	public void createUINetwork(AbstractNengo abstractNengo) {
 
 		network = new UINetwork(new NetworkImpl());
 		abstractNengo.getWorld().getGround().addChild(network);
@@ -114,13 +113,8 @@ public class DataViewerTest {
 
 		SwingUtilities.invokeAndWait(new Runnable() {
 			public void run() {
-				try {
 					createUINetwork(new AbstractNengo());
-				} catch (StructuralException e) {
-					e.printStackTrace();
-				} catch (SimulationException e) {
-					e.printStackTrace();
-				}
+
 			}
 		});
 

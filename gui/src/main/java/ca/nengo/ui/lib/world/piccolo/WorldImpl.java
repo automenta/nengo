@@ -97,30 +97,30 @@ public class WorldImpl extends WorldObjectImpl implements World, Interactable {
 	/**
 	 * Layer attached to the camera which shows the zoomable grid
 	 */
-	private PXLayer gridLayer;
+	private final PXLayer gridLayer;
 
 	/**
 	 * If true, then selection mode. If false, then navigation mode.
 	 */
 	private boolean isSelectionMode;
 
-	private KeyboardHandler keyboardHandler;
+	private final KeyboardHandler keyboardHandler;
 
 	/**
 	 * PLayer which holds the ground layer
 	 */
-	private PXLayer layer;
+	private final PXLayer layer;
 
 	/**
 	 * Ground which can be zoomed and navigated
 	 */
-	private WorldGroundImpl myGround;
+	private final WorldGroundImpl myGround;
 
 	/**
 	 * Sky, which looks at the ground and whose position and scale remains
 	 * static
 	 */
-	private WorldSkyImpl mySky;
+	private final WorldSkyImpl mySky;
 
 	/**
 	 * Panning handler
@@ -130,7 +130,7 @@ public class WorldImpl extends WorldObjectImpl implements World, Interactable {
 	/**
 	 * Selection handler
 	 */
-	private SelectionHandler selectionEventHandler;
+	private final SelectionHandler selectionEventHandler;
 
 	/**
 	 * Status bar handler

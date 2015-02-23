@@ -213,7 +213,7 @@ public class ConfigUtil {
 					&& Configuration.class.isAssignableFrom(methods[i].getReturnType())) {
 
 				try {
-					result = (Configuration) methods[i].invoke(configurable, new Object[0]);
+					result = (Configuration) methods[i].invoke(configurable);
 				} catch (IllegalArgumentException e) {
 					throw new RuntimeException(e);
 				} catch (IllegalAccessException e) {
@@ -454,7 +454,7 @@ public class ConfigUtil {
 			}
 			if (zeroArgConstructor != null) {
 				try {
-					result = zeroArgConstructor.newInstance(new Object[0]);
+					result = zeroArgConstructor.newInstance();
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 				} catch (InstantiationException e) {

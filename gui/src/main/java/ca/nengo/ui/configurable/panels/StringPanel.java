@@ -35,7 +35,7 @@ import ca.nengo.ui.configurable.Property;
  */
 public class StringPanel extends PropertyTextPanel {
 
-	private static int COLUMNS = 10;
+	private static final int COLUMNS = 10;
 
     public StringPanel(Property property) {
         super(property, COLUMNS);
@@ -49,7 +49,7 @@ public class StringPanel extends PropertyTextPanel {
     
     @Override
     protected TextError checkValue(String text) {
-        if (text == null || text.equals("")) {
+        if (text == null || text.isEmpty()) {
         	return TextError.ValueNotSet;
         } else {
             return TextError.NoError;

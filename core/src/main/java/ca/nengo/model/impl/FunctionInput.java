@@ -267,7 +267,7 @@ public class FunctionInput implements Node, Probeable {
 		StringBuilder py = new StringBuilder();
         boolean isFourier = true;
 
-        py.append("\n");
+        py.append('\n');
         
         for (int i = 0; i < myFunctions.length; i++) {
             if (!(myFunctions[i] instanceof FourierFunction))
@@ -293,15 +293,15 @@ public class FunctionInput implements Node, Probeable {
                 high.append(func.getCutoff());
                 power.append(func.getRms());
                 if ((i + 1) < myFunctions.length) {
-                    base.append(",");
-                    high.append(",");
-                    power.append(",");
+                    base.append(',');
+                    high.append(',');
+                    power.append(',');
                 }
             }
 
-            base.append("]");
-            high.append("]");
-            power.append("]");
+            base.append(']');
+            high.append(']');
+            power.append(']');
 
             py.append(String.format("%s.make_fourier_input('%s', dimensions=%d, base=%s, high=%s, power=%s)\n",
                         scriptData.get("netName"),
@@ -314,10 +314,10 @@ public class FunctionInput implements Node, Probeable {
             StringBuilder funcs = new StringBuilder("[");
             for (int i = 0; i < myFunctions.length; i++) {
             	
-            	String functionName = String.format("Function%c%s%c%d", 
-													(Character)scriptData.get("spaceDelim"), 
-													myName.replaceAll("\\p{Blank}|\\p{Punct}", ((Character)scriptData.get("spaceDelim")).toString()),
-													(Character)scriptData.get("spaceDelim"), 
+            	String functionName = String.format("Function%c%s%c%d",
+                        scriptData.get("spaceDelim"),
+													myName.replaceAll("\\p{Blank}|\\p{Punct}", scriptData.get("spaceDelim").toString()),
+                        scriptData.get("spaceDelim"),
 													i);
 
                 if (myFunctions[i] instanceof ConstantFunction) {
@@ -352,7 +352,7 @@ public class FunctionInput implements Node, Probeable {
                     funcs.append(", ");
                 }
             }
-            funcs.append("]");
+            funcs.append(']');
                                 
             py.append(String.format("%s.make_input('%s', values=%s)\n",
                     scriptData.get("netName"),

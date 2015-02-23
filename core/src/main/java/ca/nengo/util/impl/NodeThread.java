@@ -19,20 +19,20 @@ import java.util.List;
  */
 public class NodeThread extends Thread {
 
-	private NodeThreadPool myNodeThreadPool;
+	private final NodeThreadPool myNodeThreadPool;
 
-	private Node[] myNodes;
-	private List<Node> myDeferredSocketNodes;
-	private int myStartIndexInNodes;
-	private int myEndIndexInNodes;
+	private final Node[] myNodes;
+	private final List<Node> myDeferredSocketNodes;
+	private final int myStartIndexInNodes;
+	private final int myEndIndexInNodes;
 
-	private Projection[] myProjections;
-	private int myStartIndexInProjections;
-	private int myEndIndexInProjections;
+	private final Projection[] myProjections;
+	private final int myStartIndexInProjections;
+	private final int myEndIndexInProjections;
 
-	private ThreadTask[] myTasks;
-	private int myStartIndexInTasks;
-	private int myEndIndexInTasks;
+	private final ThreadTask[] myTasks;
+	private final int myStartIndexInTasks;
+	private final int myEndIndexInTasks;
 
 	private boolean myCollectTimings;
 
@@ -182,11 +182,11 @@ public class NodeThread extends Thread {
 	
 	protected void kill(){
 		if(myCollectTimings){
-			StringBuffer timingOutput = new StringBuffer();
-			timingOutput.append("Timings for thread: " + this.getName() + "\n");
-			timingOutput.append("Average time processing projections per step: " + myAverageTimeOnProjectionsPerStep + " ms\n");
-			timingOutput.append("Average time processing nodes per step: " + myAverageTimeOnNodesPerStep + " ms\n");
-			timingOutput.append("Average time processing tasks per step: " + myAverageTimeOnTasksPerStep + " ms\n");
+			StringBuilder timingOutput = new StringBuilder();
+			timingOutput.append("Timings for thread: ").append(this.getName()).append('\n');
+			timingOutput.append("Average time processing projections per step: ").append(myAverageTimeOnProjectionsPerStep).append(" ms\n");
+			timingOutput.append("Average time processing nodes per step: ").append(myAverageTimeOnNodesPerStep).append(" ms\n");
+			timingOutput.append("Average time processing tasks per step: ").append(myAverageTimeOnTasksPerStep).append(" ms\n");
 			
 			System.out.print(timingOutput.toString());
 		}

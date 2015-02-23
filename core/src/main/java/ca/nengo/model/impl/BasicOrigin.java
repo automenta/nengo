@@ -46,7 +46,7 @@ public class BasicOrigin implements Origin, Noise.Noisy, Resettable, Configurabl
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger ourLogger = Logger.getLogger(BasicOrigin.class);
+	private static final Logger ourLogger = Logger.getLogger(BasicOrigin.class);
 
 	private Node myNode;
 	private String myName;
@@ -84,7 +84,7 @@ public class BasicOrigin implements Origin, Noise.Noisy, Resettable, Configurabl
 		myConfiguration.removeProperty("dimensions");
 		try {
 			Property p = new SingleValuedPropertyImpl(myConfiguration, "dimensions", Integer.TYPE,
-					this.getClass().getMethod("getDimensions", new Class[0]));
+					this.getClass().getMethod("getDimensions"));
 			myConfiguration.defineProperty(p);
 		} catch (Exception e) {
 			ourLogger.warn("Can't define property 'dimensions'", e);

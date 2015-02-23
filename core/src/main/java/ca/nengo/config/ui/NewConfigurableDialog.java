@@ -60,11 +60,11 @@ public class NewConfigurableDialog extends JDialog implements ActionListener {
 	private Object myResult;
 
 	private Configuration myConfiguration;
-	private JTree myConfigurationTree;
+	private final JTree myConfigurationTree;
 	private ConfigurationTreePopupListener myPopupListener;
-	private JButton myPreviousButton;
-	private JButton myNextButton;
-	private JButton myOKButton;
+	private final JButton myPreviousButton;
+	private final JButton myNextButton;
+	private final JButton myOKButton;
 	private Constructor<?>[] myConstructors;
 	private int myConstructorIndex;
 
@@ -294,7 +294,7 @@ public class NewConfigurableDialog extends JDialog implements ActionListener {
 			+ myConstructors[myConstructorIndex].getDeclaringClass().getName() + ". See error log for further detail. ";
 
 		try {
-			myResult = myConstructors[myConstructorIndex].newInstance(args.toArray(new Object[0]));
+			myResult = myConstructors[myConstructorIndex].newInstance(args.toArray(new Object[args.size()]));
 
 			if (myPopupListener != null) {
 				myConfigurationTree.removeMouseListener(myPopupListener);
@@ -312,7 +312,7 @@ public class NewConfigurableDialog extends JDialog implements ActionListener {
 		} catch (IllegalAccessException e) {
 			ConfigExceptionHandler.handle(e, errorMessage, myConfigurationTree);
 		} catch (InvocationTargetException e) {
-			ConfigExceptionHandler.handle(e, errorMessage + " (" + e.getCause().getClass().getName() + ")",
+			ConfigExceptionHandler.handle(e, errorMessage + " (" + e.getCause().getClass().getName() + ')',
 					myConfigurationTree);
 		}
 	}
@@ -332,7 +332,7 @@ public class NewConfigurableDialog extends JDialog implements ActionListener {
 	 */
 	public static class ConstructionProperties {
 
-		private Configuration myConfiguration;
+		private final Configuration myConfiguration;
 
 		private ConstructionProperties(Configuration configuration) {
 			myConfiguration = configuration;

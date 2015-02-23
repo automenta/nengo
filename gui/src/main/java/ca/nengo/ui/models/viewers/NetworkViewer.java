@@ -52,10 +52,7 @@ import org.piccolo2d.util.PBounds;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Viewer for peeking into a Network
@@ -64,8 +61,8 @@ import java.util.LinkedList;
  */
 public class NetworkViewer extends NodeViewer implements NodeContainer {
     private static final boolean ELASTIC_LAYOUT_ENABLED_DEFAULT = false;
-    private File layoutFile;
-    private File backupLayoutFile;
+    private final File layoutFile;
+    private final File backupLayoutFile;
     private Path layoutArea;
     private Button zoom;
     private Button feedforward;
@@ -260,9 +257,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
          */
         HashSet<Projection> projectionsToAdd = new HashSet<Projection>(
                 getModel().getProjections().length);
-        for (Projection projection : getModel().getProjections()) {
-            projectionsToAdd.add(projection);
-        }
+        Collections.addAll(projectionsToAdd, getModel().getProjections());
 
         HashMap<Termination, Projection> projectionMap = new HashMap<Termination, Projection>(
                 projectionsToAdd.size());
@@ -310,7 +305,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
             projectionUI.destroy();
             if (!isFirstUpdate) {
                 terminationUI.showPopupMessage("REMOVED Projection to "
-                        + terminationUI.getNodeParent().getName() + "." + terminationUI.getName());
+                        + terminationUI.getNodeParent().getName() + '.' + terminationUI.getName());
             }
         }
 
@@ -331,7 +326,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
 
                 originUI.connectTo(termUI, false);
                 if (!isFirstUpdate) {
-                    termUI.showPopupMessage("NEW Projection to " + termUI.getName() + "."
+                    termUI.showPopupMessage("NEW Projection to " + termUI.getName() + '.'
                             + getName());
                 }
             } else {
@@ -542,10 +537,10 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
             try {
                 while((line = reader.readLine()) != null) {
                     if (line.length() >= 2 && line.substring(0, 2).equals("# ")) {
-                        if (line.indexOf("elasticmode=") != -1) {
+                        if (line.contains("elasticmode=")) {
                             enableElasticMode = Boolean.parseBoolean(
                                     line.substring(line.indexOf('=') + 1));
-                        } else if (line.indexOf("viewbounds=") != -1) {
+                        } else if (line.contains("viewbounds=")) {
                             float x = Float.parseFloat(line.substring(
                                     line.indexOf("x=") + 2, line.indexOf(',')));
                             float y = Float.parseFloat(line.substring(
@@ -565,7 +560,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
                                     line.indexOf(")=Point2D.Double[") + 17, line.indexOf(',',
                                             line.indexOf(")=Point2D.Double["))));
                             float y = Float.parseFloat(line.substring(
-                                    line.indexOf(",", line.indexOf(")=Point2D.Double[")) + 1,
+                                    line.indexOf(',', line.indexOf(")=Point2D.Double[")) + 1,
                                     line.indexOf(']', line.indexOf(")=Point2D.Double["))));
                             String fullName = line.substring(2,
                                     line.indexOf("=Point2D.Double["));
@@ -664,7 +659,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
 
                 while((line = reader.readLine()) != null) {
                     if (line.length() > 0 && line.charAt(0) != '#') {
-                        newfile.append(line + "\n");
+                        newfile.append(line).append('\n');
                     }
                 }
                 reader.close();
@@ -677,13 +672,10 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
         newfile.append("##############################\n");
         newfile.append("### Nengo Workspace layout ###\n");
         newfile.append("##############################\n");
-        newfile.append("# elasticmode=" +
-                Boolean.toString(getGround().isElasticMode()) + "\n");
-        newfile.append("# viewbounds=" +
-                getSky().getViewBounds().toString() + "\n");
+        newfile.append("# elasticmode=").append(Boolean.toString(getGround().isElasticMode())).append('\n');
+        newfile.append("# viewbounds=").append(getSky().getViewBounds().toString()).append('\n');
         for (UINeoNode object : getUINodes()) {
-            newfile.append("# " + object.getFullName() + "=" +
-                    object.getOffset().toString() + "\n");
+            newfile.append("# ").append(object.getFullName()).append('=').append(object.getOffset().toString()).append('\n');
         }
 
         try {
@@ -706,9 +698,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
          * Hashset of probes
          */
         HashSet<Probe> probeToAdd = new HashSet<Probe>(probesArray.length);
-        for (Probe probe : probesArray) {
-            probeToAdd.add(probe);
-        }
+        Collections.addAll(probeToAdd, probesArray);
 
         /*
          * Get current probes in UI
@@ -769,7 +759,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
     class RestoreLayout extends StandardAction {
         private static final long serialVersionUID = 1L;
 
-        String layoutName;
+        final String layoutName;
 
         public RestoreLayout(String name) {
             super("Restore layout: " + name, name);
@@ -819,7 +809,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
 
         private static final long serialVersionUID = 1L;
 
-        private boolean visible;
+        private final boolean visible;
 
         public SetOTVisiblityAction(String actionName, boolean visible) {
             super(actionName);
@@ -870,7 +860,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
 }
 
 class ShowHideHandler extends PBasicInputEventHandler {
-    private WorldObject[] toHide;
+    private final WorldObject[] toHide;
 
     public ShowHideHandler(WorldObject[] toHide) {
         this.toHide = toHide;

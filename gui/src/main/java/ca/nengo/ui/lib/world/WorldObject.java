@@ -124,7 +124,7 @@ public interface WorldObject extends NamedObject, Destroyable {
      * 
      * @return reference to the children list
      */
-    public Iterable<WorldObject> getChildren();
+    public Collection<WorldObject> getChildren();
 
     /**
      * Schedule the given activity with the root, note that only scheduled

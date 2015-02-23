@@ -61,7 +61,7 @@ import org.apache.log4j.Logger;
  */
 public class HillMuscle extends SkeletalMuscleImpl {
 
-	private static Logger ourLogger = Logger.getLogger(HillMuscle.class);
+	private static final Logger ourLogger = Logger.getLogger(HillMuscle.class);
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -163,15 +163,15 @@ public class HillMuscle extends SkeletalMuscleImpl {
 
 		private static final long serialVersionUID = 1L;
 
-		private float myTauEA;
-		private float myMaxIsometricForce;
-		private Function myCEForceLength;
-		private Function myCEForceVelocity;
-		private Function mySEForceLength;
+		private final float myTauEA;
+		private final float myMaxIsometricForce;
+		private final Function myCEForceLength;
+		private final Function myCEForceVelocity;
+		private final Function mySEForceLength;
 
-		private RootFinder myRootFinder;
+		private final RootFinder myRootFinder;
 
-		private Units[] myUnits;
+		private final Units[] myUnits;
 		private float[] myState;
 
 		/**

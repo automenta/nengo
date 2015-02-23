@@ -42,7 +42,7 @@ import javax.swing.*;
 public class CDecodedOrigin extends ProjectionConstructor {
 	private static final Property pName = new PString("Name");
 
-	private NEFEnsemble enfEnsembleParent;
+	private final NEFEnsemble enfEnsembleParent;
 
 	private Property pFunctions;
 
@@ -112,9 +112,9 @@ class OriginInputPanel extends PropertyInputPanel {
 	/**
 	 * Selector of the Node Origin
 	 */
-	private JComboBox comboBox;
+	private final JComboBox comboBox;
 
-	String[] origins;
+	final String[] origins;
 
 	public OriginInputPanel(OriginSelector property, String[] originNames) {
 		super(property);
@@ -159,7 +159,7 @@ class OriginInputPanel extends PropertyInputPanel {
 class OriginSelector extends Property {
 
 	private static final long serialVersionUID = 1L;
-	String[] origins;
+	final String[] origins;
 
 	public OriginSelector(String name, String description, String[] originNames) {
 		super(name, description);

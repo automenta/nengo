@@ -7,8 +7,8 @@ public interface Searchable {
 	public Collection<SearchValuePair> getSearchableValues();
 
 	class SearchValuePair {
-		private String name;
-		private String value;
+		private final String name;
+		private final String value;
 
 		public SearchValuePair(String name, String value) {
 			super();

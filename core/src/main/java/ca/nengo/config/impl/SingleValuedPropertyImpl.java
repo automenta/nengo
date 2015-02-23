@@ -40,7 +40,7 @@ import java.lang.reflect.Method;
  */
 public class SingleValuedPropertyImpl extends AbstractProperty implements SingleValuedProperty {
 	
-	private Method myGetter;
+	private final Method myGetter;
 	private Method mySetter;
 
 	/**
@@ -105,7 +105,7 @@ public class SingleValuedPropertyImpl extends AbstractProperty implements Single
 		
 		Object configurable = getConfiguration().getConfigurable();
 		try {
-			result = myGetter.invoke(configurable, new Object[0]);
+			result = myGetter.invoke(configurable);
 		} catch (Exception e) {
 			throw new RuntimeException("Can't get property", e);
 		}
@@ -131,7 +131,7 @@ public class SingleValuedPropertyImpl extends AbstractProperty implements Single
 		Object configurable = getConfiguration().getConfigurable();
 		
 		try {
-			mySetter.invoke(configurable, new Object[]{value});
+			mySetter.invoke(configurable, value);
 		} catch (InvocationTargetException e) {
 			throw new StructuralException("Can't set " + getName() + ": " + e.getCause().getMessage(), e);
 		} catch (Exception e) {

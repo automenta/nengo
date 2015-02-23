@@ -14,12 +14,12 @@ import java.util.Stack;
 
 public class ScriptGenerator extends DFSIterator {
 
-	HashMap<Node, String> prefixes;
+	final HashMap<Node, String> prefixes;
 	
 	PrintWriter writer;
-	StringBuilder script;
-	char spaceDelimiter = '_';
-	String topLevelPrefix = "net";
+	final StringBuilder script;
+	final char spaceDelimiter = '_';
+	final String topLevelPrefix = "net";
     Stack<Network> parentNetwork;
     int inTemplateNetwork;
 	
@@ -111,14 +111,14 @@ public class ScriptGenerator extends DFSIterator {
             toScriptArgs.put("netName", prefixes.get(node));
             toScriptArgs.put("spaceDelim", spaceDelimiter);
             
-            try {
+            //try {
                 String code = net.toPostScript(toScriptArgs);
                 script.append(code);
-            } catch(ScriptGenException e) {
+            /*} catch(ScriptGenException e) {
                 System.out.println(e.getMessage());
-            }
+            }*/
 
-            script.append("\n# " + node.getName() + " - Projections\n");
+            script.append("\n# ").append(node.getName()).append(" - Projections\n");
 
             for(Projection proj : ((Network) node).getProjections())
             {
@@ -128,20 +128,20 @@ public class ScriptGenerator extends DFSIterator {
                 if (templateProjections == null || !postName.equals(templateProjections.get(preName)))
                 {
                     try {
-                        String code = proj.toScript(toScriptArgs);
-                        script.append(code);
+                        String code2 = proj.toScript(toScriptArgs);
+                        script.append(code2);
                     } catch(ScriptGenException e) {
                         System.out.println(e.getMessage());
                     }
                 }
             }
 
-            script.append("\n# Network " + node.getName() + " End\n\n");
+            script.append("\n# Network ").append(node.getName()).append(" End\n\n");
                         
             if(topLevel)
             {
             	String nameNoSpaces = topLevelPrefix + spaceDelimiter + node.getName().replaceAll("\\p{Blank}|\\p{Punct}", Character.toString(spaceDelimiter));
-            	script.append( nameNoSpaces + ".add_to_nengo()\n");
+            	script.append(nameNoSpaces).append(".add_to_nengo()\n");
             }
         }
 

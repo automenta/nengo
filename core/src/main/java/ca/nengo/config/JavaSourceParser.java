@@ -52,8 +52,8 @@ import java.util.StringTokenizer;
 public class JavaSourceParser {
 
 
-	private static Logger ourLogger = Logger.getLogger(JavaSourceParser.class);
-	private static JavaProjectBuilder ourBuilder;
+	private static final Logger ourLogger = Logger.getLogger(JavaSourceParser.class);
+	private static final JavaProjectBuilder ourBuilder;
 
 	static {
 		ourBuilder = new JavaProjectBuilder();
@@ -79,7 +79,7 @@ public class JavaSourceParser {
 		JavaClass jc = ourBuilder.getClassByName(c.getName());
 		List<JavaClass> interfaces = jc.getImplementedInterfaces();
 
-		StringBuffer docs = new StringBuffer(jc.getName());
+		StringBuilder docs = new StringBuilder(jc.getName());
 		if (c.getSuperclass() != null && c.getSuperclass() != Object.class) {
 			docs.append(" extends ");
 			docs.append(c.getSuperclass().getSimpleName());
@@ -99,7 +99,7 @@ public class JavaSourceParser {
 
 		docs.append(jc.getComment());
 		for (JavaClass interface1 : interfaces) {
-			docs.append("\r\n\r\n" + interface1.getFullyQualifiedName() + ":\r\n");
+			docs.append("\r\n\r\n").append(interface1.getFullyQualifiedName()).append(":\r\n");
 			docs.append(interface1.getComment());
 		}
 
@@ -116,7 +116,7 @@ public class JavaSourceParser {
 	 * @throws ClassNotFoundException if the class doesn't exist
 	 */
 	public static Method getMethod(String reference, String referringClassName)
-			throws SecurityException, NoSuchMethodException, ClassNotFoundException {
+			throws SecurityException, NoSuchMethodException {
 
 		Method result = null;
 
@@ -125,7 +125,7 @@ public class JavaSourceParser {
 		}
 
 		String className = referringClassName;
-		int index = reference.indexOf("#");
+		int index = reference.indexOf('#');
 		if (index > 0) {
 			className = reference.substring(0, index).trim();
 			reference = reference.substring(index+1);
@@ -144,7 +144,7 @@ public class JavaSourceParser {
 				argTypes.add(getType(argTypeName, packageName));
 			}
 
-			result = type.getMethod(methodName, argTypes.toArray(new Class[0]));
+			result = type.getMethod(methodName, argTypes.toArray(new Class[argTypes.size()]));
 		}
 
 		return result;
@@ -155,7 +155,7 @@ public class JavaSourceParser {
 
 		result = getType(name);
 		if (result == null) {
-            getType(packageName + "." + name);
+            getType(packageName + '.' + name);
         }
 		if (result == null) {
             getType("java.lang." + name);
@@ -194,7 +194,7 @@ public class JavaSourceParser {
 	}
 
 	private static String getDocs(JavaMethod jm) {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		if (jm != null) {
 			String comment = jm.getComment();
@@ -210,21 +210,21 @@ public class JavaSourceParser {
 
 	//returns concatenated text of doc tag names and values
 	private static String getTagText(JavaMethod entity) {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		List<DocletTag> tags = entity.getTags();
 		for (DocletTag tag : tags) {
 			if (tag.getName().equals("see")) { //attempt to substitute references docs
 				String className = ".";
 				if (entity instanceof JavaMethod) {
-					className = ((JavaMethod) entity).getParentClass().getFullyQualifiedName();
+					className = entity.getParentClass().getFullyQualifiedName();
 				} else if (entity instanceof JavaClass) {
 					className = ((JavaClass) entity).getFullyQualifiedName();
 				}
 				try {
 					Method referencedMethod = getMethod(tag.getValue(), className);
 					String referencedDocs = getDocs(referencedMethod);
-					result.append("\r\n" + referencedDocs + "\r\n");
+					result.append("\r\n").append(referencedDocs).append("\r\n");
 				} catch (Exception e) {
 					ourLogger.warn("Can't get docs for reference " + tag.getValue(), e);
 				}
@@ -312,26 +312,26 @@ public class JavaSourceParser {
 	 * @return A text representation of the method signature (for display)
 	 */
 	public static String getSignature(Method m) {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		String[] argNames = getArgNames(m);
 
 		Class<?> returnType = m.getReturnType();
 		if (returnType != null) {
-            result.append(ClassUtils.getName(returnType) + " ");
+            result.append(ClassUtils.getName(returnType)).append(' ');
         }
 		result.append(m.getName());
-		result.append("(");
+		result.append('(');
 		Class<?>[] paramTypes = m.getParameterTypes();
 		for (int i = 0; i < paramTypes.length; i++) {
 			result.append(ClassUtils.getName(paramTypes[i]));
-			result.append(" ");
+			result.append(' ');
 			result.append(argNames[i]);
 			if (i < paramTypes.length - 1) {
                 result.append(", ");
             }
 		}
-		result.append(")");
+		result.append(')');
 
 		return result.toString();
 	}

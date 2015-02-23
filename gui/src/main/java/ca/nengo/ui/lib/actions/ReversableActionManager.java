@@ -17,12 +17,12 @@ public class ReversableActionManager {
 	 */
 	static final int MAX_NUM_OF_UNDO_ACTIONS = 5;
 
-	private AppFrame parent;
+	private final AppFrame parent;
 
 	/**
 	 * A collection of reversable actions
 	 */
-	private Vector<ReversableAction> reversableActions;
+	private final Vector<ReversableAction> reversableActions;
 
 	/**
 	 * Number of undo steps that have been taken

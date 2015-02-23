@@ -10,7 +10,7 @@ import java.util.Collection;
 public class RemoveObjectsAction extends StandardAction {
 
 	private static final long serialVersionUID = 1L;
-	private Collection<WorldObject> objectsToRemove;
+	private final Collection<WorldObject> objectsToRemove;
 
 	public RemoveObjectsAction(Collection<WorldObject> objectsToRemove, String actionName) {
 		super(actionName);

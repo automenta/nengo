@@ -78,7 +78,7 @@ public class CreateModelAction extends ReversableAction {
 	        } catch (StructuralException e) {
 	            newName = JOptionPane.showInputDialog(UIEnvironment.getInstance(),
 	                    "Names cannot contain '.' or ':', please enter a new name", newName);
-	            if (newName == null || newName.equals("")) {
+	            if (newName == null || newName.isEmpty()) {
 	                throw new UserCancelledException();
 	            }
 	        }
@@ -90,13 +90,13 @@ public class CreateModelAction extends ReversableAction {
             // Avoid duplicate names
             while (container.getNodeModel(newName) != null) {
                 i++;
-                newName = originalName + " (" + i + ")";
+                newName = originalName + " (" + i + ')';
 
             }
             newName = JOptionPane.showInputDialog(UIEnvironment.getInstance(),
                     "Node already exists, please enter a new name", newName);
 
-            if (newName == null || newName.equals("")) {
+            if (newName == null || newName.isEmpty()) {
                 throw new UserCancelledException();
             }
         }
@@ -111,12 +111,12 @@ public class CreateModelAction extends ReversableAction {
     /**
      * Node constructable
      */
-    private AbstractConstructable constructable;
+    private final AbstractConstructable constructable;
 
     /**
      * Container to which the created node shall be added
      */
-    private NodeContainer container;
+    private final NodeContainer container;
 
     /**
      * @param nodeContainer

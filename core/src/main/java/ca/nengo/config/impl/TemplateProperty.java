@@ -78,7 +78,7 @@ public class TemplateProperty extends AbstractProperty implements SingleValuedPr
 	private void checkClass(Object value) throws StructuralException {
 		if (!getType().isAssignableFrom(value.getClass())) {
 			throw new StructuralException("Value must be of type " + getType() 
-					+ " (was " + value.getClass().getName() + ")");
+					+ " (was " + value.getClass().getName() + ')');
 		}
 	}
 	

@@ -87,9 +87,7 @@ public class BCMTermination extends PlasticEnsembleTermination {
     @Override
     public void reset(boolean randomize) {
     	super.reset(randomize);
-    	for (int i = 0; i < myTheta.length; i++) {
-    		myTheta[i] = myInitialTheta[i];
-    	}
+        System.arraycopy(myInitialTheta, 0, myTheta, 0, myTheta.length);
     }
     
     public void updateTransform(float time, int start, int end)

@@ -41,7 +41,7 @@ import java.util.Collection;
  * @author TODO
  */
 public class CutAction extends StandardAction {
-    private Collection<UINeoNode> nodeUIs;
+    private final Collection<UINeoNode> nodeUIs;
 
     /**
      * @param description TODO

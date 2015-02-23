@@ -47,12 +47,12 @@ public abstract class AbstractFn implements IConfigurable, ConfigurableFunction 
      */
     private Function function;
 
-    private Class<? extends Function> functionType;
+    private final Class<? extends Function> functionType;
 
     /**
      * What the type of function to be created is called
      */
-    private String typeName;
+    private final String typeName;
 
     /**
      * @param typeName

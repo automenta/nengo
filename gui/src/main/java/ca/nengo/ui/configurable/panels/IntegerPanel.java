@@ -35,7 +35,7 @@ import ca.nengo.ui.configurable.descriptors.PInt;
  */
 public class IntegerPanel extends PropertyTextPanel {
 	
-	private static int COLUMNS = 10;
+	private static final int COLUMNS = 10;
 
     public IntegerPanel(PInt property) {
         super(property, COLUMNS);

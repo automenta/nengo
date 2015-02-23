@@ -117,10 +117,10 @@ public class IzhikevichSpikeGenerator implements SpikeGenerator, Probeable {
          */
 		RESONATOR(0.1f, .26f, -65f, 2f);
 
-		float myA;
-		float myB;
-		float myC;
-		float myD;
+		final float myA;
+		final float myB;
+		final float myC;
+		final float myD;
 
 		private Preset(float a, float b, float c, float d) {
 			myA = a; myB = b; myC = c; myD = d;
@@ -165,16 +165,16 @@ public class IzhikevichSpikeGenerator implements SpikeGenerator, Probeable {
 	 */
 	public static final String U = "U";
 
-	private static SimulationMode[] ourSupportedModes = new SimulationMode[]{SimulationMode.DEFAULT, SimulationMode.RATE};
+	private static final SimulationMode[] ourSupportedModes = new SimulationMode[]{SimulationMode.DEFAULT, SimulationMode.RATE};
 
-	private static float myMaxTimeStep = .001f;
-	private static float Vth = 30;
+	private static final float myMaxTimeStep = .001f;
+	private static final float Vth = 30;
 
 	private double myA;
 	private double myB;
 	private double myC;
 	private double myD;
-	private double myInitialVoltage;
+	private final double myInitialVoltage;
 	private Preset myPreset;
 
 	private double myVoltage;
@@ -398,13 +398,16 @@ public class IzhikevichSpikeGenerator implements SpikeGenerator, Probeable {
 	public TimeSeries getHistory(String stateName) throws SimulationException {
 		TimeSeries1D result = null;
 
-		if (stateName.equals(V)) {
-			result = new TimeSeries1DImpl(myTime, myVoltageHistory, Units.AVU);
-		} else if (stateName.equals(U)){
-			result = new TimeSeries1DImpl(myTime, myRecoveryHistory, Units.UNK);
-		} else {
-			throw new SimulationException("The state name " + stateName + " is unknown.");
-		}
+        switch (stateName) {
+            case V:
+                result = new TimeSeries1DImpl(myTime, myVoltageHistory, Units.AVU);
+                break;
+            case U:
+                result = new TimeSeries1DImpl(myTime, myRecoveryHistory, Units.UNK);
+                break;
+            default:
+                throw new SimulationException("The state name " + stateName + " is unknown.");
+        }
 
 		return result;
 	}

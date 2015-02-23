@@ -40,7 +40,7 @@ public class ElasticLayout extends AbstractLayout implements LayoutMutable {
 	private static final Object SPRING_KEY = "temp_edu.uci.ics.jung.Spring_Visualization_Key";
 	public static final LengthFunction UNITLENGTHFUNCTION = new UnitLengthFunction(30);
 	protected double force_multiplier = 1.0 / 3.0;
-	protected LengthFunction lengthFunction;
+	protected final LengthFunction lengthFunction;
 
 	protected double stretch = 0.70;
 
@@ -398,7 +398,7 @@ public class ElasticLayout extends AbstractLayout implements LayoutMutable {
 
 		public double f;
 
-		Edge e;
+		final Edge e;
 
 		double length;
 
@@ -456,7 +456,7 @@ public class ElasticLayout extends AbstractLayout implements LayoutMutable {
 	 */
 	public static final class UnitLengthFunction implements LengthFunction {
 
-		int length;
+		final int length;
 
 		public UnitLengthFunction(int length) {
 			this.length = length;

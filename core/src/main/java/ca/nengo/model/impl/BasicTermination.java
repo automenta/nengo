@@ -49,12 +49,12 @@ public class BasicTermination implements Termination, Resettable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger ourLogger = Logger.getLogger(BasicTermination.class);
+	private static final Logger ourLogger = Logger.getLogger(BasicTermination.class);
 
 	private Node myNode;
 	private DynamicalSystem myDynamics;
 	private Integrator myIntegrator;
-	private String myName;
+	private final String myName;
 	private InstantaneousOutput myInput;
 	private TimeSeries myOutput;
 	private boolean myModulatory;
@@ -102,7 +102,7 @@ public class BasicTermination implements Termination, Resettable {
 	 * @param endTime simulation time at which running ends (s)
 	 * @throws SimulationException if a problem is encountered while trying to run
 	 */
-	public void run(float startTime, float endTime) throws SimulationException {
+	public void run(float startTime, float endTime) {
 		float[] input = null;
 		if (myInput instanceof RealOutput) {
 			input = ((RealOutput) myInput).getValues();

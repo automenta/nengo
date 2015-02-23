@@ -105,7 +105,7 @@ public abstract class AbstractButton extends WorldObjectImpl {
  * @author Shu Wu
  */
 class ButtonStateHandler extends PBasicInputEventHandler {
-	private AbstractButton button;
+	private final AbstractButton button;
 
 	public ButtonStateHandler(AbstractButton button) {
 		super();

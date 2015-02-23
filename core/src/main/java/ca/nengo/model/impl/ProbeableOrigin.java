@@ -72,11 +72,11 @@ public class ProbeableOrigin implements Origin {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Node myNode;
-	private Probeable myProbeable;
-	private String myStateVariable;
-	private int myDimension;
-	private String myName;
+	private final Node myNode;
+	private final Probeable myProbeable;
+	private final String myStateVariable;
+	private final int myDimension;
+	private final String myName;
 	private Units myUnits;
 	private boolean myRequiredOnCPU;
 	

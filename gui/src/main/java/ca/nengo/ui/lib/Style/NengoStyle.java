@@ -10,7 +10,7 @@ import java.awt.*;
  * @author Shu Wu
  */
 public class NengoStyle {
-	public static boolean GTK = UIManager.getSystemLookAndFeelClassName().
+	public static final boolean GTK = UIManager.getSystemLookAndFeelClassName().
 		equals("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
 	
 	public static final int ANIMATION_DROP_IN_WORLD_MS = 200;

@@ -40,7 +40,7 @@ import java.awt.*;
  */
 public class UnitsHandler extends BaseHandler {
 
-	private static Units[] myList = new Units[]{
+	private static final Units[] myList = new Units[]{
 			Units.UNK,
 			Units.ACU,
 			Units.AVU,
@@ -94,7 +94,7 @@ public class UnitsHandler extends BaseHandler {
 		}
 
 		if (result == null) {
-			throw new RuntimeException("Units " + s.toString() + " not recognized");
+			throw new RuntimeException("Units " + s + " not recognized");
 		}
 
 		return result;

@@ -45,8 +45,8 @@ public class AddProbeAction extends ReversableAction {
 
     private UIProbe probeCreated;
 
-    private Entry<String, String> state;
-    private UINeoNode myNode;
+    private final Entry<String, String> state;
+    private final UINeoNode myNode;
 
     /**
      * TODO

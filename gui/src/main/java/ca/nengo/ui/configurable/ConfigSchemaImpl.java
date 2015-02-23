@@ -27,6 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.configurable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,8 +36,8 @@ import java.util.List;
  * @author Shu Wu
  */
 public class ConfigSchemaImpl implements ConfigSchema {
-    private List<Property> advancedProperties;
-    private List<Property> properties;
+    private final List<Property> advancedProperties;
+    private final List<Property> properties;
 
     /**
      * Default constructor, no property descriptors
@@ -67,14 +68,10 @@ public class ConfigSchemaImpl implements ConfigSchema {
             Property[] advancedProperties) {
         super();
         this.properties = new ArrayList<Property>(properties.length);
-        for (Property property : properties) {
-            this.properties.add(property);
-        }
+        Collections.addAll(this.properties, properties);
 
         this.advancedProperties = new ArrayList<Property>(properties.length);
-        for (Property property : advancedProperties) {
-            this.advancedProperties.add(property);
-        }
+        Collections.addAll(this.advancedProperties, advancedProperties);
     }
 
     /**

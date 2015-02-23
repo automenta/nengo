@@ -71,7 +71,7 @@ public class CouplingMatrixImpl implements CouplingMatrix {
         String rowOrCol = (isRow) ? "row" : "col";
         int size = (isRow) ? getToSize() : getFromSize();
         if (theIndex < 1 || theIndex > size) {
-            throw new IllegalArgumentException("There is no " + rowOrCol + "#"
+            throw new IllegalArgumentException("There is no " + rowOrCol + '#'
                     + theIndex);
         }
     }

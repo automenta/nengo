@@ -43,7 +43,7 @@ public class PXEdge extends PXPath implements PropertyChangeListener, Destroyabl
 	 */
 	private Color highlightColor = NengoStyle.COLOR_LINE_HIGHLIGHT;
 
-	private boolean isDirected;
+	private final boolean isDirected;
 
 	/**
 	 * Radius of the arc shape used by this edge. Only applies when the shape of

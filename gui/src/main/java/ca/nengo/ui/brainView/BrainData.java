@@ -42,44 +42,44 @@ public class BrainData {
     /**
      * TODO
      */
-    public static String DATA_FILE_NAME = "t1_icbm_normal_1mm_pn3_rf20.rawb";
+    public static final String DATA_FILE_NAME = "t1_icbm_normal_1mm_pn3_rf20.rawb";
 
     /**
      * TODO
      */
-    public static int X_DIMENSIONS = 181;
+    public static final int X_DIMENSIONS = 181;
 
     /**
      * TODO
      */
-    public static int Y_DIMENSIONS = 217;
+    public static final int Y_DIMENSIONS = 217;
 
     /**
      * TODO
      */
-    public static int Z_DIMENSIONS = 181;
+    public static final int Z_DIMENSIONS = 181;
 
     /**
      * TODO
      */
-    public static int X_START = 72;
+    public static final int X_START = 72;
 
     /**
      * TODO
      */
-    public static int Y_START = 126;
+    public static final int Y_START = 126;
 
     /**
      * TODO
      */
-    public static int Z_START = 90;
+    public static final int Z_START = 90;
 
     /**
      * TODO
      */
-    public static String DATA_FOLDER = "data";
+    public static final String DATA_FOLDER = "data";
 
-    static File dataFile = new File(DATA_FOLDER, DATA_FILE_NAME);
+    static final File dataFile = new File(DATA_FOLDER, DATA_FILE_NAME);
 
     private static final byte[][][] VOXEL_DATA = new byte[Z_DIMENSIONS][Y_DIMENSIONS][X_DIMENSIONS];
 
@@ -150,7 +150,7 @@ public class BrainData {
 
         private static final long serialVersionUID = 1L;
 
-        BrainTopImage image;
+        final BrainTopImage image;
 
         public void setImagePosition(int zCoord) {
             image.setCoord(zCoord);

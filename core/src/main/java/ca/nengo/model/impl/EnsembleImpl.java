@@ -36,10 +36,7 @@ import ca.nengo.model.*;
 import ca.nengo.model.neuron.impl.ExpandableSpikingNeuron;
 import ca.nengo.util.ScriptGenException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>Default implementation of Ensemble.</p>
@@ -105,7 +102,7 @@ public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
 			}
 		}
 
-		return result.toArray(new ExpandableNode[0]);
+		return result.toArray(new ExpandableNode[result.size()]);
 	}
 
     /**
@@ -125,11 +122,9 @@ public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
 		result.addAll(myExpandedTerminations.values());
 
 		Termination[] composites = super.getTerminations();
-		for (Termination composite : composites) {
-			result.add(composite);
-		}
+        Collections.addAll(result, composites);
 
-		return result.toArray(new Termination[0]);
+		return result.toArray(new Termination[result.size()]);
 	}
 
 	/**
@@ -232,9 +227,9 @@ public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
 		}
 		
 		result.myExpandedTerminations = new LinkedHashMap<String, Termination>(10);
-		for (String key : myExpandedTerminations.keySet()) {
-			result.myExpandedTerminations.put(key, 
-					myExpandedTerminations.get(key).clone(result));
+		for (Map.Entry<String, Termination> stringTerminationEntry : myExpandedTerminations.entrySet()) {
+			result.myExpandedTerminations.put(stringTerminationEntry.getKey(),
+                    stringTerminationEntry.getValue().clone(result));
 		}
 
 		return result;

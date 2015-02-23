@@ -44,7 +44,7 @@ public class CFunctionInput extends ConstructableNode {
 		pFunctions.setDescription("Defines the function to be used as an input to other components");
 	}
 
-	private static Property pFunctions = new PFunctionArray("Function Generators", 1);
+	private static final Property pFunctions = new PFunctionArray("Function Generators", 1);
 
 	@Override
 	protected Node createNode(ConfigResult props, String name) throws ConfigException {

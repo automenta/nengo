@@ -43,11 +43,11 @@ public class Universe extends PCanvas implements Destroyable {
 
 	private Text taskMessagesLabel;
 
-	private Vector<String> taskStatusStrings = new Vector<String>();
+	private final Vector<String> taskStatusStrings = new Vector<String>();
 
 	private ElasticWorld topWorld;
 
-	private Collection<WorldImpl> worlds;
+	private final Collection<WorldImpl> worlds;
 
 	public Universe() {
 
@@ -153,7 +153,7 @@ public class Universe extends PCanvas implements Destroyable {
 			// strBuff.append("- MESSAGES -<BR>");
 
 			for (int i = taskStatusStrings.size() - 1; i >= 0; i--) {
-				strBuff.append(taskStatusStrings.get(i) + "\n");
+				strBuff.append(taskStatusStrings.get(i)).append('\n');
 			}
 
 			strBuff.append("---\n");

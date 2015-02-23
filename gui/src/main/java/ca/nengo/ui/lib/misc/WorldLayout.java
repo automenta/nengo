@@ -6,6 +6,7 @@ import ca.nengo.ui.lib.world.WorldObject;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Hashtable;
 
 
@@ -21,22 +22,22 @@ public class WorldLayout implements Serializable {
 	/**
 	 * Name of the layout
 	 */
-	private String layoutName;
+	private final String layoutName;
 
 	/**
 	 * Whether elastic layout is enabled
 	 */
-	private boolean elasticMode;
+	private final boolean elasticMode;
 
 	/**
 	 * Node positions referenced by name
 	 */
-	private Hashtable<Integer, PointSerializable> nodePositions;
+	private final Hashtable<Integer, PointSerializable> nodePositions;
 
 	/**
 	 * Saved view bounds
 	 */
-	private Rectangle2D savedViewBounds;
+	private final Rectangle2D savedViewBounds;
 
 	/**
 	 * @param layoutName
@@ -49,9 +50,11 @@ public class WorldLayout implements Serializable {
 		this.layoutName = layoutName;
 		this.elasticMode = elasticMode;
 
-		nodePositions = new Hashtable<Integer, PointSerializable>();
+        Collection<WorldObject> cc = world.getGround().getChildren();
 
-		for (WorldObject object : world.getGround().getChildren()) {
+		nodePositions = new Hashtable<Integer, PointSerializable>(cc.size());
+
+		for (WorldObject object : cc) {
 			addPosition(object, object.getOffset());
 		}
 
@@ -115,7 +118,8 @@ class PointSerializable implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	double x, y;
+	final double x;
+    final double y;
 
 	public PointSerializable(Point2D point) {
 		x = point.getX();

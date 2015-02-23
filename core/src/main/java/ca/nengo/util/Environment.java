@@ -37,7 +37,7 @@ public abstract class Environment {
 	/**
 	 * Name of system property underlying inUserInterface()
 	 */
-	public static String USER_INTERFACE = "user-interface";
+	public static final String USER_INTERFACE = "user-interface";
 
 	/**
 	 * Name of String property that contains path of user's working directory  

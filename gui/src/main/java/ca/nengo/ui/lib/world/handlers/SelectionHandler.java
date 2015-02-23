@@ -84,7 +84,7 @@ public class SelectionHandler extends PDragSequenceEventHandler {
 	/// Static members
 		
 	/// this code allows other classes to be notified when the selection changes
-	private static HashSet<SelectionListener> selectionListeners
+	private static final HashSet<SelectionListener> selectionListeners
 		= new HashSet<SelectionListener>();
 	
 	public static void addSelectionListener(SelectionListener listener) {
@@ -107,7 +107,7 @@ public class SelectionHandler extends PDragSequenceEventHandler {
 	
 	// this code keeps track of which selection handler (of all selection handlers)
 	// is active (i.e., has changed most recently)
-	private static HashSet<SelectionHandler> selectionHandlers
+	private static final HashSet<SelectionHandler> selectionHandlers
 		= new HashSet<SelectionHandler>();
 	private static void addSelectionHandler(SelectionHandler s) {
 		selectionHandlers.add(s);
@@ -279,14 +279,14 @@ public class SelectionHandler extends PDragSequenceEventHandler {
 	private Point2D presspt = null;
 	private Point2D canvasPressPt = null;
 
-	private WorldImpl world; // associated world
+	private final WorldImpl world; // associated world
 	private WorldGroundImpl selectableParent = null; // ground of associated world
 
 	private float strokeNum = 0;
 
 	private Stroke[] strokes = null;
 
-	private PanEventHandler panHandler;
+	private final PanEventHandler panHandler;
 
 	/**
 	 * Creates a selection event handler.
@@ -320,8 +320,14 @@ public class SelectionHandler extends PDragSequenceEventHandler {
 	}
 	
 	public void finalize() {
+
 		removeSelectionHandler(this);
-	}
+        try {
+            super.finalize();
+        } catch (Throwable throwable) {
+
+        }
+    }
 	
 	///////////////////////////////////////////////////////////////////////////
 	/// Selection changed
@@ -491,7 +497,7 @@ public class SelectionHandler extends PDragSequenceEventHandler {
 		boolean changes = false;
 		Iterator<WorldObjectImpl> itemIt = items.iterator();
 		while (itemIt.hasNext()) {
-			WorldObjectImpl node = (WorldObjectImpl) itemIt.next();
+			WorldObjectImpl node = itemIt.next();
 			changes |= internalUnselect(node);
 		}
 		if (changes) {
@@ -827,8 +833,8 @@ public class SelectionHandler extends PDragSequenceEventHandler {
 	/// Inner classes
 
 	protected class BoundsFilter implements PNodeFilter {
-		PBounds bounds;
-		PBounds localBounds = new PBounds();
+		final PBounds bounds;
+		final PBounds localBounds = new PBounds();
 
 		protected BoundsFilter(PBounds bounds) {
 			this.bounds = bounds;

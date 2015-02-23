@@ -45,7 +45,7 @@ public class NengoClipboard {
 		public void clipboardChanged();
 	}
 
-	LinkedList<ClipboardListener> listeners = new LinkedList<ClipboardListener>();
+	final LinkedList<ClipboardListener> listeners = new LinkedList<ClipboardListener>();
 
 	public void addClipboardListener(ClipboardListener listener) {
 		listeners.add(listener);

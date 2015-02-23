@@ -32,19 +32,19 @@ public class GruberSpikeGenerator implements SpikeGenerator, Probeable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static float ourResetPotential = -60;
-	private static float Vf = -58;
-	private static float Vf_h = -55;
-	private static float Vf_c = 25f; //this is published as 2.5
+	private static final float ourResetPotential = -60;
+	private static final float Vf = -58;
+	private static final float Vf_h = -55;
+	private static final float Vf_c = 25f; //this is published as 2.5
 
-	private GruberDynamics myDynamics;
-	private Integrator myIntegrator;
+	private final GruberDynamics myDynamics;
+	private final Integrator myIntegrator;
 	private float myDopamine;
 	private float myLastSpikeTime;
 	private TimeSeries myMembranePotentialHistory;
-	private Function mySteadyStateVmFunction;
+	private final Function mySteadyStateVmFunction;
 	private SimulationMode myMode;
-	private SimulationMode[] mySupportedModes;
+	private final SimulationMode[] mySupportedModes;
 
 	/**
 	 * Create a spike generator that follows Gruber et al.'s

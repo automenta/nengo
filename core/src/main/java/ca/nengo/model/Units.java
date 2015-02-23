@@ -117,7 +117,7 @@ public enum Units {
 	/**
 	 * Standard name of units
 	 */
-	public String myName;
+	public final String myName;
 
 	/**
 	 * @param name Standard name of units

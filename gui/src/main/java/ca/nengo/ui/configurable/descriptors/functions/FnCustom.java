@@ -64,13 +64,13 @@ public class FnCustom extends AbstractFn {
     	"Refer to ensemble values as \"x#\", where # is the dimension index " + 
     	"(e.g., x0*x0 returns the square of the first dimension).<br>" +
     	"(Full documentation: <a href=\"http://nengo.ca/docs/html/tutorial3.html\">http://nengo.ca/docs/html/tutorial3.html</a>)";
-    private static DefaultFunctionInterpreter interpreter = new DefaultFunctionInterpreter();
+    private static final DefaultFunctionInterpreter interpreter = new DefaultFunctionInterpreter();
 
-    private int myInputDimensions;
+    private final int myInputDimensions;
     private Property pExpression;
     private Property pDimensions;
     InterpreterFunctionConfigurer configurer;
-    boolean isInputDimEditable;
+    final boolean isInputDimEditable;
 
     /**
      * @param inputDimensions TODO
@@ -157,7 +157,7 @@ public class FnCustom extends AbstractFn {
      * 
      * @author Shu Wu
      */
-    class PExpression extends PString {
+    static class PExpression extends PString {
         private static final long serialVersionUID = 1L;
 
         public PExpression(String name) {
@@ -189,8 +189,8 @@ public class FnCustom extends AbstractFn {
  * @author Shu Wu
  */
 class InterpreterFunctionConfigurer extends UserConfigurer {
-    FunctionInterpreter interpreter;
-    Dialog parent;
+    final FunctionInterpreter interpreter;
+    final Dialog parent;
 
     public InterpreterFunctionConfigurer(IConfigurable configurable, Dialog parent,
             FunctionInterpreter interpreter) {

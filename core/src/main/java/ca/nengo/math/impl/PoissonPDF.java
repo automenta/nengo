@@ -39,7 +39,7 @@ public class PoissonPDF extends AbstractFunction implements PDF {
 
 	private static final long serialVersionUID = 1L;
 
-	private float myRate;
+	private final float myRate;
 
 	/**
 	 * @param rate The mean & variance of the distribution 

@@ -66,16 +66,15 @@ public class BooleanHandler extends BaseHandler {
 
 		cb.setEnabled(false);
 		button.setEnabled(false);
-		Thread thread = new Thread() {
-			public void run() {
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {}
-				cb.setEnabled(true);
-				button.setEnabled(true);
-			}
-		};
-		thread.start();
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                cb.setEnabled(true);
+                button.setEnabled(true);
+            }
+        });
+
 
 		return result;
 	}

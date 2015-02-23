@@ -41,7 +41,7 @@ import javax.swing.*;
  * @author Shu Wu
  */
 public class ExampleRunner {
-	private Network network;
+	private final Network network;
 	private UINetwork networkUI;
 
 	/**

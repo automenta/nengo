@@ -71,7 +71,7 @@ public abstract class RangedConfigParam extends Property {
      *            Max value
      */
     public RangedConfigParam(String name, int defaultValue, int min, int max) {
-        super(name + " (" + min + " to " + max + ")", defaultValue);
+        super(name + " (" + min + " to " + max + ')', defaultValue);
         this.min = min;
         this.max = max;
         checkRange = true;

@@ -46,7 +46,7 @@ import java.awt.event.MouseEvent;
  */
 public class ConfigurationTreePopupListener extends MouseAdapter {
 	
-	private JTree myTree;
+	private final JTree myTree;
 	private final ConfigurationTreeModel myModel;
 	
 	/**

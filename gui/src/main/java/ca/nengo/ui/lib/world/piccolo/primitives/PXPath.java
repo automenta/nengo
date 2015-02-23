@@ -427,13 +427,11 @@ public class PXPath extends PXNode {
 	 * @return a string representation of this node's state
 	 */
 	protected String paramString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
-		result.append("path=" + (path == null ? "null" : path.toString()));
-		result.append(",stroke="
-				+ (stroke == null ? "null" : stroke.toString()));
-		result.append(",strokePaint="
-				+ (strokePaint == null ? "null" : strokePaint.toString()));
+		result.append("path=").append(path == null ? "null" : path.toString());
+		result.append(",stroke=").append(stroke == null ? "null" : stroke.toString());
+		result.append(",strokePaint=").append(strokePaint == null ? "null" : strokePaint.toString());
 		result.append(',');
 		result.append(super.toString() /* paramString()*/);
 

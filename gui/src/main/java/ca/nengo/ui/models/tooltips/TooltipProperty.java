@@ -35,8 +35,8 @@ import ca.nengo.ui.lib.world.piccolo.primitives.Text;
  * @author Shu Wu
  */
 class TooltipProperty implements ITooltipPart {
-	private String propertyName;
-	private String propertyValue;
+	private final String propertyName;
+	private final String propertyValue;
 
 	public TooltipProperty(String propertyName, String propertyValue) {
 		super();

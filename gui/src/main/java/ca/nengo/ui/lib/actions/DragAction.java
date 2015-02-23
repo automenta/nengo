@@ -22,9 +22,9 @@ import java.util.HashMap;
 public class DragAction extends ReversableAction {
 
 	private static final long serialVersionUID = 1L;
-	private Collection<WeakReference<WorldObject>> selectedObjectsRef;
+	private final Collection<WeakReference<WorldObject>> selectedObjectsRef;
 
-	private HashMap<WeakReference<WorldObject>, ObjectState> objectStates;
+	private final HashMap<WeakReference<WorldObject>, ObjectState> objectStates;
 
 	/**
 	 * @param selectedObjects
@@ -197,8 +197,8 @@ public class DragAction extends ReversableAction {
  * @author Shu Wu
  */
 class ObjectState {
-	private WeakReference<WorldObject> iParent;
-	private Point2D iOffset;
+	private final WeakReference<WorldObject> iParent;
+	private final Point2D iOffset;
 	private WeakReference<WorldObject> fParent;
 	private Point2D fOffset;
 

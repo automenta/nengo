@@ -11,7 +11,7 @@ public abstract class LayoutAction extends ReversableAction {
 
 	private WorldLayout savedLayout;
 
-	private World world;
+	private final World world;
 
 	public LayoutAction(World world, String description, String actionName) {
 		super(description, actionName);

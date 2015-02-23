@@ -15,8 +15,8 @@ import java.util.TimerTask;
 public class ProgressIndicator extends JPanel implements ActionListener, SimulatorListener {
 	public static final long serialVersionUID=1;
 	
-	JProgressBar bar;
-	JButton stop;
+	final JProgressBar bar;
+	final JButton stop;
 	
 	String text;
 

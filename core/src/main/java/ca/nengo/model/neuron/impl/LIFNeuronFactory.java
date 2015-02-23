@@ -46,15 +46,15 @@ public class LIFNeuronFactory implements NodeFactory {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger ourLogger = Logger.getLogger(LIFNeuronFactory.class);
+	private static final Logger ourLogger = Logger.getLogger(LIFNeuronFactory.class);
 	
 	private float myTauRC;
 	private float myTauRef;
 	private PDF myMaxRate;
 	private PDF myIntercept;
 	
-	private static float ourMaxTimeStep = .00025f;
-	private static Units ourCurrentUnits = Units.ACU;
+	private static final float ourMaxTimeStep = .00025f;
+	private static final Units ourCurrentUnits = Units.ACU;
 
 	/**
 	 * @param tauRC Spike generator membrane time constant (s)  

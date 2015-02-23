@@ -13,13 +13,13 @@ public abstract class PropertyTextPanel extends PropertyInputPanel {
 		NoError, ValueNotSet, InvalidFormat
 	}
 	
-	protected String valueNotSetMessage = "Value not set";
+	protected final String valueNotSetMessage = "Value not set";
 	protected String invalidFormatMessage = "Invalid number format";
 	
     /**
      * Text field component
      */
-	protected JTextField textField;
+	protected final JTextField textField;
 
 	public PropertyTextPanel(Property property, int columns) {
 		super(property);

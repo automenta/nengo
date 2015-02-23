@@ -14,9 +14,9 @@ import java.awt.geom.Rectangle2D;
  */
 public class Border extends WorldObjectImpl implements Listener {
 
-	private Color myColor;
-	private Path myFrame;
-	private WorldObjectImpl myTarget;
+	private final Color myColor;
+	private final Path myFrame;
+	private final WorldObjectImpl myTarget;
 
 	/**
 	 * Create a new border

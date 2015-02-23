@@ -44,9 +44,9 @@ import java.util.Map;
  */
 public class ConfigurationImpl implements Configuration {
 
-	private Object myConfigurable;
-	private List<String> myPropertyNames;
-	private Map<String, Property> myProperties;
+	private final Object myConfigurable;
+	private final List<String> myPropertyNames;
+	private final Map<String, Property> myProperties;
 
 	/**
 	 * @param configurable The Object to which this Configuration belongs

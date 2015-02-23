@@ -36,7 +36,7 @@ import java.awt.*;
  * @author TODO
  */
 public class FnAdvanced implements ConfigurableFunction {
-    private Class<? extends Function> type;
+    private final Class<? extends Function> type;
     private Function myFunction;
 
     /**
@@ -72,7 +72,7 @@ public class FnAdvanced implements ConfigurableFunction {
 
     @Override
     public String toString() {
-        return "~" + type.getSimpleName();
+        return '~' + type.getSimpleName();
     }
 
     public Function getFunction() {

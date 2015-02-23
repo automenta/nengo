@@ -45,7 +45,7 @@ public class PlotNodesAction extends StandardAction {
 
     private static final long serialVersionUID = 1L;
 
-    private Collection<DataTreeNode> nodes;
+    private final Collection<DataTreeNode> nodes;
 
     /**
      * @param nodes TODO

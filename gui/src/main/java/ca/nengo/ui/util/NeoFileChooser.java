@@ -42,12 +42,12 @@ import java.io.File;
  */
 public class NeoFileChooser {
 
-	private FileFilter allFileFilter;
+	private final FileFilter allFileFilter;
 
 	/**
 	 * Swing File Chooser component
 	 */
-	private JFileChooser fileChooser;
+	private final JFileChooser fileChooser;
 
 	public NeoFileChooser() {
 		super();

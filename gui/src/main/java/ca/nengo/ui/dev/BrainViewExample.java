@@ -39,14 +39,14 @@ public class BrainViewExample extends ExampleRunner {
 
 	public static void main(String[] args) {
 
-		try {
+		//try {
 			new BrainViewExample();
-		} catch (StructuralException e) {
+		/*} catch (StructuralException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
-	public BrainViewExample() throws StructuralException {
+	public BrainViewExample() {
 		super(new NetworkImpl());
 	}
 

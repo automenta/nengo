@@ -42,7 +42,7 @@ import ca.nengo.math.Function;
  */
 public class PolynomialCurveFitter implements CurveFitter {
 
-	private int myOrder;
+	private final int myOrder;
 
 	/**
 	 * @param order Order of polynomials used to approximate example points

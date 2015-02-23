@@ -14,7 +14,7 @@ import org.python.util.PythonInterpreter;
  */
 public class RunInteractivePlotsAction extends StandardAction {
     private static final long serialVersionUID = 1L;
-    private UINetwork uiNetwork;
+    private final UINetwork uiNetwork;
 
     /**
      * @param uiNetwork TODO

@@ -67,7 +67,7 @@ public class CompositeApproximator implements LinearApproximator {
 	public CompositeApproximator(LinearApproximator[] components, int[][] dimensions) {
 		if (components.length != dimensions.length) {
 			throw new IllegalArgumentException("Length of dimensions list must equal number of components ("
-					+ dimensions.length + " vs " + components.length + ")");
+					+ dimensions.length + " vs " + components.length + ')');
 		}
 
 		myComponents = components;

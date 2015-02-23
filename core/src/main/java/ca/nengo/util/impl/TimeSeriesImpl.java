@@ -39,10 +39,10 @@ public class TimeSeriesImpl implements TimeSeries {
 
 	private static final long serialVersionUID = 1L;
 	
-	private float[] myTimes;
-	private float[][] myValues;
-	private Units[] myUnits;
-	private String[] myLabels;
+	private final float[] myTimes;
+	private final float[][] myValues;
+	private final Units[] myUnits;
+	private final String[] myLabels;
 	private String myName;
 	
 	/**
@@ -164,13 +164,9 @@ public class TimeSeriesImpl implements TimeSeries {
 	@Override
 	public TimeSeries clone() throws CloneNotSupportedException {
 		Units[] units = new Units[myUnits.length];
-		for (int i = 0; i < units.length; i++) {
-			units[i] = myUnits[i];
-		}
+        System.arraycopy(myUnits, 0, units, 0, units.length);
 		String[] labels = new String[myLabels.length];
-		for (int i = 0; i < labels.length; i++) {
-			labels[i] = myLabels[i];			
-		}
+        System.arraycopy(myLabels, 0, labels, 0, labels.length);
 		TimeSeries result = new TimeSeriesImpl(myTimes.clone(), myValues.clone(), units, labels);
 
 		return result;

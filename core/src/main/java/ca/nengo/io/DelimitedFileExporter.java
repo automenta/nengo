@@ -44,8 +44,8 @@ import java.util.StringTokenizer;
  */
 public class DelimitedFileExporter {
 
-	private String myColumnDelim;
-	private String myRowDelim;
+	private final String myColumnDelim;
+	private final String myRowDelim;
 
 	/**
 	 * Uses default column delimiter ", " and row delimiter "\r\n".

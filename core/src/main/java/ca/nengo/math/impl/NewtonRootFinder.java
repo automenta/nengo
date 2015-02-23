@@ -39,8 +39,8 @@ import ca.nengo.math.RootFinder;
  */
 public class NewtonRootFinder implements RootFinder {
 
-	private int myMaxIterations;	
-	private boolean myAdditiveBoundarySearch;
+	private final int myMaxIterations;
+	private final boolean myAdditiveBoundarySearch;
 	
 	/**
 	 * @param maxIterations Maximum search iterations to attempt before returning an error

@@ -222,7 +222,7 @@ public class BiasOrigin extends DecodedOrigin {
 
 		private double[][] myBaseWeights;
 		private double[] myBiasEncoders;
-		private boolean myExcitatory;
+		private final boolean myExcitatory;
 
 		public BiasEncodersMaintained(float[][] baseWeights, float[] biasEncoders, boolean excitatory) {
 			myBaseWeights = MU.convert(baseWeights);
@@ -277,9 +277,9 @@ public class BiasOrigin extends DecodedOrigin {
 	private static class BiasedVG implements VectorGenerator, java.io.Serializable {
 		private static final long serialVersionUID = 1L;
 
-		private VectorGenerator myVG;
-		private int myDim;
-		private float myBias;
+		private final VectorGenerator myVG;
+		private final int myDim;
+		private final float myBias;
 
 		public BiasedVG(VectorGenerator vg, int dim, float bias) {
 			myVG = vg;

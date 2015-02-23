@@ -25,15 +25,15 @@ public class ElasticGround extends WorldGroundImpl {
 	public static final String ELASTIC_LENGTH_KEY = "elasticLength";
 
 	private boolean childrenUpdatedFlag = false;
-	private ObjectSet<ElasticObject> elasticChildren = new ObjectSet<ElasticObject>();
+	private final ObjectSet<ElasticObject> elasticChildren = new ObjectSet<ElasticObject>();
 
 	private ElasticLayoutRunner elasticLayoutThread;
 
-	private Hashtable<PXEdge, AbstractSparseEdge> myEdgeMap = new Hashtable<PXEdge, AbstractSparseEdge>();
+	private final Hashtable<PXEdge, AbstractSparseEdge> myEdgeMap = new Hashtable<PXEdge, AbstractSparseEdge>();
 
 	private SparseGraph myGraph;
 
-	private Hashtable<ElasticObject, ElasticVertex> myVertexMap = new Hashtable<ElasticObject, ElasticVertex>();
+	private final Hashtable<ElasticObject, ElasticVertex> myVertexMap = new Hashtable<ElasticObject, ElasticVertex>();
 
 	public ElasticGround() {
 		super();
@@ -88,7 +88,7 @@ public class ElasticGround extends WorldGroundImpl {
 	public void childRemoved(WorldObject wo) {
 		super.childRemoved(wo);
 		if (wo instanceof ElasticObject) {
-			if (!elasticChildren.remove((ElasticObject) wo)) {
+			if (!elasticChildren.remove(wo)) {
 				Util.Assert(false);
 			}
 		}
@@ -455,8 +455,8 @@ public class ElasticGround extends WorldGroundImpl {
 	}
 
 	public static class UpdateGraphResult {
-		private Collection<ElasticVertex> addedVertices;
-		private boolean graphUpdated;
+		private final Collection<ElasticVertex> addedVertices;
+		private final boolean graphUpdated;
 
 		public UpdateGraphResult(boolean graphUpdated, Collection<ElasticVertex> addedVertices) {
 			super();

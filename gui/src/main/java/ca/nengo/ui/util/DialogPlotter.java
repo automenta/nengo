@@ -45,7 +45,7 @@ import java.awt.*;
  */
 public class DialogPlotter extends DefaultPlotter {
 
-	private JDialog parent;
+	private final JDialog parent;
 
 	public DialogPlotter(JDialog parentPanel) {
 		super();
