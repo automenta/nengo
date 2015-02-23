@@ -27,14 +27,14 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.impl;
 
+import ca.nengo.config.Configuration;
+import ca.nengo.config.Property;
+import ca.nengo.model.StructuralException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import ca.nengo.config.Configuration;
-import ca.nengo.config.Property;
-import ca.nengo.model.StructuralException;
 
 /**
  * <p>Default implementation of Configuration. This implementation reports property names in

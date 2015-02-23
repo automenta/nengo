@@ -3,9 +3,6 @@
  */
 package ca.nengo.dynamics.impl;
 
-import ca.nengo.dynamics.impl.CanonicalModel;
-import ca.nengo.dynamics.impl.LTISystem;
-import ca.nengo.dynamics.impl.SimpleLTISystem;
 import ca.nengo.model.Units;
 import junit.framework.TestCase;
 

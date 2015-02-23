@@ -3,31 +3,19 @@
  */
 package ca.nengo.model.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.ConstantFunction;
-import ca.nengo.model.Ensemble;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
-import ca.nengo.model.impl.NetworkImpl;
+import ca.nengo.model.*;
 import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
 import ca.nengo.model.nef.impl.NEFEnsembleImpl;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
-import ca.nengo.util.Probe;
-import ca.nengo.util.ScriptGenException;
-import ca.nengo.util.SpikePattern;
-import ca.nengo.util.VisiblyMutable;
-import ca.nengo.util.VisiblyMutableUtils;
+import ca.nengo.util.*;
 import junit.framework.TestCase;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class NetworkImplTest extends TestCase {
 

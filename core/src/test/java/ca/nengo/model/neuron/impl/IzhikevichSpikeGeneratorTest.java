@@ -3,27 +3,19 @@
  */
 package ca.nengo.model.neuron.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.ConstantFunction;
-import ca.nengo.model.Network;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.neuron.impl.IzhikevichSpikeGenerator;
-import ca.nengo.model.neuron.impl.LinearSynapticIntegrator;
-import ca.nengo.model.neuron.impl.ExpandableSpikingNeuron;
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.MU;
 import ca.nengo.util.Probe;
 import junit.framework.TestCase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Unit tests for IzhikevichSpikeGenerator. 

@@ -4,7 +4,6 @@
 package ca.nengo.math.impl;
 
 import ca.nengo.TestUtil;
-import ca.nengo.math.impl.IdentityFunction;
 import junit.framework.TestCase;
 
 public class IdentityFunctionTest extends TestCase {

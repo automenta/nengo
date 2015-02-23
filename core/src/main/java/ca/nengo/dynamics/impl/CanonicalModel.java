@@ -31,7 +31,6 @@ package ca.nengo.dynamics.impl;
 
 import Jama.EigenvalueDecomposition;
 import Jama.Matrix;
-
 import ca.nengo.model.Units;
 import ca.nengo.util.MU;
 

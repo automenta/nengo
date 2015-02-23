@@ -1,9 +1,9 @@
 package ca.nengo.ui.lib.actions;
 
-import javax.swing.SwingUtilities;
-
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.util.UserMessages;
+
+import javax.swing.*;
 
 /**
  * A reversable action than can be undone.

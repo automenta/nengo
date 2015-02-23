@@ -3,9 +3,6 @@
  */
 package ca.nengo.model.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ca.nengo.config.Configurable;
 import ca.nengo.config.Configuration;
 import ca.nengo.config.SingleValuedProperty;
@@ -14,6 +11,9 @@ import ca.nengo.config.impl.ListPropertyImpl;
 import ca.nengo.model.SimulationMode;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.Units;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A dummy Configurable class for testing purposes.

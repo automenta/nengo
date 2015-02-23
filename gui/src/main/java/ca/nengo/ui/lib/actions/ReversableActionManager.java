@@ -1,9 +1,9 @@
 package ca.nengo.ui.lib.actions;
 
-import java.util.Vector;
-
 import ca.nengo.ui.lib.AppFrame;
 import ca.nengo.ui.lib.util.UserMessages;
+
+import java.util.Vector;
 
 /**
  * Manages reversable actions

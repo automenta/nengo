@@ -33,16 +33,11 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.io;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import ca.nengo.model.Node;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.util.TimeSeries;
+
+import java.io.*;
 
 /**
  * Handles saving and loading of Node

@@ -3,12 +3,10 @@
  */
 package ca.nengo.math.impl;
 
-import org.apache.log4j.Logger;
-
 import ca.nengo.TestUtil;
-import ca.nengo.math.impl.GaussianPDF;
 import ca.nengo.plot.Plotter;
 import junit.framework.TestCase;
+import org.apache.log4j.Logger;
 
 /**
  * Unit test for GaussianPDF. 

@@ -26,30 +26,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.managers;
 
-import java.awt.Container;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InvalidClassException;
-import java.io.NotSerializableException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import ca.nengo.ui.NengoGraphics;
+import ca.nengo.ui.configurable.*;
+import ca.nengo.ui.lib.util.UserMessages;
+import ca.nengo.ui.lib.util.Util;
 
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
-
-import ca.nengo.ui.NengoGraphics;
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.ConfigSchema;
-import ca.nengo.ui.configurable.ConfigSchemaImpl;
-import ca.nengo.ui.configurable.IConfigurable;
-import ca.nengo.ui.configurable.Property;
-import ca.nengo.ui.lib.util.UserMessages;
-import ca.nengo.ui.lib.util.Util;
+import java.awt.*;
+import java.io.*;
 
 /**
  * Configuration Manager used to configure IConfigurable objects

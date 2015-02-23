@@ -5,8 +5,6 @@ package ca.nengo.dynamics.impl;
 
 import ca.nengo.TestUtil;
 import ca.nengo.dynamics.Integrator;
-import ca.nengo.dynamics.impl.AbstractDynamicalSystem;
-import ca.nengo.dynamics.impl.RK45Integrator;
 import ca.nengo.model.Units;
 import ca.nengo.util.InterpolatorND;
 import ca.nengo.util.TimeSeries;

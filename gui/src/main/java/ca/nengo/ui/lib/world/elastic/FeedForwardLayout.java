@@ -3,16 +3,16 @@
  */
 package ca.nengo.ui.lib.world.elastic;
 
-import java.awt.Dimension;
-import java.util.LinkedList;
-import java.util.Arrays;
-import java.util.Iterator;
-
 import ca.nengo.ui.lib.world.elastic.StretchedFeedForwardLayout.VoidVertex;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.Vertex;
 import edu.uci.ics.jung.visualization.AbstractLayout;
 import edu.uci.ics.jung.visualization.Coordinates;
+
+import java.awt.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * Arrange the layout of neural network according to signal flow. 

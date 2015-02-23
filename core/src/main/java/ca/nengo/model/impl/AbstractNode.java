@@ -27,19 +27,14 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.impl;
 
+import ca.nengo.model.*;
+import ca.nengo.util.VisiblyMutable;
+import ca.nengo.util.VisiblyMutableUtils;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.util.VisiblyMutable;
-import ca.nengo.util.VisiblyMutableUtils;
 
 /**
  * A base implementation of Node.

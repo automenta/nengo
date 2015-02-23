@@ -24,28 +24,19 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.model.nef.impl;
 
-import java.util.Properties;
-
-import org.apache.log4j.Logger;
-
 import ca.nengo.dynamics.Integrator;
 import ca.nengo.dynamics.LinearSystem;
 import ca.nengo.dynamics.impl.CanonicalModel;
 import ca.nengo.dynamics.impl.LTISystem;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.Resettable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.neuron.SynapticIntegrator;
 import ca.nengo.util.MU;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
+import org.apache.log4j.Logger;
+
+import java.util.Properties;
 
 /**
  * <p>A Termination of decoded state vectors onto an NEFEnsemble. A DecodedTermination

@@ -27,13 +27,11 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.handlers;
 
-import java.awt.Component;
-
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-
 import ca.nengo.config.ui.ConfigurationChangeListener;
 import ca.nengo.model.Units;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * ConfigurationHandler for Units values.

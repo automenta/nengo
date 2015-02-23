@@ -4,7 +4,6 @@
 package ca.nengo.math.impl;
 
 import ca.nengo.TestUtil;
-import ca.nengo.math.impl.SineFunction;
 import junit.framework.TestCase;
 
 public class SineFunctionTest extends TestCase {

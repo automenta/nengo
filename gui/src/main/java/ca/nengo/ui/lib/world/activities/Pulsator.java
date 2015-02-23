@@ -3,8 +3,8 @@ package ca.nengo.ui.lib.world.activities;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
-import org.piccolo2d.activities.PActivity.PActivityDelegate;
 import org.piccolo2d.activities.PActivity;
+import org.piccolo2d.activities.PActivity.PActivityDelegate;
 
 /**
  * Pulsates the target World Object until finished.

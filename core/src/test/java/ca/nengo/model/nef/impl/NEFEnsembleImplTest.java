@@ -5,21 +5,11 @@ package ca.nengo.model.nef.impl;
 
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.AbstractFunction;
-//import ca.nengo.math.impl.ConstantFunction;
-import ca.nengo.model.Network;
-import ca.nengo.model.Node;
-import ca.nengo.model.Projection;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFEnsembleFactory;
-import ca.nengo.model.nef.impl.BiasOrigin;
-//import ca.nengo.model.nef.impl.DecodedOrigin;
-//import ca.nengo.model.nef.impl.DecodedTermination;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.MU;
@@ -27,6 +17,10 @@ import ca.nengo.util.Probe;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
 import junit.framework.TestCase;
+
+//import ca.nengo.math.impl.ConstantFunction;
+//import ca.nengo.model.nef.impl.DecodedOrigin;
+//import ca.nengo.model.nef.impl.DecodedTermination;
 
 /**
  * Unit tests for NEFEnsembleImpl. 

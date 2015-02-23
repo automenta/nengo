@@ -1,17 +1,11 @@
 package ca.nengo.model.neuron.impl;
 
-import junit.framework.TestCase;
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.FourierFunction;
 import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.math.impl.SigmoidFunction;
 import ca.nengo.math.impl.SineFunction;
-import ca.nengo.model.Network;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.nef.NEFEnsemble;
@@ -22,6 +16,7 @@ import ca.nengo.plot.Plotter;
 import ca.nengo.util.MU;
 import ca.nengo.util.Probe;
 import ca.nengo.util.SpikePattern;
+import junit.framework.TestCase;
 
 /**
  * Unit tests for SpikeGeneratorOrigin.

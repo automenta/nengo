@@ -26,12 +26,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.viewers;
 
+import ca.nengo.ui.models.UINeoNode;
+
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Hashtable;
-
-import ca.nengo.ui.models.UINeoNode;
 
 /**
  * Layout of nodes which is serializable

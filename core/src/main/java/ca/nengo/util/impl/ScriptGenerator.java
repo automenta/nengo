@@ -1,16 +1,16 @@
 package ca.nengo.util.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Stack;
-
 import ca.nengo.model.Network;
 import ca.nengo.model.Node;
 import ca.nengo.model.Projection;
 import ca.nengo.util.ScriptGenException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Stack;
 
 public class ScriptGenerator extends DFSIterator {
 

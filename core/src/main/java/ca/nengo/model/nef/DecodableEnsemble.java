@@ -28,12 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.model.nef;
 
 import ca.nengo.math.Function;
-import ca.nengo.model.Network;
-import ca.nengo.model.Origin;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.*;
 import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.model.nef.impl.DecodedTermination;
 import ca.nengo.model.plasticity.PlasticEnsemble;

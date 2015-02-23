@@ -30,23 +30,14 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.impl;
 
-import org.apache.log4j.Logger;
-
 import ca.nengo.dynamics.DynamicalSystem;
 import ca.nengo.dynamics.Integrator;
 import ca.nengo.dynamics.impl.CanonicalModel;
 import ca.nengo.dynamics.impl.LTISystem;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.Resettable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
+import org.apache.log4j.Logger;
 
 /**
  * A basic implementation of Termination with configurable dynamics and no special

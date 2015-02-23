@@ -27,19 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.plasticity.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.PlasticNodeTermination;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.EnsembleImpl;
 import ca.nengo.model.impl.NodeFactory;
 import ca.nengo.model.impl.RealOutputImpl;
@@ -47,6 +35,11 @@ import ca.nengo.model.nef.impl.DecodedTermination;
 import ca.nengo.util.TaskSpawner;
 import ca.nengo.util.ThreadTask;
 import ca.nengo.util.impl.LearningTask;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * <p>An extension of the default ensemble; connection weights can be modified

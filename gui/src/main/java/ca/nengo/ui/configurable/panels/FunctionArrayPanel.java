@@ -26,29 +26,18 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.panels;
 
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.ConstantFunction;
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.ConfigSchema;
-import ca.nengo.ui.configurable.ConfigSchemaImpl;
-import ca.nengo.ui.configurable.IConfigurable;
-import ca.nengo.ui.configurable.Property;
-import ca.nengo.ui.configurable.PropertyInputPanel;
+import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PFunction;
 import ca.nengo.ui.configurable.descriptors.PFunctionArray;
 import ca.nengo.ui.configurable.managers.UserConfigurer;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.Util;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Input panel for entering an Array of Functions

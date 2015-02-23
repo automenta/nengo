@@ -3,24 +3,20 @@
  */
 package ca.nengo.config.impl;
 
-import java.awt.BorderLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.ToolTipManager;
-
-import junit.framework.TestCase;
 import ca.nengo.config.ListProperty;
 import ca.nengo.config.ui.ConfigurationTreeCellEditor;
 import ca.nengo.config.ui.ConfigurationTreeCellRenderer;
 import ca.nengo.config.ui.ConfigurationTreeModel;
 import ca.nengo.config.ui.ConfigurationTreePopupListener;
 import ca.nengo.model.StructuralException;
+import junit.framework.TestCase;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Unit tests fof ListPropertyImpl

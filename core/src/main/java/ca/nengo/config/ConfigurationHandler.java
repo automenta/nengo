@@ -31,11 +31,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config;
 
-import java.awt.Component;
-
-import javax.swing.JComponent;
-
 import ca.nengo.config.ui.ConfigurationChangeListener;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * <p>Manages configuration of <code>Property</code>s of of a certain Class.

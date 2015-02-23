@@ -26,28 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.managers;
 
-import java.awt.Component;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
-import javax.swing.text.MutableAttributeSet;
-
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.ConfigResult;
@@ -56,6 +34,16 @@ import ca.nengo.ui.configurable.PropertyInputPanel;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.objects.activities.TrackedAction;
 import ca.nengo.ui.lib.util.UserMessages;
+
+import javax.swing.*;
+import javax.swing.text.MutableAttributeSet;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Configuration dialog

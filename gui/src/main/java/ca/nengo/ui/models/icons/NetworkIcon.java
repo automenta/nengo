@@ -26,13 +26,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.icons;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.PaintContext;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import ca.nengo.ui.models.nodes.UINetwork;
+
+import java.awt.*;
 
 /**
  * Icon for a Network

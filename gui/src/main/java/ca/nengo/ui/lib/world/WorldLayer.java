@@ -1,10 +1,10 @@
 package ca.nengo.ui.lib.world;
 
-import java.util.Collection;
-
 import ca.nengo.ui.lib.world.piccolo.WorldImpl;
 import ca.nengo.ui.lib.world.piccolo.objects.Window;
 import ca.nengo.ui.lib.world.piccolo.primitives.PXEdge;
+
+import java.util.Collection;
 
 /**
  * A Layer of the world

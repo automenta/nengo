@@ -3,10 +3,10 @@
  */
 package ca.nengo.math.impl;
 
-import junit.framework.TestCase;
 import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
 import ca.nengo.plot.Plotter;
+import junit.framework.TestCase;
 
 public class PiecewiseConstantFunctionTest extends TestCase {
 

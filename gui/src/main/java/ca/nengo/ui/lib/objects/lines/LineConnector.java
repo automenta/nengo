@@ -1,9 +1,5 @@
 package ca.nengo.ui.lib.objects.lines;
 
-import java.util.Collection;
-
-import javax.swing.JPopupMenu;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
@@ -18,6 +14,9 @@ import ca.nengo.ui.lib.world.piccolo.WorldGroundImpl;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import ca.nengo.ui.lib.world.piccolo.primitives.PXEdge;
 import org.piccolo2d.util.PPaintContext;
+
+import javax.swing.*;
+import java.util.Collection;
 
 /**
  * @author Shu

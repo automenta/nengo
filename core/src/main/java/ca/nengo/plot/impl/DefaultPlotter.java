@@ -27,37 +27,8 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.plot.impl;
 
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.jfree.chart.ChartColor;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.LegendItem;
-import org.jfree.chart.LegendItemCollection;
-import org.jfree.chart.axis.AxisLocation;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.util.ShapeUtilities;
-
 import ca.nengo.math.Function;
-import ca.nengo.model.Noise;
-import ca.nengo.model.Origin;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
+import ca.nengo.model.*;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFNode;
 import ca.nengo.model.nef.impl.DecodedOrigin;
@@ -69,6 +40,20 @@ import ca.nengo.util.MU;
 import ca.nengo.util.SpikePattern;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.TimeSeries1D;
+import org.jfree.chart.*;
+import org.jfree.chart.axis.AxisLocation;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.util.ShapeUtilities;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 /**
  * Default Plotter implementation. 

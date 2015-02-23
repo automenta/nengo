@@ -2,7 +2,6 @@ package ca.nengo.util.impl;
 
 import ca.nengo.model.Units;
 import ca.nengo.util.TimeSeries1D;
-import ca.nengo.util.impl.TimeSeries1DImpl;
 import junit.framework.TestCase;
 
 /**

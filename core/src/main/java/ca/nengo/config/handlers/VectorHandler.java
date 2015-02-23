@@ -27,15 +27,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.handlers;
 
-import java.awt.Component;
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
 import ca.nengo.config.IconRegistry;
 import ca.nengo.config.ui.ConfigurationChangeListener;
 import ca.nengo.config.ui.MatrixEditor;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * ConfigurationHandler for float[] values.

@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.world;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 
 public class PaintContext {
 	private Graphics2D graphics;

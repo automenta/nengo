@@ -3,9 +3,9 @@
  */
 package ca.nengo.math.impl;
 
-import ca.nengo.math.impl.FourierFunction;
-//import ca.nengo.plot.Plotter;
 import junit.framework.TestCase;
+
+//import ca.nengo.plot.Plotter;
 
 public class FourierFunctionTest extends TestCase {
 

@@ -27,13 +27,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.util;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
 import ca.nengo.model.Node;
 import ca.nengo.model.StructuralException;
+import org.apache.log4j.Logger;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Utility methods for VisiblyMutable objects. 

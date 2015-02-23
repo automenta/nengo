@@ -30,15 +30,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.ui.util;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-
+import ca.nengo.plot.impl.DefaultPlotter;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
-import ca.nengo.plot.impl.DefaultPlotter;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Plotter uses dialog rather than frames to support parent-child relationship

@@ -1,10 +1,10 @@
 package ca.nengo.ui.lib.actions;
 
-import java.awt.geom.Point2D;
-
 import ca.nengo.ui.lib.misc.WorldLayout;
 import ca.nengo.ui.lib.world.World;
 import ca.nengo.ui.lib.world.WorldObject;
+
+import java.awt.geom.Point2D;
 
 public abstract class LayoutAction extends ReversableAction {
 	private static final long serialVersionUID = 1L;

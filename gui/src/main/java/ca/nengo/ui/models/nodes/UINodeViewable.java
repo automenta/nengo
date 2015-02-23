@@ -26,12 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.nodes;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-
-import javax.swing.SwingUtilities;
-
 import ca.nengo.model.Node;
 import ca.nengo.ui.brainView.BrainViewer;
 import ca.nengo.ui.lib.world.piccolo.objects.Window;
@@ -39,6 +33,11 @@ import ca.nengo.ui.lib.world.piccolo.objects.Window.WindowState;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.tooltips.TooltipBuilder;
 import ca.nengo.ui.models.viewers.NodeViewer;
+
+import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 /**
  * UI Wrapper for Node Containers such as Ensembles and Networks.

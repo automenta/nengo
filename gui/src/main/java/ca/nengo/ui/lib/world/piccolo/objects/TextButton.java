@@ -1,11 +1,10 @@
 package ca.nengo.ui.lib.world.piccolo.objects;
 
-import java.awt.Font;
-import java.awt.Paint;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.piccolo.primitives.Path;
 import ca.nengo.ui.lib.world.piccolo.primitives.Text;
+
+import java.awt.*;
 
 /**
  * A Button whose represntation is a text label

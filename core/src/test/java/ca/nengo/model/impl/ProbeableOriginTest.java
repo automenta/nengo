@@ -1,16 +1,11 @@
 package ca.nengo.model.impl;
 
-import java.util.Properties;
-
-import ca.nengo.model.Probeable;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
-import ca.nengo.model.impl.ProbeableOrigin;
+import ca.nengo.model.*;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeries1DImpl;
 import junit.framework.TestCase;
+
+import java.util.Properties;
 
 /**
  * Unit tests for Probeable Origin. 

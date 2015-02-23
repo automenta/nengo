@@ -27,16 +27,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.handlers;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-
 import ca.nengo.config.ui.ConfigurationChangeListener;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * ConfigurationHandler for Boolean values.

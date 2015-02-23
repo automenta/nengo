@@ -3,15 +3,10 @@
  */
 package ca.nengo.model.impl;
 
-import java.util.HashMap;
-
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.*;
 import ca.nengo.util.ScriptGenException;
+
+import java.util.HashMap;
 
 /**
  * A Cloneable Node for testing copy&paste / drag&drop.

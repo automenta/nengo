@@ -3,12 +3,12 @@
  */
 package ca.nengo.math.impl;
 
-import junit.framework.TestCase;
 import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
 import ca.nengo.math.impl.IndependentDimensionApproximator.EncoderFactory;
 import ca.nengo.util.MU;
+import junit.framework.TestCase;
 
 /**
  * Unit tests for IndependentDimensionApproximator.

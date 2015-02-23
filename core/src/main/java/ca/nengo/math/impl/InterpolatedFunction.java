@@ -1,12 +1,12 @@
 package ca.nengo.math.impl;
 
-import java.util.Arrays;
-
 import ca.nengo.config.ConfigUtil;
 import ca.nengo.config.Configuration;
 import ca.nengo.config.impl.ConfigurationImpl;
 import ca.nengo.config.impl.SingleValuedPropertyImpl;
 import ca.nengo.math.Function;
+
+import java.util.Arrays;
 
 /**
  * A 1-D Function based on interpolation between known points.  

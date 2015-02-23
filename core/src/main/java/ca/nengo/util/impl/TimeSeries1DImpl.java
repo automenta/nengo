@@ -27,9 +27,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.util.impl;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
-
 import ca.nengo.config.ConfigUtil;
 import ca.nengo.config.Configuration;
 import ca.nengo.config.SingleValuedProperty;
@@ -37,6 +34,9 @@ import ca.nengo.config.impl.ConfigurationImpl;
 import ca.nengo.config.impl.SingleValuedPropertyImpl;
 import ca.nengo.model.Units;
 import ca.nengo.util.TimeSeries1D;
+
+import java.io.Serializable;
+import java.lang.reflect.Method;
 
 /**
  * Default implementation of TimeSeries.  

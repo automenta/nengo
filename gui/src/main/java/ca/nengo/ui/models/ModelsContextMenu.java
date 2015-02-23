@@ -26,16 +26,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-
-import javax.swing.JPopupMenu;
-
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.lib.util.menus.AbstractMenuBuilder;
 import ca.nengo.ui.lib.util.menus.PopupMenuBuilder;
 import ca.nengo.ui.lib.world.WorldObject;
+
+import javax.swing.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Creates a Popup menu which applies to a collection of models

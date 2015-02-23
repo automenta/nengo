@@ -28,15 +28,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.sim.impl;
 
+import ca.nengo.sim.SimulatorEvent;
+import ca.nengo.sim.SimulatorListener;
+import ca.nengo.util.Probe;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
-
-import ca.nengo.util.Probe;
-import ca.nengo.sim.SimulatorEvent;
-import ca.nengo.sim.SimulatorListener;
 
 /**
  * A method of writing to disk values being tracked by a probe.

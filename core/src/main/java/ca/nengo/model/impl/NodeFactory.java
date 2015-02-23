@@ -27,10 +27,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.impl;
 
-import java.io.Serializable;
-
 import ca.nengo.model.Node;
 import ca.nengo.model.StructuralException;
+
+import java.io.Serializable;
 
 /**
  * Produces Nodes. This interface does not define rules as to how the Nodes are parameterized, 

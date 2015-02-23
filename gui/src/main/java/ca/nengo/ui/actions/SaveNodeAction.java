@@ -26,11 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.JFileChooser;
-
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
@@ -38,6 +33,10 @@ import ca.nengo.ui.lib.actions.UserCancelledException;
 import ca.nengo.ui.lib.objects.activities.TrackedAction;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.models.UINeoNode;
+
+import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Saves a nodeUI

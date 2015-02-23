@@ -1,7 +1,7 @@
 package ca.nengo.plot;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 /** 
  * A swing Icon that paints itself a single, solid color.   

@@ -24,9 +24,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.dataList;
 
-import java.lang.ref.WeakReference;
-
 import ca.nengo.model.Node;
+
+import java.lang.ref.WeakReference;
 
 /**
  * TODO

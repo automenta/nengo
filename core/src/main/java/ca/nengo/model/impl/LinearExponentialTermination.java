@@ -25,16 +25,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.model.impl;
 
-import java.util.Random;
+import ca.nengo.model.*;
 
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.PlasticNodeTermination;
-import ca.nengo.model.PreciseSpikeOutput;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
+import java.util.Random;
 
 /**
  * <p>A Termination at which incoming spikes induce exponentially decaying post-synaptic

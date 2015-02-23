@@ -28,21 +28,16 @@ package ca.nengo.ui.models.constructors;
 
 //import java.util.List;
 
-import javax.swing.JComboBox;
-
 import ca.nengo.math.Function;
 import ca.nengo.model.Origin;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.ConfigSchema;
-import ca.nengo.ui.configurable.ConfigSchemaImpl;
-import ca.nengo.ui.configurable.Property;
-import ca.nengo.ui.configurable.PropertyInputPanel;
+import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PFunctionArray;
 import ca.nengo.ui.configurable.descriptors.PString;
 import ca.nengo.ui.models.nodes.widgets.UIDecodedOrigin;
+
+import javax.swing.*;
 
 public class CDecodedOrigin extends ProjectionConstructor {
 	private static final Property pName = new PString("Name");

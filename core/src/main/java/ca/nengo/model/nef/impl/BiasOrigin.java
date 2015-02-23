@@ -30,12 +30,8 @@ package ca.nengo.model.nef.impl;
 
 import ca.nengo.math.Function;
 import ca.nengo.math.PDF;
-import ca.nengo.math.impl.AbstractFunction;
-import ca.nengo.math.impl.ConstantFunction;
-import ca.nengo.math.impl.GradientDescentApproximator;
+import ca.nengo.math.impl.*;
 import ca.nengo.math.impl.GradientDescentApproximator.Constraints;
-import ca.nengo.math.impl.IdentityFunction;
-import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.model.Node;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.nef.NEFEnsemble;

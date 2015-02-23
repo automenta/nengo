@@ -3,14 +3,11 @@
  */
 package ca.nengo.math.impl;
 
+import ca.nengo.TestUtil;
+import junit.framework.TestCase;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import ca.nengo.TestUtil;
-import ca.nengo.math.impl.PostfixFunction;
-import ca.nengo.math.impl.SineFunction;
-
-import junit.framework.TestCase;
 
 /**
  * Unit tests for PostfixFunction. 

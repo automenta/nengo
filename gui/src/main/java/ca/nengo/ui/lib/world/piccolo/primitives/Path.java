@@ -1,10 +1,9 @@
 package ca.nengo.ui.lib.world.piccolo.primitives;
 
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.awt.geom.Point2D;
-
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class Path extends WorldObjectImpl {
 	public static Path createEllipse(float x, float y, float width, float height) {

@@ -3,20 +3,13 @@
  */
 package ca.nengo.model.impl;
 
+import ca.nengo.model.*;
+import ca.nengo.util.ScriptGenException;
+import junit.framework.TestCase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
-import ca.nengo.model.impl.AbstractEnsemble;
-import ca.nengo.model.impl.AbstractNode;
-import ca.nengo.model.impl.BasicOrigin;
-import ca.nengo.util.ScriptGenException;
-import junit.framework.TestCase;
 
 /**
  * Unit tests for AbstractEnsemble. 

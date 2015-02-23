@@ -1,9 +1,9 @@
 package ca.nengo.ui.lib.world.piccolo.primitives;
 
-import java.net.URL;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
+
+import java.net.URL;
 
 public class Image extends WorldObjectImpl {
 	private PXImage imageNode;

@@ -27,9 +27,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config;
 
-import java.util.List;
-
 import ca.nengo.model.StructuralException;
+
+import java.util.List;
 
 /**
  * A property that can have multiple values, each of which is indexed by a String name. 

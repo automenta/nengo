@@ -1,14 +1,12 @@
 package ca.nengo.ui.lib.world.piccolo.objects;
 
-import java.awt.Color;
-import java.awt.Cursor;
-
-import javax.swing.SwingUtilities;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import org.piccolo2d.event.PBasicInputEventHandler;
 import org.piccolo2d.event.PInputEvent;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Button which executes an action on click

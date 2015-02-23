@@ -6,12 +6,10 @@ package ca.nengo.math.impl;
 import ca.nengo.TestUtil;
 import ca.nengo.math.CurveFitter;
 import ca.nengo.math.Function;
-import ca.nengo.math.impl.LinearCurveFitter;
-import ca.nengo.math.impl.Polynomial;
-import ca.nengo.math.impl.InterpolatedFunction;
+import junit.framework.TestCase;
+
 //import ca.nengo.plot.Plotter;
 //import ca.nengo.util.MU;
-import junit.framework.TestCase;
 
 /*
  * Unit tests for LinearCurveFitter

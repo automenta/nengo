@@ -27,43 +27,22 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config;
 
-import java.awt.BorderLayout;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.ToolTipManager;
-
 import ca.nengo.config.impl.ConfigurationImpl;
 import ca.nengo.config.impl.ListPropertyImpl;
 import ca.nengo.config.impl.NamedValuePropertyImpl;
 import ca.nengo.config.impl.SingleValuedPropertyImpl;
-import ca.nengo.config.ui.AquaTreeUI;
-import ca.nengo.config.ui.ConfigurationTreeCellEditor;
-import ca.nengo.config.ui.ConfigurationTreeCellRenderer;
-import ca.nengo.config.ui.ConfigurationTreeModel;
-import ca.nengo.config.ui.ConfigurationTreePopupListener;
+import ca.nengo.config.ui.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.lang.reflect.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Configuration-related utility methods.

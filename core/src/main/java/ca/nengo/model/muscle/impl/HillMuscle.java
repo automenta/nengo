@@ -29,8 +29,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.muscle.impl;
 
-import org.apache.log4j.Logger;
-
 import ca.nengo.config.Configuration;
 import ca.nengo.dynamics.DynamicalSystem;
 import ca.nengo.dynamics.Integrator;
@@ -46,6 +44,7 @@ import ca.nengo.model.Units;
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
+import org.apache.log4j.Logger;
 
 /**
  * A Hill-type muscle model.

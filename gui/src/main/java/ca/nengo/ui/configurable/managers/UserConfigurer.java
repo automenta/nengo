@@ -27,14 +27,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.managers;
 
-import java.awt.Container;
-import java.awt.Dialog;
-import java.awt.Frame;
-
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.IConfigurable;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.util.Util;
+
+import java.awt.*;
 
 /**
  * Configuration Manager which creates a dialog and let's the user enter

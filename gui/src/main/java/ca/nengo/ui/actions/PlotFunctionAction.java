@@ -26,8 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import javax.swing.JDialog;
-
 import ca.nengo.math.Function;
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.ConfigResult;
@@ -39,6 +37,8 @@ import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.util.DialogPlotter;
+
+import javax.swing.*;
 
 /**
  * Plots a function node, which can contain multiple functions

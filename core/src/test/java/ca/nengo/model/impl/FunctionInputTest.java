@@ -5,13 +5,7 @@ package ca.nengo.model.impl;
 
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.ConstantFunction;
-import ca.nengo.model.Origin;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
-import ca.nengo.model.impl.FunctionInput;
+import ca.nengo.model.*;
 import junit.framework.TestCase;
 
 public class FunctionInputTest extends TestCase {

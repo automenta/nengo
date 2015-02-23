@@ -2,14 +2,13 @@ package ca.nengo.math.impl;
 
 import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
-import ca.nengo.math.impl.FourierFunction;
-import ca.nengo.math.impl.GradientDescentApproximator;
 import ca.nengo.math.impl.GradientDescentApproximator.Constraints;
+import junit.framework.TestCase;
+
 //import ca.nengo.model.Units;
 //import ca.nengo.plot.Plotter;
 //import ca.nengo.util.MU;
 //import ca.nengo.util.impl.TimeSeries1DImpl;
-import junit.framework.TestCase;
 
 /**
  * Unit tests for GradientDescentApproximator. 

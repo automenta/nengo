@@ -27,30 +27,16 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.muscle.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import ca.nengo.dynamics.DynamicalSystem;
 import ca.nengo.math.Function;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.muscle.LinkSegmentModel;
 import ca.nengo.model.muscle.SkeletalMuscle;
-import ca.nengo.util.MU;
-import ca.nengo.util.ScriptGenException;
-import ca.nengo.util.TimeSeries;
-import ca.nengo.util.VisiblyMutable;
-import ca.nengo.util.VisiblyMutableUtils;
+import ca.nengo.util.*;
 import ca.nengo.util.impl.TimeSeries1DImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
+
+import java.util.*;
 
 /**
  * Default implementation of LinkSegmentModel.

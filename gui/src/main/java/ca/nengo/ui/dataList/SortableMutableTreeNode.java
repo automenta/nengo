@@ -26,9 +26,8 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.dataList;
 
-import java.util.Collections;
-
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.Collections;
 
 /**
  * Has a sort() function to sort children

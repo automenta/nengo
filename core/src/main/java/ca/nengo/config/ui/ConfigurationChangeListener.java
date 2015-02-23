@@ -27,12 +27,11 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.tree.TreeCellEditor;
 import javax.swing.tree.TreePath;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * A listener for changes to Property values.

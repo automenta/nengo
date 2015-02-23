@@ -27,9 +27,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.util;
 
-import java.io.Serializable;
-
 import ca.nengo.model.Units;
+
+import java.io.Serializable;
 
 /**
  * A series of vector values at ordered points in time. 

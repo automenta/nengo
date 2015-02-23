@@ -26,26 +26,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.viewers;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-
-import javax.swing.JOptionPane;
-
-import ca.nengo.model.Network;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.Projection;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
@@ -63,15 +44,18 @@ import ca.nengo.ui.lib.world.piccolo.primitives.Path;
 import ca.nengo.ui.models.NodeContainer;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.nodes.UINetwork;
-import ca.nengo.ui.models.nodes.widgets.UIOrigin;
-import ca.nengo.ui.models.nodes.widgets.UIProbe;
-import ca.nengo.ui.models.nodes.widgets.UIProjection;
-import ca.nengo.ui.models.nodes.widgets.UIStateProbe;
-import ca.nengo.ui.models.nodes.widgets.UITermination;
+import ca.nengo.ui.models.nodes.widgets.*;
 import ca.nengo.util.Probe;
 import org.piccolo2d.event.PBasicInputEventHandler;
 import org.piccolo2d.event.PInputEvent;
 import org.piccolo2d.util.PBounds;
+
+import javax.swing.*;
+import java.io.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 /**
  * Viewer for peeking into a Network

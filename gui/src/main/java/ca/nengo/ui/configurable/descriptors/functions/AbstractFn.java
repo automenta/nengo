@@ -24,14 +24,14 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.descriptors.functions;
 
-import java.awt.Dialog;
-
 import ca.nengo.math.Function;
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.ConfigResult;
 import ca.nengo.ui.configurable.IConfigurable;
 import ca.nengo.ui.configurable.managers.UserConfigurer;
 import ca.nengo.ui.lib.util.UserMessages;
+
+import java.awt.*;
 
 /**
  * Describes how to configure a function through the IConfigurable interface.

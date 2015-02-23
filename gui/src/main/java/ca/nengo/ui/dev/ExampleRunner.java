@@ -27,12 +27,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.dev;
 
-import javax.swing.SwingUtilities;
-
 import ca.nengo.model.Network;
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.objects.activities.TrackedStatusMsg;
 import ca.nengo.ui.models.nodes.UINetwork;
+
+import javax.swing.*;
 
 /**
  * Used to conveniently create a NeoGraphics instance with an existing Network

@@ -3,16 +3,14 @@
  */
 package ca.nengo.util.impl;
 
-import java.util.Properties;
-
 import ca.nengo.model.Probeable;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.Units;
 import ca.nengo.util.Probe;
 import ca.nengo.util.TimeSeries;
-import ca.nengo.util.impl.ProbeImpl;
-import ca.nengo.util.impl.TimeSeries1DImpl;
 import junit.framework.TestCase;
+
+import java.util.Properties;
 
 /**
  * Unit tests for RecorderImpl. 

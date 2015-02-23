@@ -3,12 +3,12 @@
  */
 package ca.nengo.math.impl;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
-import junit.framework.TestCase;
 import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
+import junit.framework.TestCase;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Unit tests for CompositeApproximator.

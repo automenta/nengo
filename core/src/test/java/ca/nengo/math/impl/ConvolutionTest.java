@@ -3,9 +3,9 @@
  */
 package ca.nengo.math.impl;
 
-import junit.framework.TestCase;
 import ca.nengo.math.Function;
 import ca.nengo.plot.Plotter;
+import junit.framework.TestCase;
 
 public class ConvolutionTest extends TestCase {
 

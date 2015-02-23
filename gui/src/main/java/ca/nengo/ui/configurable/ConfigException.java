@@ -26,10 +26,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable;
 
-import javax.swing.SwingUtilities;
-
 import ca.nengo.ui.lib.exceptions.UIException;
 import ca.nengo.ui.lib.util.UserMessages;
+
+import javax.swing.*;
 
 /**
  * Exception to be thrown is if there is an error during Configuration

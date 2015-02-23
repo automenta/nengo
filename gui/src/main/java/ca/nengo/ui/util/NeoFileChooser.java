@@ -26,15 +26,14 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.util;
 
-import java.awt.HeadlessException;
-import java.io.File;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.util.NengoConfigManager.UserProperties;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
+import java.io.File;
 
 /**
  * File chooser used for NEO Model files.

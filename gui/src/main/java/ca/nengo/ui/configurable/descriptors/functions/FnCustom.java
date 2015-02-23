@@ -26,32 +26,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.descriptors.functions;
 
-import java.awt.Dialog;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Map;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-
 import ca.nengo.math.Function;
 import ca.nengo.math.FunctionInterpreter;
 import ca.nengo.math.impl.DefaultFunctionInterpreter;
 import ca.nengo.math.impl.PostfixFunction;
 import ca.nengo.ui.actions.PlotFunctionAction;
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.ConfigSchema;
-import ca.nengo.ui.configurable.ConfigSchemaImpl;
-import ca.nengo.ui.configurable.IConfigurable;
-import ca.nengo.ui.configurable.Property;
-import ca.nengo.ui.configurable.PropertyInputPanel;
+import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PFunction;
 import ca.nengo.ui.configurable.descriptors.PInt;
 import ca.nengo.ui.configurable.descriptors.PString;
@@ -61,6 +41,13 @@ import ca.nengo.ui.configurable.managers.UserConfigurer;
 import ca.nengo.ui.configurable.panels.StringPanel;
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.util.UserMessages;
+
+import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Map;
 
 /**
  * TODO

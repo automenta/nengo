@@ -24,12 +24,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import ca.nengo.model.Node;
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.actions.StandardAction;
@@ -37,6 +31,11 @@ import ca.nengo.ui.lib.actions.UserCancelledException;
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.world.WorldObject;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * TODO

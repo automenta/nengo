@@ -24,19 +24,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.nodes.widgets;
 
-import java.awt.Color;
-
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Network;
-import ca.nengo.model.Origin;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.StructuralException;
+import ca.nengo.model.*;
 import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.icons.ModelIcon;
 import ca.nengo.ui.models.nodes.UINetwork;
 import ca.nengo.ui.models.tooltips.TooltipBuilder;
+
+import java.awt.*;
 
 /**
  * UI Wrapper for an Origin

@@ -27,13 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.impl;
 
-import ca.nengo.model.Network;
-import ca.nengo.model.Ensemble;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.*;
 
 /**
  * <p>A Termination that is composed of Terminations onto multiple Nodes.

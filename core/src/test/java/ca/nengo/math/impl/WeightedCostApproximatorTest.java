@@ -3,16 +3,13 @@
  */
 package ca.nengo.math.impl;
 
+import Jama.Matrix;
 import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
-import ca.nengo.math.impl.ConstantFunction;
-import ca.nengo.math.impl.FourierFunction;
-import ca.nengo.math.impl.WeightedCostApproximator;
 import ca.nengo.model.Units;
 import ca.nengo.util.MU;
 import ca.nengo.util.impl.TimeSeries1DImpl;
-import Jama.Matrix;
 import junit.framework.TestCase;
 
 /**

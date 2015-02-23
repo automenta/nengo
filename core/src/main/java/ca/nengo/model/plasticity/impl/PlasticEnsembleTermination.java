@@ -27,17 +27,11 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.plasticity.impl;
 
-import java.util.Arrays;
-
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.PlasticNodeTermination;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.EnsembleTermination;
 import ca.nengo.model.nef.NEFEnsemble;
+
+import java.util.Arrays;
 
 /**
  * <p>A Termination that is composed of Terminations onto multiple Nodes.

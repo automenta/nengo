@@ -1,9 +1,9 @@
 package ca.nengo.ui.lib.world;
 
+import ca.nengo.ui.lib.world.handlers.SelectionHandler;
+
 import java.awt.geom.Point2D;
 import java.util.Collection;
-
-import ca.nengo.ui.lib.world.handlers.SelectionHandler;
 
 public interface World extends WorldObject {
 	public WorldLayer getGround();

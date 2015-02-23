@@ -4,7 +4,6 @@
 package ca.nengo.math.impl;
 
 import ca.nengo.math.PDF;
-import ca.nengo.math.impl.IndicatorPDF;
 import junit.framework.TestCase;
 
 /**

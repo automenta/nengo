@@ -3,10 +3,10 @@
  */
 package ca.nengo.math.impl;
 
-import junit.framework.TestCase;
 import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
 import ca.nengo.model.StructuralException;
+import junit.framework.TestCase;
 
 /**
  * Unit tests for TimeSeriesFunction.

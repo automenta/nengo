@@ -1,18 +1,7 @@
 package ca.nengo.util.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import ca.nengo.math.impl.MultiLevelKLNetworkPartitioner;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.PlasticNodeTermination;
-import ca.nengo.model.Projection;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.EnsembleTermination;
 import ca.nengo.model.impl.NetworkArrayImpl;
 import ca.nengo.model.impl.NetworkImpl;
@@ -25,6 +14,10 @@ import ca.nengo.model.nef.impl.DecodedTermination;
 import ca.nengo.model.nef.impl.NEFEnsembleImpl;
 import ca.nengo.model.neuron.impl.LIFSpikeGenerator;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Allows running NEFEnsembles on the GPU. 

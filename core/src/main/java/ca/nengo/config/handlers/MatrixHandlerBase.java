@@ -1,22 +1,10 @@
 package ca.nengo.config.handlers;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.Frame;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 import ca.nengo.config.ui.ConfigurationChangeListener;
 import ca.nengo.config.ui.MatrixEditor;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Base class for ConfigurationHandlers that deal with 2D arrays

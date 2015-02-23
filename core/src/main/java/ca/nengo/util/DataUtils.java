@@ -31,8 +31,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.util;
 
-import java.util.Arrays;
-
 import ca.nengo.dynamics.Integrator;
 import ca.nengo.dynamics.impl.EulerIntegrator;
 import ca.nengo.dynamics.impl.LTISystem;
@@ -44,6 +42,8 @@ import ca.nengo.model.neuron.impl.SpikingNeuron;
 import ca.nengo.util.impl.SpikePatternImpl;
 import ca.nengo.util.impl.TimeSeries1DImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
+
+import java.util.Arrays;
 
 /**
  * Tools manipulating TimeSeries and SpikePattern data.

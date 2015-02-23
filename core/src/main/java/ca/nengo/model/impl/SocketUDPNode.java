@@ -31,44 +31,19 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.DatagramSocket;
-import java.net.DatagramPacket;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
-import org.apache.log4j.Logger;
-
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.Resettable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.PassthroughNode.PassthroughTermination;
 import ca.nengo.util.MU;
 import ca.nengo.util.ScriptGenException;
 import ca.nengo.util.VisiblyMutable;
 import ca.nengo.util.VisiblyMutableUtils;
-import ca.nengo.util.VisiblyMutable.Listener;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.*;
 
 /**
  * <p>A Node that sends and receives data through sockets via a UDP connection.</p>

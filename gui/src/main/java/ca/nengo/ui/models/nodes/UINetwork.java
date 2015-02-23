@@ -26,8 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.nodes;
 
-import javax.swing.SwingUtilities;
-
 import ca.nengo.model.Network;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.sim.Simulator;
@@ -42,6 +40,8 @@ import ca.nengo.ui.models.viewers.NetworkViewer;
 import ca.nengo.ui.models.viewers.NodeViewer;
 import ca.nengo.util.VisiblyMutable;
 import ca.nengo.util.VisiblyMutable.Event;
+
+import javax.swing.*;
 
 /**
  * UI Wrapper for a Network

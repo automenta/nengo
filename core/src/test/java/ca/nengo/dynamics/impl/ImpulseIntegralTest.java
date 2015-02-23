@@ -3,8 +3,6 @@
  */
 package ca.nengo.dynamics.impl;
 
-import ca.nengo.dynamics.impl.ImpulseIntegral;
-import ca.nengo.dynamics.impl.LTISystem;
 import ca.nengo.model.Units;
 import junit.framework.TestCase;
 

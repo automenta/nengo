@@ -26,8 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import javax.swing.SwingUtilities;
-
 import ca.nengo.model.SimulationException;
 import ca.nengo.sim.Simulator;
 import ca.nengo.sim.SimulatorEvent;
@@ -48,6 +46,8 @@ import ca.nengo.ui.lib.objects.activities.TrackedStatusMsg;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.models.nodes.UINetwork;
+
+import javax.swing.*;
 
 /**
  * Runs the Simulator

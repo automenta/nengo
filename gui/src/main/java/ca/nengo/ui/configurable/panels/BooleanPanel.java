@@ -26,11 +26,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.panels;
 
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-
 import ca.nengo.ui.configurable.Property;
 import ca.nengo.ui.configurable.PropertyInputPanel;
+
+import javax.swing.*;
 
 /**
  * Input panel for entering Booleans

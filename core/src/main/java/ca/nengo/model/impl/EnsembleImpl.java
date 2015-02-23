@@ -30,20 +30,16 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.impl;
 
+import ca.nengo.math.PDF;
+import ca.nengo.math.impl.IndicatorPDF;
+import ca.nengo.model.*;
+import ca.nengo.model.neuron.impl.ExpandableSpikingNeuron;
+import ca.nengo.util.ScriptGenException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import ca.nengo.math.PDF;
-import ca.nengo.math.impl.IndicatorPDF;
-import ca.nengo.model.ExpandableNode;
-import ca.nengo.model.Node;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.neuron.impl.ExpandableSpikingNeuron;
-import ca.nengo.util.ScriptGenException;
 
 /**
  * <p>Default implementation of Ensemble.</p>

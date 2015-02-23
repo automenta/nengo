@@ -24,14 +24,13 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.math.impl;
 
-import java.io.Serializable;
-
-import org.apache.log4j.Logger;
-
 import ca.nengo.math.ApproximatorFactory;
 import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
 import ca.nengo.util.MU;
+import org.apache.log4j.Logger;
+
+import java.io.Serializable;
 
 /**
  * A LinearApproximator that searches for coefficients by descending an error gradient.

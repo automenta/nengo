@@ -29,10 +29,9 @@
  */
 package ca.nengo.ui.lib.world.piccolo.primitives;
 
-import java.awt.Font;
-import java.awt.Paint;
-
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
+
+import java.awt.*;
 
 public class Text extends WorldObjectImpl {
 	private PXText textNode;

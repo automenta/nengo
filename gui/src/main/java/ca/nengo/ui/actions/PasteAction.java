@@ -24,9 +24,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-
 import ca.nengo.model.Node;
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.actions.ActionException;
@@ -35,6 +32,9 @@ import ca.nengo.ui.lib.world.piccolo.WorldImpl;
 import ca.nengo.ui.models.NodeContainer;
 import ca.nengo.ui.models.NodeContainer.ContainerException;
 import ca.nengo.ui.util.NengoClipboard;
+
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 /**
  * TODO

@@ -3,20 +3,16 @@
  */
 package ca.nengo.model.impl;
 
+import ca.nengo.dynamics.impl.SimpleLTISystem;
+import ca.nengo.model.*;
+import ca.nengo.util.MU;
+import ca.nengo.util.ScriptGenException;
+import junit.framework.TestCase;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import junit.framework.TestCase;
-import ca.nengo.dynamics.impl.SimpleLTISystem;
-import ca.nengo.model.ExpandableNode;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.util.MU;
-import ca.nengo.util.ScriptGenException;
 
 /**
  * Unit tests for EnsembleImpl.

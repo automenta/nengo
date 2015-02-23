@@ -24,16 +24,16 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import ca.nengo.model.Node;
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.world.piccolo.WorldImpl;
 import ca.nengo.ui.models.UINeoNode;
+
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * TODO

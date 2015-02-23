@@ -1,12 +1,11 @@
 package ca.nengo.ui.configurable.panels;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-
-import javax.swing.JTextField;
-
 import ca.nengo.ui.configurable.Property;
 import ca.nengo.ui.configurable.PropertyInputPanel;
+
+import javax.swing.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public abstract class PropertyTextPanel extends PropertyInputPanel {
 	

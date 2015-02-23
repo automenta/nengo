@@ -1,12 +1,12 @@
 package ca.nengo.ui.lib.objects.lines;
 
-import java.awt.Color;
-import java.awt.event.MouseEvent;
-
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import org.piccolo2d.event.PBasicInputEventHandler;
 import org.piccolo2d.event.PInputEvent;
 import org.piccolo2d.util.PPickPath;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public abstract class LineWell extends WorldObjectImpl {
 	private LineOriginIcon myIcon;

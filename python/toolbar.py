@@ -1,13 +1,26 @@
 import java
-from java.awt import *
-from javax.swing import *
+#from java.awt import *
+#from javax.swing import *
+from javax.swing import JToolBar
+from javax.swing import TransferHandler
+from javax.swing import JPanel
+from javax.swing import JButton
+from javax.swing import AbstractButton
+from javax.swing import JLabel
+from javax.swing import JSeparator
+from javax.swing import BoxLayout
+from javax.swing import BorderFactory
+from javax.swing import SwingConstants
+from javax.swing import ImageIcon
+from javax.swing import Box
 
 import ca.nengo
 import sys
 
 import template
+from ca.nengo.ui.lib.world.handlers import SelectionHandler
 
-SelectionHandler = ca.nengo.ui.lib.world.handlers.SelectionHandler
+SelectionHandler = SelectionHandler
 
 from ca.nengo.math.impl import WeightedCostApproximator
 from ca.nengo.util.impl import NEFGPUInterface, NodeThreadPool

@@ -24,23 +24,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.constructors;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.security.InvalidParameterException;
-import java.text.DecimalFormat;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import ca.nengo.math.ApproximatorFactory;
 import ca.nengo.math.impl.GradientDescentApproximator;
 import ca.nengo.math.impl.WeightedCostApproximator;
@@ -50,11 +33,7 @@ import ca.nengo.model.impl.NodeFactory;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFEnsembleFactory;
 import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.ConfigSchemaImpl;
-import ca.nengo.ui.configurable.Property;
-import ca.nengo.ui.configurable.PropertyInputPanel;
+import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PFloat;
 import ca.nengo.ui.configurable.descriptors.PInt;
 import ca.nengo.ui.configurable.descriptors.PNodeFactory;
@@ -66,6 +45,15 @@ import ca.nengo.ui.models.nodes.UINEFEnsemble;
 import ca.nengo.util.VectorGenerator;
 import ca.nengo.util.impl.RandomHypersphereVG;
 import ca.nengo.util.impl.Rectifier;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.security.InvalidParameterException;
+import java.text.DecimalFormat;
 
 public class CNEFEnsemble extends ConstructableNode {
     static final Property pApproximator = new PApproximator("Decoding Sign");

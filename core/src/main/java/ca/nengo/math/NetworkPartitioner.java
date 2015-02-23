@@ -1,10 +1,10 @@
 package ca.nengo.math;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 import ca.nengo.model.Node;
 import ca.nengo.model.Projection;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 public interface NetworkPartitioner {
 	

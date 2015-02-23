@@ -27,17 +27,11 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.math.impl;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
-import java.util.StringTokenizer;
-
 import ca.nengo.math.Function;
 import ca.nengo.math.FunctionInterpreter;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * <p>Default implementation of FunctionInterpreter. This implementation produces

@@ -26,10 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.test;
 
-import java.lang.reflect.InvocationTargetException;
-
-import javax.swing.SwingUtilities;
-
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.ConstantFunction;
 import ca.nengo.model.Network;
@@ -43,6 +39,9 @@ import ca.nengo.model.nef.NEFEnsembleFactory;
 import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.models.nodes.UINetwork;
+
+import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Just a quick check for one type of memory leaks in Network Viewer.

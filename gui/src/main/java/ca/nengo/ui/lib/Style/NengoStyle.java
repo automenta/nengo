@@ -1,12 +1,8 @@
 package ca.nengo.ui.lib.Style;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Font;
-
-import javax.swing.JComponent;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import java.awt.*;
 
 /**
  * Style constants used by NEO Graphics

@@ -3,12 +3,6 @@
  */
 package ca.nengo.sim.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import junit.framework.TestCase;
-
 import ca.nengo.model.Network;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.StructuralException;
@@ -17,6 +11,11 @@ import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFEnsembleFactory;
 import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
 import ca.nengo.util.Probe;
+import junit.framework.TestCase;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Unit tests for WriteToDiskSimulatorListener.

@@ -3,14 +3,14 @@
  */
 package ca.nengo.model.impl;
 
-import java.util.List;
-
 import ca.nengo.TestUtil;
 import ca.nengo.config.Configuration;
 import ca.nengo.config.SingleValuedProperty;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.impl.MockConfigurable.MockChildConfigurable;
 import junit.framework.TestCase;
+
+import java.util.List;
 
 /**
  * Unit tests for ConfigurationImpl. 

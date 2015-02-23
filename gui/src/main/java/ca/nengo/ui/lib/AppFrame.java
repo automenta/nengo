@@ -216,7 +216,6 @@ public abstract class AppFrame extends JFrame implements ApplicationListener {
     /**
      * Use this function to add menu items to the frame menu bar
      * 
-     * @param menuBar
      *            is attached to the frame
      */
     protected void initFileMenu(MenuBuilder menu) {

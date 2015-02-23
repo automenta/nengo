@@ -27,19 +27,13 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.neuron.impl;
 
-import java.util.Properties;
-
 import ca.nengo.math.Function;
 import ca.nengo.math.PDF;
 import ca.nengo.math.RootFinder;
 import ca.nengo.math.impl.AbstractFunction;
 import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.math.impl.NewtonRootFinder;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.PreciseSpikeOutputImpl;
 import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.impl.SpikeOutputImpl;
@@ -47,6 +41,8 @@ import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.TimeSeries1D;
 import ca.nengo.util.impl.TimeSeries1DImpl;
+
+import java.util.Properties;
 
 /**
  * <p>An adapting leaky-integrate-and-fire model of spike generation. The mechanism of adaptation is

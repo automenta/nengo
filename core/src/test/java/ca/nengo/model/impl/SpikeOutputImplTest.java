@@ -5,7 +5,6 @@ package ca.nengo.model.impl;
 
 import ca.nengo.model.SpikeOutput;
 import ca.nengo.model.Units;
-import ca.nengo.model.impl.SpikeOutputImpl;
 import junit.framework.TestCase;
 
 /**

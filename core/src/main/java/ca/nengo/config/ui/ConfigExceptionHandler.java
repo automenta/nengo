@@ -24,11 +24,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.config.ui;
 
-import java.awt.Component;
-
-import javax.swing.JOptionPane;
-
 import org.apache.log4j.Logger;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Handles UI-generated exceptions consistently.

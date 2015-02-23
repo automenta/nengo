@@ -4,11 +4,10 @@
 package ca.nengo.model.nef.impl;
 
 import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.impl.DecodedOrigin;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
-//import ca.nengo.plot.Plotter;
 import ca.nengo.util.MU;
 import junit.framework.TestCase;
+
+//import ca.nengo.plot.Plotter;
 
 /**
  * Unit tests for DecodedOrigin. 

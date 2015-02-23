@@ -28,11 +28,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.math.impl;
 
-import java.io.FileNotFoundException;
-import java.util.Random;
-
-import org.apache.log4j.Logger;
-
 import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 import ca.nengo.math.ApproximatorFactory;
@@ -40,6 +35,10 @@ import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
 import ca.nengo.util.MU;
 import ca.nengo.util.Memory;
+import org.apache.log4j.Logger;
+
+import java.io.FileNotFoundException;
+import java.util.Random;
 
 /**
  * <p>A LinearApproximator in which error is evaluated at a fixed set of points, and

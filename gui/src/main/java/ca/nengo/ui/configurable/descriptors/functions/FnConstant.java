@@ -26,11 +26,7 @@ package ca.nengo.ui.configurable.descriptors.functions;
 
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.ConstantFunction;
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.ConfigSchema;
-import ca.nengo.ui.configurable.ConfigSchemaImpl;
-import ca.nengo.ui.configurable.Property;
+import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PFloat;
 import ca.nengo.ui.configurable.descriptors.PInt;
 

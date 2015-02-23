@@ -27,11 +27,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.util;
 
-import java.text.NumberFormat;
-
+import ca.nengo.math.PDF;
 import org.apache.log4j.Logger;
 
-import ca.nengo.math.PDF;
+import java.text.NumberFormat;
 
 /**
  * "Matrix Utilities". Utility methods related to matrices and vectors of floats.

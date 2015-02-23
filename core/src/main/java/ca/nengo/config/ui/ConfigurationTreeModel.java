@@ -31,24 +31,17 @@ package ca.nengo.config.ui;
 
 //import java.awt.BorderLayout;
 //import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
+import ca.nengo.config.*;
+import ca.nengo.model.StructuralException;
 
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
-
-import ca.nengo.config.ConfigUtil;
-import ca.nengo.config.Configurable;
-import ca.nengo.config.Configuration;
-import ca.nengo.config.ListProperty;
-import ca.nengo.config.MainHandler;
-import ca.nengo.config.NamedValueProperty;
-import ca.nengo.config.Property;
-import ca.nengo.config.SingleValuedProperty;
-import ca.nengo.model.StructuralException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Data model underlying JTree user interface for a Configurable.

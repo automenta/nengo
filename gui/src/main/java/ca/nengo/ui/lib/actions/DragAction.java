@@ -1,16 +1,15 @@
 package ca.nengo.ui.lib.actions;
 
+import ca.nengo.ui.lib.world.Droppable;
+import ca.nengo.ui.lib.world.DroppableX;
+import ca.nengo.ui.lib.world.WorldObject;
+import ca.nengo.ui.lib.world.piccolo.objects.Window;
+
 import java.awt.geom.Point2D;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-
-import ca.nengo.ui.lib.world.Droppable;
-import ca.nengo.ui.lib.world.DroppableX;
-import ca.nengo.ui.lib.world.WorldObject;
-import ca.nengo.ui.lib.world.piccolo.objects.Window;
-import ca.nengo.ui.lib.actions.UserCancelledException;
 
 /**
  * Action which allows the dragging of objects by the selection handler to be

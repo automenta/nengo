@@ -4,8 +4,6 @@
 package ca.nengo.math.impl;
 
 import ca.nengo.TestUtil;
-import ca.nengo.math.impl.AbstractFunction;
-import ca.nengo.math.impl.SigmoidFunction;
 import junit.framework.TestCase;
 
 public class SigmoidFunctionTest extends TestCase {

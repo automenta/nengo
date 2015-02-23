@@ -3,30 +3,16 @@
  */
 package ca.nengo.model.impl;
 
-import junit.framework.TestCase;
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.IdentityFunction;
-import ca.nengo.model.Ensemble;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Network;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.Projection;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFEnsembleFactory;
-import ca.nengo.model.nef.impl.BiasOrigin;
-import ca.nengo.model.nef.impl.BiasTermination;
-import ca.nengo.model.nef.impl.DecodedOrigin;
-import ca.nengo.model.nef.impl.DecodedTermination;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
+import ca.nengo.model.nef.impl.*;
 import ca.nengo.util.DataUtils;
 import ca.nengo.util.MU;
 import ca.nengo.util.Probe;
+import junit.framework.TestCase;
 
 /**
  * Unit tests for ProjectionImpl.

@@ -27,44 +27,25 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.ui.script;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
-
-import javax.swing.Action;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
-import javax.swing.ToolTipManager;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
-
-import org.apache.log4j.Logger;
-import org.python.core.PyStringMap;
-import org.python.util.PythonInterpreter;
-
-
 import ca.nengo.config.JavaSourceParser;
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.objects.activities.TrackedAction;
+import org.apache.log4j.Logger;
+import org.python.core.PyStringMap;
+import org.python.util.PythonInterpreter;
+
+import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * A user interface panel for entering script commands.

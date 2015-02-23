@@ -26,39 +26,24 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.panels;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.lang.reflect.Constructor;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import ca.nengo.config.ClassRegistry;
 import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.model.impl.NodeFactory;
-import ca.nengo.model.neuron.impl.ALIFNeuronFactory;
-import ca.nengo.model.neuron.impl.LIFNeuronFactory;
-import ca.nengo.model.neuron.impl.PoissonSpikeGenerator;
+import ca.nengo.model.neuron.impl.*;
 import ca.nengo.model.neuron.impl.PoissonSpikeGenerator.LinearNeuronFactory;
 import ca.nengo.model.neuron.impl.PoissonSpikeGenerator.SigmoidNeuronFactory;
-import ca.nengo.model.neuron.impl.SpikeGeneratorFactory;
-import ca.nengo.model.neuron.impl.SpikingNeuronFactory;
-import ca.nengo.model.neuron.impl.SynapticIntegratorFactory;
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.ConfigSchema;
-import ca.nengo.ui.configurable.ConfigSchemaImpl;
-import ca.nengo.ui.configurable.Property;
-import ca.nengo.ui.configurable.PropertyInputPanel;
+import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PBoolean;
 import ca.nengo.ui.configurable.descriptors.PFloat;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.models.constructors.AbstractConstructable;
 import ca.nengo.ui.models.constructors.ModelFactory;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.lang.reflect.Constructor;
 
 /**
  * Input Panel for selecting and configuring a Node Factory

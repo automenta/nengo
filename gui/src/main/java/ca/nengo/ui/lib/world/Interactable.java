@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.world;
 
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 
 /**
  * Objects which can be interacted with through context menus

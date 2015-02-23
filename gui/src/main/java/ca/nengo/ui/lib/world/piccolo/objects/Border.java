@@ -1,11 +1,11 @@
 package ca.nengo.ui.lib.world.piccolo.objects;
 
-import java.awt.Color;
-import java.awt.geom.Rectangle2D;
-
 import ca.nengo.ui.lib.world.WorldObject.Listener;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import ca.nengo.ui.lib.world.piccolo.primitives.Path;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Adds a border around an object.

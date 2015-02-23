@@ -3,23 +3,12 @@
  */
 package ca.nengo.model.neuron.impl;
 
-import org.apache.log4j.Logger;
-
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.neuron.ExpandableSynapticIntegrator;
 import ca.nengo.model.neuron.SpikeGenerator;
-import ca.nengo.model.neuron.impl.LIFSpikeGenerator;
-import ca.nengo.model.neuron.impl.LinearSynapticIntegrator;
-import ca.nengo.model.neuron.impl.SpikeGeneratorOrigin;
-import ca.nengo.model.neuron.impl.SpikingNeuron;
 import junit.framework.TestCase;
+import org.apache.log4j.Logger;
 
 /**
  * Unit tests for SpikingNeuron. 

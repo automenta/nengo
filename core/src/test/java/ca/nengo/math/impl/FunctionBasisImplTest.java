@@ -5,7 +5,6 @@ package ca.nengo.math.impl;
 
 import ca.nengo.math.Function;
 import ca.nengo.math.FunctionBasis;
-import ca.nengo.math.impl.FunctionBasisImpl;
 import junit.framework.TestCase;
 
 /**

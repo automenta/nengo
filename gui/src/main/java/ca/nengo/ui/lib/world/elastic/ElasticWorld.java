@@ -1,11 +1,5 @@
 package ca.nengo.ui.lib.world.elastic;
 
-import java.awt.Dimension;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import javax.swing.SwingUtilities;
-
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.ConfigResult;
 import ca.nengo.ui.configurable.Property;
@@ -22,6 +16,11 @@ import ca.nengo.ui.lib.world.piccolo.WorldImpl;
 import ca.nengo.ui.lib.world.piccolo.WorldSkyImpl;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.Layout;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * A World which supports Spring layout. Objects within this world attract and

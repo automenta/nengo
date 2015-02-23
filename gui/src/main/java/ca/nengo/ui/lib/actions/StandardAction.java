@@ -1,14 +1,11 @@
 package ca.nengo.ui.lib.actions;
 
-import java.awt.event.ActionEvent;
-import java.io.Serializable;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.SwingUtilities;
-
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.util.UserMessages;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.Serializable;
 
 /**
  * A standard non-reversable action

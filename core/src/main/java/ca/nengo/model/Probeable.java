@@ -28,9 +28,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model;
 
-import java.util.Properties;
-
 import ca.nengo.util.TimeSeries;
+
+import java.util.Properties;
 
 /**
  * <p>An object that can be probed for a history of its state OVER THE MOST RECENT 

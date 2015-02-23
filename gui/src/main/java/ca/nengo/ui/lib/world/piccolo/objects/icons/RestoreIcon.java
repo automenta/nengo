@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.world.piccolo.objects.icons;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 
 public class RestoreIcon extends WindowIconBase {
 	public RestoreIcon(int size) {

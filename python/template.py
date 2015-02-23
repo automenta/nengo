@@ -1,10 +1,37 @@
-from javax.swing import *
-from java.awt import *
+from java.awt import Image
+from java.awt import Color
+from java.awt.dnd import DropTargetListener
+from java.awt.datatransfer import Transferable
+from java.awt import BorderLayout
+from java.awt import Component
+
+from javax.swing import TransferHandler
+from javax.swing import JPanel
+from javax.swing import JButton
+from javax.swing import AbstractButton
+from javax.swing import JLabel
+from javax.swing import JSeparator
+from javax.swing import BoxLayout
+from javax.swing import BorderFactory
+from javax.swing import SwingConstants
+from javax.swing import ImageIcon
+
+
 import java
 
-from ca.nengo.ui.configurable.descriptors import *
-from ca.nengo.ui.configurable import *
-from ca.nengo.ui.configurable.managers import ConfigDialogClosedException
+
+
+from ca.nengo.ui.configurable.descriptors import PString
+from ca.nengo.ui.configurable.descriptors import PInt
+from ca.nengo.ui.configurable.descriptors import PFloat
+from ca.nengo.ui.configurable.descriptors import PLong
+from ca.nengo.ui.configurable.descriptors import PBoolean
+from ca.nengo.ui.configurable import IConfigurable
+
+
+#from ca.nengo.ui.configurable.descriptors import *
+#from ca.nengo.ui.configurable import *
+#from ca.nengo.ui.configurable.managers import ConfigDialogClosedException
 
 import ca.nengo
 import inspect
@@ -170,7 +197,7 @@ class TemplateBar(TransferHandler):
         ca.nengo.ui.NengoGraphics.getInstance().contentPane.revalidate()
 
 ################################################################################
-class DropHandler(TransferHandler,java.awt.dnd.DropTargetListener):
+class DropHandler(TransferHandler,DropTargetListener):
     dragPoint = None
 
     def dragOver(self,event):
@@ -344,7 +371,7 @@ class DropHandler(TransferHandler,java.awt.dnd.DropTargetListener):
                 
             
 ################################################################################
-class TemplateTransferable(java.awt.datatransfer.Transferable):
+class TemplateTransferable(Transferable):
     flavor = java.awt.datatransfer.DataFlavor("application/nengo;class = java.lang.String")
     def __init__(self,action):
         self.action = action

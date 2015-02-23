@@ -27,15 +27,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.nef.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Properties;
-
-import org.apache.log4j.Logger;
-
 import Jama.Matrix;
 import ca.nengo.dynamics.LinearSystem;
 import ca.nengo.dynamics.impl.CanonicalModel;
@@ -47,14 +38,7 @@ import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
 import ca.nengo.math.impl.ConstantFunction;
 import ca.nengo.math.impl.TimeSeriesFunction;
-import ca.nengo.model.Network;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.nef.DecodableEnsemble;
 import ca.nengo.model.plasticity.impl.PlasticEnsembleImpl;
@@ -63,6 +47,9 @@ import ca.nengo.util.MU;
 import ca.nengo.util.Probe;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
+import org.apache.log4j.Logger;
+
+import java.util.*;
 
 /**
  * Default implementation of DecodableEnsemble.

@@ -1,8 +1,8 @@
 package ca.nengo.ui.lib.objects.activities;
 
-import javax.swing.SwingUtilities;
-
 import ca.nengo.ui.lib.util.UIEnvironment;
+
+import javax.swing.*;
 
 /**
  * Displays a task message in the status bar which appears for a finite

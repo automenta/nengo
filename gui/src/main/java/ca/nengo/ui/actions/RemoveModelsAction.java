@@ -26,14 +26,13 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import java.util.Collection;
-
-import javax.swing.JOptionPane;
-
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.lib.util.UIEnvironment;
+
+import javax.swing.*;
+import java.util.Collection;
 
 /**
  * Action for removing a collection of UI Wrappers and their models

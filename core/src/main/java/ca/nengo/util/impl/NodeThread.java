@@ -1,16 +1,16 @@
 package ca.nengo.util.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import ca.nengo.model.InstantaneousOutput;
 import ca.nengo.model.Node;
 import ca.nengo.model.Projection;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.impl.SocketUDPNode;
 import ca.nengo.util.ThreadTask;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A thread for running projections, nodes and tasks in. Projections are all runs before nodes, nodes before tasks.

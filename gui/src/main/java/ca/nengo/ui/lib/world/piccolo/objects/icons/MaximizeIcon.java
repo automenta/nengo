@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.world.piccolo.objects.icons;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 
 public class MaximizeIcon extends WindowIconBase {
 	public MaximizeIcon(int size) {

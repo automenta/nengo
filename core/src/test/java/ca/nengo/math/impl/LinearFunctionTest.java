@@ -3,9 +3,9 @@
  */
 package ca.nengo.math.impl;
 
-import ca.nengo.math.impl.LinearFunction;
-//import ca.nengo.util.MU;
 import junit.framework.TestCase;
+
+//import ca.nengo.util.MU;
 
 /**
  * Unit tests for LinearFunction. 

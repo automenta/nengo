@@ -3,14 +3,14 @@
  */
 package ca.nengo.ui.lib.world.elastic;
 
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.graph.Vertex;
+import edu.uci.ics.jung.graph.impl.SimpleSparseVertex;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-
-import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.Vertex;
-import edu.uci.ics.jung.graph.impl.SimpleSparseVertex;
 
 /**
  * Stretch vertices that are linked to other vertices in the same layer.

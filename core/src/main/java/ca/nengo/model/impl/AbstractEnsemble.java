@@ -29,27 +29,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import org.apache.log4j.Logger;
-
-import ca.nengo.model.Ensemble;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.PreciseSpikeOutput;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.util.SpikePattern;
 import ca.nengo.util.TimeSeries;
@@ -57,6 +37,9 @@ import ca.nengo.util.VisiblyMutable;
 import ca.nengo.util.VisiblyMutableUtils;
 import ca.nengo.util.impl.SpikePatternImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
+import org.apache.log4j.Logger;
+
+import java.util.*;
 
 /**
  * Abstract class that can be used as a basis for Ensemble implementations.

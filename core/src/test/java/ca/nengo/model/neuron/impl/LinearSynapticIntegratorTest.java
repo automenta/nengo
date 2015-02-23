@@ -3,14 +3,9 @@
  */
 package ca.nengo.model.neuron.impl;
 
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.SpikeOutputImpl;
 import ca.nengo.model.neuron.ExpandableSynapticIntegrator;
-import ca.nengo.model.neuron.impl.LinearSynapticIntegrator;
 import ca.nengo.util.TimeSeries1D;
 import junit.framework.TestCase;
 

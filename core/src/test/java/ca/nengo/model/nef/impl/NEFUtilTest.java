@@ -3,8 +3,6 @@
  */
 package ca.nengo.model.nef.impl;
 
-import junit.framework.TestCase;
-
 import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.PostfixFunction;
@@ -14,6 +12,7 @@ import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFEnsembleFactory;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.util.MU;
+import junit.framework.TestCase;
 
 /**
  * Unit tests for NEFUtil.

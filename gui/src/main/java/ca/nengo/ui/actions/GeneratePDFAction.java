@@ -1,19 +1,17 @@
 package ca.nengo.ui.actions;
 
-import javax.swing.JFileChooser;
-
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.world.piccolo.primitives.Text;
 import ca.nengo.ui.lib.world.piccolo.primitives.Universe;
-import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfTemplate;
+import com.itextpdf.text.pdf.PdfWriter;
 
-import java.awt.Component;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FileOutputStream;

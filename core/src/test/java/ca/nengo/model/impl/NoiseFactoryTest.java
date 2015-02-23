@@ -3,7 +3,6 @@
  */
 package ca.nengo.model.impl;
 
-import junit.framework.TestCase;
 import ca.nengo.dynamics.DynamicalSystem;
 import ca.nengo.dynamics.Integrator;
 import ca.nengo.dynamics.impl.EulerIntegrator;
@@ -13,6 +12,7 @@ import ca.nengo.model.Noise;
 import ca.nengo.model.Units;
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.MU;
+import junit.framework.TestCase;
 
 public class NoiseFactoryTest extends TestCase {
 

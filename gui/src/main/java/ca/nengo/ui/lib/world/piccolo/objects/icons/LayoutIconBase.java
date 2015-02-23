@@ -1,11 +1,10 @@
 package ca.nengo.ui.lib.world.piccolo.objects.icons;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.PaintContext;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
+
+import java.awt.*;
 
 public abstract class LayoutIconBase extends WorldObjectImpl {
 

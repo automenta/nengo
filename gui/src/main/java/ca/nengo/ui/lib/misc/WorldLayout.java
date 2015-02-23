@@ -1,12 +1,12 @@
 package ca.nengo.ui.lib.misc;
 
+import ca.nengo.ui.lib.world.World;
+import ca.nengo.ui.lib.world.WorldObject;
+
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.Hashtable;
-
-import ca.nengo.ui.lib.world.World;
-import ca.nengo.ui.lib.world.WorldObject;
 
 
 /**

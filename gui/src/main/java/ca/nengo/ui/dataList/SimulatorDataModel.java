@@ -24,17 +24,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.dataList;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Enumeration;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Hashtable;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-
 import ca.nengo.model.Ensemble;
 import ca.nengo.model.Network;
 import ca.nengo.model.Node;
@@ -44,6 +33,11 @@ import ca.nengo.ui.lib.util.Util;
 import ca.nengo.util.Probe;
 import ca.nengo.util.SpikePattern;
 import ca.nengo.util.TimeSeries;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import java.util.*;
 
 /**
  * TODO

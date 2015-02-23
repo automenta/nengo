@@ -26,12 +26,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.icons;
 
-import java.awt.Color;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import ca.nengo.ui.lib.world.piccolo.primitives.PXPath;
+
+import java.awt.*;
 
 /**
  * Icon for a Simulator Probe

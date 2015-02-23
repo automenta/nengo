@@ -7,13 +7,6 @@
  */
 package ca.nengo.ui.lib.util;
 
-import java.awt.Dimension;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.geom.Point2D;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-
 import edu.uci.ics.jung.graph.Edge;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.Vertex;
@@ -22,6 +15,13 @@ import edu.uci.ics.jung.utils.UserData;
 import edu.uci.ics.jung.visualization.AbstractLayout;
 import edu.uci.ics.jung.visualization.Coordinates;
 import edu.uci.ics.jung.visualization.LayoutMutable;
+
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.Point2D;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
 
 /**
  * The SpringLayout package represents a visualization of a set of nodes. The

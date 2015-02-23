@@ -26,12 +26,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.icons;
 
-import java.awt.Font;
-
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import ca.nengo.ui.lib.world.piccolo.primitives.Text;
+
+import java.awt.*;
 
 /**
  * Icon for an Function Input

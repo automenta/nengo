@@ -1,11 +1,11 @@
 package ca.nengo.model.impl;
 
-import java.util.ArrayList;
-
 import ca.nengo.model.InstantaneousOutput;
 import ca.nengo.model.Node;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.Units;
+
+import java.util.ArrayList;
 
 /**
  * A LinearExponentialTermination where all inputs are delayed by a fixed number of

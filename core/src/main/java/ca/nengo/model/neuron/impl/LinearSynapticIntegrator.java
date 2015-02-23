@@ -30,11 +30,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.neuron.impl;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import ca.nengo.model.Node;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.Termination;
@@ -45,6 +40,11 @@ import ca.nengo.model.neuron.ExpandableSynapticIntegrator;
 import ca.nengo.model.neuron.SynapticIntegrator;
 import ca.nengo.util.TimeSeries1D;
 import ca.nengo.util.impl.TimeSeries1DImpl;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * <p>A basic linear <code>SynapticIntegrator</code> model.</p>

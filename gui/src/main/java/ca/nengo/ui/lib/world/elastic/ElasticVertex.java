@@ -1,8 +1,8 @@
 package ca.nengo.ui.lib.world.elastic;
 
-import java.awt.geom.Point2D;
-
 import edu.uci.ics.jung.graph.impl.LeanSparseVertex;
+
+import java.awt.geom.Point2D;
 
 public class ElasticVertex extends LeanSparseVertex {
 	private final ElasticObject myObject;

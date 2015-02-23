@@ -5,7 +5,6 @@ package ca.nengo.util.impl;
 
 import ca.nengo.TestUtil;
 import ca.nengo.util.VectorGenerator;
-import ca.nengo.util.impl.RandomHypersphereVG;
 import junit.framework.TestCase;
 
 /**

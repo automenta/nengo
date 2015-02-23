@@ -1,9 +1,9 @@
 package ca.nengo.ui.lib.util.menus;
 
-import javax.swing.JComponent;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.actions.StandardAction;
+
+import javax.swing.*;
 
 /**
  * Used to build a menu. The created menu can later be converted to a Swing

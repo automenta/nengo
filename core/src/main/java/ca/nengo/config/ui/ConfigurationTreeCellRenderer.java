@@ -27,17 +27,14 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.ui;
 
-import java.awt.Component;
-
-import javax.swing.Icon;
-import javax.swing.JLabel;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeCellRenderer;
-
 import ca.nengo.config.IconRegistry;
 import ca.nengo.config.MainHandler;
 import ca.nengo.config.Property;
 import ca.nengo.config.ui.ConfigurationTreeModel.Value;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import java.awt.*;
 
 /**
  * Renderer for cells in a configuration tree. 

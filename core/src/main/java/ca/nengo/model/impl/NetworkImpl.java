@@ -27,49 +27,22 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.impl;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
-import org.apache.log4j.Logger;
-
-import ca.nengo.model.Ensemble;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Network;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.Projection;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StepListener;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.*;
 import ca.nengo.model.nef.impl.DecodableEnsembleImpl;
 import ca.nengo.model.nef.impl.NEFEnsembleImpl;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.sim.Simulator;
 import ca.nengo.sim.impl.LocalSimulator;
-import ca.nengo.util.Probe;
-import ca.nengo.util.ScriptGenException;
-import ca.nengo.util.TaskSpawner;
-import ca.nengo.util.ThreadTask;
-import ca.nengo.util.TimeSeries;
-import ca.nengo.util.VisiblyMutable;
-import ca.nengo.util.VisiblyMutableUtils;
+import ca.nengo.util.*;
 import ca.nengo.util.impl.ProbeTask;
 import ca.nengo.util.impl.ScriptGenerator;
+import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * Default implementation of Network.

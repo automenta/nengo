@@ -4,7 +4,6 @@ import ca.nengo.model.Node;
 import ca.nengo.model.Projection;
 import ca.nengo.model.SimulationException;
 import ca.nengo.util.ThreadTask;
-import ca.nengo.util.impl.NEFGPUInterface;
 
 /**
  * A thread which uses an NEFGPUInterface to run GPU nodes and projections.

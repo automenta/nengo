@@ -27,9 +27,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.neuron.impl;
 
-import java.io.Serializable;
-
 import ca.nengo.model.neuron.SynapticIntegrator;
+
+import java.io.Serializable;
 
 /**
  * Creates SynapticIntegrators. Implementations should have a zero-arg

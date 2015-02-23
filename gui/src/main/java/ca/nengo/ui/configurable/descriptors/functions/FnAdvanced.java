@@ -24,11 +24,11 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.descriptors.functions;
 
-import java.awt.Dialog;
-
 import ca.nengo.config.ConfigUtil;
 import ca.nengo.config.ui.NewConfigurableDialog;
 import ca.nengo.math.Function;
+
+import java.awt.*;
 
 /**
  * TODO

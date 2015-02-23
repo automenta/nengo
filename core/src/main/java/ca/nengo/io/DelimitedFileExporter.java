@@ -27,20 +27,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.io;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.MU;
 import ca.nengo.util.SpikePattern;
 import ca.nengo.util.TimeSeries;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Exports TimeSeries, SpikePattern, and float[][] data to delimited text files.

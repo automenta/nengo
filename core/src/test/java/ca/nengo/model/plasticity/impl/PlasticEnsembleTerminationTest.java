@@ -1,11 +1,11 @@
 package ca.nengo.model.plasticity.impl;
 
-import junit.framework.TestCase;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.impl.LinearExponentialTermination;
 import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
 import ca.nengo.model.nef.impl.NEFEnsembleImpl;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
+import junit.framework.TestCase;
 
 public class PlasticEnsembleTerminationTest extends TestCase {
 

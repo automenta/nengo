@@ -26,11 +26,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.util;
 
-import java.io.File;
+import ca.nengo.ui.lib.util.Util;
 
 import javax.swing.filechooser.FileFilter;
-
-import ca.nengo.ui.lib.util.Util;
+import java.io.File;
 
 /**
  * Filters files based on file extension.

@@ -30,6 +30,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.ui.script;
 
+import ca.nengo.config.JavaSourceParser;
+import org.python.core.*;
+import org.python.util.PythonInterpreter;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -38,18 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.python.core.PyClass;
 //import org.python.core.PyJavaClass;
 //import org.python.core.PyJavaInstance;
-import org.python.core.PyJavaType;
-import org.python.core.PyList;
-import org.python.core.PyObject;
-import org.python.core.PyObjectDerived;
-import org.python.core.PyString;
-import org.python.core.PyStringMap;
-import org.python.util.PythonInterpreter;
-
-import ca.nengo.config.JavaSourceParser;
 
 /**
  * A CommandCompletor that suggests completions based on Python variable names and 

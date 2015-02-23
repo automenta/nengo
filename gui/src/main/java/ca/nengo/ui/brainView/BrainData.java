@@ -24,10 +24,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.brainView;
 
-import java.awt.Canvas;
-import java.awt.Component;
-import java.awt.Frame;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;

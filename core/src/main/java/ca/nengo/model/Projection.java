@@ -27,10 +27,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model;
 
+import ca.nengo.util.ScriptGenException;
+
 import java.io.Serializable;
 import java.util.HashMap;
-
-import ca.nengo.util.ScriptGenException;
 
 /**
  * A connection between an Origin and a Termination.

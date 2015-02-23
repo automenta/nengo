@@ -1,12 +1,12 @@
 package ca.nengo.ui.lib.world.piccolo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ca.nengo.ui.lib.world.WorldLayer;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.piccolo.objects.Window;
 import ca.nengo.ui.lib.world.piccolo.primitives.PiccoloNodeInWorld;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class WorldLayerImpl extends WorldObjectImpl implements WorldLayer {
 

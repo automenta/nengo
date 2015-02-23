@@ -1,16 +1,10 @@
 package ca.nengo.model.neuron.impl;
 
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.impl.SpikeOutputImpl;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.SpikeGenerator;
-import ca.nengo.model.neuron.impl.SpikeGeneratorOrigin;
 import junit.framework.TestCase;
 
 /**

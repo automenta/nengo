@@ -1,17 +1,10 @@
 package ca.nengo.ui.lib.util.menus;
 
-import java.awt.Component;
-import java.awt.Font;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JSeparator;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.actions.StandardAction;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Used to build a popup menu. The created menu can later be converted to a

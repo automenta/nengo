@@ -1,11 +1,11 @@
 package ca.nengo.ui.lib.world.piccolo.objects;
 
-import java.awt.geom.Point2D;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import ca.nengo.ui.lib.world.piccolo.primitives.PXEdge;
+
+import java.awt.geom.Point2D;
 
 /**
  * An set 4 edges which attach the respective corners of its starting and ending

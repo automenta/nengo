@@ -1,10 +1,10 @@
 package ca.nengo.ui.lib.objects.activities;
 
-import javax.swing.SwingUtilities;
-
+import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
-import ca.nengo.ui.NengoGraphics;
+
+import javax.swing.*;
 
 /**
  * An action which is tracked by the UI. Since tracked actions are slow and have

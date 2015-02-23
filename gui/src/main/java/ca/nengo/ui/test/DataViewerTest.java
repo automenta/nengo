@@ -26,16 +26,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.test;
 
-import java.lang.reflect.InvocationTargetException;
-
-import javax.swing.SwingUtilities;
-
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.actions.RunSimulatorAction;
 import ca.nengo.ui.models.nodes.UINetwork;
+
+import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Test Data Viewer

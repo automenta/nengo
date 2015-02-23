@@ -27,11 +27,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.nef.impl;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.log4j.Logger;
-
 import ca.nengo.io.FileManager;
 import ca.nengo.math.ApproximatorFactory;
 import ca.nengo.math.Function;
@@ -51,6 +46,10 @@ import ca.nengo.util.MU;
 import ca.nengo.util.VectorGenerator;
 import ca.nengo.util.VisiblyMutableUtils;
 import ca.nengo.util.impl.RandomHypersphereVG;
+import org.apache.log4j.Logger;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Default implementation of NEFEnsembleFactory.

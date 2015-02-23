@@ -1,6 +1,5 @@
 package ca.nengo.config.ui;
 
-import ca.nengo.config.ui.NewConfigurableDialog;
 import ca.nengo.dynamics.impl.LTISystem;
 import ca.nengo.dynamics.impl.SimpleLTISystem;
 import junit.framework.TestCase;

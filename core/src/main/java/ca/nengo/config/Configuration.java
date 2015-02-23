@@ -24,9 +24,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.config;
 
-import java.util.List;
-
 import ca.nengo.model.StructuralException;
+
+import java.util.List;
 
 /**
  * <p>Contains all the variable parameters of a Configurable object.</p> 

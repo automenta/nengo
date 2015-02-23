@@ -24,12 +24,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import java.util.Collection;
-
 import ca.nengo.model.SimulationMode;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.models.UINeoNode;
+
+import java.util.Collection;
 
 /**
  * TODO

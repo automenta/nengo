@@ -1,17 +1,10 @@
 package ca.nengo.ui.lib.util.menus;
 
-import java.awt.Font;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JSeparator;
-import javax.swing.KeyStroke;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.actions.StandardAction;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class MenuBuilder extends AbstractMenuBuilder {
 	boolean isFirstSection = true;

@@ -28,23 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.sim.impl;
 
-import java.lang.System;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import ca.nengo.model.Ensemble;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Network;
-import ca.nengo.model.Node;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.Projection;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.impl.SocketUDPNode;
 import ca.nengo.model.plasticity.impl.PlasticEnsembleTermination;
@@ -57,6 +41,8 @@ import ca.nengo.util.VisiblyMutable;
 import ca.nengo.util.VisiblyMutableUtils;
 import ca.nengo.util.impl.NodeThreadPool;
 import ca.nengo.util.impl.ProbeImpl;
+
+import java.util.*;
 
 /**
  * A Simulator that runs locally (ie in the Java Virtual Machine in which it is

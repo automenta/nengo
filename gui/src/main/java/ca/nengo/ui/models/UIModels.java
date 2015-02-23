@@ -27,12 +27,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models;
 
-import java.util.Collection;
-
 import ca.nengo.ui.actions.AddProbesAction;
 import ca.nengo.ui.actions.RemoveModelsAction;
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.lib.util.menus.AbstractMenuBuilder;
+
+import java.util.Collection;
 
 /**
  * Contains static members which reveal what sort of Nodes can be created by the

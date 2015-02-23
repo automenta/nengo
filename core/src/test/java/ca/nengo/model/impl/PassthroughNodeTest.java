@@ -3,20 +3,13 @@
  */
 package ca.nengo.model.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import ca.nengo.TestUtil;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
-import ca.nengo.model.impl.PassthroughNode;
-import ca.nengo.model.impl.RealOutputImpl;
-import ca.nengo.model.impl.SpikeOutputImpl;
+import ca.nengo.model.*;
 import ca.nengo.util.MU;
 import junit.framework.TestCase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Unit tests for PassthroughNode. 

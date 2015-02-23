@@ -27,12 +27,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.managers;
 
-import java.awt.Container;
-import java.awt.Dialog;
-import java.awt.Frame;
-
 import ca.nengo.ui.configurable.IConfigurable;
 import ca.nengo.ui.lib.util.Util;
+
+import java.awt.*;
 
 /**
  * A lot like UserConfigurer, except it allows the user to use templates to save

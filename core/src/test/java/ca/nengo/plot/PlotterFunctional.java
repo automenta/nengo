@@ -3,9 +3,6 @@
  */
 package ca.nengo.plot;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.ConstantFunction;
 import ca.nengo.model.Network;
@@ -17,16 +14,13 @@ import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFEnsembleFactory;
 import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
-import ca.nengo.plot.Plotter;
-import ca.nengo.util.Environment;
-import ca.nengo.util.MU;
-import ca.nengo.util.Memory;
-import ca.nengo.util.SpikePattern;
-import ca.nengo.util.TimeSeries;
-import ca.nengo.util.TimeSeries1D;
+import ca.nengo.util.*;
 import ca.nengo.util.impl.SpikePatternImpl;
 import ca.nengo.util.impl.TimeSeries1DImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Functional test of Plotter

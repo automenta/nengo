@@ -27,9 +27,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.dynamics;
 
-import java.io.Serializable;
-
 import ca.nengo.model.Units;
+
+import java.io.Serializable;
 
 /**
  * <p>A state-space model of a continuous-time dynamical system. The system can

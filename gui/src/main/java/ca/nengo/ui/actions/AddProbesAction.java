@@ -26,11 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import java.util.Collection;
-import java.util.HashMap;
-
-import javax.swing.JOptionPane;
-
 import ca.nengo.model.SimulationException;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.ReversableAction;
@@ -39,6 +34,10 @@ import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.nodes.widgets.UIProbe;
+
+import javax.swing.*;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Action for adding probes to a collection of nodes

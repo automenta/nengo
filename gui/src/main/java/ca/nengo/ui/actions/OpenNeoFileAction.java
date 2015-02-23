@@ -26,17 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.actions;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import javax.swing.JFileChooser;
-import javax.swing.SwingUtilities;
-
-import org.python.core.PyClass;
-import org.python.util.PythonInterpreter;
-import org.python.util.PythonObjectInputStream;
-
 import ca.nengo.model.Node;
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.actions.ActionException;
@@ -47,6 +36,14 @@ import ca.nengo.ui.models.NodeContainer;
 import ca.nengo.ui.models.NodeContainer.ContainerException;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.nodes.UINodeViewable;
+import org.python.core.PyClass;
+import org.python.util.PythonInterpreter;
+import org.python.util.PythonObjectInputStream;
+
+import javax.swing.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Action used to open a Neo model from file

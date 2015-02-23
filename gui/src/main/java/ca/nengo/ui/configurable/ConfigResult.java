@@ -24,9 +24,8 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable;
 
-import java.io.Serializable;
-
 import javax.swing.text.MutableAttributeSet;
+import java.io.Serializable;
 
 /**
  * TODO

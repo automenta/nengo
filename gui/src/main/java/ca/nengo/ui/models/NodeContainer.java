@@ -26,10 +26,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models;
 
-import java.awt.geom.Point2D;
-
 import ca.nengo.model.Node;
 import ca.nengo.ui.lib.exceptions.UIException;
+
+import java.awt.geom.Point2D;
 
 /**
  * A Container of PNeoNode

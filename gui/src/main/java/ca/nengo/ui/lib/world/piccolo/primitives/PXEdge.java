@@ -1,16 +1,16 @@
 package ca.nengo.ui.lib.world.piccolo.primitives;
 
-import java.awt.Color;
-import java.awt.geom.Arc2D;
-import java.awt.geom.Point2D;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.lib.world.Destroyable;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
+
+import java.awt.*;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Point2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * An edge with direction. An piccolo component.

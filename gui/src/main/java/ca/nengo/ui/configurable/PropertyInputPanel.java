@@ -26,24 +26,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.actions.OpenURLAction;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-
-import ca.nengo.ui.lib.actions.OpenURLAction;
-import ca.nengo.ui.lib.Style.NengoStyle;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Swing Input panel to be used to enter in the value for a ConfigParam

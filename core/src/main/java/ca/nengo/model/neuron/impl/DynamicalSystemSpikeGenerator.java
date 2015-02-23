@@ -27,9 +27,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.neuron.impl;
 
-import java.util.Arrays;
-import java.util.Properties;
-
 import ca.nengo.dynamics.DynamicalSystem;
 import ca.nengo.dynamics.Integrator;
 import ca.nengo.dynamics.impl.EulerIntegrator;
@@ -37,12 +34,7 @@ import ca.nengo.dynamics.impl.SimpleLTISystem;
 import ca.nengo.math.CurveFitter;
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.LinearCurveFitter;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.impl.SpikeOutputImpl;
 import ca.nengo.model.neuron.SpikeGenerator;
@@ -50,6 +42,9 @@ import ca.nengo.util.MU;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeries1DImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
+
+import java.util.Arrays;
+import java.util.Properties;
 
 /**
  * A SpikeGenerator for which spiking dynamics are expressed in terms of a DynamicalSystem.

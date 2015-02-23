@@ -3,11 +3,11 @@
  */
 package ca.nengo.model.neuron.impl;
 
-import java.awt.Frame;
-
-import junit.framework.TestCase;
 import ca.nengo.config.ConfigUtil;
 import ca.nengo.math.impl.IndicatorPDF;
+import junit.framework.TestCase;
+
+import java.awt.*;
 
 /**
  * Unit tests for SpikingNeuron.

@@ -24,11 +24,11 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.nodes.widgets;
 
-import java.awt.Color;
-
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.icons.ProbeIcon;
+
+import java.awt.*;
 
 public abstract class UIProbe extends ModelObject {
 

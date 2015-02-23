@@ -3,7 +3,16 @@
  */
 package ca.nengo.config.impl;
 
-import java.awt.BorderLayout;
+import ca.nengo.config.NamedValueProperty;
+import ca.nengo.config.ui.ConfigurationTreeCellEditor;
+import ca.nengo.config.ui.ConfigurationTreeCellRenderer;
+import ca.nengo.config.ui.ConfigurationTreeModel;
+import ca.nengo.config.ui.ConfigurationTreePopupListener;
+import ca.nengo.model.StructuralException;
+import junit.framework.TestCase;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -11,23 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.ToolTipManager;
-
-import ca.nengo.config.NamedValueProperty;
-import ca.nengo.config.impl.ConfigurationImpl;
-import ca.nengo.config.impl.NamedValuePropertyImpl;
-import ca.nengo.config.ui.ConfigurationTreeCellEditor;
-import ca.nengo.config.ui.ConfigurationTreeCellRenderer;
-import ca.nengo.config.ui.ConfigurationTreeModel;
-import ca.nengo.config.ui.ConfigurationTreePopupListener;
-import ca.nengo.model.StructuralException;
 //import ca.nengo.model.nef.NEFEnsembleFactory;
 //import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
-
-import junit.framework.TestCase;
 
 /**
  * Unit tests for NamedValuePropertyImpl. 

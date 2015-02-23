@@ -3,7 +3,6 @@
  */
 package ca.nengo.math.impl;
 
-import ca.nengo.math.impl.ConstantFunction;
 import junit.framework.TestCase;
 
 public class ConstantFunctionTest extends TestCase {

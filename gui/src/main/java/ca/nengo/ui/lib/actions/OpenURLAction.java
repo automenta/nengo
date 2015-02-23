@@ -1,10 +1,9 @@
 package ca.nengo.ui.lib.actions;
 
-import java.io.IOException;
-
-import javax.swing.JOptionPane;
-
 import ca.nengo.ui.lib.util.UIEnvironment;
+
+import javax.swing.*;
+import java.io.IOException;
 
 public class OpenURLAction extends StandardAction {
     

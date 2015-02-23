@@ -27,24 +27,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.plot;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.Image;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-//import ca.nengo.dynamics.Integrator;
-//import ca.nengo.dynamics.impl.EulerIntegrator;
-//import ca.nengo.dynamics.impl.LTISystem;
-//import ca.nengo.dynamics.impl.SimpleLTISystem;
 import ca.nengo.math.Function;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.plot.impl.DefaultPlotter;
@@ -52,6 +34,21 @@ import ca.nengo.util.DataUtils;
 import ca.nengo.util.Environment;
 import ca.nengo.util.SpikePattern;
 import ca.nengo.util.TimeSeries;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+//import ca.nengo.dynamics.Integrator;
+//import ca.nengo.dynamics.impl.EulerIntegrator;
+//import ca.nengo.dynamics.impl.LTISystem;
+//import ca.nengo.dynamics.impl.SimpleLTISystem;
 
 /** 
  * Factory for frequently-used plots. 

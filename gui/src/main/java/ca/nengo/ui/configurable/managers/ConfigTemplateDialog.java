@@ -26,24 +26,16 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.managers;
 
-import java.awt.Dialog;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Iterator;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.PropertyInputPanel;
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.util.Util;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Iterator;
 
 /**
  * A Configuration dialog which allows the user to manage templates

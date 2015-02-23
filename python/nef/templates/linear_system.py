@@ -2,7 +2,10 @@ title='General Linear System'
 label='Linear\nSystem'
 icon='linearsystem.png'
 
-from ca.nengo.ui.configurable import *
+#from ca.nengo.ui.configurable import *
+from ca.nengo.ui.configurable import PropertyInputPanel
+from ca.nengo.ui.configurable import Property
+
 from ca.nengo.ui.configurable.managers import ConfigManager
 from ca.nengo.ui.configurable.descriptors import PCouplingMatrix
 from ca.nengo.util import MU

@@ -27,11 +27,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.nodes.widgets;
 
-import java.awt.Color;
-
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
 import ca.nengo.model.Network;
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.actions.ActionException;
@@ -47,6 +42,9 @@ import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.nodes.UINetwork;
 import ca.nengo.ui.models.tooltips.TooltipBuilder;
 import org.piccolo2d.nodes.PText;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Widgets are models such as Terminations and Origins which can be attached to

@@ -28,32 +28,22 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config;
 
-import java.awt.Component;
+import ca.nengo.config.handlers.*;
+import ca.nengo.config.ui.ConfigurationChangeListener;
+import ca.nengo.config.ui.ConfigurationTreeModel.NullValue;
+import ca.nengo.model.SimulationMode;
+import ca.nengo.model.Units;
+import ca.nengo.model.neuron.impl.IzhikevichSpikeGenerator;
+import org.apache.log4j.Logger;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-
-import org.apache.log4j.Logger;
-
-import ca.nengo.config.handlers.BooleanHandler;
-import ca.nengo.config.handlers.EnumHandler;
-import ca.nengo.config.handlers.FloatHandler;
-import ca.nengo.config.handlers.IntegerHandler;
-import ca.nengo.config.handlers.LongHandler;
-import ca.nengo.config.handlers.MatrixHandler;
-import ca.nengo.config.handlers.StringHandler;
-import ca.nengo.config.handlers.VectorHandler;
-import ca.nengo.config.ui.ConfigurationChangeListener;
-import ca.nengo.config.ui.ConfigurationTreeModel.NullValue;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.Units;
-import ca.nengo.model.neuron.impl.IzhikevichSpikeGenerator;
 
 /**
  * A composite ConfigurationHandler which delegates to other underlying ConfigurationHandlers

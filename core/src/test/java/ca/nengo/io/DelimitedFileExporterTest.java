@@ -3,17 +3,16 @@
  */
 package ca.nengo.io;
 
-import java.io.File;
-import java.io.IOException;
-
 import ca.nengo.TestUtil;
-import ca.nengo.io.DelimitedFileExporter;
 import ca.nengo.model.Units;
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.SpikePatternImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
 import junit.framework.TestCase;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Unit tests for DelimitedFileExporter. 

@@ -1,13 +1,12 @@
 package ca.nengo.ui.lib.objects.lines;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.PaintContext;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
+
+import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 
 /**
  * Standard Icon for a line end holder

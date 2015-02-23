@@ -27,15 +27,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.nef.impl;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
-import java.lang.StringBuilder;
-
 import ca.nengo.dynamics.DynamicalSystem;
 import ca.nengo.dynamics.Integrator;
 import ca.nengo.dynamics.LinearSystem;
@@ -46,15 +37,7 @@ import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
 import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.math.impl.WeightedCostApproximator;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.PlasticNodeTermination;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.NodeFactory;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.NEFEnsembleFactory;
@@ -64,16 +47,14 @@ import ca.nengo.model.neuron.impl.LIFNeuronFactory;
 import ca.nengo.model.neuron.impl.LIFSpikeGenerator;
 import ca.nengo.model.neuron.impl.SpikeGeneratorOrigin;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
-import ca.nengo.model.plasticity.impl.BCMTermination;
-import ca.nengo.model.plasticity.impl.PESTermination;
-import ca.nengo.model.plasticity.impl.PlasticEnsembleTermination;
-import ca.nengo.model.plasticity.impl.PreLearnTermination;
-import ca.nengo.model.plasticity.impl.hPESTermination;
+import ca.nengo.model.plasticity.impl.*;
 import ca.nengo.util.MU;
 import ca.nengo.util.ScriptGenException;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.LearningTask;
 import ca.nengo.util.impl.TimeSeriesImpl;
+
+import java.util.*;
 /**
  * Default implementation of NEFEnsemble.
  *

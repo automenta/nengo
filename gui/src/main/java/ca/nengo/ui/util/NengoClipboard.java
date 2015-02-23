@@ -24,13 +24,13 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.util;
 
+import ca.nengo.model.Node;
+import ca.nengo.ui.lib.world.piccolo.WorldImpl;
+
 import java.awt.geom.Point2D;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
-import ca.nengo.model.Node;
-import ca.nengo.ui.lib.world.piccolo.WorldImpl;
 
 public class NengoClipboard {
 

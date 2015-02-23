@@ -7,7 +7,6 @@ import ca.nengo.model.RealOutput;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.SimulationMode;
 import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.neuron.impl.LIFSpikeGenerator;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.TimeSeries1D;
 import junit.framework.TestCase;

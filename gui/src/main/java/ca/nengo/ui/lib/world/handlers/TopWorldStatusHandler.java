@@ -1,9 +1,9 @@
 package ca.nengo.ui.lib.world.handlers;
 
-import java.text.NumberFormat;
-
 import ca.nengo.ui.lib.world.piccolo.WorldImpl;
 import org.piccolo2d.event.PInputEvent;
+
+import java.text.NumberFormat;
 
 /**
  * Shows the mouse coordinates using the status bar

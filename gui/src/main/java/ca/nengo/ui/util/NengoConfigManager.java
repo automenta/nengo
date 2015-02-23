@@ -1,11 +1,11 @@
 package ca.nengo.ui.util;
 
+import ca.nengo.ui.lib.util.Util;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import ca.nengo.ui.lib.util.Util;
 
 public class NengoConfigManager {
 

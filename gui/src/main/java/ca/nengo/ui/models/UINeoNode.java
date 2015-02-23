@@ -26,43 +26,14 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Vector;
-
-import javax.swing.SwingUtilities;
-
 import ca.nengo.io.FileManager;
-import ca.nengo.model.Ensemble;
-import ca.nengo.model.Network;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.ui.NengoGraphics;
-import ca.nengo.ui.actions.AddProbeAction;
-import ca.nengo.ui.actions.CopyAction;
-import ca.nengo.ui.actions.CreateModelAction;
-import ca.nengo.ui.actions.CutAction;
-import ca.nengo.ui.actions.DefaultModeAction;
-import ca.nengo.ui.actions.DirectModeAction;
-import ca.nengo.ui.actions.RateModeAction;
+import ca.nengo.ui.actions.*;
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.UserDialogs;
 import ca.nengo.ui.lib.actions.ActionException;
@@ -78,23 +49,22 @@ import ca.nengo.ui.lib.world.DroppableX;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.piccolo.WorldImpl;
 import ca.nengo.ui.models.NodeContainer.ContainerException;
-import ca.nengo.ui.models.nodes.UIEnsemble;
-import ca.nengo.ui.models.nodes.UIFunctionInput;
-import ca.nengo.ui.models.nodes.UIGenericNode;
-import ca.nengo.ui.models.nodes.UINEFEnsemble;
-import ca.nengo.ui.models.nodes.UINetwork;
-import ca.nengo.ui.models.nodes.UINeuron;
-import ca.nengo.ui.models.nodes.widgets.UIOrigin;
-import ca.nengo.ui.models.nodes.widgets.UIProbe;
-import ca.nengo.ui.models.nodes.widgets.UIStateProbe;
-import ca.nengo.ui.models.nodes.widgets.UITermination;
-import ca.nengo.ui.models.nodes.widgets.Widget;
+import ca.nengo.ui.models.nodes.*;
+import ca.nengo.ui.models.nodes.widgets.*;
 import ca.nengo.ui.models.tooltips.TooltipBuilder;
 import ca.nengo.ui.models.viewers.NetworkViewer;
 import ca.nengo.ui.models.viewers.NodeViewer;
 import ca.nengo.util.Probe;
 import ca.nengo.util.VisiblyMutable;
 import ca.nengo.util.VisiblyMutable.Event;
+
+import javax.swing.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * UI Wrapper for a NEO Node Model

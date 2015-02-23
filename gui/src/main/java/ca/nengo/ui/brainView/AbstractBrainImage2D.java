@@ -24,15 +24,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.brainView;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.DataBuffer;
-import java.awt.image.DataBufferByte;
-import java.awt.image.IndexColorModel;
-import java.awt.image.Raster;
-import java.awt.image.SampleModel;
-import java.awt.image.SinglePixelPackedSampleModel;
-import java.awt.image.WritableRaster;
+import java.awt.image.*;
 
 /**
  * TODO

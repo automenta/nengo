@@ -24,11 +24,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.constructors;
 
-import ca.nengo.ui.configurable.ConfigException;
-import ca.nengo.ui.configurable.ConfigResult;
-import ca.nengo.ui.configurable.ConfigSchema;
-import ca.nengo.ui.configurable.ConfigSchemaImpl;
-import ca.nengo.ui.configurable.Property;
+import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PString;
 
 public abstract class ConstructableNode extends AbstractConstructable {

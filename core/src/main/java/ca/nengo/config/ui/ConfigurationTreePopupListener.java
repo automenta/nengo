@@ -27,24 +27,16 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.ui;
 
+import ca.nengo.config.*;
+import ca.nengo.config.ui.ConfigurationTreeModel.Value;
+import ca.nengo.model.StructuralException;
+
+import javax.swing.*;
+import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.JTree;
-import javax.swing.tree.TreePath;
-
-import ca.nengo.config.ConfigUtil;
-import ca.nengo.config.ListProperty;
-import ca.nengo.config.MainHandler;
-import ca.nengo.config.NamedValueProperty;
-import ca.nengo.config.Property;
-import ca.nengo.config.ui.ConfigurationTreeModel.Value;
-import ca.nengo.model.StructuralException;
 
 /**
  * Creates a popup menu for configuration tree nodes, to allow refreshing, adding/setting/removing, etc. 

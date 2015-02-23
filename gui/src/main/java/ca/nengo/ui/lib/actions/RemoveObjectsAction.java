@@ -1,12 +1,11 @@
 package ca.nengo.ui.lib.actions;
 
-import java.util.Collection;
-
-import javax.swing.JOptionPane;
-
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.world.WorldObject;
+
+import javax.swing.*;
+import java.util.Collection;
 
 public class RemoveObjectsAction extends StandardAction {
 

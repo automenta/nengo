@@ -27,6 +27,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.impl;
 
+import ca.nengo.config.Configuration;
+import ca.nengo.config.NamedValueProperty;
+import ca.nengo.model.StructuralException;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -34,10 +38,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import ca.nengo.config.Configuration;
-import ca.nengo.config.NamedValueProperty;
-import ca.nengo.model.StructuralException;
 
 /**
  * <p>Default implementation of NamedValueProperty. This implementation uses reflection to call methods on an

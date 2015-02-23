@@ -27,17 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.impl;
 
-import ca.nengo.model.Ensemble;
-import ca.nengo.model.Network;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.PreciseSpikeOutput;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 
 /**
  * An Origin that is composed of the Origins of multiple Nodes. The dimension 

@@ -28,19 +28,16 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.config.handlers;
 
 //import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.util.StringTokenizer;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import ca.nengo.config.IconRegistry;
 import ca.nengo.config.ui.ConfigurationChangeListener;
 import ca.nengo.config.ui.MatrixEditor;
 import ca.nengo.util.MU.MatrixExpander;
 import ca.nengo.util.MU.VectorExpander;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.StringTokenizer;
 
 /**
  * ConfigurationHandler for float[][] values.

@@ -5,8 +5,6 @@ package ca.nengo.math.impl;
 
 import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
-import ca.nengo.math.impl.NumericallyDifferentiableFunction;
-import ca.nengo.math.impl.SigmoidFunction;
 import junit.framework.TestCase;
 
 public class NumericallDifferentiableFunctionTest extends TestCase {

@@ -2,16 +2,10 @@
 
 package ca.nengo.model.neuron.impl;
 
-import java.util.Random;
-
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.DefaultFunctionInterpreter;
 import ca.nengo.math.impl.IndicatorPDF;
-import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.EnsembleImpl;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.impl.NodeFactory;
@@ -23,6 +17,8 @@ import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
 import ca.nengo.model.neuron.impl.RateFunctionSpikeGenerator.PoiraziDendriteSigmoidFactory;
 import ca.nengo.util.MU;
+
+import java.util.Random;
 
 /**
  * Non Linear Network

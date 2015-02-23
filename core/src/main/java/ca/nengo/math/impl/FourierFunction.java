@@ -29,9 +29,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.math.impl;
 
-import java.util.Random;
-
 import ca.nengo.math.Function;
+
+import java.util.Random;
 
 /**
  * A Function that is composed of a finite number of sinusoids.

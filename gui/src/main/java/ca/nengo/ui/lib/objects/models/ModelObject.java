@@ -1,11 +1,5 @@
 package ca.nengo.ui.lib.objects.models;
 
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import javax.swing.JPopupMenu;
-
 import ca.nengo.ui.actions.RemoveModelAction;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.lib.util.menus.PopupMenuBuilder;
@@ -15,6 +9,11 @@ import ca.nengo.ui.lib.world.activities.Pulsator;
 import ca.nengo.ui.lib.world.elastic.ElasticObject;
 import ca.nengo.ui.models.tooltips.Tooltip;
 import ca.nengo.ui.models.tooltips.TooltipBuilder;
+
+import javax.swing.*;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * A UI Object which wraps a model

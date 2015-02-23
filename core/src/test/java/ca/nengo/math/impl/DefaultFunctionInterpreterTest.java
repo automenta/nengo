@@ -3,17 +3,14 @@
  */
 package ca.nengo.math.impl;
 
+import ca.nengo.TestUtil;
+import ca.nengo.math.Function;
+import junit.framework.TestCase;
+
 import java.io.Serializable;
 import java.util.List;
 
-import ca.nengo.TestUtil;
-import ca.nengo.math.Function;
-import ca.nengo.math.impl.ConstantFunction;
-import ca.nengo.math.impl.DefaultFunctionInterpreter;
-import ca.nengo.math.impl.PostfixFunction;
 //import ca.nengo.math.impl.SineFunction;
-
-import junit.framework.TestCase;
 
 public class DefaultFunctionInterpreterTest extends TestCase {
 

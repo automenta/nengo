@@ -1,17 +1,16 @@
 package ca.nengo.ui.lib.world.elastic;
 
-import java.awt.geom.Point2D;
-import java.lang.reflect.InvocationTargetException;
-
-import javax.swing.SwingUtilities;
-
 import ca.nengo.ui.lib.util.ElasticLayout;
-import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.lib.util.ElasticLayout.LengthFunction;
+import ca.nengo.ui.lib.util.Util;
 import edu.uci.ics.jung.graph.ArchetypeVertex;
 import edu.uci.ics.jung.graph.Edge;
 import edu.uci.ics.jung.graph.Vertex;
 import edu.uci.ics.jung.graph.impl.SparseGraph;
+
+import javax.swing.*;
+import java.awt.geom.Point2D;
+import java.lang.reflect.InvocationTargetException;
 
 public class ElasticLayoutRunner {
 	/**

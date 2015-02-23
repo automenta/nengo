@@ -26,19 +26,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.descriptors;
 
-import java.util.Vector;
-
 import ca.nengo.config.ClassRegistry;
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.FourierFunction;
 import ca.nengo.math.impl.GaussianPDF;
 import ca.nengo.ui.configurable.Property;
-import ca.nengo.ui.configurable.descriptors.functions.ConfigurableFunction;
-import ca.nengo.ui.configurable.descriptors.functions.FnAdvanced;
-import ca.nengo.ui.configurable.descriptors.functions.FnConstant;
-import ca.nengo.ui.configurable.descriptors.functions.FnCustom;
-import ca.nengo.ui.configurable.descriptors.functions.FnReflective;
+import ca.nengo.ui.configurable.descriptors.functions.*;
 import ca.nengo.ui.configurable.panels.FunctionPanel;
+
+import java.util.Vector;
 
 /**
  * Config Descriptor for Functions

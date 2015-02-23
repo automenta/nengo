@@ -1,15 +1,15 @@
 package ca.nengo.ui.lib.world.piccolo.objects;
 
-import java.awt.Color;
-import java.awt.geom.Rectangle2D;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.World;
 import ca.nengo.ui.lib.world.WorldObject;
-import ca.nengo.ui.lib.world.WorldSky;
 import ca.nengo.ui.lib.world.WorldObject.Listener;
 import ca.nengo.ui.lib.world.WorldObject.Property;
+import ca.nengo.ui.lib.world.WorldSky;
 import ca.nengo.ui.lib.world.piccolo.primitives.Path;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * A Border instance that can change its object of focus (As long as the object

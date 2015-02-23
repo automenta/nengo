@@ -27,19 +27,16 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.ui;
 
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
-
-import javax.swing.DefaultCellEditor;
-import javax.swing.JTextField;
-import javax.swing.JTree;
-import javax.swing.tree.TreePath;
-
 import ca.nengo.config.MainHandler;
 import ca.nengo.config.Property;
 import ca.nengo.config.ui.ConfigurationTreeModel.NullValue;
 import ca.nengo.config.ui.ConfigurationTreeModel.Value;
+
+import javax.swing.*;
+import javax.swing.tree.TreePath;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
 
 /**
  * TreeCellEditor for configuration trees. Gets editor components for property values from MainHandler.

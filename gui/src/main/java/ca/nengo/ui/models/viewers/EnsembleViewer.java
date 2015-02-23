@@ -26,21 +26,21 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.viewers;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-
 import ca.nengo.model.Ensemble;
-import ca.nengo.model.Node;
 import ca.nengo.model.Network;
+import ca.nengo.model.Node;
 import ca.nengo.model.Probeable;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.nodes.UIEnsemble;
-import ca.nengo.ui.models.nodes.UINeuron;
 import ca.nengo.ui.models.nodes.UINetwork;
+import ca.nengo.ui.models.nodes.UINeuron;
 import ca.nengo.util.Probe;
+
+import java.util.Enumeration;
+import java.util.HashMap;
 
 /**
  * Viewer for peeking into an Ensemble

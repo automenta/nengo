@@ -27,11 +27,11 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model;
 
-import java.io.Serializable;
-import java.util.HashMap;
-
 import ca.nengo.util.ScriptGenException;
 import ca.nengo.util.VisiblyMutable;
+
+import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * A part of a Network that can be run independently (eg a Neuron). Normally

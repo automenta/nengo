@@ -27,8 +27,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.neuron.impl;
 
-import org.apache.log4j.Logger;
-
 import ca.nengo.math.PDF;
 import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.model.StructuralException;
@@ -37,6 +35,7 @@ import ca.nengo.model.impl.NodeFactory;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
+import org.apache.log4j.Logger;
 
 /**
  * A factory for leaky-integrate-and-fire neurons. 

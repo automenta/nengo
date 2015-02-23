@@ -26,13 +26,13 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.tooltips;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import org.piccolo2d.nodes.PText;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * UI Object which builds itself from a ToolTipBuilder

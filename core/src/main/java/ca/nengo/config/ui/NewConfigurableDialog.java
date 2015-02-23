@@ -27,39 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
-
-import ca.nengo.config.ClassRegistry;
-import ca.nengo.config.ConfigUtil;
-import ca.nengo.config.Configuration;
-import ca.nengo.config.JavaSourceParser;
-import ca.nengo.config.ListProperty;
-import ca.nengo.config.MainHandler;
-import ca.nengo.config.Property;
-import ca.nengo.config.SingleValuedProperty;
+import ca.nengo.config.*;
 import ca.nengo.config.impl.AbstractProperty;
 import ca.nengo.config.impl.ConfigurationImpl;
 import ca.nengo.config.impl.TemplateArrayProperty;
@@ -67,6 +35,17 @@ import ca.nengo.config.impl.TemplateProperty;
 import ca.nengo.config.ui.ConfigurationTreeModel.NullValue;
 import ca.nengo.config.ui.ConfigurationTreeModel.Value;
 import ca.nengo.model.StructuralException;
+
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A dialog box through which the user can construct a new object.

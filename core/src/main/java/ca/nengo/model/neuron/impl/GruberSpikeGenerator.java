@@ -1,24 +1,20 @@
 package ca.nengo.model.neuron.impl;
 
-import java.util.Properties;
-
 import ca.nengo.dynamics.Integrator;
 import ca.nengo.dynamics.impl.AbstractDynamicalSystem;
 import ca.nengo.dynamics.impl.RK45Integrator;
 import ca.nengo.math.CurveFitter;
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.LinearCurveFitter;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.impl.SpikeOutputImpl;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeries1DImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
+
+import java.util.Properties;
 
 /**
  * Model of spike generation in medium-spiny striatal neurons from: Gruber, Solla, Surmeier & Houk (2003)

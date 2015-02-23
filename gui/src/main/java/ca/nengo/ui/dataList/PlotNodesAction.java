@@ -24,18 +24,17 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.dataList;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.swing.tree.MutableTreeNode;
-
 import ca.nengo.plot.Plotter;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.util.DataUtils;
 import ca.nengo.util.SpikePattern;
 import ca.nengo.util.TimeSeries;
+
+import javax.swing.tree.MutableTreeNode;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * TODO

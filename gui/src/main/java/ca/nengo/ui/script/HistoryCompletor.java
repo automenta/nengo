@@ -27,22 +27,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.ui.script;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
+import ca.nengo.ui.lib.util.Util;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import ca.nengo.ui.lib.util.Util;
 
 /**
  * A list of commands that have been entered previously.

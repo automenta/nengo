@@ -3,15 +3,13 @@
  */
 package ca.nengo.model.impl;
 
-import junit.framework.TestCase;
-
-import org.apache.log4j.Logger;
-
 import ca.nengo.TestUtil;
 import ca.nengo.model.InstantaneousOutput;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.Units;
+import junit.framework.TestCase;
+import org.apache.log4j.Logger;
 
 /**
  * Unit tests for LinearExponentialTermination.

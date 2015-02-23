@@ -1,12 +1,11 @@
 package ca.nengo.ui.actions;
 
-import org.python.util.PythonInterpreter;
-
 import ca.nengo.sim.Simulator;
 import ca.nengo.ui.NengoGraphics;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.models.nodes.UINetwork;
+import org.python.util.PythonInterpreter;
 
 /**
  * TODO

@@ -26,15 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.panels;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-
 import ca.nengo.math.Function;
 import ca.nengo.ui.actions.PlotFunctionAction;
 import ca.nengo.ui.configurable.PropertyInputPanel;
@@ -44,6 +35,11 @@ import ca.nengo.ui.configurable.descriptors.functions.ConfigurableFunction;
 import ca.nengo.ui.configurable.descriptors.functions.FnAdvanced;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.Util;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 /**
  * Input Panel for editing an individual Function

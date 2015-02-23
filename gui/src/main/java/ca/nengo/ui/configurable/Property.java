@@ -24,9 +24,9 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable;
 
-import java.io.Serializable;
-
 import ca.nengo.ui.lib.util.Util;
+
+import java.io.Serializable;
 
 /**
  * Describes a configuration parameter of a IConfigurable object

@@ -26,15 +26,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.configurable.panels;
 
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.ConfigResult;
 import ca.nengo.ui.configurable.Property;
@@ -44,6 +35,10 @@ import ca.nengo.ui.configurable.descriptors.PTerminationWeights;
 import ca.nengo.ui.configurable.managers.ConfigManager;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.Util;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Input panel for Termination Weights Matrix

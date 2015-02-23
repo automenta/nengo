@@ -1,28 +1,16 @@
 package ca.nengo.ui.util;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JButton;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.python.core.PyException;
-import org.python.core.PyFrame;
-import org.python.core.PyObject;
-import org.python.core.TraceFunction;
-import org.python.core.ThreadState;
-import org.python.core.Py;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import java.awt.Insets;
-
 import ca.nengo.sim.SimulatorEvent;
 import ca.nengo.sim.SimulatorListener;
 import ca.nengo.ui.NengoGraphics;
+import org.python.core.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class ProgressIndicator extends JPanel implements ActionListener, SimulatorListener {

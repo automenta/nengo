@@ -28,11 +28,11 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.neuron;
 
-import java.io.Serializable;
-
 import ca.nengo.model.InstantaneousOutput;
 import ca.nengo.model.Resettable;
 import ca.nengo.model.SimulationMode;
+
+import java.io.Serializable;
 
 /**
  * Spike generation model, ie a component of a neuron model that receives driving current

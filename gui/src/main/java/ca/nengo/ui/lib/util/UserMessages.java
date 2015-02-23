@@ -1,12 +1,9 @@
 package ca.nengo.ui.lib.util;
 
-import java.awt.Component;
-
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
 import ca.nengo.ui.lib.exceptions.UIException;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Displays messages to the user through a popup dialog.

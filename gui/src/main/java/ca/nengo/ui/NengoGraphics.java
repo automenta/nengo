@@ -25,33 +25,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui;
 
 //import java.awt.Color;
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-import javax.swing.KeyStroke;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import org.python.util.PythonInterpreter;
-import org.simplericity.macify.eawt.Application;
 
 import ca.nengo.config.ConfigUtil;
 import ca.nengo.config.JavaSourceParser;
@@ -59,29 +32,13 @@ import ca.nengo.model.Network;
 import ca.nengo.model.Node;
 import ca.nengo.model.Origin;
 import ca.nengo.model.Termination;
-import ca.nengo.ui.actions.ClearAllAction;
-import ca.nengo.ui.actions.CopyAction;
-import ca.nengo.ui.actions.CreateModelAction;
-import ca.nengo.ui.actions.CutAction;
-import ca.nengo.ui.actions.GeneratePDFAction;
-import ca.nengo.ui.actions.GeneratePythonScriptAction;
-import ca.nengo.ui.actions.OpenNeoFileAction;
-import ca.nengo.ui.actions.PasteAction;
-import ca.nengo.ui.actions.RemoveModelAction;
-import ca.nengo.ui.actions.RunInteractivePlotsAction;
-import ca.nengo.ui.actions.RunSimulatorAction;
-import ca.nengo.ui.actions.SaveNodeAction;
+import ca.nengo.ui.actions.*;
 import ca.nengo.ui.dataList.DataListView;
 import ca.nengo.ui.dataList.SimulatorDataModel;
 import ca.nengo.ui.lib.AppFrame;
 import ca.nengo.ui.lib.AuxillarySplitPane;
 import ca.nengo.ui.lib.Style.NengoStyle;
-import ca.nengo.ui.lib.actions.ActionException;
-import ca.nengo.ui.lib.actions.DisabledAction;
-import ca.nengo.ui.lib.actions.DragAction;
-import ca.nengo.ui.lib.actions.StandardAction;
-import ca.nengo.ui.lib.actions.UserCancelledException;
-import ca.nengo.ui.lib.actions.ZoomToFitAction;
+import ca.nengo.ui.lib.actions.*;
 import ca.nengo.ui.lib.misc.ShortcutKey;
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.lib.util.UIEnvironment;
@@ -103,14 +60,24 @@ import ca.nengo.ui.models.nodes.widgets.UIProbe;
 import ca.nengo.ui.models.nodes.widgets.UIProjection;
 import ca.nengo.ui.models.nodes.widgets.Widget;
 import ca.nengo.ui.script.ScriptConsole;
-import ca.nengo.ui.util.NengoClipboard;
-import ca.nengo.ui.util.NengoConfigManager;
+import ca.nengo.ui.util.*;
 import ca.nengo.ui.util.NengoConfigManager.UserProperties;
-import ca.nengo.ui.util.NeoFileChooser;
-import ca.nengo.ui.util.ProgressIndicator;
-import ca.nengo.ui.util.ScriptWorldWrapper;
 import ca.nengo.ui.world.NengoWorld;
 import ca.nengo.util.Environment;
+import org.python.util.PythonInterpreter;
+import org.simplericity.macify.eawt.Application;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * Top level instance of the NeoGraphics application
@@ -197,12 +164,12 @@ public class NengoGraphics extends AppFrame implements NodeContainer {
         super();
 
         // Setup icon
-        try {
-            Image image = ImageIO.read(getClass().getClassLoader().getResource("ca/nengo/ui/nengologo256.png"));
-            setIconImage(image);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Image image = ImageIO.read(getClass().getClassLoader().getResource("ca/nengo/ui/nengologo256.png"));
+//            setIconImage(image);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
     }
@@ -213,6 +180,7 @@ public class NengoGraphics extends AppFrame implements NodeContainer {
         BufferedImage icon = new BufferedImage(256,256,BufferedImage.TYPE_INT_ARGB);
         try {
             icon = ImageIO.read(getClass().getClassLoader().getResource("ca/nengo/ui/nengologo256.png"));
+            setIconImage(icon);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -338,7 +306,11 @@ public class NengoGraphics extends AppFrame implements NodeContainer {
 
         // creating the script console calls all python init stuff
         // so call it first (make toolbar, etc.)
+
+
         pythonInterpreter = new PythonInterpreter();
+
+
         scriptConsole = new ScriptConsole(pythonInterpreter);
         NengoStyle.applyStyle(scriptConsole);
 

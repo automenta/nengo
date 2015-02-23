@@ -5,7 +5,6 @@ package ca.nengo.model.impl;
 
 import ca.nengo.model.RealOutput;
 import ca.nengo.model.Units;
-import ca.nengo.model.impl.RealOutputImpl;
 import junit.framework.TestCase;
 
 /**

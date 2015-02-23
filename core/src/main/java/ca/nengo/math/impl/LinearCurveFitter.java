@@ -29,7 +29,6 @@ package ca.nengo.math.impl;
 
 import ca.nengo.math.CurveFitter;
 import ca.nengo.math.Function;
-import ca.nengo.math.impl.InterpolatedFunction;
 
 /**
  * <p>Interpolates linearly between example points. Outside the range of examples, 

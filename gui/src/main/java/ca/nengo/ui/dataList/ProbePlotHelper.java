@@ -1,9 +1,5 @@
 package ca.nengo.ui.dataList;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import ca.nengo.model.SimulationMode;
 import ca.nengo.model.nef.NEFEnsemble;
 import ca.nengo.ui.actions.PlotTimeSeries;
@@ -12,6 +8,10 @@ import ca.nengo.ui.util.NengoConfigManager;
 import ca.nengo.ui.util.NengoConfigManager.UserProperties;
 import ca.nengo.util.Probe;
 import ca.nengo.util.TimeSeries;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Helps plot probes

@@ -24,15 +24,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.util.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ca.nengo.model.Node;
 import ca.nengo.model.Probeable;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.Units;
 import ca.nengo.util.Probe;
 import ca.nengo.util.TimeSeries;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Collects information from <code>Probeable</code> objects.</p> 

@@ -1,10 +1,5 @@
 package ca.nengo.ui.lib.world.elastic;
 
-import java.awt.BasicStroke;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.world.Destroyable;
 import ca.nengo.ui.lib.world.WorldLayer;
@@ -13,6 +8,11 @@ import ca.nengo.ui.lib.world.WorldObject.Property;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import ca.nengo.ui.lib.world.piccolo.primitives.Path;
 import ca.nengo.ui.lib.world.piccolo.primitives.PiccoloNodeInWorld;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
 public class ElasticObject extends WorldObjectImpl {
 

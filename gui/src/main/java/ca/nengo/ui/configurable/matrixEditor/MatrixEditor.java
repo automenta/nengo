@@ -29,26 +29,16 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.ui.configurable.matrixEditor;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.EventObject;
+import ca.nengo.ui.lib.Style.NengoStyle;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
-
-import ca.nengo.ui.lib.Style.NengoStyle;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.EventObject;
 
 /**
  * An UI component for editing matrices.

@@ -1,11 +1,6 @@
 package ca.nengo.util.impl;
 
 //import ca.nengo.model.InstantaneousOutput;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import ca.nengo.model.Network;
 import ca.nengo.model.Node;
@@ -14,6 +9,8 @@ import ca.nengo.model.SimulationException;
 import ca.nengo.model.impl.NetworkArrayImpl;
 import ca.nengo.util.TaskSpawner;
 import ca.nengo.util.ThreadTask;
+
+import java.util.*;
 
 /**
  * A pool of threads for running nodes in. All interaction with the threads

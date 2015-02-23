@@ -27,8 +27,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.nef.impl;
 
-import org.apache.log4j.Logger;
-
 import ca.nengo.config.ConfigUtil;
 import ca.nengo.config.Configurable;
 import ca.nengo.config.Configuration;
@@ -40,17 +38,7 @@ import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
 import ca.nengo.math.impl.FixedSignalFunction;
 import ca.nengo.math.impl.WeightedCostApproximator;
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.Noise;
-import ca.nengo.model.Origin;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.Resettable;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.nef.DecodableEnsemble;
 import ca.nengo.model.nef.ExpressModel;
@@ -62,6 +50,7 @@ import ca.nengo.util.VectorGenerator;
 import ca.nengo.util.impl.RandomHypersphereVG;
 import ca.nengo.util.impl.TimeSeries1DImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
+import org.apache.log4j.Logger;
 
 /**
  * An Origin of functions of the state variables of an NEFEnsemble.

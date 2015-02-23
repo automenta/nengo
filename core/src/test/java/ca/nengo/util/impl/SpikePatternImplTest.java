@@ -3,7 +3,6 @@
  */
 package ca.nengo.util.impl;
 
-import ca.nengo.util.impl.SpikePatternImpl;
 import junit.framework.TestCase;
 
 /**

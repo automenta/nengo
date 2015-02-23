@@ -24,18 +24,17 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.icons;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.net.URL;
-
 import ca.nengo.ui.lib.Style.NengoStyle;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
 import ca.nengo.ui.lib.world.piccolo.primitives.PXImage;
 import org.piccolo2d.util.PBounds;
 import org.piccolo2d.util.PPaintContext;
+
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.net.URL;
 
 public class IconImage extends WorldObjectImpl {
 

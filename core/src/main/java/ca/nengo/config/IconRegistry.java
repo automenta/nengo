@@ -29,33 +29,21 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.config;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
-import org.apache.log4j.Logger;
-
 import ca.nengo.dynamics.DynamicalSystem;
 import ca.nengo.dynamics.Integrator;
 import ca.nengo.math.Function;
 import ca.nengo.math.PDF;
-import ca.nengo.model.Ensemble;
-import ca.nengo.model.Network;
-import ca.nengo.model.Node;
-import ca.nengo.model.Noise;
-import ca.nengo.model.Origin;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
 import ca.nengo.util.SpikePattern;
+import org.apache.log4j.Logger;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**

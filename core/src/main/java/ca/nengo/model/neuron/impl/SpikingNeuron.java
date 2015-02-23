@@ -27,34 +27,19 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.neuron.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Properties;
-
-import ca.nengo.model.InstantaneousOutput;
-import ca.nengo.model.Node;
-import ca.nengo.model.Noise;
-import ca.nengo.model.Origin;
-import ca.nengo.model.Probeable;
-import ca.nengo.model.RealOutput;
-import ca.nengo.model.SimulationException;
-import ca.nengo.model.SimulationMode;
-import ca.nengo.model.SpikeOutput;
-import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.Units;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.BasicOrigin;
 import ca.nengo.model.nef.NEFNode;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
-import ca.nengo.util.ScriptGenException;
-import ca.nengo.util.TimeSeries;
-import ca.nengo.util.TimeSeries1D;
-import ca.nengo.util.VisiblyMutable;
-import ca.nengo.util.VisiblyMutableUtils;
+import ca.nengo.util.*;
 import ca.nengo.util.impl.TimeSeries1DImpl;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * A neuron model composed of a SynapticIntegrator and a SpikeGenerator.
