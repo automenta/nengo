@@ -3,12 +3,16 @@ package ca.nengo.ui;
 //import org.java.ayatana.ApplicationMenu;
 //import org.java.ayatana.AyatanaDesktop;
 
+import ca.nengo.ui.dataList.DataListView;
+import ca.nengo.ui.dataList.SimulatorDataModel;
 import ca.nengo.ui.lib.AuxillarySplitPane;
 import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.actions.ZoomToFitAction;
 import ca.nengo.ui.lib.objects.models.ModelObject;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.Util;
+import ca.nengo.ui.lib.util.menus.MenuBuilder;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.handlers.SelectionHandler;
 import ca.nengo.ui.lib.world.piccolo.primitives.Universe;
@@ -18,7 +22,20 @@ import org.python.util.PythonInterpreter;
 import org.simplericity.macify.eawt.Application;
 import org.simplericity.macify.eawt.DefaultApplication;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class NengoClassic extends AbstractNengo {
+
+    private JScrollPane templateViewer;
+    private JPanel templatePanel;
+    private JToolBar toolbarPanel;
+    private AuxillarySplitPane toolbarPane;
+    private AuxillarySplitPane templatePane;
 
     private PythonInterpreter pythonInterpreter;
     private ScriptConsole scriptConsole;
@@ -47,10 +64,153 @@ public class NengoClassic extends AbstractNengo {
                     + "For more information, consult <tt>lib/library-licenses.txt</tt> in the installation directory.</p>"
                     + "<p>This product includes software developed by The Apache Software Foundation (http://www.apache.org/).</p>";
 
+    /**
+     * template.py calls this function to provide a template bar
+     */
+    public void setTemplatePanel(JPanel panel) {
+        templatePanel = panel;
+    }
 
+    /**
+     * toolbar.py calls this function to provide a toolbar
+     */
+    public void setToolbar(JToolBar bar) {
+        toolbarPanel = bar;
+    }
+
+    @Override
+    public void initViewMenu(JMenuBar menuBar) {
+
+        MenuBuilder viewMenu = new MenuBuilder("View");
+        viewMenu.getJMenu().setMnemonic(KeyEvent.VK_V);
+        menuBar.add(viewMenu.getJMenu());
+
+        int count = 1;
+        for (AuxillarySplitPane splitPane : splitPanes) {
+            if (splitPane==null) continue;
+            byte shortCutChar = splitPane.getAuxTitle().getBytes()[0];
+
+            viewMenu.addAction(new ToggleScriptPane("Toggle " + splitPane.getAuxTitle(), splitPane),
+                    shortCutChar,
+                    KeyStroke.getKeyStroke(0x30 + count++, MENU_SHORTCUT_KEY_MASK));
+
+        }
+        viewMenu.getJMenu().addSeparator();
+
+        viewMenu.addAction(new ZoomToFitAction("Zoom to fit", this.getWorld()),
+                KeyEvent.VK_0,
+                KeyStroke.getKeyStroke(KeyEvent.VK_0, MENU_SHORTCUT_KEY_MASK));
+    }
+    
     @Override
     protected void initLayout(Universe canvas) {
         super.initLayout(canvas);
+
+        try {
+            //Tell the UIManager to use the platform look and feel
+            String laf = UIManager.getSystemLookAndFeelClassName();
+            if (laf.equals("com.sun.java.swing.plaf.gtk.GTKLookAndFeel")) {
+                laf = "javax.swing.plaf.metal.MetalLookAndFeel";
+                File desktopfile = new File(System.getProperty("user.home") +
+                        "/.local/share/applications/nengo.desktop");
+                if (!desktopfile.exists()) {
+                    File defaultdesktop = new File(getClass().getClassLoader().
+                            getResource("ca/nengo/ui/nengo.desktop").getPath());
+                    Util.copyFile(defaultdesktop, desktopfile);
+                }
+                //DesktopFile df = DesktopFile.initialize("nengo", "NengoLauncher");
+                //df.setIcon(getClass().getClassLoader().
+                //		getResource("ca/nengo/ui/nengologo256.png").getPath());
+                //df.setCommand("TODO");
+                //df.update();
+            }
+            UIManager.setLookAndFeel(laf);
+
+            //UIManager.put("Slider.paintValue",Boolean.FALSE);
+        } catch(IOException e) {
+            System.out.println("nengo.desktop not copied.");
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+
+        /////////////////////////////////////////////////////////////
+        /// Create split pane components
+
+        // creating the script console calls all python init stuff
+        // so call it first (make toolbar, etc.)
+
+
+
+
+        if (toolbarPanel == null) {
+            toolbarPanel = new JToolBar();
+        }
+        if (templatePanel == null) {
+            templatePanel = new JPanel();
+        }
+//        if (toolbarPanel == null || templatePanel == null) {
+//            // these should be made and set by template.py and toolbar.py
+//            // when the scriptConsole is created, so we shouldn't be here
+//            throw new NullPointerException(
+//                    "toolbarPanel or templatePanel not created!");
+//        }
+
+        dataListViewer = new DataListView(new SimulatorDataModel());
+
+        templateViewer = new JScrollPane(templatePanel,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        templateViewer.getVerticalScrollBar().setUnitIncrement(20);
+        templateViewer.revalidate();
+        Dimension templateWithScrollbarSize = templateViewer.getPreferredSize();
+        templateViewer.setVerticalScrollBarPolicy(
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        getContentPane().add(templateViewer, BorderLayout.WEST);
+
+        /////////////////////////////////////////////////////////////
+        /// Create nested split panes
+        configPane = new ConfigurationPane(canvas);
+
+
+
+        dataViewerPane = getDataViewer();
+        dataViewerPane.setAuxVisible(true);
+
+
+        templatePane = new AuxillarySplitPane(dataViewerPane, templateViewer,
+                "Templates", AuxillarySplitPane.Orientation.Left,
+                templateWithScrollbarSize, false);
+        templatePane.setResizable(false);
+        templatePane.setAuxVisible(true);
+
+
+        toolbarPane = new AuxillarySplitPane(templatePane, toolbarPanel,
+                "Toolbar", AuxillarySplitPane.Orientation.Top,
+                toolbarPanel.getPreferredSize(), false);
+        toolbarPane.setResizable(false);
+        toolbarPane.setAuxVisible(true);
+
+        getContentPane().add(toolbarPane);
+
+
+        // Add all panes to the list. The order added controls
+        // the order in the View menu
+        splitPanes = new ArrayList<AuxillarySplitPane>();
+        splitPanes.add(dataViewerPane);
+        if (CONFIGURE_PLANE_ENABLED) {
+            splitPanes.add(configPane.toJComponent());
+        }
+        splitPanes.add(templatePane);
+        splitPanes.add(toolbarPane);
+
 
         pythonInterpreter = new PythonInterpreter();
 

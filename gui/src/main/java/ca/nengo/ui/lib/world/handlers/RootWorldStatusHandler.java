@@ -10,9 +10,9 @@ import java.text.NumberFormat;
  * 
  * @author Shu Wu
  */
-public class TopWorldStatusHandler extends AbstractStatusHandler {
+public class RootWorldStatusHandler extends AbstractStatusHandler {
 
-	public TopWorldStatusHandler(WorldImpl world) {
+	public RootWorldStatusHandler(WorldImpl world) {
 		super(world);
 	}
 
@@ -25,7 +25,7 @@ public class TopWorldStatusHandler extends AbstractStatusHandler {
 	protected String getStatusMessage(PInputEvent event) {
 		NumberFormat formatter = NumberFormat.getNumberInstance();
 		formatter.setMaximumFractionDigits(2);
-		return "Top Window";
+		return "Root";
 	}
 
 }

@@ -29,6 +29,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.List;
 
 
 /**
@@ -290,7 +291,7 @@ public abstract class AppFrame extends JFrame implements ApplicationListener {
         /*
          * Initialize shortcut keys
          */
-        LinkedList<ShortcutKey> shortcuts = new LinkedList<ShortcutKey>();
+        List<ShortcutKey> shortcuts = new ArrayList<ShortcutKey>();
         constructShortcutKeys(shortcuts);
         this.shortcutKeys = shortcuts.toArray(new ShortcutKey[] {});
 
@@ -299,7 +300,7 @@ public abstract class AppFrame extends JFrame implements ApplicationListener {
 
     }
 
-    protected void constructShortcutKeys(LinkedList<ShortcutKey> shortcuts) {
+    protected void constructShortcutKeys(List<ShortcutKey> shortcuts) {
         shortcuts.add(new ShortcutKey(MENU_SHORTCUT_KEY_MASK, KeyEvent.VK_0, 
         		new ZoomToFitAction("Zoom to fit", (WorldImpl)getTopWorld())));
     }

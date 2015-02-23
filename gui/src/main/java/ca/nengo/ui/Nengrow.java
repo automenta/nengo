@@ -10,7 +10,6 @@ public class Nengrow extends AbstractNengo {
     protected void initialize() {
         super.initialize();
 
-        getContentPane().removeAll();
         add(getUniverse());
     }
 

@@ -213,6 +213,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/RootWorldStatusHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/ScrollZoomHandler.java">
           <value>
             <set />
@@ -224,6 +229,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/TooltipPickHandler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gui/src/main/java/ca/nengo/ui/lib/world/handlers/TopWorldStatusHandler.java">
           <value>
             <set />
           </value>

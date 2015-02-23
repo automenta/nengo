@@ -189,7 +189,7 @@ public class WorldImpl extends WorldObjectImpl implements World, Interactable {
 		selectionEventHandler.setMarqueePaintTransparency(0.1f);
 
 		getPiccolo().addInputEventListener(new EventConsumer());
-		setStatusBarHandler(new TopWorldStatusHandler(this));
+		setStatusBarHandler(new RootWorldStatusHandler(this));
 
 		/*
 		 * Set position and scale
