@@ -1,6 +1,9 @@
 package ca.nengo.ui.test;
 
+import ca.nengo.math.impl.GaussianPDF;
+import ca.nengo.model.SimulationException;
 import ca.nengo.model.impl.NetworkImpl;
+import ca.nengo.model.impl.NoiseFactory;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
 import ca.nengo.ui.Nengrow;
 import ca.nengo.ui.lib.world.WorldObject;
@@ -19,35 +22,45 @@ public class TestPlotNode extends Nengrow {
     @Override
     public void init() throws Exception {
         NetworkImpl network = new NetworkImpl();
-        network.addNode(new SpikingNeuron(null, null, 1, 0, "A"));
-        network.addNode( new SpikingNeuron(null, null, 1, 0, "B"));
+        network.addNode(new SpikingNeuron(null, null, 1, 0.5f, "A").
+                setNoise(NoiseFactory.makeRandomNoise(100f, new GaussianPDF())));
+        network.addNode( new SpikingNeuron(null, null, 1, 0.5f, "B"));
+        network.addNode(new LinePlot("plot1"));
 
 
         UINetwork networkUI = (UINetwork) addNodeModel(network);
 
+        networkUI.doubleClicked();
         //addNodeModel(new SpikingNeuron(null, null, 1, 0, "C"));
 
 
-        network.addNode(new LinePlot("plot1"));
         //networkUI.addNodeModel(new LinePlotUI("plot1"), 50d, 20d);
 
         network.run(0,0);
 
 
-        new Timer(100, new ActionListener() {
+        new Timer(10, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                cycle();
+                try {
+                    float dt = 0.001f; //myStepSize
+                    network.run(time, time+dt);
+                    time += dt;
+                } catch (SimulationException e1) {
+                    e1.printStackTrace();
+                }
+                //cycle();
             }
         }).start();
 
     }
 
-
-
     float time = 0;
+
+
     public void cycle() {
+
 
         for (WorldObject x : this.getNengoWorld().getChildren()) {
                     //System.out.println( x.getChildren() );

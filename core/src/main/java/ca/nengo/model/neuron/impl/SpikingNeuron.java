@@ -379,8 +379,9 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 	/**
 	 * @param noise Noise object to apply to this neuron
 	 */
-	public void setNoise(Noise noise) {
+	public SpikingNeuron setNoise(Noise noise) {
 		myNoise = noise;
+        return this;
 	}
 
 	/**

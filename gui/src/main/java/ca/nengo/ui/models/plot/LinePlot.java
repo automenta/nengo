@@ -1,8 +1,7 @@
 package ca.nengo.ui.models.plot;
 
 
-import ca.nengo.model.Node;
-import ca.nengo.model.SimulationException;
+import ca.nengo.model.*;
 import ca.nengo.model.impl.AbstractNode;
 import ca.nengo.model.impl.PassthroughTermination;
 import ca.nengo.ui.lib.world.PaintContext;
@@ -13,24 +12,25 @@ import ca.nengo.ui.models.nodes.widgets.UITermination;
 import ca.nengo.util.ScriptGenException;
 
 import java.awt.*;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class LinePlot extends AbstractNode implements UIBuilder {
 
-    public static class LinePlotUI extends UINeoNode<LinePlot> {
+    final Termination input = new PassthroughTermination(this, "input", 1);
+    private String label = "?";
 
-        public LinePlotUI(LinePlot model) {
-            super(model);
+    public class LinePlotUI extends UINeoNode<LinePlot> {
+
+        public LinePlotUI() {
+            super(LinePlot.this);
 
             setIcon(new EmptyIcon(this));
             //img = new BufferedImage(400, 200, BufferedImage.TYPE_4BYTE_ABGR);
             //setIcon(new WorldObjectImpl(new PXImage(img)));
             setBounds(0, 0, 251, 91);
 
-            addWidget(UITermination.createTerminationUI(this,
-                    new PassthroughTermination(getModel(), "input", 1)));
-
+            addWidget(UITermination.createTerminationUI(this, getInput()));
 
             repaint();
 
@@ -57,21 +57,46 @@ public class LinePlot extends AbstractNode implements UIBuilder {
             g.drawOval((int)x,(int)y,(int)w,(int)h);
             //g.dispose();
 
+            g.drawString(label, 50, 50);
         }
 
     }
 
+
+
+    private Termination getInput() {
+        return input;
+    }
+
     public LinePlot(String name) {
-        super(name, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+        super(name);
     }
 
     @Override
     public UINeoNode newUI() {
-        return new LinePlotUI(this);
+        return new LinePlotUI();
     }
+
 
     @Override
     public void run(float startTime, float endTime) throws SimulationException {
+
+        label = "?";
+
+        if ((input!=null && input.getInput()!=null)) {
+            InstantaneousOutput i = input.getInput();
+            if (i instanceof SpikeOutput) {
+                SpikeOutput so = (SpikeOutput) input.getInput();
+                boolean[] v = so.getValues();
+                label = (Arrays.toString(v));
+            }
+            else if (i instanceof RealOutput) {
+                float[] v = ((RealOutput) input.getInput()).getValues();
+                label = (Arrays.toString(v));
+            }
+
+        }
+
 
         //System.out.println(LinePlot.this + " " + startTime + " " + endTime);
 

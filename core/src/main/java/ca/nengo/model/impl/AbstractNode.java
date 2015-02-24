@@ -31,10 +31,7 @@ import ca.nengo.model.*;
 import ca.nengo.util.VisiblyMutable;
 import ca.nengo.util.VisiblyMutableUtils;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A base implementation of Node.
@@ -72,7 +69,11 @@ public abstract class AbstractNode implements Node {
 		}
 	}
 
-	/**
+    public AbstractNode(String name) {
+        this(name, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+    }
+
+    /**
 	 * @see ca.nengo.model.Node#getMode()
 	 */
 	public SimulationMode getMode() {

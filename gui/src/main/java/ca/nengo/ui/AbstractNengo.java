@@ -139,7 +139,7 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
 
         super.initialize();
 
-        UIEnvironment.setDebugEnabled(true);
+        UIEnvironment.setDebugEnabled(false);
 
         //initializeSimulatorSourceFiles();
 
