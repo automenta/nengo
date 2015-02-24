@@ -60,9 +60,8 @@ public abstract class ModelObject extends ElasticObject implements Interactable 
 	 */
 	public ModelObject(Object model) {
 		super();
-		Util.Assert(model != null);
+		//Util.Assert(model != null);
 
-		initialize();
 		setModel(model);
 	}
 
@@ -70,7 +69,11 @@ public abstract class ModelObject extends ElasticObject implements Interactable 
 	 * @param model
 	 *            New Model
 	 */
-	private final void setModel(Object model) {
+	protected final void setModel(Object model) {
+        if (myModel == null && model!=null) {
+            initialize();
+        }
+
 		if (myModel == model) {
 			return;
 		}

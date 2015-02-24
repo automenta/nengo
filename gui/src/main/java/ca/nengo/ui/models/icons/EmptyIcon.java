@@ -7,8 +7,8 @@ Software distributed under the License is distributed on an "AS IS" basis, WITHO
 WARRANTY OF ANY KIND, either express or implied. See the License for the specific 
 language governing rights and limitations under the License.
 
-The Original Code is "NodeContainer.java". Description: 
-"A Container of PNeoNode
+The Original Code is "NodeIcon.java". Description: 
+"Icon for a neuron
   
   @author Shu Wu"
 
@@ -24,57 +24,21 @@ provisions required by the GPL License.  If you do not delete the provisions abo
 a recipient may use your version of this file under either the MPL or the GPL License.
 */
 
-package ca.nengo.ui.models;
+package ca.nengo.ui.models.icons;
 
-import ca.nengo.model.Node;
-import ca.nengo.ui.lib.exceptions.UIException;
-import ca.nengo.ui.lib.world.WorldObject;
-
-import java.awt.geom.Point2D;
+import ca.nengo.ui.lib.objects.models.ModelObject;
+import ca.nengo.ui.lib.world.piccolo.primitives.PXPath;
+import ca.nengo.ui.lib.world.piccolo.primitives.Path;
 
 /**
- * A Container of PNeoNode
+ * Icon for a neuron
  * 
  * @author Shu Wu
  */
-public interface NodeContainer {
+public class EmptyIcon extends ModelIcon {
 
-	/**
-	 * Adds a child node to the container
-	 * 
-	 * @param node
-	 *            Node to be added
-	 * @return UI Node Wrapper
-	 */
-	public UINeoNode addNodeModel(Node node) throws ContainerException;
-
-	/**
-	 * @param node
-	 *            Node to be added
-	 * @param posX
-	 *            X Position of node
-	 * @param posY
-	 *            Y Position of node
-	 * @return
-	 */
-	public UINeoNode addNodeModel(Node node, Double posX, Double posY) throws ContainerException;
-    public WorldObject addNodeModel(WorldObject obj, Double posX, Double posY) throws ContainerException;
-
-	public Point2D localToView(Point2D localPoint);
-
-	public Node getNodeModel(String name);
-
-	public static class ContainerException extends UIException {
-		private static final long serialVersionUID = 1L;
-
-		public ContainerException() {
-			super();
-		}
-
-		public ContainerException(String arg0) {
-			super(arg0);
-		}
-
+	public EmptyIcon(ModelObject parent) {
+		super(parent, new Path());
+		configureLabel(false);
 	}
-
 }

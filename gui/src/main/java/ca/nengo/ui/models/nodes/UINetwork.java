@@ -29,7 +29,6 @@ package ca.nengo.ui.models.nodes;
 import ca.nengo.model.Network;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.sim.Simulator;
-import ca.nengo.ui.actions.RunInteractivePlotsAction;
 import ca.nengo.ui.actions.RunSimulatorAction;
 import ca.nengo.ui.lib.util.menus.PopupMenuBuilder;
 import ca.nengo.ui.lib.world.WorldObject;
@@ -70,7 +69,7 @@ public class UINetwork extends UINodeViewable {
     public static void constructSimulatorMenu(PopupMenuBuilder menu, UINetwork network) {
         menu.addSection("Run");
         menu.addAction(new RunSimulatorAction("Simulate " + network.getName(), network));
-        menu.addAction(new RunInteractivePlotsAction(network));
+        //menu.addAction(new RunInteractivePlotsAction(network));
     }
 
     /**
@@ -242,7 +241,6 @@ public class UINetwork extends UINodeViewable {
     //    }
 
     /**
-     * @param config
      *            UI Configuration manager
      */
     //    public void setUICOnfig(NetworkViewerConfig config) {

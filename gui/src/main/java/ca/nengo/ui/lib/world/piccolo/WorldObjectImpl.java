@@ -72,11 +72,11 @@ public class WorldObjectImpl implements WorldObject {
         return EVENT_CONVERSION_TABLE_2.get(type);
     }
 
-    private final HashSet<ChildListener> childListeners = new HashSet<ChildListener>();
+    private final Set<ChildListener> childListeners = new HashSet<ChildListener>();
 
     private boolean draggable = true;
 
-    private Hashtable<Property, Hashtable<Listener, ListenerAdapter>> eventListenerMap;
+    private Map<Property, Map<Listener, ListenerAdapter>> eventListenerMap;
 
     /**
      * Whether this object has been destroyed
@@ -148,7 +148,7 @@ public class WorldObjectImpl implements WorldObject {
     }
 
     private Collection<WorldObject> getChildrenInternal() {
-        ArrayList<WorldObject> objects = new ArrayList<WorldObject>(getPiccolo().getChildrenCount());
+        ArrayList<WorldObject> objects = new ArrayList(getPiccolo().getChildrenCount());
 
         Iterator<?> it = getPiccolo().getChildrenIterator();
         while (it.hasNext()) {
@@ -177,12 +177,11 @@ public class WorldObjectImpl implements WorldObject {
 
     protected void firePropertyChange(Property event) {
         if (eventListenerMap != null) {
-            Hashtable<Listener, ListenerAdapter> eventListeners = eventListenerMap.get(event);
+            Map<Listener, ListenerAdapter> eventListeners = eventListenerMap.get(event);
             if (eventListeners != null) {
-                Enumeration<Listener> listeners = eventListeners.keys();
-                while (listeners.hasMoreElements()) {
-                    listeners.nextElement().propertyChanged(event);
-                }
+                Set<Listener> listeners = eventListeners.keySet();
+                for (Listener l : listeners)
+                    l.propertyChanged(event);
             }
 
         }
@@ -229,12 +228,12 @@ public class WorldObjectImpl implements WorldObject {
     public void addPropertyChangeListener(Property eventType, Listener worldListener) {
 
         if (eventListenerMap == null) {
-            eventListenerMap = new Hashtable<Property, Hashtable<Listener, ListenerAdapter>>();
+            eventListenerMap = new HashMap();
         }
 
-        Hashtable<Listener, ListenerAdapter> eventListeners = eventListenerMap.get(eventType);
+        Map<Listener, ListenerAdapter> eventListeners = eventListenerMap.get(eventType);
         if (eventListeners == null) {
-            eventListeners = new Hashtable<Listener, ListenerAdapter>();
+            eventListeners = new HashMap();
             eventListenerMap.put(eventType, eventListeners);
         }
 
@@ -483,10 +482,12 @@ public class WorldObjectImpl implements WorldObject {
         PNode node = myPNode;
 
         while (node != null) {
-            WorldObject wo = ((PiccoloNodeInWorld) node).getWorldObject();
+            if (node instanceof PiccoloNodeInWorld) {
+                WorldObject wo = ((PiccoloNodeInWorld) node).getWorldObject();
 
-            if (wo instanceof WorldLayer) {
-                return (WorldLayer) wo;
+                if (wo instanceof WorldLayer) {
+                    return (WorldLayer) wo;
+                }
             }
 
             node = node.getParent();
@@ -729,7 +730,7 @@ public class WorldObjectImpl implements WorldObject {
     public void removePropertyChangeListener(Property event, Listener listener) {
         boolean successfull = false;
         if (eventListenerMap != null) {
-            Hashtable<Listener, ListenerAdapter> eventListeners = eventListenerMap.get(event);
+            Map<Listener, ListenerAdapter> eventListeners = eventListenerMap.get(event);
 
             if (eventListeners != null) {
 

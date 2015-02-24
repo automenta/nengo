@@ -17,9 +17,6 @@
     <orderEntry type="library" name="Maven: com.thoughtworks.qdox:qdox:2.0-M3" level="project" />
     <orderEntry type="library" name="Maven: org.javabits.jgrapht:jgrapht-core:0.9.3" level="project" />
     <orderEntry type="library" name="Maven: ca.umontreal.iro:ssj:2.5" level="project" />
-    <orderEntry type="library" name="Maven: org.python:jython-standalone:2.7-b3" level="project" />
-    <orderEntry type="library" name="Maven: com.github.tbekolay.jnumeric:jnumeric:0.1" level="project" />
-    <orderEntry type="library" name="Maven: com.itextpdf:itextpdf:5.5.4" level="project" />
     <orderEntry type="library" name="Maven: net.java.abeille:abeille:3.0" level="project" />
     <orderEntry type="library" name="Maven: jfree:jfreechart:1.0.13" level="project" />
     <orderEntry type="library" name="Maven: org.apache.mahout:mahout-collections:1.0" level="project" />

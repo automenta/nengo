@@ -21,4 +21,7 @@ quick/*
 python/timeview/layout.db.bak
 .idea/
 *.iml
+core/target/
+gui/target/
+target/
 

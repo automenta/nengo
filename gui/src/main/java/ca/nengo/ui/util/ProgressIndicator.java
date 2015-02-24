@@ -2,7 +2,6 @@ package ca.nengo.ui.util;
 
 import ca.nengo.sim.SimulatorEvent;
 import ca.nengo.sim.SimulatorListener;
-import org.python.core.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +19,6 @@ public class ProgressIndicator extends JPanel implements ActionListener, Simulat
 	
 	String text;
 
-	ThreadState pythonThread=null;
 	Thread javaThread=null;
 	
 	Timer timer=null;
@@ -98,7 +96,6 @@ public class ProgressIndicator extends JPanel implements ActionListener, Simulat
 		
 		this.setVisible(false);
 		isRunning=false;
-		pythonThread=null;	
 		javaThread=null;
 		bar.setIndeterminate(true);		
 		percentage=-1;
@@ -125,27 +122,14 @@ public class ProgressIndicator extends JPanel implements ActionListener, Simulat
 	
 	
 	public void setThread() {
-		pythonThread=Py.getThreadState();
 		javaThread=Thread.currentThread();
 	}
-	
-	protected void interruptViaPython() {
 
-		ThreadState ts=pythonThread;
-		TraceFunction breaker=new BreakTraceFunction();
-        TraceFunction oldTrace = ts.tracefunc;
-        ts.tracefunc = breaker;
-        if (ts.frame != null)
-            ts.frame.tracefunc = breaker;
-        ts.tracefunc = oldTrace;
-	}
-	
 	public void interrupt() {
 		
 		
 		interruptFlag=true;
 		updateBarString();
-		if (pythonThread!=null) interruptViaPython();
 		timer.schedule(
 		        new TimerTask() {
 		            @SuppressWarnings("deprecation")
@@ -182,30 +166,4 @@ public class ProgressIndicator extends JPanel implements ActionListener, Simulat
 }
 
 
-
-class ScriptInterruptException extends RuntimeException {
-    private static final long serialVersionUID = 1L;
-}
-
-class BreakTraceFunction extends TraceFunction {
-    private void doBreak(PyFrame frame) {
-        throw new ScriptInterruptException();
-    }
-    public TraceFunction traceCall(PyFrame frame) {
-        doBreak(frame);
-        return null;
-    }
-    public TraceFunction traceReturn(PyFrame frame, PyObject ret) {
-        doBreak(frame);
-        return null;
-    }
-    public TraceFunction traceLine(PyFrame frame, int line) {
-        doBreak(frame);
-        return null;
-    }
-    public TraceFunction traceException(PyFrame frame, PyException exc) {
-        doBreak(frame);
-        return null;
-    }
-}
 

@@ -39,17 +39,25 @@ public class NengoWorld extends ElasticWorld implements NodeContainer {
 		}*/
 
 		UINeoNode nodeUI = UINeoNode.createNodeUI(node);
-
-		if (posX != null && posY != null) {
-			nodeUI.setOffset(posX, posY);
-
-			getGround().addChild(nodeUI);
-		} else {
-			getGround().addChildFancy(nodeUI);
-		}
-
-		return nodeUI;
+        addNodeModel(nodeUI, posX, posY);
+        return nodeUI;
 	}
+
+    public WorldObject addNodeModel(WorldObject nodeUI, Double posX, Double posY) throws ContainerException {
+        if (posX != null && posY != null) {
+            nodeUI.setOffset(posX, posY);
+
+            getGround().addChild(nodeUI);
+        } else {
+            getGround().addChildFancy(nodeUI);
+        }
+
+
+
+        return nodeUI;
+
+    }
+
 
 
 	public Node getNodeModel(String name) {

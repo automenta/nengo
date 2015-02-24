@@ -841,12 +841,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
             // first, add node to UI
             UINeoNode nodeUI = UINeoNode.createNodeUI(node);
 
-            if (posX != null && posY != null) {
-                nodeUI.setOffset(posX, posY);
-                addUINode(nodeUI, false, false);
-            } else {
-                addUINode(nodeUI, true, false);
-            }
+            addNodeModel(nodeUI, posX, posY);
 
             // second, add node to model. This must be done second, otherwise
             // it updates the view and there is a race to add the UI node
@@ -856,6 +851,19 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
         } catch (StructuralException e) {
             throw new ContainerException(e.toString());
         }
+    }
+
+    @Override
+    public WorldObject addNodeModel(WorldObject nodeUI, Double posX, Double posY) throws ContainerException {
+
+        if (posX != null && posY != null) {
+            nodeUI.setOffset(posX, posY);
+            addUINode((UINeoNode) nodeUI, false, false);
+        } else {
+            addUINode((UINeoNode) nodeUI, true, false);
+        }
+
+        return nodeUI;
     }
 }
 

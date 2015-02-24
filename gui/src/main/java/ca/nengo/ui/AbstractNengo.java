@@ -107,7 +107,7 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
      * @return Top Node Container available in the Application Window. Null, if
      *          the Top Window is not a Node Container
      */
-    protected NodeContainer getTopNodeContainer() {
+    protected NodeContainer getRoot() {
         ca.nengo.ui.lib.world.piccolo.objects.Window window = getTopWindow();
         NodeContainer nodeContainer = null;
 
@@ -147,7 +147,7 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
 
         UIEnvironment.setDebugEnabled(true);
 
-        initializeSimulatorSourceFiles();
+        //initializeSimulatorSourceFiles();
 
         if (FileChooser == null) {
             FileChooser = new NeoFileChooser();
@@ -299,7 +299,7 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
         super.updateRunMenu();
 
         StandardAction simulateAction = null;
-        StandardAction interactivePlotsAction = null;
+        //StandardAction interactivePlotsAction = null;
         UINeoNode node = null;
         WorldObject selectedObj = SelectionHandler.getActiveObject();
 
@@ -327,20 +327,20 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
                 UINetwork network = (UINetwork) node;
 
                 simulateAction = new RunSimulatorAction("Simulate " + network.getName(), network);
-                interactivePlotsAction = new RunInteractivePlotsAction(network);
+                //interactivePlotsAction = new RunInteractivePlotsAction(network);
             }
             else {
                 throw new RuntimeException("Nodes not in a network");
             }
         } else {
             simulateAction = new DisabledAction("Simulate", "No object selected");
-            interactivePlotsAction = new DisabledAction("Interactive Plots", "No object selected");
+            //interactivePlotsAction = new DisabledAction("Interactive Plots", "No object selected");
         }
 
         runMenu.addAction(simulateAction, KeyEvent.VK_F4, KeyStroke.getKeyStroke(KeyEvent.VK_F4,
                 0));
-        runMenu.addAction(interactivePlotsAction, KeyEvent.VK_F5, KeyStroke.getKeyStroke(KeyEvent.VK_F5,
-                0));
+        //runMenu.addAction(interactivePlotsAction, KeyEvent.VK_F5, KeyStroke.getKeyStroke(KeyEvent.VK_F5,
+          //      0));
     }
 
     @Override
@@ -356,7 +356,7 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
     }
 
     public UINeoNode addNodeModel(Node node, Double posX, Double posY) throws ContainerException {
-        NodeContainer nodeContainer = getTopNodeContainer();
+        NodeContainer nodeContainer = getRoot();
         if (nodeContainer != this && nodeContainer != null) {
             // Delegate to the top Node Container in the Application
             return nodeContainer.addNodeModel(node, posX, posY);
@@ -372,6 +372,12 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
         } else {
             throw new ContainerException("There are no containers to put this node");
         }
+    }
+
+    @Override
+    public WorldObject addNodeModel(WorldObject obj, Double posX, Double posY) throws ContainerException {
+        getNengoWorld().addNodeModel(obj, posX, posY);
+        return obj;
     }
 
     /**
@@ -447,7 +453,7 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
     }
 
     public Node getNodeModel(String name) {
-        NodeContainer nodeContainer = getTopNodeContainer();
+        NodeContainer nodeContainer = getRoot();
         if (nodeContainer != this && nodeContainer != null) {
             // Delegate to the top Node Container in the Application
             return nodeContainer.getNodeModel(name);
@@ -469,9 +475,6 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
 
         fileMenu.addAction(new CreateModelAction("New Network", this, new CNetwork()));
 
-        fileMenu.addAction(new OpenNeoFileAction(this),
-                KeyEvent.VK_O,
-                KeyStroke.getKeyStroke(KeyEvent.VK_O, MENU_SHORTCUT_KEY_MASK));
 
         fileMenu.getJMenu().addSeparator();
 
@@ -479,9 +482,6 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
                 KeyEvent.VK_S,
                 KeyStroke.getKeyStroke(KeyEvent.VK_S, MENU_SHORTCUT_KEY_MASK));
 
-        fileMenu.addAction(new GeneratePDFAction("Save View to PDF"),
-                KeyEvent.VK_P,
-                KeyStroke.getKeyStroke(KeyEvent.VK_P, MENU_SHORTCUT_KEY_MASK));
 
         fileMenu.addAction(new GenerateScriptAction("Generate Script"),
                 KeyEvent.VK_G,
