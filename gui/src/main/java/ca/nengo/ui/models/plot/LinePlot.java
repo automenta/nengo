@@ -13,12 +13,18 @@ import ca.nengo.util.ScriptGenException;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class LinePlot extends AbstractNode implements UIBuilder {
 
     final Termination input = new PassthroughTermination(this, "input", 1);
     private String label = "?";
+
+    Deque<Float> history = new ConcurrentLinkedDeque<>(); //TODO use seomthing more efficient
+    final int maxHistory = 128;
 
     public class LinePlotUI extends UINeoNode<LinePlot> {
 
@@ -47,17 +53,37 @@ public class LinePlot extends AbstractNode implements UIBuilder {
         public void paint(PaintContext paintContext) {
             super.paint(paintContext);
 
-            float w = 10;
-            float h = 10;
-            float x = (float)(Math.random() * getBounds().getWidth());
-            float y = (float)(Math.random() * getBounds().getHeight());
-
             Graphics2D g = paintContext.getGraphics();
-            g.setColor(Color.getHSBColor((float)Math.random(), (float)Math.random(), (float)Math.random()));
-            g.drawOval((int)x,(int)y,(int)w,(int)h);
-            //g.dispose();
 
-            g.drawString(label, 50, 50);
+            int nh = history.size();
+            float x = 0, y = 0;
+            float dx = (float) Math.ceil(getBounds().getWidth() / nh);
+
+            float min = Float.POSITIVE_INFINITY, max = Float.NEGATIVE_INFINITY;
+            Iterator<Float> hi = history.iterator();
+            while (hi.hasNext()) {
+                float v = hi.next();
+                if (v < min) min = v;
+                if (v > max) max = v;
+            }
+
+            final float bh = (float)getBounds().getHeight();
+
+            hi = history.iterator();
+
+            while (hi.hasNext()) {
+                float v = hi.next();
+                y = (v - min) / (max - min) * bh;
+
+                g.setColor(Color.getHSBColor((float)Math.sin(v), 1, 1));
+                g.fillRect((int) x, (int) y, (int) dx, (int) dx);
+
+                System.out.println(x + ' '  + v);
+                x += dx;
+            }
+
+            g.setColor(Color.WHITE);
+            g.drawString(label, 10, 10);
         }
 
     }
@@ -88,10 +114,12 @@ public class LinePlot extends AbstractNode implements UIBuilder {
             if (i instanceof SpikeOutput) {
                 SpikeOutput so = (SpikeOutput) input.getInput();
                 boolean[] v = so.getValues();
+                push( v[0]  ? 1f : 0f);
                 label = (Arrays.toString(v));
             }
             else if (i instanceof RealOutput) {
                 float[] v = ((RealOutput) input.getInput()).getValues();
+                push(v[0]);
                 label = (Arrays.toString(v));
             }
 
@@ -102,9 +130,16 @@ public class LinePlot extends AbstractNode implements UIBuilder {
 
     }
 
+
+    protected void push(float f) {
+        history.addLast(f);
+        if (history.size() == maxHistory)
+            history.removeFirst();
+    }
     @Override
     public void reset(boolean randomize) {
 
+        history.clear();
     }
 
     @Override
