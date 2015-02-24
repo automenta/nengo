@@ -50,7 +50,7 @@ import java.awt.*;
  * 
  * @author Shu Wu
  */
-public abstract class UITermination extends Widget implements ILineTermination {
+public abstract class UITermination<T extends Termination> extends Widget<T> implements ILineTermination {
 
 	/**
 	 * Factory method for creating a UI Wrapper around a termination
@@ -77,7 +77,7 @@ public abstract class UITermination extends Widget implements ILineTermination {
 
 	private Color myIconDefaultColor;
 
-	protected UITermination(UINeoNode nodeParent, Termination term) {
+	protected UITermination(UINeoNode nodeParent, T term) {
 		super(nodeParent, term);
 		setName(term.getName());
 		init();
@@ -96,7 +96,6 @@ public abstract class UITermination extends Widget implements ILineTermination {
 	}
 
 	/**
-	 * @param target
 	 *            Target to be connected with
 	 * @return true is successfully connected
 	 */
@@ -191,7 +190,6 @@ public abstract class UITermination extends Widget implements ILineTermination {
 	}
 
 	/**
-	 * @param term
 	 *            Termination to be disconnected from
 	 * @return True if successful
 	 */
@@ -228,11 +226,6 @@ public abstract class UITermination extends Widget implements ILineTermination {
 			}
 		}
 		return null;
-	}
-
-	@Override
-	public Termination getModel() {
-		return (Termination) super.getModel();
 	}
 
 	@Override

@@ -28,9 +28,9 @@ import ca.nengo.ui.models.nodes.UINetwork;
 /**
  * UI Wrapper for a Network Termination
  */
-public class UINetworkTermination extends UITermination {
+public class UINetworkTermination<T extends Termination> extends UITermination<T> {
 
-    protected UINetworkTermination(UINetwork network, Termination term) {
+    protected UINetworkTermination(UINetwork network, T term) {
         super(network, term);
         setName(term.getName());
     }

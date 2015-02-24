@@ -5,7 +5,7 @@ import ca.nengo.model.neuron.impl.SpikingNeuron;
 import ca.nengo.ui.Nengrow;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.models.nodes.UINetwork;
-import ca.nengo.ui.models.plot.LinePlotUI;
+import ca.nengo.ui.models.plot.LinePlot;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +28,8 @@ public class TestPlotNode extends Nengrow {
         //addNodeModel(new SpikingNeuron(null, null, 1, 0, "C"));
 
 
-        addNodeModel(new LinePlotUI("plot1"), 50d, 20d);
+        network.addNode(new LinePlot("plot1"));
+        //networkUI.addNodeModel(new LinePlotUI("plot1"), 50d, 20d);
 
         network.run(0,0);
 

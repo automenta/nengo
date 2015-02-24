@@ -274,8 +274,8 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
          */
         LinkedList<UIProjection> projectionsToRemove = new LinkedList<UIProjection>();
 
-        for (UINeoNode nodeUI : getUINodes()) {
-            for (UITermination terminationUI : nodeUI.getVisibleTerminations()) {
+        for (UINeoNode<?> nodeUI : getUINodes()) {
+            for (UITermination<?> terminationUI : nodeUI.getVisibleTerminations()) {
                 if (terminationUI.getConnector() != null) {
                     UIOrigin originUI = terminationUI.getConnector().getOriginUI();
 
@@ -414,7 +414,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
              */
             for (WorldObject wo : getGround().getChildren()) {
                 if (wo instanceof UINeoNode) {
-                    UINeoNode nodeUI = (UINeoNode) wo;
+                    UINeoNode<?> nodeUI = (UINeoNode) wo;
 
                     if (exposedOriginsChanged) {
                         for (UIOrigin originUI : nodeUI.getVisibleOrigins()) {
@@ -704,7 +704,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
          * Get current probes in UI
          */
         LinkedList<UIStateProbe> probesToDestroy = new LinkedList<UIStateProbe>();
-        for (UINeoNode nodeUI : getUINodes()) {
+        for (UINeoNode<?> nodeUI : getUINodes()) {
             for (UIProbe probeUI : nodeUI.getProbes()) {
                 if (probeUI instanceof UIStateProbe) {
                     UIStateProbe stateProbe = (UIStateProbe) probeUI;

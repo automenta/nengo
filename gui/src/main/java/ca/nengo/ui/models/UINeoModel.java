@@ -35,8 +35,8 @@ import ca.nengo.ui.lib.util.menus.PopupMenuBuilder;
  * 
  * @author Shu
  */
-public abstract class UINeoModel extends ModelObject {
-	public UINeoModel(Object model) {
+public abstract class UINeoModel<M> extends ModelObject<M> {
+	public UINeoModel(M model) {
 		super(model);
 	}
 

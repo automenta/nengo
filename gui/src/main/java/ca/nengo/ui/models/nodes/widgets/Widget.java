@@ -52,7 +52,7 @@ import java.awt.*;
  * 
  * @author Shu Wu
  */
-public abstract class Widget extends UINeoModel {
+public abstract class Widget<M> extends UINeoModel<M> {
 	public static final Color EXPOSED_COLOR = Color.yellow;
 
 	private boolean isWidgetVisible = true;
@@ -60,7 +60,7 @@ public abstract class Widget extends UINeoModel {
 
 	private UINeoNode parent;
 
-	public Widget(UINeoNode nodeParent, Object model) {
+	public Widget(UINeoNode nodeParent, M model) {
 		super(model);
 		init(nodeParent);
 	}

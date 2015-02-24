@@ -71,8 +71,10 @@ import java.util.Map.Entry;
  *
  * @author Shu
  */
-public abstract class UINeoNode extends UINeoModel implements DroppableX {
-	/**
+public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements DroppableX {
+
+
+    /**
 	 * Factory method which creates a Node UI object around a Node
 	 *
 	 * @param node
@@ -82,6 +84,10 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	public static UINeoNode createNodeUI(Node node) {
 
 		UINeoNode nodeUI = null;
+
+        if (node instanceof UIBuilder) {
+            return ((UIBuilder)node).newUI();
+        }
 		if (node instanceof Network) {
 			nodeUI = new UINetwork((Network) node);
 		} else if (node instanceof Group) {
@@ -107,7 +113,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	 */
 	private Vector<UIProbe> probes;
 
-	public UINeoNode(Node model) {
+	public UINeoNode(N model) {
 		super(model);
 	}
 
@@ -497,8 +503,8 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	}
 
 	@Override
-	public Node getModel() {
-		return (Node) super.getModel();
+	public N getModel() {
+		return super.getModel();
 	}
 
 	@Override
@@ -558,7 +564,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	}
 
 	public Collection<UIOrigin> getVisibleOrigins() {
-		LinkedList<UIOrigin> origins = new LinkedList<UIOrigin>();
+		List<UIOrigin> origins = new ArrayList(getChildrenCount());
 
 		for (WorldObject wo : getChildren()) {
 			if (wo instanceof UIOrigin) {
@@ -569,7 +575,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	}
 
 	public Collection<UITermination> getVisibleTerminations() {
-		LinkedList<UITermination> terminations = new LinkedList<UITermination>();
+		List<UITermination> terminations = new ArrayList(getChildrenCount());
 
 		for (WorldObject wo : getChildren()) {
 			if (wo instanceof UITermination) {
@@ -766,7 +772,6 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	}
 
 	/**
-	 * @param layoutName
 	 *            Name of an Origin on the Node model
 	 * @return the POrigin shown
 	 */
@@ -800,7 +805,6 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	}
 
 	/**
-	 * @param layoutName
 	 *            Name of an Origin on the Node model
 	 * @return the POrigin hidden
 	 */
@@ -841,7 +845,6 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 	}
 
 	/**
-	 * @param layoutName
 	 *            Name of an Termination on the Node model
 	 * @return
 	 */

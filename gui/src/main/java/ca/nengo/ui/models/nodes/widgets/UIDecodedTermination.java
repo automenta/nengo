@@ -37,7 +37,7 @@ import ca.nengo.ui.models.UINeoNode;
  * 
  * @author Shu Wu
  */
-public class UIDecodedTermination extends UITermination {
+public class UIDecodedTermination extends UITermination<DecodedTermination> {
 
 	public static final String typeName = "Decoded Termination";
 

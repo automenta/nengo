@@ -23,7 +23,7 @@ import java.util.HashSet;
 /**
  * @author User
  */
-public abstract class ModelObject extends ElasticObject implements Interactable {
+public abstract class ModelObject<M> extends ElasticObject implements Interactable {
 
 	/**
 	 * The property name that identifies a change in this node's Model
@@ -48,7 +48,7 @@ public abstract class ModelObject extends ElasticObject implements Interactable 
 	/**
 	 * Model
 	 */
-	private Object myModel;
+	private M myModel;
 
 	private Pulsator pulsator = null;
 
@@ -58,7 +58,7 @@ public abstract class ModelObject extends ElasticObject implements Interactable 
 	 * @param model
 	 *            Model
 	 */
-	public ModelObject(Object model) {
+	public ModelObject(M model) {
 		super();
 		//Util.Assert(model != null);
 
@@ -69,7 +69,7 @@ public abstract class ModelObject extends ElasticObject implements Interactable 
 	 * @param model
 	 *            New Model
 	 */
-	protected final void setModel(Object model) {
+	protected final void setModel(M model) {
         if (myModel == null && model!=null) {
             initialize();
         }
@@ -245,7 +245,7 @@ public abstract class ModelObject extends ElasticObject implements Interactable 
 	/**
 	 * @return Model
 	 */
-	public Object getModel() {
+	public M getModel() {
 		return myModel;
 	}
 
