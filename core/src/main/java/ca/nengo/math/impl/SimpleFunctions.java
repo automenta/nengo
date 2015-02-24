@@ -27,7 +27,8 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.math.impl;
 
-import umontreal.iro.lecuyer.probdist.NormalDist;
+
+import org.apache.commons.math3.distribution.NormalDistribution;
 
 /**
  * A collection of Functions that do not have parameters.
@@ -199,7 +200,8 @@ public class SimpleFunctions {
 
 		@Override
 		public float map(float[] from) {
-			return (float) (NormalDist.inverseF(from[0],from[1],from[2]));
+            return (float)new NormalDistribution(from[0], from[1]).inverseCumulativeProbability(from[2]);
+			//return (float) (NormalDist.inverseF(from[0],from[1],from[2]));
 		}
 	}
 
@@ -218,7 +220,8 @@ public class SimpleFunctions {
 
 		@Override
 		public float map(float[] from) {
-			return (float) (NormalDist.cdf(from[0],from[1],from[2]));
+            return (float)new NormalDistribution(from[0], from[1]).cumulativeProbability(from[2]);
+            //return (float) (NormalDist.cdf(from[0],from[1],from[2]));
 		}
 	}
 
