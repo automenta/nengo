@@ -46,11 +46,13 @@
         </dependency>
         -->
 
+        <!--
         <dependency>
             <groupId>net.java.abeille</groupId>
             <artifactId>abeille</artifactId>
             <version>3.0</version>
         </dependency>
+            -->
 
         <dependency>
             <groupId>jung</groupId>

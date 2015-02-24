@@ -16,7 +16,6 @@ import ca.nengo.ui.lib.world.piccolo.primitives.Text;
 import org.piccolo2d.event.PBasicInputEventHandler;
 import org.piccolo2d.event.PInputEvent;
 import org.piccolo2d.event.PInputEventListener;
-import org.piccolo2d.extras.nodes.PClip;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;

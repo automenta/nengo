@@ -29,7 +29,6 @@ package ca.nengo.plot;
 
 import ca.nengo.math.Function;
 import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.plot.impl.DefaultPlotter;
 import ca.nengo.util.DataUtils;
 import ca.nengo.util.Environment;
 import ca.nengo.util.SpikePattern;
@@ -68,7 +67,7 @@ public abstract class Plotter {
 	private synchronized static Plotter getInstance() {
 		if (ourInstance == null) {
 			//this can be made configurable if we get more plotters
-			ourInstance = new DefaultPlotter(); 
+			//ourInstance = new DefaultPlotter();
 		}
 		
 		return ourInstance;

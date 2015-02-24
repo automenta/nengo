@@ -1,8 +1,5 @@
 package ca.nengo.ui.lib.world;
 
-import ca.nengo.model.Node;
-import ca.nengo.model.SimulationException;
-import ca.nengo.ui.lib.objects.models.ModelObject;
 import org.piccolo2d.activities.PInterpolatingActivity;
 
 import java.awt.*;

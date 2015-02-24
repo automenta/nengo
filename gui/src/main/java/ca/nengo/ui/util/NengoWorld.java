@@ -1,6 +1,5 @@
 package ca.nengo.ui.util;
 
-import ca.nengo.model.Network;
 import ca.nengo.model.Node;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.elastic.ElasticWorld;

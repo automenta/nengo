@@ -28,10 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.config.ui;
 
 import ca.nengo.config.*;
-import ca.nengo.config.impl.AbstractProperty;
 import ca.nengo.config.impl.ConfigurationImpl;
-import ca.nengo.config.impl.TemplateArrayProperty;
-import ca.nengo.config.impl.TemplateProperty;
 import ca.nengo.config.ui.ConfigurationTreeModel.NullValue;
 import ca.nengo.config.ui.ConfigurationTreeModel.Value;
 import ca.nengo.model.StructuralException;
@@ -257,6 +254,7 @@ public class NewConfigurableDialog extends JDialog implements ActionListener {
 	private static Configuration makeTemplate(Constructor<?> constructor) {
 		ConfigurationImpl result = new ConfigurationImpl(null);
 		Class<?>[] types = constructor.getParameterTypes();
+        /*
 		String[] names = JavaSourceParser.getArgNames(constructor);
 		for (int i = 0; i < types.length; i++) {
 			if (types[i].isPrimitive()) {
@@ -271,6 +269,8 @@ public class NewConfigurableDialog extends JDialog implements ActionListener {
 			p.setDocumentation(JavaSourceParser.getArgDocs(constructor, i));
 			result.defineProperty(p);
 		}
+
+		*/
 		return result;
 	}
 

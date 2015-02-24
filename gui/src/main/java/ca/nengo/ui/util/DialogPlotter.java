@@ -30,12 +30,13 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.ui.util;
 
-import ca.nengo.plot.impl.DefaultPlotter;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
+import ca.nengo.math.Function;
+import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.plot.Plotter;
+import ca.nengo.util.SpikePattern;
+import ca.nengo.util.TimeSeries;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Plotter uses dialog rather than frames to support parent-child relationship
@@ -43,7 +44,7 @@ import java.awt.*;
  * 
  * @author Shu Wu
  */
-public class DialogPlotter extends DefaultPlotter {
+public class DialogPlotter extends Plotter {
 
 	private final JDialog parent;
 
@@ -52,15 +53,59 @@ public class DialogPlotter extends DefaultPlotter {
 		this.parent = parentPanel;
 	}
 
-	@Override
-	protected void showChart(JFreeChart chart, String title) {		
-		JPanel panel = new ChartPanel(chart);
+//	@Override
+//	protected void showChart(JFreeChart chart, String title) {
+//		JPanel panel = new ChartPanel(chart);
+//
+//		JDialog dialog = new JDialog(parent, title);
+//		dialog.getContentPane().add(panel, BorderLayout.CENTER);
+//
+//		dialog.pack();
+//		dialog.setVisible(true);
+//	}
 
-		JDialog dialog = new JDialog(parent, title);
-		dialog.getContentPane().add(panel, BorderLayout.CENTER);
+    @Override
+    public void doPlot(TimeSeries series, String title) {
 
-		dialog.pack();
-		dialog.setVisible(true);
-	}
+    }
 
+    @Override
+    public void doPlot(TimeSeries ideal, TimeSeries actual, String title) {
+
+    }
+
+    @Override
+    public void doPlot(java.util.List<TimeSeries> series, java.util.List<SpikePattern> patterns, String title) {
+
+    }
+
+    @Override
+    public void doPlot(NEFEnsemble ensemble, String origin) {
+
+    }
+
+    @Override
+    public void doPlot(NEFEnsemble ensemble) {
+
+    }
+
+    @Override
+    public void doPlot(SpikePattern pattern) {
+
+    }
+
+    @Override
+    public void doPlot(Function function, float start, float increment, float end, String title) {
+
+    }
+
+    @Override
+    public void doPlot(float[] vector, String title) {
+
+    }
+
+    @Override
+    public void doPlot(float[] domain, float[] vector, String title) {
+
+    }
 }

@@ -28,7 +28,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.config.impl;
 
 import ca.nengo.config.Configuration;
-import ca.nengo.config.JavaSourceParser;
 import ca.nengo.config.Property;
 
 import java.lang.reflect.Method;
@@ -122,12 +121,12 @@ public abstract class AbstractProperty implements Property {
 	}
 	
 	private static void appendDocs(StringBuffer buf, Method method) {
-		if (method != null) {
-			buf.append("<p><i>").append(JavaSourceParser.getSignature(method)).append("</i><br>");
-			String docs = JavaSourceParser.getDocs(method); 
-			if (docs != null) buf.append(docs);
-			buf.append("</p>");
-		}
+//		if (method != null) {
+//			buf.append("<p><i>").append(JavaSourceParser.getSignature(method)).append("</i><br>");
+//			String docs = JavaSourceParser.getDocs(method);
+//			if (docs != null) buf.append(docs);
+//			buf.append("</p>");
+//		}
 	}
 
 }

@@ -28,7 +28,6 @@ package ca.nengo.ui.test.depr;
 
 import ca.nengo.model.Network;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.ui.models.nodes.UINetwork;
 
 /**

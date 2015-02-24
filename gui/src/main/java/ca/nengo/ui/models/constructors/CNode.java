@@ -27,13 +27,6 @@ package ca.nengo.ui.models.constructors;
 import ca.nengo.model.Node;
 import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PString;
-import ca.nengo.ui.lib.actions.UserCancelledException;
-import ca.nengo.ui.lib.util.UserMessages;
-import ca.nengo.ui.models.NodeContainer;
-import ca.nengo.ui.models.nodes.UINodeViewable;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public abstract class CNode<N extends Node> extends AbstractConstructable<N> {
 	protected static final Property pName = new PString("Name", "Item identifier", "");

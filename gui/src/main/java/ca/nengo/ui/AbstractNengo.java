@@ -1,7 +1,6 @@
 package ca.nengo.ui;
 
 import ca.nengo.config.ConfigUtil;
-import ca.nengo.config.JavaSourceParser;
 import ca.nengo.model.Network;
 import ca.nengo.model.Node;
 import ca.nengo.model.Origin;
@@ -29,11 +28,7 @@ import ca.nengo.ui.models.nodes.UINetwork;
 import ca.nengo.ui.models.nodes.widgets.UIProbe;
 import ca.nengo.ui.models.nodes.widgets.UIProjection;
 import ca.nengo.ui.models.nodes.widgets.Widget;
-import ca.nengo.ui.util.NengoClipboard;
-import ca.nengo.ui.util.NengoConfigManager;
-import ca.nengo.ui.util.NeoFileChooser;
-import ca.nengo.ui.util.ProgressIndicator;
-import ca.nengo.ui.util.NengoWorld;
+import ca.nengo.ui.util.*;
 import ca.nengo.util.Environment;
 import org.simplericity.macify.eawt.Application;
 
@@ -43,7 +38,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -163,24 +157,24 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
                 JFrame.MAXIMIZED_BOTH));
     }
 
-    /**
-     * Find and initialize the main simulator source code
-     */
-    private void initializeSimulatorSourceFiles() {
-
-        String savedSourceLocation = NengoConfigManager.getNengoConfig().getProperty("simulator_source");
-
-        String simulatorSource = (savedSourceLocation != null) ? savedSourceLocation
-                : "../simulator/src/java/main";
-
-        File simulatorSourceFile = new File(simulatorSource);
-        if (!simulatorSourceFile.exists()) {
-            Util.debugMsg("Could not find simulator source files at "
-                    + simulatorSourceFile.getAbsoluteFile().toString());
-        }
-
-        JavaSourceParser.addSource(simulatorSourceFile);
-    }
+//    /**
+//     * Find and initialize the main simulator source code
+//     */
+//    private void initializeSimulatorSourceFiles() {
+//
+//        String savedSourceLocation = NengoConfigManager.getNengoConfig().getProperty("simulator_source");
+//
+//        String simulatorSource = (savedSourceLocation != null) ? savedSourceLocation
+//                : "../simulator/src/java/main";
+//
+//        File simulatorSourceFile = new File(simulatorSource);
+//        if (!simulatorSourceFile.exists()) {
+//            Util.debugMsg("Could not find simulator source files at "
+//                    + simulatorSourceFile.getAbsoluteFile().toString());
+//        }
+//
+//        JavaSourceParser.addSource(simulatorSourceFile);
+//    }
 
     @Override
     protected void initLayout(Universe canvas) {

@@ -28,7 +28,6 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.test.depr;
 
 import ca.nengo.model.Network;
-import ca.nengo.model.Node;
 import ca.nengo.ui.Nengrow;
 import ca.nengo.ui.lib.objects.activities.TrackedStatusMsg;
 import ca.nengo.ui.models.nodes.UINetwork;
