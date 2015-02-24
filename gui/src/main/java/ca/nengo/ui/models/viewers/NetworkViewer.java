@@ -442,12 +442,12 @@ public class NetworkViewer extends GroupViewer<Network,UINetwork> implements Nod
 
     @Override
     public Network getModel() {
-        return (Network) super.getModel();
+        return super.getModel();
     }
 
     @Override
     public UINetwork getViewerParent() {
-        return (UINetwork) super.getViewerParent();
+        return super.getViewerParent();
     }
 
     /**

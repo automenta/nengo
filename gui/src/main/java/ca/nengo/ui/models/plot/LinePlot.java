@@ -25,6 +25,7 @@ public class LinePlot extends AbstractNode implements UIBuilder {
 
     Deque<Float> history = new ConcurrentLinkedDeque<>(); //TODO use seomthing more efficient
     final int maxHistory = 128;
+    private LinePlotUI ui;
 
     public class LinePlotUI extends UINeoNode<LinePlot> {
 
@@ -132,7 +133,8 @@ public class LinePlot extends AbstractNode implements UIBuilder {
 
     @Override
     public UINeoNode newUI() {
-        return new LinePlotUI();
+        ui = new LinePlotUI();
+        return ui;
     }
 
 
@@ -167,11 +169,13 @@ public class LinePlot extends AbstractNode implements UIBuilder {
         history.addLast(f);
         if (history.size() == maxHistory)
             history.removeFirst();
+        ui.repaint();
     }
     @Override
     public void reset(boolean randomize) {
 
         history.clear();
+
     }
 
     @Override

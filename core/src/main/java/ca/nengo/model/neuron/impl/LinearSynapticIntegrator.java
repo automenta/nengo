@@ -71,8 +71,10 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	private float myMaxTimeStep;
 	private Units myCurrentUnits;
 	private Map<String, LinearExponentialTarget> myTerminations;
+    private float[] times;
+    private float[] currents;
 
-	/**
+    /**
 	 * @param maxTimeStep Maximum length of integration time step. Shorter steps may be used to better match
 	 * 		length of run(...)
 	 * @param currentUnits Units of current in input weights, scale, bias, and result of run(...)
@@ -98,8 +100,11 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 		int steps = (int) Math.ceil(len / myMaxTimeStep);
 		float dt = len / steps;
 
-		float[] times = new float[steps+1];
-		float[] currents = new float[steps+1];
+        if (times == null || times.length!=steps+1) {
+            times = new float[steps+1];
+            currents = new float[steps+1];
+        }
+
 
 		times[0] = startTime;
 		if (myTerminations.size() == 0) {

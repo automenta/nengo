@@ -32,7 +32,9 @@ public class PXNode extends PNode implements PiccoloNodeInWorld {
 	private long busyAnimatingUntilTime = 0;
 
 	private WorldObject worldObjectParent;
-	public PXNode() {
+    private PaintContext convertedPaintContext = new PaintContext();
+
+    public PXNode() {
 		super();
 
 		addPropertyChangeListener(PNode.PROPERTY_TRANSFORM, new TransformChangeListener());
@@ -52,7 +54,7 @@ public class PXNode extends PNode implements PiccoloNodeInWorld {
 	protected void paint(PPaintContext paintContext) {
 		super.paint(paintContext);
 		if (worldObjectParent != null) {
-			PaintContext convertedPaintContext = new PaintContext(paintContext.getGraphics(),
+			convertedPaintContext.set(paintContext.getGraphics(),
 					paintContext.getScale());
 
 			worldObjectParent.paint(convertedPaintContext);

@@ -3,14 +3,9 @@ package ca.nengo.ui.lib.world;
 import java.awt.*;
 
 public class PaintContext {
-	private final Graphics2D graphics;
-	private final double scale;
+	private Graphics2D graphics;
+	private double scale;
 
-	public PaintContext(Graphics2D graphics, double scale) {
-		super();
-		this.graphics = graphics;
-		this.scale = scale;
-	}
 
 	public Graphics2D getGraphics() {
 		return graphics;
@@ -20,4 +15,8 @@ public class PaintContext {
 		return scale;
 	}
 
+    public void set(Graphics2D graphics, double scale) {
+        this.graphics = graphics;
+        this.scale = scale;
+    }
 }

@@ -58,7 +58,7 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
     private ThreadTask[] myTasks;
     private List<ThreadTask> myProbeTasks;
     private Map<String, Node> myNodeMap;
-    private List<Node> mySocketNodes;
+    private List<SocketUDPNode> mySocketNodes;
     private List<Node> myDeferredSocketNodes;
     private List<Probe> myProbes;
     private Network myNetwork;
@@ -87,19 +87,19 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
         myNodes = network.getNodes();
         myProjections = network.getProjections();
 
-        myNodeMap = new HashMap<String, Node>(myNodes.length * 2);
+        myNodeMap = new HashMap(myNodes.length * 2);
         if (mySocketNodes == null)
-        	mySocketNodes = new ArrayList<Node>(2);
+        	mySocketNodes = new ArrayList(2);
         if (myDeferredSocketNodes == null)
-        	myDeferredSocketNodes = new ArrayList<Node>(2);
+        	myDeferredSocketNodes = new ArrayList(2);
         for (Node myNode : myNodes) {
             myNodeMap.put(myNode.getName(), myNode);
             if (myNode instanceof SocketUDPNode) 
-            	mySocketNodes.add(myNode);
+            	mySocketNodes.add((SocketUDPNode) myNode);
         }
 
         if (myProbes == null) {
-            myProbes = new ArrayList<Probe>(20);
+            myProbes = new ArrayList(20);
         }
         
         if(myProbeTasks == null){
@@ -134,11 +134,11 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
     public void initRun(boolean interactive) throws SimulationException {
     	// Find all instances of the SocketUDPNodes and initialize them (get them to bind to their
     	// respective sockets).
-    	Iterator<Node> it = mySocketNodes.iterator();
-    	while (it.hasNext()) {
-  			((SocketUDPNode) it.next()).initialize();
-    	}
-    	
+        for (int i = 0; i < mySocketNodes.size(); i++) {
+            SocketUDPNode n = mySocketNodes.get(i);
+            n.initialize();
+        }
+
         if(NodeThreadPool.isMultithreading()){
             makeNodeThreadPool(interactive);
         }
@@ -268,10 +268,10 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
     public void endRun() {
     	// Find all instances of the SocketUDPNodes and shut them down. (get them to unbind from their
     	// respective sockets).
-    	Iterator<Node> it = mySocketNodes.iterator();
-    	while (it.hasNext()) {
-  			((SocketUDPNode) it.next()).close();
-    	}
+        for (int i = 0; i < mySocketNodes.size(); i++) {
+            SocketUDPNode n = mySocketNodes.get(i);
+            n.close();
+        }
 
     	if(myNodeThreadPool != null){
             myNodeThreadPool.kill();

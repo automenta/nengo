@@ -18,9 +18,10 @@ import java.util.*;
  *
  * @author Eric Crawford
  */
-public class NodeThreadPool {
+//TODO replace with Reactor dispatcher
+@Deprecated public class NodeThreadPool {
 	protected static final int maxNumJavaThreads = 100;
-	protected static final int defaultNumJavaThreads = 1;
+	protected static final int defaultNumJavaThreads = 0;
 
 	// numThreads can change throughout a simulation run. Therefore, it should not be used during a run,
 	// only at the beginning of a run to create the threads.
