@@ -34,7 +34,7 @@ import ca.nengo.config.Property;
 import ca.nengo.config.impl.ConfigurationImpl;
 import ca.nengo.config.impl.SingleValuedPropertyImpl;
 import ca.nengo.model.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * A generic implementation of Origin. Nodes that contain an Origin of this type should call one
@@ -46,7 +46,7 @@ public class BasicOrigin implements Origin, Noise.Noisy, Resettable, Configurabl
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger ourLogger = Logger.getLogger(BasicOrigin.class);
+	private static final Logger ourLogger = LogManager.getLogger(BasicOrigin.class);
 
 	private Node myNode;
 	private String myName;

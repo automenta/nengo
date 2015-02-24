@@ -28,7 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.math.impl;
 
 import ca.nengo.math.Function;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ import java.util.Stack;
 public class PostfixFunction implements Function {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger ourLogger = Logger.getLogger(PostfixFunction.class);
+	private static final Logger ourLogger = LogManager.getLogger(PostfixFunction.class);
 
 	private List<Serializable> myExpressionList;
 

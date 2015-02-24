@@ -34,7 +34,7 @@ import ca.nengo.model.neuron.SynapticIntegrator;
 import ca.nengo.util.MU;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import java.util.Properties;
 
@@ -60,7 +60,7 @@ public class DecodedTermination implements Termination, Resettable, Probeable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger ourLogger = Logger.getLogger(DecodedTermination.class);
+	private static final Logger ourLogger = LogManager.getLogger(DecodedTermination.class);
 
 	/**
 	 * Name of Probeable output state.

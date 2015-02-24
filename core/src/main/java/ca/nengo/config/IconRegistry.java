@@ -38,7 +38,7 @@ import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
 import ca.nengo.util.SpikePattern;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +53,7 @@ import java.util.List;
  */
 public class IconRegistry {
 
-	private static final Logger ourLogger = Logger.getLogger(IconRegistry.class);
+	private static final Logger ourLogger = LogManager.getLogger(IconRegistry.class);
 	private static IconRegistry ourInstance;
 
 	private final List<Class<?>> myIconClasses;

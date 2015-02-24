@@ -47,7 +47,7 @@ import ca.nengo.util.MU;
 import ca.nengo.util.Probe;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import java.util.*;
 
@@ -67,7 +67,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 	private Map<String, LinearApproximator> myApproximators;
 	private float myTime; //used to support Probeable
 	
-	private static final Logger ourLogger = Logger.getLogger(DecodableGroupImpl.class);
+	private static final Logger ourLogger = LogManager.getLogger(DecodableGroupImpl.class);
 
 	/**
 	 * @param name Name of the Ensemble

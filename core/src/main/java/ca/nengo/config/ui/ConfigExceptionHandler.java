@@ -24,7 +24,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.config.ui;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +36,7 @@ import java.awt.*;
  */
 public class ConfigExceptionHandler {
 
-	private static final Logger ourLogger = Logger.getLogger(ConfigExceptionHandler.class);
+	private static final Logger ourLogger = LogManager.getLogger(ConfigExceptionHandler.class);
 
 	/**
 	 * Show this message if a better one isn't defined

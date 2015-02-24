@@ -28,9 +28,12 @@ import ca.nengo.math.ApproximatorFactory;
 import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
 import ca.nengo.util.MU;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
+
+//import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * A LinearApproximator that searches for coefficients by descending an error gradient.
@@ -41,7 +44,7 @@ import java.io.Serializable;
  */
 public class GradientDescentApproximator implements LinearApproximator {
 
-	private static final Logger ourLogger = Logger.getLogger(GradientDescentApproximator.class);
+	private static final Logger ourLogger = LogManager.getLogger(GradientDescentApproximator.class);
 	private static final long serialVersionUID = 1L;
 
 	private float[][] myEvalPoints;

@@ -8,7 +8,7 @@ import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.neuron.ExpandableSynapticIntegrator;
 import ca.nengo.model.neuron.SpikeGenerator;
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * Unit tests for SpikingNeuron. 
@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
  */
 public class SpikingNeuronTest extends TestCase {
 
-	private static Logger ourLogger = Logger.getLogger(SpikingNeuronTest.class);
+	private final static Logger ourLogger = LogManager.getLogger(SpikingNeuronTest.class);
 	
 	private ExpandableSynapticIntegrator myIntegrator;
 	private SpikeGenerator myGenerator;

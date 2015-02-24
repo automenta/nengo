@@ -35,7 +35,7 @@ import ca.nengo.model.Units;
 import ca.nengo.model.impl.NodeFactory;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * A factory for adapting leaky integrate-and-fire neurons. 
@@ -46,7 +46,7 @@ public class ALIFNeuronFactory implements NodeFactory {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger ourLogger = Logger.getLogger(ALIFNeuronFactory.class);
+	private static final Logger ourLogger = LogManager.getLogger(ALIFNeuronFactory.class);
 	
 	private static final float ourMaxTimeStep = 0.001f;
 	private static final Units ourCurrentUnits = Units.ACU;

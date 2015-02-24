@@ -46,7 +46,7 @@ import ca.nengo.util.MU;
 import ca.nengo.util.VectorGenerator;
 import ca.nengo.util.VisiblyMutableUtils;
 import ca.nengo.util.impl.RandomHypersphereVG;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class NEFGroupFactoryImpl implements NEFGroupFactory, java.io.Serializabl
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger ourLogger = Logger.getLogger(NEFGroupFactoryImpl.class);
+	private static final Logger ourLogger = LogManager.getLogger(NEFGroupFactoryImpl.class);
 
 	private ApproximatorFactory myApproximatorFactory;
 	private VectorGenerator myEncoderFactory;

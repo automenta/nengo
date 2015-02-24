@@ -33,7 +33,7 @@ import ca.nengo.model.Termination;
 import ca.nengo.model.neuron.ExpandableSynapticIntegrator;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * A SpikingNeuron with an ExpandableSynapticIntegrator.
@@ -43,7 +43,7 @@ import org.apache.log4j.Logger;
 public class ExpandableSpikingNeuron extends SpikingNeuron implements ExpandableNode {
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger ourLogger = Logger.getLogger(ExpandableSpikingNeuron.class);
+	private static final Logger ourLogger = LogManager.getLogger(ExpandableSpikingNeuron.class);
 
 	private ExpandableSynapticIntegrator mySynapticIntegrator;
 

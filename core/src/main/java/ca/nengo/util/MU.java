@@ -28,7 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.util;
 
 import ca.nengo.math.PDF;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import java.text.NumberFormat;
 
@@ -41,7 +41,7 @@ import java.text.NumberFormat;
  */
 public class MU {
 	
-	private static final Logger ourLogger = Logger.getLogger(MU.class);
+	private static final Logger ourLogger = LogManager.getLogger(MU.class);
 
 	/**
 	 * @param matrix An array of arrays that is expected to be in matrix form

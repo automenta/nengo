@@ -34,7 +34,7 @@ import ca.nengo.config.ui.ConfigurationTreeModel.NullValue;
 import ca.nengo.model.SimulationMode;
 import ca.nengo.model.Units;
 import ca.nengo.model.neuron.impl.IzhikevichSpikeGenerator;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +58,7 @@ public final class MainHandler implements ConfigurationHandler {
 	 */
 	public static final String HANDLERS_FILE_PROPERTY = "ca.nengo.config.handlers";
 
-	private static final Logger ourLogger = Logger.getLogger(ConfigurationHandler.class);
+	private static final Logger ourLogger = LogManager.getLogger(ConfigurationHandler.class);
 	private static MainHandler ourInstance;
 
 	private final List<ConfigurationHandler> myHandlers;

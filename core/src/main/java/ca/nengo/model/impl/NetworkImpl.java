@@ -36,7 +36,7 @@ import ca.nengo.sim.impl.LocalSimulator;
 import ca.nengo.util.*;
 import ca.nengo.util.impl.ProbeTask;
 import ca.nengo.util.impl.ScriptGenerator;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,7 +57,7 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 	public static final String DEFAULT_NAME = "Network";
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger ourLogger = Logger.getLogger(NetworkImpl.class);
+	private static final Logger ourLogger = LogManager.getLogger(NetworkImpl.class);
 
 	private Map<String, Node> myNodeMap; //keyed on name
 	private Map<Termination, Projection> myProjectionMap; //keyed on Termination

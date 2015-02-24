@@ -35,7 +35,7 @@ import ca.nengo.math.Function;
 import ca.nengo.math.LinearApproximator;
 import ca.nengo.util.MU;
 import ca.nengo.util.Memory;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -53,7 +53,7 @@ import java.util.Random;
  */
 public class WeightedCostApproximator implements LinearApproximator {
 
-	private static final Logger ourLogger = Logger.getLogger(WeightedCostApproximator.class);
+	private static final Logger ourLogger = LogManager.getLogger(WeightedCostApproximator.class);
 	private static final long serialVersionUID = 1L;
 
 	private float[][] myEvalPoints;

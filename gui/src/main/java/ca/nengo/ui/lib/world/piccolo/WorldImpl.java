@@ -213,7 +213,7 @@ public class WorldImpl extends WorldObjectImpl implements World, Interactable {
 		/*
 		 * Miscellaneous
 		 */
-		setBounds(0, 0, 800, 600);
+		setBounds(0, 0, 1200, 800);
 
 		initSelectionMode();
 

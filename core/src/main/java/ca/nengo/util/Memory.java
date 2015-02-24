@@ -27,7 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * Internal tools for checking memory usage. 
@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
  */
 public class Memory {
 	
-	private static final Logger ourLogger = Logger.getLogger(Memory.class);
+	private static final Logger ourLogger = LogManager.getLogger(Memory.class);
 
 	/**
 	 * Prints a message to the console regarding current memory usage. 

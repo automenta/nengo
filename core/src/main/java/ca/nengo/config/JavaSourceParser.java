@@ -34,7 +34,7 @@
 //import com.thoughtworks.qdox.model.JavaClass;
 //import com.thoughtworks.qdox.model.JavaMethod;
 //import com.thoughtworks.qdox.model.JavaParameter;
-//import org.apache.log4j.Logger;
+//import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 //
 //import java.io.File;
 //import java.lang.reflect.Constructor;
@@ -52,7 +52,7 @@
 //public class JavaSourceParser {
 //
 //
-//	private static final Logger ourLogger = Logger.getLogger(JavaSourceParser.class);
+//	private static final Logger ourLogger = LogManager.getLogger(JavaSourceParser.class);
 //	private static final JavaProjectBuilder ourBuilder;
 //
 //	static {

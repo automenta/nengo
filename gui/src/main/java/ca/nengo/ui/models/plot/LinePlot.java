@@ -5,12 +5,17 @@ import ca.nengo.model.*;
 import ca.nengo.model.impl.AbstractNode;
 import ca.nengo.model.impl.PassthroughTermination;
 import ca.nengo.ui.lib.world.PaintContext;
+import ca.nengo.ui.lib.world.piccolo.primitives.PXNode;
 import ca.nengo.ui.models.UIBuilder;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.icons.EmptyIcon;
 import ca.nengo.ui.models.nodes.widgets.UITermination;
 import ca.nengo.util.ScriptGenException;
+import org.piccolo2d.PNode;
+import org.piccolo2d.event.PInputEventListener;
+import org.piccolo2d.extras.pswing.PSwing;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Deque;
@@ -38,7 +43,36 @@ public class LinePlot extends AbstractNode implements UIBuilder {
 
             addWidget(UITermination.createTerminationUI(this, getInput()));
 
+
             repaint();
+
+            JComponent jt;
+            //PSwing pp = new PSwing(jt = new JTextField("button"));
+            PSwing pp = new PSwing(jt = new JSlider());
+            jt.repaint();
+            jt.revalidate();
+            jt.grabFocus();
+            jt.setDoubleBuffered(false);
+            //pp.setScale(2.0);
+            PInputEventListener x;
+//            pp.addInputEventListener(x = new PInputEventListener() {
+//
+//                @Override
+//                public void processEvent(PInputEvent pInputEvent, int i) {
+//                    InputEvent ie = pInputEvent.getSourceSwingEvent();
+//                    if (ie!=null && !ie.isConsumed()) {
+//                        ie.setSource(jt);
+//                        jt.dispatchEvent(ie);
+//                        ie.consume();
+//                        pp.repaint();
+//                    }
+//                }
+//            });
+
+
+            getPiccolo().addChild(pp);
+
+
 
         }
 

@@ -44,7 +44,7 @@ import ca.nengo.model.Units;
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * A Hill-type muscle model.
@@ -61,7 +61,7 @@ import org.apache.log4j.Logger;
  */
 public class HillMuscle extends SkeletalMuscleImpl {
 
-	private static final Logger ourLogger = Logger.getLogger(HillMuscle.class);
+	private static final Logger ourLogger = LogManager.getLogger(HillMuscle.class);
 	private static final long serialVersionUID = 1L;
 
 	/**

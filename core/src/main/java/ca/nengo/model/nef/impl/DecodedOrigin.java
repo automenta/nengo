@@ -50,7 +50,7 @@ import ca.nengo.util.VectorGenerator;
 import ca.nengo.util.impl.RandomHypersphereVG;
 import ca.nengo.util.impl.TimeSeries1DImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * An Origin of functions of the state variables of an NEFEnsemble.
@@ -64,7 +64,7 @@ public class DecodedOrigin implements Origin, Resettable, SimulationMode.ModeCon
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger ourLogger = Logger.getLogger(DecodedOrigin.class);
+	private static final Logger ourLogger = LogManager.getLogger(DecodedOrigin.class);
 
 	private Node myNode; //parent node
 	private String myName;

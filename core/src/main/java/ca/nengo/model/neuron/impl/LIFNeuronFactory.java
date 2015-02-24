@@ -35,7 +35,7 @@ import ca.nengo.model.impl.NodeFactory;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * A factory for leaky-integrate-and-fire neurons. 
@@ -46,7 +46,7 @@ public class LIFNeuronFactory implements NodeFactory {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger ourLogger = Logger.getLogger(LIFNeuronFactory.class);
+	private static final Logger ourLogger = LogManager.getLogger(LIFNeuronFactory.class);
 	
 	private float myTauRC;
 	private float myTauRef;

@@ -9,7 +9,7 @@ import ca.nengo.model.SimulationException;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.Units;
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * Unit tests for LinearExponentialTermination.
@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
  */
 public class LinearExponentialTerminationTest extends TestCase {
 
-    private static Logger ourLogger = Logger.getLogger(LinearExponentialTerminationTest.class);
+    private final static Logger ourLogger = LogManager.getLogger(LinearExponentialTerminationTest.class);
 
     protected void setUp() throws Exception {
         super.setUp();

@@ -36,7 +36,7 @@ import ca.nengo.util.MU;
 import ca.nengo.util.ScriptGenException;
 import ca.nengo.util.VisiblyMutable;
 import ca.nengo.util.VisiblyMutableUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import java.util.*;
 
@@ -53,7 +53,7 @@ public class PassthroughNode implements Node {
 
 	//implementation note: this class doesn't nicely extend AbstractNode
 
-	private static final Logger ourLogger = Logger.getLogger(PassthroughNode.class);
+	private static final Logger ourLogger = LogManager.getLogger(PassthroughNode.class);
 
 	/**
 	 * Default name for a termination

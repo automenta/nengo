@@ -37,7 +37,7 @@ import ca.nengo.dynamics.impl.LTISystem;
 import ca.nengo.model.*;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * A basic implementation of Termination with configurable dynamics and no special
@@ -49,7 +49,7 @@ public class BasicTermination implements Termination, Resettable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger ourLogger = Logger.getLogger(BasicTermination.class);
+	private static final Logger ourLogger = LogManager.getLogger(BasicTermination.class);
 
 	private Node myNode;
 	private DynamicalSystem myDynamics;

@@ -32,6 +32,7 @@ public class KeyboardHandler extends PBasicInputEventHandler implements Destroya
 			// shift down
 			UIEnvironment.getInstance().getUniverse().setSelectionMode(true);
 		}
+
 	}
 
 	@Override

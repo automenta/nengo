@@ -35,7 +35,7 @@ import ca.nengo.util.MU;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.LinearInterpolatorND;
 import ca.nengo.util.impl.TimeSeriesImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * <p>A variable-timestep Integrator, which uses the Dormand-Prince 4th and 5th-order 
@@ -54,7 +54,7 @@ public class RK45Integrator implements Integrator {
 	
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger ourLogger = Logger.getLogger(RK45Integrator.class);
+	private static final Logger ourLogger = LogManager.getLogger(RK45Integrator.class);
 	
 	//The Dormand-Prince 4(5) coefficients:
 	private static final float[][] a = new float[][] {

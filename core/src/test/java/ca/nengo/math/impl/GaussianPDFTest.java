@@ -6,7 +6,7 @@ package ca.nengo.math.impl;
 import ca.nengo.TestUtil;
 import ca.nengo.plot.Plotter;
 import junit.framework.TestCase;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 /**
  * Unit test for GaussianPDF. 
@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
  */
 public class GaussianPDFTest extends TestCase {
 
-	private static Logger ourLogger = Logger.getLogger(GaussianPDFTest.class);
+	private final static Logger ourLogger = LogManager.getLogger(GaussianPDFTest.class);
 	/*
 	 * Test method for 'ca.nengo.math.impl.GaussianPDF.sample()'
 	 */

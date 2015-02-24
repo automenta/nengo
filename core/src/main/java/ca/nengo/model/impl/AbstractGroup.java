@@ -37,7 +37,7 @@ import ca.nengo.util.VisiblyMutable;
 import ca.nengo.util.VisiblyMutableUtils;
 import ca.nengo.util.impl.SpikePatternImpl;
 import ca.nengo.util.impl.TimeSeriesImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;import org.apache.logging.log4j.LogManager;
 
 import java.util.*;
 
@@ -50,7 +50,7 @@ public abstract class AbstractGroup implements Group, Probeable, VisiblyMutable 
 
 	private static final long serialVersionUID = -5498397418584843304L;
 
-	private static final Logger ourLogger = Logger.getLogger(AbstractGroup.class);
+	private static final Logger ourLogger = LogManager.getLogger(AbstractGroup.class);
 
 	private String myName;
 	private Map<String, List<Integer>> myStateNames; // for Probeable
