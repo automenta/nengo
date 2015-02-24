@@ -11,9 +11,9 @@ import ca.nengo.model.StructuralException;
 import ca.nengo.model.Units;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
 import ca.nengo.util.*;
 import ca.nengo.util.impl.SpikePatternImpl;
 import ca.nengo.util.impl.TimeSeries1DImpl;
@@ -75,8 +75,8 @@ public class PlotterFunctional {
 		try {
 			Network network = new NetworkImpl();
 			
-			NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
-			final NEFEnsemble ensemble = ef.make("ensemble", 200, 1);
+			NEFGroupFactory ef = new NEFGroupFactoryImpl();
+			final NEFGroup ensemble = ef.make("ensemble", 200, 1);
 			ensemble.collectSpikes(true);
 			network.addNode(ensemble);
 			

@@ -37,7 +37,7 @@ import ca.nengo.util.VectorGenerator;
  *  
  * @author Bryan Tripp
  */
-public interface NEFEnsembleFactory {
+public interface NEFGroupFactory {
 
 	/**
 	 * @return The NodeFactory used to create Nodes that make up new Ensembles
@@ -90,7 +90,7 @@ public interface NEFEnsembleFactory {
 	 * @return NEFEnsemble containing Neurons generated with the default NeuronFactory   
 	 * @throws StructuralException if there is any error attempting to create the ensemble
 	 */
-	public NEFEnsemble make(String name, int n, int dim) throws StructuralException;
+	public NEFGroup make(String name, int n, int dim) throws StructuralException;
 	
 	/**
 	 * @param name Name of the NEFEnsemble
@@ -99,7 +99,7 @@ public interface NEFEnsembleFactory {
 	 * @return NEFEnsemble containing Neurons generated with the default NeuronFactory   
 	 * @throws StructuralException if there is any error attempting to create the ensemble
 	 */
-	public NEFEnsemble make(String name, int n, float[] radii) throws StructuralException;
+	public NEFGroup make(String name, int n, float[] radii) throws StructuralException;
 	
 	/**
 	 * Loads an NEFEnsemble, or creates and saves it.
@@ -115,7 +115,7 @@ public interface NEFEnsembleFactory {
 	 * 		a previously-created ensemble loaded from storage   
 	 * @throws StructuralException if there is any error attempting to create the ensemble
 	 */
-	public NEFEnsemble make(String name, int n, float[] radii, String storageName, boolean overwrite) throws StructuralException;
+	public NEFGroup make(String name, int n, float[] radii, String storageName, boolean overwrite) throws StructuralException;
 	
 	/**
 	 * Loads an NEFEnsemble, or creates and saves it.
@@ -131,5 +131,5 @@ public interface NEFEnsembleFactory {
 	 * 		a previously-created ensemble loaded from storage
 	 * @throws StructuralException if there is any error attempting to create the ensemble
 	 */
-	public NEFEnsemble make(String name, int n, int dim, String storageName, boolean overwrite) throws StructuralException;
+	public NEFGroup make(String name, int n, int dim, String storageName, boolean overwrite) throws StructuralException;
 }

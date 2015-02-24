@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.world.elastic;
 
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.world.Destroyable;
 import ca.nengo.ui.lib.world.WorldLayer;
 import ca.nengo.ui.lib.world.WorldObject.Listener;
@@ -214,7 +214,7 @@ class Anchor implements Destroyable, Listener {
 
 		border = Path.createRectangle(0, 0, 1, 1);
 		line = new Path();
-		// line.setStrokePaint(Style.COLOR)
+		// line.setStrokePaint(style.COLOR)
 		border.setPaint(null);
 		line.setPaint(null);
 

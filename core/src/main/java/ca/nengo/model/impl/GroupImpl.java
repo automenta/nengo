@@ -51,7 +51,7 @@ import java.util.*;
  *
  * @author Bryan Tripp
  */
-public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
+public class GroupImpl extends AbstractGroup implements ExpandableNode {
 
 	private static final long serialVersionUID = 1L;
 
@@ -62,7 +62,7 @@ public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
 	 * @param name Name of Ensemble
 	 * @param nodes Nodes that make up the Ensemble
 	 */
-	public EnsembleImpl(String name, Node[] nodes) {
+	public GroupImpl(String name, Node[] nodes) {
 		super(name, nodes);
 
 		myExpandableNodes = findExpandable(nodes);
@@ -75,7 +75,7 @@ public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
 	 * @param n Number of nodes to create
 	 * @throws StructuralException if any problem halts construction
 	 */
-	public EnsembleImpl(String name, NodeFactory factory, int n) throws StructuralException {
+	public GroupImpl(String name, NodeFactory factory, int n) throws StructuralException {
 		super(name, make(factory, n));
 
 		myExpandableNodes = findExpandable(this.getNodes());
@@ -115,7 +115,7 @@ public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
     }
 
 	/**
-	 * @see ca.nengo.model.Ensemble#getTerminations()
+	 * @see ca.nengo.model.Group#getTerminations()
 	 */
 	public Termination[] getTerminations() {
 		ArrayList<Termination> result = new ArrayList<Termination>(10);
@@ -130,7 +130,7 @@ public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
 	/**
 	 * This Ensemble does not support SimulationMode.DIRECT.
 	 *
-	 * @see ca.nengo.model.Ensemble#setMode(ca.nengo.model.SimulationMode)
+	 * @see ca.nengo.model.Group#setMode(ca.nengo.model.SimulationMode)
 	 */
 	@Override
     public void setMode(SimulationMode mode) {
@@ -182,7 +182,7 @@ public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
 			}
 		}
 
-		EnsembleTermination result = new EnsembleTermination(this, name, components);
+		GroupTermination result = new GroupTermination(this, name, components);
 		myExpandedTerminations.put(name, result);
 
 		fireVisibleChangeEvent();
@@ -218,8 +218,8 @@ public class EnsembleImpl extends AbstractEnsemble implements ExpandableNode {
 	}
 
 	@Override
-	public EnsembleImpl clone() throws CloneNotSupportedException {
-		EnsembleImpl result = (EnsembleImpl) super.clone();
+	public GroupImpl clone() throws CloneNotSupportedException {
+		GroupImpl result = (GroupImpl) super.clone();
 
 		result.myExpandableNodes = new ExpandableNode[myExpandableNodes.length];
 		for (int i = 0; i < myExpandableNodes.length; i++) {

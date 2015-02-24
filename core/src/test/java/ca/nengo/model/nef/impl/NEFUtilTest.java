@@ -8,8 +8,8 @@ import ca.nengo.math.Function;
 import ca.nengo.math.impl.PostfixFunction;
 import ca.nengo.model.SimulationMode;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.util.MU;
 import junit.framework.TestCase;
@@ -26,8 +26,8 @@ public class NEFUtilTest extends TestCase {
 	 * @throws StructuralException 
 	 */
 	public void testGetOutput() throws StructuralException {
-		NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
-		NEFEnsemble ensemble = ef.make("test", 70, new float[]{1, 1, 1});
+		NEFGroupFactory ef = new NEFGroupFactoryImpl();
+		NEFGroup ensemble = ef.make("test", 70, new float[]{1, 1, 1});
 		DecodedOrigin origin = (DecodedOrigin) ensemble.addDecodedOrigin("test", 
 				new Function[]{new PostfixFunction("x1", 3), new PostfixFunction("x2", 3)}, Neuron.AXON);
 		

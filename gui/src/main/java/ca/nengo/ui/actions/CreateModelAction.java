@@ -40,6 +40,7 @@ import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.constructors.AbstractConstructable;
 import ca.nengo.ui.models.constructors.CNode;
 import ca.nengo.ui.models.constructors.ModelFactory;
+import ca.nengo.ui.models.nodes.UINEFGroup;
 import ca.nengo.ui.models.nodes.UINodeViewable;
 
 import javax.swing.*;
@@ -161,7 +162,7 @@ public class CreateModelAction extends ReversableAction {
                             try {
                                 nodeCreated = container.addNodeModel(node,posX,posY);
                                 if (nodeCreated instanceof UINodeViewable) {
-                                    if (nodeCreated instanceof ca.nengo.ui.models.nodes.UINEFEnsemble) {
+                                    if (nodeCreated instanceof UINEFGroup) {
                                         // don't open NEFEnsembles
                                     } else {
                                         ((UINodeViewable) (nodeCreated)).openViewer();

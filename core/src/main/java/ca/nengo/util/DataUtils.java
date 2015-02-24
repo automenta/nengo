@@ -35,9 +35,9 @@ import ca.nengo.dynamics.Integrator;
 import ca.nengo.dynamics.impl.EulerIntegrator;
 import ca.nengo.dynamics.impl.LTISystem;
 import ca.nengo.dynamics.impl.SimpleLTISystem;
-import ca.nengo.model.Ensemble;
+import ca.nengo.model.Group;
 import ca.nengo.model.Node;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
 import ca.nengo.util.impl.SpikePatternImpl;
 import ca.nengo.util.impl.TimeSeries1DImpl;
@@ -177,13 +177,13 @@ public class DataUtils {
 	 * Attempts to sort a SpikePattern by properties of the associated neurons. 
 	 * 
 	 * @param pattern A SpikePattern
-	 * @param ensemble Ensemble from which spikes come
+	 * @param group Ensemble from which spikes come
 	 * @return A SpikePattern that is re-ordered according to neuron properties, if possible
 	 */
-	public static SpikePattern sort(SpikePattern pattern, Ensemble ensemble) {
-		ComparableNodeWrapper[] wrappers = new ComparableNodeWrapper[ensemble.getNodes().length];
+	public static SpikePattern sort(SpikePattern pattern, Group group) {
+		ComparableNodeWrapper[] wrappers = new ComparableNodeWrapper[group.getNodes().length];
 		for (int i = 0; i < wrappers.length; i++) {
-			wrappers[i] = new ComparableNodeWrapper(ensemble, i);
+			wrappers[i] = new ComparableNodeWrapper(group, i);
 		}		
 		Arrays.sort(wrappers);
 		
@@ -205,18 +205,18 @@ public class DataUtils {
 		private float myFirstDimEncoder;
 		private float myBias;
 		
-		public ComparableNodeWrapper(Ensemble ensemble, int nodeIndex) {
+		public ComparableNodeWrapper(Group group, int nodeIndex) {
 			myIndex = nodeIndex;
 			
 			myBias = 1;
-			Node node = ensemble.getNodes()[nodeIndex];
+			Node node = group.getNodes()[nodeIndex];
 			if (node instanceof SpikingNeuron) {
 				myBias = ((SpikingNeuron) node).getBias();
 			}
 			
 			myFirstDimEncoder = 1;
-			if (ensemble instanceof NEFEnsemble) {
-				myFirstDimEncoder = ((NEFEnsemble) ensemble).getEncoders()[nodeIndex][0];
+			if (group instanceof NEFGroup) {
+				myFirstDimEncoder = ((NEFGroup) group).getEncoders()[nodeIndex][0];
 			}
 		}
 		

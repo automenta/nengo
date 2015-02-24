@@ -9,7 +9,7 @@ import ca.nengo.ui.actions.*;
 import ca.nengo.ui.data.DataListView;
 import ca.nengo.ui.lib.AppFrame;
 import ca.nengo.ui.lib.AuxillarySplitPane;
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.actions.*;
 import ca.nengo.ui.lib.misc.ShortcutKey;
 import ca.nengo.ui.lib.objects.models.ModelObject;
@@ -614,8 +614,8 @@ public class AbstractNengo extends AppFrame implements NodeContainer {
                 ConfigUtil.ConfigurationPane configurationPane = ConfigUtil.createConfigurationPane(obj);
                 configurationPane.getTree().setBackground(NengoStyle.COLOR_CONFIGURE_BACKGROUND);
 
-                // Style.applyStyle(configurationPane.getTree());
-                // Style.applyStyle(configurationPane.getCellRenderer());
+                // style.applyStyle(configurationPane.getTree());
+                // style.applyStyle(configurationPane.getCellRenderer());
 
                 String name;
                 if (obj instanceof Node) {

@@ -8,7 +8,7 @@ import ca.nengo.math.Function;
 import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.math.impl.PiecewiseConstantFunction;
 import ca.nengo.model.*;
-import ca.nengo.model.impl.EnsembleImpl;
+import ca.nengo.model.impl.GroupImpl;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.neuron.Neuron;
@@ -236,7 +236,7 @@ public class ALIFSpikeGeneratorTest extends TestCase {
                 neurons[i] = factory.make("neuron"+i);
                 weights[i] = new float[]{1};
             }
-            EnsembleImpl ensemble = new EnsembleImpl("ensemble", neurons);
+            GroupImpl ensemble = new GroupImpl("ensemble", neurons);
             ensemble.addTermination("input", weights, .005f, false);
             ensemble.collectSpikes(true);
             network.addNode(ensemble);

@@ -30,9 +30,9 @@ import ca.nengo.math.impl.WeightedCostApproximator;
 import ca.nengo.model.Node;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.impl.NodeFactory;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
 import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PFloat;
 import ca.nengo.ui.configurable.descriptors.PInt;
@@ -41,7 +41,7 @@ import ca.nengo.ui.configurable.managers.ConfigManager.ConfigMode;
 import ca.nengo.ui.configurable.managers.UserConfigurer;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.Util;
-import ca.nengo.ui.models.nodes.UINEFEnsemble;
+import ca.nengo.ui.models.nodes.UINEFGroup;
 import ca.nengo.util.VectorGenerator;
 import ca.nengo.util.impl.RandomHypersphereVG;
 import ca.nengo.util.impl.Rectifier;
@@ -91,7 +91,7 @@ public class CNEFEnsemble extends CNode {
     protected Node createNode(ConfigResult prop, String name) {
         try {
 
-            NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
+            NEFGroupFactory ef = new NEFGroupFactoryImpl();
             Integer numOfNeurons = (Integer) prop.getValue(pNumOfNodes);
             Integer dimensions = (Integer) prop.getValue(pDim);
 
@@ -133,14 +133,14 @@ public class CNEFEnsemble extends CNode {
             }
 
             if (radius==null) {
-                NEFEnsemble ensemble = ef.make(name, numOfNeurons, dimensions);
+                NEFGroup ensemble = ef.make(name, numOfNeurons, dimensions);
                 return ensemble;
             } else {
                 float[] radii=new float[dimensions];
                 for (int i=0; i<dimensions; i++) {
                     radii[i]=radius.floatValue();
                 }
-                NEFEnsemble ensemble = ef.make(name, numOfNeurons, radii);
+                NEFGroup ensemble = ef.make(name, numOfNeurons, radii);
                 return ensemble;
             }
         } catch (StructuralException e) {
@@ -162,7 +162,7 @@ public class CNEFEnsemble extends CNode {
     }
 
     public String getTypeName() {
-        return UINEFEnsemble.typeName;
+        return UINEFGroup.typeName;
     }
 
 }

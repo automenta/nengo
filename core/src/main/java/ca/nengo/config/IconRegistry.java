@@ -103,7 +103,7 @@ public class IconRegistry {
 
 			ourInstance.setIcon(Neuron.class, "/ca/nengo/config/ui/neuron.jpg");
 			ourInstance.setIcon(Network.class, "/ca/nengo/config/ui/network.jpg");
-			ourInstance.setIcon(Ensemble.class, "/ca/nengo/config/ui/ensemble2.jpg");
+			ourInstance.setIcon(Group.class, "/ca/nengo/config/ui/ensemble2.jpg");
 			ourInstance.setIcon(Node.class, "/ca/nengo/config/ui/node.jpg");
 			ourInstance.setIcon(SynapticIntegrator.class, "/ca/nengo/config/ui/synintegrator3.jpg");
 		}

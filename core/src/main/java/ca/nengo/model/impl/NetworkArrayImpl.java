@@ -31,7 +31,7 @@ import ca.nengo.math.Function;
 import ca.nengo.model.*;
 import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.model.nef.impl.DecodedTermination;
-import ca.nengo.model.nef.impl.NEFEnsembleImpl;
+import ca.nengo.model.nef.impl.NEFGroupImpl;
 import ca.nengo.model.plasticity.impl.PESTermination;
 import ca.nengo.util.MU;
 import ca.nengo.util.TimeSeries;
@@ -59,7 +59,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 	private int myDimension;
 	private final int[] myNodeDimensions;
 	
-	private NEFEnsembleImpl[] myNodes;
+	private NEFGroupImpl[] myNodes;
 	private Map<String, Origin> myOrigins;
 	private int myNeurons;
 
@@ -85,7 +85,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * @param nodes The ca.nengo.model.nef.NEFEnsemble nodes to combine together
 	 * @throws StructuralException
 	 */
-	public NetworkArrayImpl(String name, NEFEnsembleImpl[] nodes) throws StructuralException {
+	public NetworkArrayImpl(String name, NEFGroupImpl[] nodes) throws StructuralException {
 		super();
 		
 		this.setName(name);
@@ -230,7 +230,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 			terminations[i] = myNodes[i].addTermination(name, matrix, tauPSC, modulatory);
 		}
 		
-		exposeTermination(new EnsembleTermination(this, name, terminations), name);
+		exposeTermination(new GroupTermination(this, name, terminations), name);
 		return getTermination(name);
 	}
 	
@@ -264,7 +264,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 			terminations[i] = myNodes[i].addTermination(name, weights[i], tauPSC, modulatory);
 		}
 		
-		exposeTermination(new EnsembleTermination(this, name, terminations), name);
+		exposeTermination(new GroupTermination(this, name, terminations), name);
 		return getTermination(name);
 	}
 
@@ -303,7 +303,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 			dimCount += myNodeDimensions[i];
 		}
 		
-		exposeTermination(new EnsembleTermination(this, name, terminations), name);
+		exposeTermination(new GroupTermination(this, name, terminations), name);
 		return getTermination(name);
 	}	
 	
@@ -360,7 +360,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 			}
 		}
 		
-		EnsembleTermination term = new EnsembleTermination(this, name, terminations.toArray(new Termination[terminations.size()]));
+		GroupTermination term = new GroupTermination(this, name, terminations.toArray(new Termination[terminations.size()]));
 		exposeTermination(term,name);
 		return getTermination(name);
 	}
@@ -393,18 +393,18 @@ public class NetworkArrayImpl extends NetworkImpl {
 		Termination[] terminations = super.getTerminations();
 		ArrayList<Termination> decodedTerminations = new ArrayList<Termination>();
 		ArrayList<Termination> nonDecodedTerminations = new ArrayList<Termination>();
-		EnsembleTermination baseTermination;
+		GroupTermination baseTermination;
 		for(int i=0; i < terminations.length; i++) {
 			if(terminations[i] instanceof NetworkImpl.TerminationWrapper)
-				baseTermination = (EnsembleTermination)((NetworkImpl.TerminationWrapper)terminations[i]).getBaseTermination();
+				baseTermination = (GroupTermination)((NetworkImpl.TerminationWrapper)terminations[i]).getBaseTermination();
 			else
-				baseTermination = (EnsembleTermination)terminations[i];
+				baseTermination = (GroupTermination)terminations[i];
 			
 			Termination[] nodeTerminations = baseTermination.getNodeTerminations();
 			if(nodeTerminations != null) {
 				if(nodeTerminations[0] instanceof DecodedTermination)
 					decodedTerminations.add(terminations[i]);
-				else if(nodeTerminations[0] instanceof EnsembleTermination)
+				else if(nodeTerminations[0] instanceof GroupTermination)
 					nonDecodedTerminations.add(terminations[i]);
 			}
 		}
@@ -450,7 +450,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 			d += myNodes[i].getDimension();
 		}
 		
-		exposeTermination(new EnsembleTermination(this, name, terminations), name);
+		exposeTermination(new GroupTermination(this, name, terminations), name);
 		return getTermination(name);
 	}
 	
@@ -464,7 +464,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 	}
 	
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsemble#getDimension()
+	 * @see ca.nengo.model.nef.NEFGroup#getDimension()
 	 */
 	public int getDimension() {
 		return myDimension;
@@ -585,9 +585,9 @@ public class NetworkArrayImpl extends NetworkImpl {
 			NetworkArrayImpl result = (NetworkArrayImpl) super.clone();
 			
 			// Clone node references
-			result.myNodes = new NEFEnsembleImpl[myNodes.length];
+			result.myNodes = new NEFGroupImpl[myNodes.length];
 			for (int i = 0; i < myNodes.length; i++) {
-				result.myNodes[i] = (NEFEnsembleImpl) result.getNode(myNodes[i].getName());
+				result.myNodes[i] = (NEFGroupImpl) result.getNode(myNodes[i].getName());
 			}
 			
 			// Clone array origins and ensemble terminations

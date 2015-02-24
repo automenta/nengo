@@ -1,11 +1,11 @@
-package ca.nengo.ui.lib.Style;
+package ca.nengo.ui.lib.style;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import java.awt.*;
 
 /**
- * Style constants used by NEO Graphics
+ * style constants used by NEO Graphics
  * 
  * @author Shu Wu
  */

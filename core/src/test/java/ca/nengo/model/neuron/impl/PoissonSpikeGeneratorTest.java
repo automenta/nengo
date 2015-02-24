@@ -8,9 +8,9 @@ import ca.nengo.math.impl.SineFunction;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
 import ca.nengo.model.neuron.impl.PoissonSpikeGenerator.LinearNeuronFactory;
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.MU;
@@ -79,11 +79,11 @@ public class PoissonSpikeGeneratorTest extends TestCase {
 
         //      SigmoidNeuronFactory snf = new SigmoidNeuronFactory(new IndicatorPDF(-10, 10), new IndicatorPDF(-1, 1), new IndicatorPDF(100, 200));
         LinearNeuronFactory lnf = new LinearNeuronFactory(new IndicatorPDF(200, 400), new IndicatorPDF(-1, 1), true);
-        NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
+        NEFGroupFactory ef = new NEFGroupFactoryImpl();
         ef.setNodeFactory(lnf);
 
         try {
-            NEFEnsemble ensemble = ef.make("test", 20, 1);
+            NEFGroup ensemble = ef.make("test", 20, 1);
             ensemble.addDecodedTermination("input", MU.I(1), .01f, false);
             Plotter.plot(ensemble);
 

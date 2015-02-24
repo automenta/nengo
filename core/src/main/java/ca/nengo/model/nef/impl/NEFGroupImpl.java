@@ -39,8 +39,8 @@ import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.math.impl.WeightedCostApproximator;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.NodeFactory;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
 import ca.nengo.model.nef.NEFNode;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.impl.LIFNeuronFactory;
@@ -63,7 +63,7 @@ import java.util.*;
  *
  * @author Bryan Tripp
  */
-public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsemble {
+public class NEFGroupImpl extends DecodableGroupImpl implements NEFGroup {
 
 	//private static Logger ourLogger = Logger.getLogger(NEFEnsembleImpl.class);
 
@@ -94,7 +94,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	private Integrator myDirectModeIntegrator;
 	private List<SimulationMode> myFixedModes;
 
-	private NEFEnsembleFactory myEnsembleFactory;
+	private NEFGroupFactory myEnsembleFactory;
 
 	private boolean myUseGPU;
 
@@ -108,7 +108,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	 * @throws StructuralException if there are a different number of Nodes than encoding vectors or if not
 	 * 		all encoders have the same length
 	 */
-	public NEFEnsembleImpl(String name, NEFNode[] nodes, float[][] encoders, ApproximatorFactory factory, float[][] evalPoints, float[] radii)
+	public NEFGroupImpl(String name, NEFNode[] nodes, float[][] encoders, ApproximatorFactory factory, float[][] evalPoints, float[] radii)
 			throws StructuralException {
 
 		super(name, nodes, factory);
@@ -138,7 +138,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsemble#getRadii()
+	 * @see ca.nengo.model.nef.NEFGroup#getRadii()
 	 */
     public float[] getRadii() {
 		return myRadii.clone();
@@ -210,7 +210,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 		for (Origin origin2 : origins) {
 			if (origin2 instanceof DecodedOrigin) {
 				DecodedOrigin origin=((DecodedOrigin) origin2);
-				if (oldRadii!=null && origin.getName().equals(NEFEnsemble.X)) {
+				if (oldRadii!=null && origin.getName().equals(NEFGroup.X)) {
 					// Just rescale the X origin
 					float scale[]=new float[radii.length];
 					for (int j=0; j<radii.length; j++) {
@@ -449,7 +449,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsemble#getDimension()
+	 * @see ca.nengo.model.nef.NEFGroup#getDimension()
 	 */
     @Override
     public int getDimension() {
@@ -457,7 +457,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsemble#getEncoders()
+	 * @see ca.nengo.model.nef.NEFGroup#getEncoders()
 	 */
     public float[][] getEncoders() {
 		return MU.clone(myEncoders);
@@ -489,7 +489,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsemble#addDecodedOrigin(java.lang.String, Function[], String)
+	 * @see ca.nengo.model.nef.NEFGroup#addDecodedOrigin(java.lang.String, Function[], String)
 	 */
     public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin) throws StructuralException {
 		if (!myReuseApproximators || !myDecodingApproximators.containsKey(nodeOrigin)) {
@@ -541,7 +541,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
     }
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsemble#addBiasOrigin(ca.nengo.model.Origin, int, java.lang.String, boolean)
+	 * @see ca.nengo.model.nef.NEFGroup#addBiasOrigin(ca.nengo.model.Origin, int, java.lang.String, boolean)
 	 */
     public BiasOrigin addBiasOrigin(Origin existing, int numInterneurons, String name, boolean excitatory) throws StructuralException {
 		if ( !(existing instanceof DecodedOrigin) ) {
@@ -608,7 +608,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
             components[i] = myExpandableNodes[i].addTermination(name, new float[][]{weights[i]}, tauPSC, modulatory);
         }
 
-        PlasticEnsembleTermination result;
+        PlasticGroupTermination result;
 
         // Make sure that the components are plastic, otherwise make a non-plastic termination
         if (isPopulationPlastic(components)) {
@@ -676,7 +676,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
             components[i] = myExpandableNodes[i].addTermination(name, new float[][]{weights[i]}, tauPSC, modulatory);
         }
 
-        PlasticEnsembleTermination result;
+        PlasticGroupTermination result;
 
         // Make sure that the components are plastic, otherwise make a non-plastic termination
         if (isPopulationPlastic(components)) {
@@ -744,7 +744,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
             components[i] = myExpandableNodes[i].addTermination(name, new float[][]{weights[i]}, tauPSC, modulatory);
         }
 
-        PlasticEnsembleTermination result;
+        PlasticGroupTermination result;
 
         // Make sure that the components are plastic, otherwise make a non-plastic termination
         if (isPopulationPlastic(components)) {
@@ -801,7 +801,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
             components[i] = myExpandableNodes[i].addTermination(name, new float[][]{weights[i]}, tauPSC, modulatory);
         }
 
-        PlasticEnsembleTermination result;
+        PlasticGroupTermination result;
 
         // Make sure that the components are plastic, otherwise make a non-plastic termination
         if (isPopulationPlastic(components)) {
@@ -842,7 +842,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsemble#addBiasTerminations(ca.nengo.model.nef.impl.DecodedTermination, float, float[][], float[][])
+	 * @see ca.nengo.model.nef.NEFGroup#addBiasTerminations(ca.nengo.model.nef.impl.DecodedTermination, float, float[][], float[][])
 	 */
     public BiasTermination[] addBiasTerminations(DecodedTermination baseTermination, float interneuronTauPSC, float[][] biasDecoders, float[][] functionDecoders) throws StructuralException {
 		float[][] transform = baseTermination.getTransform();
@@ -894,7 +894,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#run(float, float)
+	 * @see ca.nengo.model.Group#run(float, float)
 	 */
 	@Override
     public void run(float startTime, float endTime) throws SimulationException {
@@ -987,7 +987,7 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#setMode(ca.nengo.model.SimulationMode)
+	 * @see ca.nengo.model.Group#setMode(ca.nengo.model.SimulationMode)
 	 */
 	@Override
     public void setMode(SimulationMode mode) {
@@ -1033,11 +1033,11 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
 		}
 	}
 
-    public void setEnsembleFactory(NEFEnsembleFactory factory) {
+    public void setEnsembleFactory(NEFGroupFactory factory) {
 		myEnsembleFactory=factory;
 	}
 
-    public NEFEnsembleFactory getEnsembleFactory() {
+    public NEFGroupFactory getEnsembleFactory() {
 		return myEnsembleFactory;
 	}
     
@@ -1163,8 +1163,8 @@ public class NEFEnsembleImpl extends DecodableEnsembleImpl implements NEFEnsembl
     }
 
 	@Override
-    public NEFEnsembleImpl clone() throws CloneNotSupportedException {
-		NEFEnsembleImpl result = (NEFEnsembleImpl) super.clone();
+    public NEFGroupImpl clone() throws CloneNotSupportedException {
+		NEFGroupImpl result = (NEFGroupImpl) super.clone();
 
 		result.myEncoders = MU.clone(myEncoders);
 

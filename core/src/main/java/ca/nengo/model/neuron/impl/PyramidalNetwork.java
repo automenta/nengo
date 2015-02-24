@@ -6,12 +6,12 @@ import ca.nengo.math.Function;
 import ca.nengo.math.impl.DefaultFunctionInterpreter;
 import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.model.*;
-import ca.nengo.model.impl.EnsembleImpl;
+import ca.nengo.model.impl.GroupImpl;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.impl.NodeFactory;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
-import ca.nengo.model.nef.impl.NEFEnsembleImpl;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
+import ca.nengo.model.nef.impl.NEFGroupImpl;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
@@ -42,9 +42,9 @@ public class PyramidalNetwork extends NetworkImpl
     private int size;//number of non linear "neurons"
     private int subUnitNum; //number of dendrites per non linear neuron
     private float[][] somaEncoders; //encoders of the somatic ensemble
-    private NEFEnsemble[] Dendrites;//dendritic trees
-    private NEFEnsemble transfer; //transfer ensemble to send values from outside the network to each dendritic tree in the network
-    private NEFEnsemble soma; //cell bodies
+    private NEFGroup[] Dendrites;//dendritic trees
+    private NEFGroup transfer; //transfer ensemble to send values from outside the network to each dendritic tree in the network
+    private NEFGroup soma; //cell bodies
     private float[][] myRange;
     private float[] myRadii;
     private IndicatorPDF myDendriteCount; //Range of subunit(dendrite) sizes
@@ -218,7 +218,7 @@ public class PyramidalNetwork extends NetworkImpl
      * @param index index number of dendritic tree
      * @return Dendritic ensemble at given index number
      */
-    public NEFEnsemble getDendrites(int index) {
+    public NEFGroup getDendrites(int index) {
         return this.Dendrites[index];
     }
 
@@ -349,8 +349,8 @@ public class PyramidalNetwork extends NetworkImpl
      * @throws StructuralException
      */
     private void createDendrites() throws StructuralException {
-        NEFEnsemble[] e = new NEFEnsemble[this.size];
-        NEFEnsembleFactoryImpl f = new NEFEnsembleFactoryImpl();
+        NEFGroup[] e = new NEFGroup[this.size];
+        NEFGroupFactoryImpl f = new NEFGroupFactoryImpl();
         NodeFactory g = null;
         int i = 0;
         float[][] w = MU.I(this.dim); //Identity Matrix transform for the termination on each dendritic ensemble
@@ -405,8 +405,8 @@ public class PyramidalNetwork extends NetworkImpl
 
             //if a function is being computed, the radius and encoders are different than they normally would be
             if (this.myConnectedOrigin != "X") {
-                ((NEFEnsembleImpl)e[i]).setEncoders(this.setDendriteEncoders(newSize));
-                ((NEFEnsembleImpl)e[i]).setRadii(this.myRadii);
+                ((NEFGroupImpl)e[i]).setEncoders(this.setDendriteEncoders(newSize));
+                ((NEFGroupImpl)e[i]).setRadii(this.myRadii);
             }
 
             if (this.LIFDendrites == true && this.spikingLIFDendrites == true) {
@@ -431,8 +431,8 @@ public class PyramidalNetwork extends NetworkImpl
      */
     private void createTransferEnsemble() throws StructuralException
     {
-        NEFEnsemble e;
-        NEFEnsembleFactoryImpl f = new NEFEnsembleFactoryImpl();
+        NEFGroup e;
+        NEFGroupFactoryImpl f = new NEFGroupFactoryImpl();
         NodeFactory g = new LIFNeuronFactory();
         int i = 0;
         int currentDim = 0;
@@ -544,7 +544,7 @@ public class PyramidalNetwork extends NetworkImpl
 
         while (i<this.size)
         {
-            ((EnsembleImpl)this.soma).addTermination("d"+i, solveEncoders(i), (float) 0.007, false);
+            ((GroupImpl)this.soma).addTermination("d"+i, solveEncoders(i), (float) 0.007, false);
             i = i +1;
         }
 
@@ -634,7 +634,7 @@ public class PyramidalNetwork extends NetworkImpl
      *
      * @return Soma ensemble
      */
-    public NEFEnsemble getSoma()
+    public NEFGroup getSoma()
     {
         return this.soma;
     }
@@ -645,8 +645,8 @@ public class PyramidalNetwork extends NetworkImpl
      */
     private void createSoma() throws StructuralException
     {
-        NEFEnsemble e;
-        NEFEnsembleFactoryImpl f = new NEFEnsembleFactoryImpl();
+        NEFGroup e;
+        NEFGroupFactoryImpl f = new NEFGroupFactoryImpl();
         NodeFactory g;
 
         //Originally a sigmoid function was given for the soma in the Poirazi et al. article as well.

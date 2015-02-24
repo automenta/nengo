@@ -28,8 +28,8 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.model.impl;
 
 import ca.nengo.model.*;
-import ca.nengo.model.nef.impl.DecodableEnsembleImpl;
-import ca.nengo.model.nef.impl.NEFEnsembleImpl;
+import ca.nengo.model.nef.impl.DecodableGroupImpl;
+import ca.nengo.model.nef.impl.NEFGroupImpl;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.sim.Simulator;
 import ca.nengo.sim.impl.LocalSimulator;
@@ -162,8 +162,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 			for(int i = 0; i < nodes.length; i++){
 				Node workingNode = nodes[i];
 				
-				if(workingNode instanceof DecodableEnsembleImpl){
-					((DecodableEnsembleImpl) workingNode).setTime(time);
+				if(workingNode instanceof DecodableGroupImpl){
+					((DecodableGroupImpl) workingNode).setTime(time);
 				}else if(workingNode instanceof NetworkImpl){
 					((NetworkImpl) workingNode).setTime(time);
 				}
@@ -198,8 +198,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 		{
 			if(node instanceof NetworkImpl)
 				count += ((NetworkImpl)node).countNeurons();
-			else if(node instanceof Ensemble)
-				count += ((Ensemble)node).getNodes().length;
+			else if(node instanceof Group)
+				count += ((Group)node).getNodes().length;
 			else if(node instanceof Neuron)
 				count += 1;
 		}
@@ -229,8 +229,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 		for (Node node : nodes) {
 			if(node instanceof NetworkImpl) {
                 ((NetworkImpl)node).killNeurons(killrate, saveRelays);
-            } else if(node instanceof NEFEnsembleImpl) {
-                ((NEFEnsembleImpl)node).killNeurons(killrate, saveRelays);
+            } else if(node instanceof NEFGroupImpl) {
+                ((NEFGroupImpl)node).killNeurons(killrate, saveRelays);
             }
 		}
 
@@ -351,8 +351,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 		for (Node node : nodes) {
 			if(node instanceof NetworkImpl) {
                 neuron_count += ((NetworkImpl)node).getNeuronCount();
-            } else if(node instanceof NEFEnsembleImpl) {
-                neuron_count += ((NEFEnsembleImpl)node).getNeuronCount();
+            } else if(node instanceof NEFGroupImpl) {
+                neuron_count += ((NEFGroupImpl)node).getNeuronCount();
             }
 		}
 
@@ -387,9 +387,9 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
                     net.removeNode(node2.getName());
                 }
 			}
-			else if(node instanceof DecodableEnsembleImpl)
+			else if(node instanceof DecodableGroupImpl)
 			{
-				NEFEnsembleImpl pop = (NEFEnsembleImpl)node;
+				NEFGroupImpl pop = (NEFGroupImpl)node;
 				Origin[] origins = pop.getOrigins();
 				for (Origin origin : origins) {
 					String exposedName = getExposedOriginName(origin);
@@ -570,8 +570,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 		Node[] nodes = getNodes();
 
 		for (Node workingNode : nodes) {
-			if(workingNode instanceof NEFEnsembleImpl) {
-				((NEFEnsembleImpl) workingNode).setUseGPU(use);
+			if(workingNode instanceof NEFGroupImpl) {
+				((NEFGroupImpl) workingNode).setUseGPU(use);
 			} else if(workingNode instanceof NetworkImpl) {
 				((NetworkImpl) workingNode).setUseGPU(use);
 			}
@@ -585,8 +585,8 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 		Node[] nodes = getNodes();
 
 		for (Node workingNode : nodes) {
-			if(workingNode instanceof NEFEnsembleImpl) {
-				if(!((NEFEnsembleImpl) workingNode).getUseGPU()){
+			if(workingNode instanceof NEFGroupImpl) {
+				if(!((NEFGroupImpl) workingNode).getUseGPU()){
 					return false;
 				}
 			} else if(workingNode instanceof NetworkImpl) {
@@ -1220,10 +1220,10 @@ public class NetworkImpl implements Network, VisiblyMutable, VisiblyMutable.List
 				Node oldNode = (Node) target;
 				if (oldProbe.isInEnsemble()) {
 					try {
-						Ensemble oldEnsemble = (Ensemble) getNode(oldProbe.getEnsembleName());
+						Group oldGroup = (Group) getNode(oldProbe.getEnsembleName());
 						int neuronIndex = -1;
-						for (int j = 0; j < oldEnsemble.getNodes().length && neuronIndex < 0; j++) {
-							if (oldNode == oldEnsemble.getNodes()[j]) {
+						for (int j = 0; j < oldGroup.getNodes().length && neuronIndex < 0; j++) {
+							if (oldNode == oldGroup.getNodes()[j]) {
                                 neuronIndex = j;
                             }
 						}

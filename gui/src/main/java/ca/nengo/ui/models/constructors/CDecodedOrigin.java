@@ -31,7 +31,7 @@ package ca.nengo.ui.models.constructors;
 import ca.nengo.math.Function;
 import ca.nengo.model.Origin;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PFunctionArray;
 import ca.nengo.ui.configurable.descriptors.PString;
@@ -42,13 +42,13 @@ import javax.swing.*;
 public class CDecodedOrigin extends ProjectionConstructor {
 	private static final Property pName = new PString("Name");
 
-	private final NEFEnsemble enfEnsembleParent;
+	private final NEFGroup enfEnsembleParent;
 
 	private Property pFunctions;
 
 	//private Property pNodeOrigin;
 
-	public CDecodedOrigin(NEFEnsemble enfEnsembleParent) {
+	public CDecodedOrigin(NEFGroup enfEnsembleParent) {
 		super();
 		this.enfEnsembleParent = enfEnsembleParent;
 		pName.setDescription("Name of the origin");

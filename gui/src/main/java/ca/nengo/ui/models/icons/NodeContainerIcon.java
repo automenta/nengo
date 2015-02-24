@@ -25,7 +25,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.models.icons;
 
 import ca.nengo.model.SimulationMode;
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.world.WorldObject;
 import ca.nengo.ui.lib.world.piccolo.primitives.Text;
 import ca.nengo.ui.models.nodes.UINodeViewable;

@@ -26,7 +26,7 @@ package ca.nengo.ui.models.constructors;
 
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.Termination;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PBoolean;
 import ca.nengo.ui.configurable.descriptors.PFloat;
@@ -37,11 +37,11 @@ public class CDecodedTermination extends ProjectionConstructor {
 	private static final Property pIsModulatory = new PBoolean("Is Modulatory");
 
 	private static final Property pTauPSC = new PFloat("tauPSC [s]","Synaptic time constant, in seconds");
-	private final NEFEnsemble nefEnsembleParent;
+	private final NEFGroup nefEnsembleParent;
 
 	private Property pTransformMatrix;
 
-	public CDecodedTermination(NEFEnsemble nefEnsembleParent) {
+	public CDecodedTermination(NEFGroup nefEnsembleParent) {
 		super();
 		this.nefEnsembleParent = nefEnsembleParent;
 	}

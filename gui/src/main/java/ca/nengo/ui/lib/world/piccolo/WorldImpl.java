@@ -3,7 +3,7 @@ package ca.nengo.ui.lib.world.piccolo;
 
 import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.actions.PasteAction;
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.RemoveObjectsAction;
 import ca.nengo.ui.lib.actions.StandardAction;

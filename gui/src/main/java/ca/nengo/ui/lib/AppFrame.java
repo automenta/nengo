@@ -119,7 +119,7 @@ public abstract class AppFrame extends JFrame implements ApplicationListener {
     private void initMenu() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBorder(null);
-        //Style.applyMenuStyle(menuBar, true);
+        //style.applyMenuStyle(menuBar, true);
 
         MenuBuilder fileMenu = new MenuBuilder("File");
         fileMenu.getJMenu().setMnemonic(KeyEvent.VK_F);

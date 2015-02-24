@@ -2,7 +2,7 @@ package ca.nengo.ui.lib.world.handlers;
 
 
 import ca.nengo.ui.AbstractNengo;
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.lib.world.Interactable;
 import ca.nengo.ui.lib.world.WorldObject;

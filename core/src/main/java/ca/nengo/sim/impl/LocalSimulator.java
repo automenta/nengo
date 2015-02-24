@@ -31,7 +31,7 @@ package ca.nengo.sim.impl;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.impl.SocketUDPNode;
-import ca.nengo.model.plasticity.impl.PlasticEnsembleTermination;
+import ca.nengo.model.plasticity.impl.PlasticGroupTermination;
 import ca.nengo.sim.Simulator;
 import ca.nengo.sim.SimulatorEvent;
 import ca.nengo.sim.SimulatorListener;
@@ -288,8 +288,8 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
             for (Node myNode : myNodes) {
                 terms = myNode.getTerminations();
                 for (Termination term : terms) {
-                    if (term instanceof PlasticEnsembleTermination) {
-                        ((PlasticEnsembleTermination) term).saveTransform();
+                    if (term instanceof PlasticGroupTermination) {
+                        ((PlasticGroupTermination) term).saveTransform();
                     }
                 }
             }
@@ -388,11 +388,11 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
             throw new SimulationException("The named Ensemble does not exist");
         }
 
-        if (!(ensemble instanceof Ensemble)) {
+        if (!(ensemble instanceof Group)) {
             throw new SimulationException("The named Node is not an Ensemble");
         }
 
-        Node[] nodes = ((Ensemble) ensemble).getNodes();
+        Node[] nodes = ((Group) ensemble).getNodes();
         if (index < 0 || index >= nodes.length) {
             throw new SimulationException("The Node index " + index
                     + " is out of range for Ensemble size " + nodes.length);

@@ -29,7 +29,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.ui.configurable.matrixEditor;
 
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;

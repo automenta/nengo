@@ -29,7 +29,7 @@
  */
 package ca.nengo.ui.lib.world.piccolo.primitives;
 
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import org.piccolo2d.util.PPaintContext;
 
 import java.awt.*;

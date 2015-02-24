@@ -8,7 +8,7 @@ import ca.nengo.model.Termination;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.impl.NetworkImpl.OriginWrapper;
 import ca.nengo.model.impl.NetworkImpl.TerminationWrapper;
-import ca.nengo.model.nef.impl.NEFEnsembleImpl;
+import ca.nengo.model.nef.impl.NEFGroupImpl;
 import org.jgrapht.Graph;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -808,8 +808,8 @@ public class MultiLevelKLNetworkPartitioner implements NetworkPartitioner {
 			
 			if(myNode instanceof NetworkImpl){
 				myWeight += ((NetworkImpl) node).getNeuronCount();
-			}else if(myNode instanceof NEFEnsembleImpl){
-				myWeight += ((NEFEnsembleImpl) node).getNeuronCount();
+			}else if(myNode instanceof NEFGroupImpl){
+				myWeight += ((NEFGroupImpl) node).getNeuronCount();
 			}
 		}
 		

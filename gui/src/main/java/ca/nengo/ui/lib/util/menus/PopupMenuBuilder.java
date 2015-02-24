@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.util.menus;
 
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.actions.StandardAction;
 
 import javax.swing.*;
@@ -77,7 +77,7 @@ public class PopupMenuBuilder extends AbstractMenuBuilder {
 	 * Creates a new section in the Popup menu
 	 * 
 	 * @param name The name of the new section
-	 * @param fontStyle Style of font for the subsection label
+	 * @param fontStyle style of font for the subsection label
 	 */
 	public void addSection(String name, Font fontStyle) {
 		if (isFirstSection) {

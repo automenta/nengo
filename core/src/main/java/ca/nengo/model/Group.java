@@ -72,7 +72,7 @@ import ca.nengo.util.SpikePattern;
  *
  * @author Bryan Tripp
  */
-public interface Ensemble extends Node {
+public interface Group extends Node {
 
 	/**
 	 * @return Nodes that make up the Ensemble

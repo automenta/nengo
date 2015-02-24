@@ -7,9 +7,9 @@ import ca.nengo.model.Network;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
 import ca.nengo.util.Probe;
 import junit.framework.TestCase;
 
@@ -29,8 +29,8 @@ public class WriteToDiskSimulatorListenerTest extends TestCase {
 	 */
 	public void testBasicWriting() throws StructuralException, SimulationException {
 		Network network = new NetworkImpl();
-		NEFEnsembleFactory factory = new NEFEnsembleFactoryImpl();
-		NEFEnsemble ensemble = factory.make("Ensemble",100,2);
+		NEFGroupFactory factory = new NEFGroupFactoryImpl();
+		NEFGroup ensemble = factory.make("Ensemble",100,2);
 		File file = new File("testWTDSL.csv");
 		
 		network.addNode(ensemble);
@@ -51,8 +51,8 @@ public class WriteToDiskSimulatorListenerTest extends TestCase {
 	 */
 	public void testInterval() throws StructuralException, SimulationException, FileNotFoundException {
 		Network network = new NetworkImpl();
-		NEFEnsembleFactory factory = new NEFEnsembleFactoryImpl();
-		NEFEnsemble ensemble = factory.make("Ensemble",100,2);
+		NEFGroupFactory factory = new NEFGroupFactoryImpl();
+		NEFGroup ensemble = factory.make("Ensemble",100,2);
 		File file = new File("testWTDSL.csv");
 		
 		network.addNode(ensemble);

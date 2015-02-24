@@ -38,7 +38,7 @@ import ca.nengo.model.*;
  *   
  * @author Bryan Tripp
  */
-public class EnsembleOrigin implements Origin {
+public class GroupOrigin implements Origin {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -54,7 +54,7 @@ public class EnsembleOrigin implements Origin {
 	 * 		Origin. Each of these is expected to have dimension 1, but this is not enforced. 
 	 * 		Other dimensions are ignored. 
 	 */
-	public EnsembleOrigin(Node node, String name, Origin[] nodeOrigins) {
+	public GroupOrigin(Node node, String name, Origin[] nodeOrigins) {
 		myNode = node;
 		myNodeOrigins = nodeOrigins;
 		myName = name;
@@ -189,25 +189,25 @@ public class EnsembleOrigin implements Origin {
 	 * access to here.   
 	 */
 	@Override
-	public EnsembleOrigin clone() throws CloneNotSupportedException {
+	public GroupOrigin clone() throws CloneNotSupportedException {
 		return this.clone(myNode);
 	}
 	
-	public EnsembleOrigin clone(Node node) throws CloneNotSupportedException {
-		if (!(node instanceof Ensemble) && !(node instanceof Network)) {
+	public GroupOrigin clone(Node node) throws CloneNotSupportedException {
+		if (!(node instanceof Group) && !(node instanceof Network)) {
 			throw new CloneNotSupportedException("Error cloning EnsembleOrigin: Invalid node type");
 		}
 		
 		try {
-			EnsembleOrigin result = (EnsembleOrigin) super.clone();
+			GroupOrigin result = (GroupOrigin) super.clone();
 			result.myNode = node;
 			
 			// get origins for nodes in new ensemble
 			Origin[] origins = new Origin[myNodeOrigins.length];
-			if (node instanceof Ensemble) {
-				Ensemble ensemble = (Ensemble)node;
+			if (node instanceof Group) {
+				Group group = (Group)node;
 				for (int i = 0; i < myNodeOrigins.length; i++)
-					origins[i] = ensemble.getNodes()[i].getOrigin(myNodeOrigins[i].getName());
+					origins[i] = group.getNodes()[i].getOrigin(myNodeOrigins[i].getName());
 			}
 			if (node instanceof Network) {
 				Network network = (Network)node;

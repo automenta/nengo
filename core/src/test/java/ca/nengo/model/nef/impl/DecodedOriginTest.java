@@ -3,7 +3,7 @@
  */
 package ca.nengo.model.nef.impl;
 
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.util.MU;
 import junit.framework.TestCase;
 
@@ -31,9 +31,9 @@ public class DecodedOriginTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsemble ensemble = ef.make("test", 100, 1);
-		myOrigin = (DecodedOrigin) ensemble.getOrigin(NEFEnsemble.X);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroup ensemble = ef.make("test", 100, 1);
+		myOrigin = (DecodedOrigin) ensemble.getOrigin(NEFGroup.X);
 //		Plotter.plot(ensemble, NEFEnsemble.X);
 	}
 

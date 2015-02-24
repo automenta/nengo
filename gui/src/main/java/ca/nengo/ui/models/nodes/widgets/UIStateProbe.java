@@ -35,9 +35,9 @@ import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.menus.MenuBuilder;
 import ca.nengo.ui.lib.util.menus.PopupMenuBuilder;
 import ca.nengo.ui.models.UINeoNode;
-import ca.nengo.ui.models.nodes.UIEnsemble;
+import ca.nengo.ui.models.nodes.UIGroup;
 import ca.nengo.ui.models.tooltips.TooltipBuilder;
-import ca.nengo.ui.models.viewers.EnsembleViewer;
+import ca.nengo.ui.models.viewers.GroupViewer;
 import ca.nengo.util.Probe;
 
 import javax.swing.*;
@@ -63,10 +63,10 @@ public class UIStateProbe extends UIProbe {
 		Node node = nodeAttachedTo.getModel();
 		Probe probe;
 		try {
-			if (nodeAttachedTo.getParentViewer() instanceof EnsembleViewer) {
-				EnsembleViewer ensembleViewer = (EnsembleViewer) nodeAttachedTo.getParentViewer();
+			if (nodeAttachedTo.getParentViewer() instanceof GroupViewer) {
+				GroupViewer groupViewer = (GroupViewer) nodeAttachedTo.getParentViewer();
 
-				UIEnsemble ensemble = ensembleViewer.getViewerParent();
+				UIGroup ensemble = groupViewer.getViewerParent();
 				Network network = ensemble.getNetworkParent().getModel();
 
 				probe = network.getSimulator().addProbe(ensemble.getName(),
@@ -139,7 +139,7 @@ public class UIStateProbe extends UIProbe {
 			
 			Probe model = getModel();
 			if(model.isInEnsemble()){
-				Ensemble target = (Ensemble) model.getTarget();
+				Group target = (Group) model.getTarget();
 				target.stopProbing(model.getStateName());
 			}
 		} catch (SimulationException e) {

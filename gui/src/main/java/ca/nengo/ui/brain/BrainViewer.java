@@ -132,7 +132,7 @@ class BrainImageWrapper extends WorldObjectImpl {
 
         layoutChildren();
         setBounds(parentToLocal(getFullBounds()));
-        // addChild(new Border(this, Style.COLOR_FOREGROUND));
+        // addChild(new Border(this, style.COLOR_FOREGROUND));
 
     }
 

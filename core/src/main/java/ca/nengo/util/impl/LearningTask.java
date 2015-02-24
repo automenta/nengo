@@ -2,8 +2,8 @@ package ca.nengo.util.impl;
 
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.plasticity.impl.PlasticEnsembleImpl;
-import ca.nengo.model.plasticity.impl.PlasticEnsembleTermination;
+import ca.nengo.model.plasticity.impl.PlasticGroupImpl;
+import ca.nengo.model.plasticity.impl.PlasticGroupTermination;
 import ca.nengo.util.ThreadTask;
 
 /**
@@ -17,8 +17,8 @@ import ca.nengo.util.ThreadTask;
 
 public class LearningTask implements ThreadTask {
 
-    private PlasticEnsembleImpl myParent;
-    private PlasticEnsembleTermination myTermination;
+    private PlasticGroupImpl myParent;
+    private PlasticGroupTermination myTermination;
 
     private final int startIdx;
     private final int endIdx;
@@ -30,7 +30,7 @@ public class LearningTask implements ThreadTask {
      * @param start Starting index for the set of terminations to learn on
      * @param end Ending index for the set of terminations to learn on
      */
-    public LearningTask(PlasticEnsembleImpl parent, PlasticEnsembleTermination termination, int start, int end) {
+    public LearningTask(PlasticGroupImpl parent, PlasticGroupTermination termination, int start, int end) {
         myParent = parent;
         myTermination = termination;
         startIdx = start;
@@ -61,7 +61,7 @@ public class LearningTask implements ThreadTask {
     /**
      * @see ca.nengo.util.ThreadTask#getParent()
      */
-    public PlasticEnsembleImpl getParent() {
+    public PlasticGroupImpl getParent() {
         return myParent;
     }
 
@@ -91,16 +91,16 @@ public class LearningTask implements ThreadTask {
         return this.clone(myParent, myTermination);
     }
     
-    public LearningTask clone(PlasticEnsembleImpl parent) 
+    public LearningTask clone(PlasticGroupImpl parent)
     throws CloneNotSupportedException {
     	try {
-    		return this.clone(parent, (PlasticEnsembleTermination)parent.getTermination(myTermination.getName()));
+    		return this.clone(parent, (PlasticGroupTermination)parent.getTermination(myTermination.getName()));
     	} catch (StructuralException e) {
     		throw new CloneNotSupportedException("Error cloning LearningTask: " + e.getMessage());
     	}
     }
     
-    public LearningTask clone(PlasticEnsembleImpl parent, PlasticEnsembleTermination term) 
+    public LearningTask clone(PlasticGroupImpl parent, PlasticGroupTermination term)
     throws CloneNotSupportedException {
     	LearningTask result = (LearningTask) super.clone();
     	result.myParent = parent;

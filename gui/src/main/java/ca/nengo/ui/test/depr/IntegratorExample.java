@@ -34,9 +34,9 @@ import ca.nengo.model.Termination;
 import ca.nengo.model.Units;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
 import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.models.nodes.UINetwork;
@@ -92,8 +92,8 @@ public class IntegratorExample {
 
 		// uiViewer.addNeoNode(uiInput);
 
-		NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
-		NEFEnsemble integrator = ef.make("integrator", 500, 1, "integrator1", false);
+		NEFGroupFactory ef = new NEFGroupFactoryImpl();
+		NEFGroup integrator = ef.make("integrator", 500, 1, "integrator1", false);
 		Termination interm = integrator.addDecodedTermination("input",
 				new float[][] { new float[] { tau } }, tau, false);
 		Termination fbterm = integrator.addDecodedTermination("feedback",
@@ -114,7 +114,7 @@ public class IntegratorExample {
 
 		network.addProjection(input.getOrigin(FunctionInput.ORIGIN_NAME), interm);
 		Thread.sleep(500);
-		network.addProjection(integrator.getOrigin(NEFEnsemble.X), fbterm);
+		network.addProjection(integrator.getOrigin(NEFGroup.X), fbterm);
 		Thread.sleep(500);
 
 		/*
@@ -129,7 +129,7 @@ public class IntegratorExample {
 		/*
 		 * Add probes
 		 */
-		Probe integratorXProbe = network.getSimulator().addProbe("integrator", NEFEnsemble.X, true);
+		Probe integratorXProbe = network.getSimulator().addProbe("integrator", NEFGroup.X, true);
 		Thread.sleep(500);
 		/*
 		 * Test adding removing probes
@@ -137,7 +137,7 @@ public class IntegratorExample {
 		network.getSimulator().removeProbe(integratorXProbe);
 		Thread.sleep(500);
 		// add the probe back
-		network.getSimulator().addProbe("integrator", NEFEnsemble.X, true);
+		network.getSimulator().addProbe("integrator", NEFGroup.X, true);
 		Thread.sleep(500);
 
 		SwingUtilities.invokeLater(new Runnable() {

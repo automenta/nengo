@@ -28,7 +28,7 @@ package ca.nengo.ui.configurable.managers;
 
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.configurable.PropertyInputPanel;
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.util.Util;
 
 import javax.swing.*;

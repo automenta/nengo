@@ -45,7 +45,7 @@ import ca.nengo.model.*;
  *
  * @author Bryan Tripp
  */
-public class EnsembleTermination implements Termination {
+public class GroupTermination implements Termination {
 
 	private static final long serialVersionUID = 1L;
 
@@ -59,7 +59,7 @@ public class EnsembleTermination implements Termination {
 	 * @param nodeTerminations Node-level Terminations that make up this Termination
 	 * @throws StructuralException If dimensions of different terminations are not all the same
 	 */
-	public EnsembleTermination(Node node, String name, Termination[] nodeTerminations) throws StructuralException {
+	public GroupTermination(Node node, String name, Termination[] nodeTerminations) throws StructuralException {
 		checkSameDimension(nodeTerminations, name);
 
 		myNode = node;
@@ -190,23 +190,23 @@ public class EnsembleTermination implements Termination {
 	}
 
 	@Override
-	public EnsembleTermination clone() throws CloneNotSupportedException {
+	public GroupTermination clone() throws CloneNotSupportedException {
 		return this.clone(myNode);
 	}
 	
-	public EnsembleTermination clone(Node node) throws CloneNotSupportedException {
-		EnsembleTermination result = (EnsembleTermination) super.clone();
+	public GroupTermination clone(Node node) throws CloneNotSupportedException {
+		GroupTermination result = (GroupTermination) super.clone();
 		result.myNode = node;
 		result.myName = myName;
 
 		// get terminations for nodes in new ensemble
 		result.myNodeTerminations = myNodeTerminations.clone();
-		if (node instanceof Ensemble || node instanceof Network) {
+		if (node instanceof Group || node instanceof Network) {
 			try {
-				if (node instanceof Ensemble) {
-					Ensemble ensemble = (Ensemble)node;
+				if (node instanceof Group) {
+					Group group = (Group)node;
 					for (int i = 0; i < result.myNodeTerminations.length; i++){
-						result.myNodeTerminations[i] = ensemble.getNodes()[i].getTermination(myNodeTerminations[i].getName());
+						result.myNodeTerminations[i] = group.getNodes()[i].getTermination(myNodeTerminations[i].getName());
 					}
 				}
 				if (node instanceof Network) {

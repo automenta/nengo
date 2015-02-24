@@ -37,8 +37,8 @@ import ca.nengo.model.Node;
 import ca.nengo.model.SimulationMode;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.impl.NodeFactory;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
 import ca.nengo.model.nef.NEFNode;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.impl.LIFNeuronFactory;
@@ -56,11 +56,11 @@ import java.io.IOException;
  *
  * @author Bryan Tripp
  */
-public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Serializable {
+public class NEFGroupFactoryImpl implements NEFGroupFactory, java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger ourLogger = Logger.getLogger(NEFEnsembleFactoryImpl.class);
+	private static final Logger ourLogger = Logger.getLogger(NEFGroupFactoryImpl.class);
 
 	private ApproximatorFactory myApproximatorFactory;
 	private VectorGenerator myEncoderFactory;
@@ -71,7 +71,7 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 	/**
 	 * Default constructor. Sets up factories.
 	 */
-	public NEFEnsembleFactoryImpl() {
+	public NEFGroupFactoryImpl() {
 		myApproximatorFactory = new WeightedCostApproximator.Factory(0.1f);
 		myEncoderFactory = new RandomHypersphereVG(true, 1f, 0f);
 		myEvalPointFactory = new RandomHypersphereVG(false, 1f, 0f);
@@ -79,28 +79,28 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#getApproximatorFactory()
+	 * @see ca.nengo.model.nef.NEFGroupFactory#getApproximatorFactory()
 	 */
 	public ApproximatorFactory getApproximatorFactory() {
 		return myApproximatorFactory;
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#getEncoderFactory()
+	 * @see ca.nengo.model.nef.NEFGroupFactory#getEncoderFactory()
 	 */
 	public VectorGenerator getEncoderFactory() {
 		return myEncoderFactory;
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#getEvalPointFactory()
+	 * @see ca.nengo.model.nef.NEFGroupFactory#getEvalPointFactory()
 	 */
 	public VectorGenerator getEvalPointFactory() {
 		return myEvalPointFactory;
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#getNodeFactory()
+	 * @see ca.nengo.model.nef.NEFGroupFactory#getNodeFactory()
 	 */
 	public NodeFactory getNodeFactory() {
 		return myNodeFactory;
@@ -118,34 +118,34 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#make(java.lang.String, int, int)
+	 * @see ca.nengo.model.nef.NEFGroupFactory#make(java.lang.String, int, int)
 	 */
-	public NEFEnsemble make(String name, int n, int dim) throws StructuralException {
+	public NEFGroup make(String name, int n, int dim) throws StructuralException {
 		float[] radii = MU.uniform(1, dim, 1)[0];
 		return doMake(name, n, radii, 0);
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#make(java.lang.String, int, float[])
+	 * @see ca.nengo.model.nef.NEFGroupFactory#make(java.lang.String, int, float[])
 	 */
-	public NEFEnsemble make(String name, int n, float[] radii) throws StructuralException {
+	public NEFGroup make(String name, int n, float[] radii) throws StructuralException {
 		return doMake(name, n, radii, 0);
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#make(java.lang.String, int, int, java.lang.String, boolean)
+	 * @see ca.nengo.model.nef.NEFGroupFactory#make(java.lang.String, int, int, java.lang.String, boolean)
 	 */
-	public NEFEnsemble make(String name, int n, int dim, String storageName, boolean overwrite) throws StructuralException {
+	public NEFGroup make(String name, int n, int dim, String storageName, boolean overwrite) throws StructuralException {
         float[] radii = MU.uniform(1, dim, 1)[0];
         return make(name, n, radii, storageName, overwrite);
     }
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#make(java.lang.String, int, int, java.lang.String, boolean)
+	 * @see ca.nengo.model.nef.NEFGroupFactory#make(java.lang.String, int, int, java.lang.String, boolean)
 	 */
-	public NEFEnsemble make(String name, int n, float[] radii, String storageName, boolean overwrite) throws StructuralException {
+	public NEFGroup make(String name, int n, float[] radii, String storageName, boolean overwrite) throws StructuralException {
         int dim = radii.length;
-		NEFEnsemble result = null;
+		NEFGroup result = null;
 
         if( storageName.length() > 0 ){
             File ensembleFile = new File(myDatabase, storageName + '.' + FileManager.ENSEMBLE_EXTENSION);
@@ -154,7 +154,7 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 
             if (!overwrite && ensembleFile.exists() && ensembleFile.canRead()) {
                 try {
-                    result = (NEFEnsemble) fm.load(ensembleFile);
+                    result = (NEFGroup) fm.load(ensembleFile);
 
                     result.setName(name);
                     if(result.getNodes().length != n) {
@@ -192,35 +192,35 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#setApproximatorFactory(ca.nengo.math.ApproximatorFactory)
+	 * @see ca.nengo.model.nef.NEFGroupFactory#setApproximatorFactory(ca.nengo.math.ApproximatorFactory)
 	 */
 	public void setApproximatorFactory(ApproximatorFactory factory) {
 		myApproximatorFactory = factory;
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#setEncoderFactory(ca.nengo.util.VectorGenerator)
+	 * @see ca.nengo.model.nef.NEFGroupFactory#setEncoderFactory(ca.nengo.util.VectorGenerator)
 	 */
 	public void setEncoderFactory(VectorGenerator factory) {
 		myEncoderFactory = factory;
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#setEvalPointFactory(ca.nengo.util.VectorGenerator)
+	 * @see ca.nengo.model.nef.NEFGroupFactory#setEvalPointFactory(ca.nengo.util.VectorGenerator)
 	 */
 	public void setEvalPointFactory(VectorGenerator factory) {
 		myEvalPointFactory = factory;
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.NEFEnsembleFactory#setNodeFactory(ca.nengo.model.impl.NodeFactory)
+	 * @see ca.nengo.model.nef.NEFGroupFactory#setNodeFactory(ca.nengo.model.impl.NodeFactory)
 	 */
 	public void setNodeFactory(NodeFactory factory) {
 		myNodeFactory = factory;
 	}
 
     //common make(...) implementation
-    private NEFEnsemble doMake(String name, int n, float[] radii, int attempts) throws StructuralException {
+    private NEFGroup doMake(String name, int n, float[] radii, int attempts) throws StructuralException {
         while (true) {
 
             try {
@@ -248,7 +248,7 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 
                 float[][] encoders = myEncoderFactory.genVectors(n, dim);
                 float[][] evalPoints = getEvalPointFactory().genVectors(getNumEvalPoints(dim), dim);
-                NEFEnsemble result = construct(name, nodes, encoders, myApproximatorFactory, evalPoints, radii);
+                NEFGroup result = construct(name, nodes, encoders, myApproximatorFactory, evalPoints, radii);
 
                 addDefaultOrigins(result);
 
@@ -301,10 +301,10 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 	 * @return New NEFEnsemble with given parameters
 	 * @throws StructuralException
 	 */
-	protected NEFEnsemble construct(String name, NEFNode[] nodes, float[][] encoders, ApproximatorFactory af, float[][] evalPoints, float[] radii)
+	protected NEFGroup construct(String name, NEFNode[] nodes, float[][] encoders, ApproximatorFactory af, float[][] evalPoints, float[] radii)
 			throws StructuralException {
 		if (!VisiblyMutableUtils.isValidName(name)) throw new StructuralException("name '"+name+"' must not contain '.' or ':'");
-		return new NEFEnsembleImpl(name, nodes, encoders, af, evalPoints, radii);
+		return new NEFGroupImpl(name, nodes, encoders, af, evalPoints, radii);
 	}
 
 	/**
@@ -315,13 +315,13 @@ public class NEFEnsembleFactoryImpl implements NEFEnsembleFactory, java.io.Seria
 	 * @param ensemble A new NEFEnsemble
 	 * @throws StructuralException
 	 */
-	protected void addDefaultOrigins(NEFEnsemble ensemble) throws StructuralException {
+	protected void addDefaultOrigins(NEFGroup ensemble) throws StructuralException {
 		Function[] functions = new Function[ensemble.getDimension()];
 		for (int i = 0; i < functions.length; i++) {
 			functions[i] = new IdentityFunction(ensemble.getDimension(), i);
 		}
 
-		ensemble.addDecodedOrigin(NEFEnsemble.X, functions, Neuron.AXON);
+		ensemble.addDecodedOrigin(NEFGroup.X, functions, Neuron.AXON);
 	}
 
 	/**

@@ -40,9 +40,9 @@ import ca.nengo.math.impl.FixedSignalFunction;
 import ca.nengo.math.impl.WeightedCostApproximator;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.RealOutputImpl;
-import ca.nengo.model.nef.DecodableEnsemble;
+import ca.nengo.model.nef.DecodableGroup;
 import ca.nengo.model.nef.ExpressModel;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.plasticity.ShortTermPlastic;
 import ca.nengo.util.MU;
 import ca.nengo.util.TimeSeries;
@@ -227,8 +227,8 @@ public class DecodedOrigin implements Origin, Resettable, SimulationMode.ModeCon
 	public float[] getError(int samples){
 		float[] result = new float[getDimensions()];
 
-		if (myNode instanceof NEFEnsemble) {
-			NEFEnsemble ensemble = (NEFEnsemble) myNode;
+		if (myNode instanceof NEFGroup) {
+			NEFGroup ensemble = (NEFGroup) myNode;
 
 			VectorGenerator vg = new RandomHypersphereVG(false, 1, 0);
 			float[][] unscaled = vg.genVectors(samples, ensemble.getDimension());
@@ -574,12 +574,12 @@ public class DecodedOrigin implements Origin, Resettable, SimulationMode.ModeCon
 	}
 	
 	public DecodedOrigin clone(Node node) throws CloneNotSupportedException {
-		if (!(node instanceof DecodableEnsemble)) {
+		if (!(node instanceof DecodableGroup)) {
 			throw new CloneNotSupportedException("Error cloning DecodedOrigin: Invalid node type");
 		}
 				
 		try {
-			DecodableEnsemble de = (DecodableEnsemble) node;
+			DecodableGroup de = (DecodableGroup) node;
 
 			DecodedOrigin result = (DecodedOrigin) super.clone();
 			result.setDecoders(MU.clone(myDecoders));

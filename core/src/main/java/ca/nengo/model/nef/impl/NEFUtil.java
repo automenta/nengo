@@ -30,7 +30,7 @@ package ca.nengo.model.nef.impl;
 import ca.nengo.model.RealOutput;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.SimulationMode;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.nef.NEFNode;
 import ca.nengo.util.MU;
 
@@ -56,11 +56,11 @@ public class NEFUtil {
 		float dt = .001f;
 		
 		try {
-			if ( !(origin.getNode() instanceof NEFEnsemble) ) {
+			if ( !(origin.getNode() instanceof NEFGroup) ) {
 				throw new RuntimeException("This calculation can only be performed with origins that belong to NEFEnsembles.");
 			}
 			
-			NEFEnsemble ensemble = (NEFEnsemble) origin.getNode();
+			NEFGroup ensemble = (NEFGroup) origin.getNode();
 			float[][] encoders = ensemble.getEncoders();
 
 			output = new float[input.length][];
@@ -78,8 +78,8 @@ public class NEFUtil {
 					} else {
 						for (int j = 0; j < nodes.length; j++) {
 							float radialInput = 0;
-							if (ensemble instanceof NEFEnsembleImpl) {
-								NEFEnsembleImpl impl = (NEFEnsembleImpl) ensemble;
+							if (ensemble instanceof NEFGroupImpl) {
+								NEFGroupImpl impl = (NEFGroupImpl) ensemble;
 								radialInput = impl.getRadialInput(input[i], j);
 							} else {
 								radialInput = MU.prod(input[i], encoders[j]);

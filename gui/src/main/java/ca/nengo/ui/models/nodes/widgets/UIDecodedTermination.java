@@ -27,7 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.models.nodes.widgets;
 
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.nef.impl.DecodedTermination;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.models.UINeoNode;
@@ -53,9 +53,9 @@ public class UIDecodedTermination extends UITermination {
 
 	@Override
 	protected void destroyTerminationModel() {
-		if (getModel().getNode() instanceof NEFEnsemble) {
+		if (getModel().getNode() instanceof NEFGroup) {
             try {
-			    ((NEFEnsemble) getModel().getNode()).removeDecodedTermination(getModel().getName());
+			    ((NEFGroup) getModel().getNode()).removeDecodedTermination(getModel().getName());
             } catch(StructuralException e) {
                 Util.Assert(false, e.getMessage());
             }

@@ -24,15 +24,15 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.nodes.widgets;
 
-import ca.nengo.model.Ensemble;
+import ca.nengo.model.Group;
 import ca.nengo.ui.actions.PlotSpikePattern;
 import ca.nengo.ui.lib.util.menus.PopupMenuBuilder;
-import ca.nengo.ui.models.nodes.UIEnsemble;
+import ca.nengo.ui.models.nodes.UIGroup;
 import ca.nengo.ui.models.tooltips.TooltipBuilder;
 
 public class UISpikeProbe extends UIProbe {
 
-	public UISpikeProbe(UIEnsemble nodeAttachedTo) {
+	public UISpikeProbe(UIGroup nodeAttachedTo) {
 		super(nodeAttachedTo, nodeAttachedTo.getModel());
 
 		getProbeParent().showPopupMessage("Collecting spikes on " + getProbeParent().getName());
@@ -48,13 +48,13 @@ public class UISpikeProbe extends UIProbe {
 	}
 
 	@Override
-	public Ensemble getModel() {
-		return (Ensemble) super.getModel();
+	public Group getModel() {
+		return (Group) super.getModel();
 	}
 
 	@Override
-	public UIEnsemble getProbeParent() {
-		return (UIEnsemble) super.getProbeParent();
+	public UIGroup getProbeParent() {
+		return (UIGroup) super.getProbeParent();
 	}
 
 	@Override

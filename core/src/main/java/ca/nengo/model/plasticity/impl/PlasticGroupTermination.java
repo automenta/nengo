@@ -28,8 +28,8 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.model.plasticity.impl;
 
 import ca.nengo.model.*;
-import ca.nengo.model.impl.EnsembleTermination;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.impl.GroupTermination;
+import ca.nengo.model.nef.NEFGroup;
 
 import java.util.Arrays;
 
@@ -50,7 +50,7 @@ import java.util.Arrays;
  * @author Trevor Bekolay
  * @author Jonathan Lai
  */
-public abstract class PlasticEnsembleTermination extends EnsembleTermination {
+public abstract class PlasticGroupTermination extends GroupTermination {
 
     private static final long serialVersionUID = 1L;
 
@@ -70,9 +70,9 @@ public abstract class PlasticEnsembleTermination extends EnsembleTermination {
      *        all LinearExponentialTerminations
      * @throws StructuralException If dimensions of different terminations are not all the same
      */
-    public PlasticEnsembleTermination(Node node, String name, PlasticNodeTermination[] nodeTerminations) throws StructuralException {
+    public PlasticGroupTermination(Node node, String name, PlasticNodeTermination[] nodeTerminations) throws StructuralException {
         super(node, name, nodeTerminations);
-        setOriginName(NEFEnsemble.X); // Start with the X origin by default
+        setOriginName(NEFGroup.X); // Start with the X origin by default
         saveTransform();
     }
 
@@ -264,7 +264,7 @@ public abstract class PlasticEnsembleTermination extends EnsembleTermination {
     public abstract void updateTransform(float time, int start, int end) throws StructuralException;
 
     /**
-     * @see ca.nengo.model.impl.EnsembleTermination#getInput()
+     * @see ca.nengo.model.impl.GroupTermination#getInput()
      */
     @Override
     public InstantaneousOutput getInput() {
@@ -326,8 +326,8 @@ public abstract class PlasticEnsembleTermination extends EnsembleTermination {
     }
 
     @Override
-    public PlasticEnsembleTermination clone(Node node) throws CloneNotSupportedException {
-        PlasticEnsembleTermination result = (PlasticEnsembleTermination)super.clone(node);
+    public PlasticGroupTermination clone(Node node) throws CloneNotSupportedException {
+        PlasticGroupTermination result = (PlasticGroupTermination)super.clone(node);
         result.myOutput = (myOutput != null) ? myOutput.clone() : null;
         //    	result.myOutput = null;
         result.saveTransform();

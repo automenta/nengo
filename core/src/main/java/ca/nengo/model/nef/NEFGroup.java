@@ -48,7 +48,7 @@ import ca.nengo.model.nef.impl.DecodedTermination;
  *
  * @author Bryan Tripp
  */
-public interface NEFEnsemble extends DecodableEnsemble {
+public interface NEFGroup extends DecodableGroup {
 
 	/**
 	 * Standard name for the Origin corresponding to the decoded estimate of the state variables
@@ -163,12 +163,12 @@ public interface NEFEnsemble extends DecodableEnsemble {
 	 * @param factory Factory that created the ensemble
 	 */
 
-	public void setEnsembleFactory(NEFEnsembleFactory factory);
+	public void setEnsembleFactory(NEFGroupFactory factory);
 
 	/**
 	 * @return Factory that created the ensemble
 	 */
-	public NEFEnsembleFactory getEnsembleFactory();
+	public NEFGroupFactory getEnsembleFactory();
 
 	/**
 	 * @return Current number of neurons

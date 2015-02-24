@@ -28,7 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.plot;
 
 import ca.nengo.math.Function;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.util.DataUtils;
 import ca.nengo.util.Environment;
 import ca.nengo.util.SpikePattern;
@@ -240,7 +240,7 @@ public abstract class Plotter {
 	 * @param origin Name of origin (must be a DecodedOrigin, not one derived from a combination of 
 	 * 		neuron origins)
 	 */
-	public static void plot(NEFEnsemble ensemble, String origin) {
+	public static void plot(NEFGroup ensemble, String origin) {
 		getInstance().doPlot(ensemble, origin);
 	}
 	
@@ -249,7 +249,7 @@ public abstract class Plotter {
 	 * @param origin Name of origin (must be a DecodedOrigin, not one derived from a combination of 
 	 * 		neuron origins)
 	 */
-	public abstract void doPlot(NEFEnsemble ensemble, String origin);
+	public abstract void doPlot(NEFGroup ensemble, String origin);
 	
 	/**
 	 * Static convenience method for producing a plot of CONSTANT_RATE responses over range 
@@ -257,14 +257,14 @@ public abstract class Plotter {
 	 *  
 	 * @param ensemble An NEFEnsemble  
 	 */
-	public static void plot(NEFEnsemble ensemble) {
+	public static void plot(NEFGroup ensemble) {
 		getInstance().doPlot(ensemble);
 	}
 	
 	/**
 	 * @param ensemble An NEFEnsemble  
 	 */
-	public abstract void doPlot(NEFEnsemble ensemble);
+	public abstract void doPlot(NEFGroup ensemble);
 	
 	/**
 	 * Static convenience method for plotting a spike raster. 

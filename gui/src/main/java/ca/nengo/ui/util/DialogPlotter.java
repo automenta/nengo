@@ -31,7 +31,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.util;
 
 import ca.nengo.math.Function;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.SpikePattern;
 import ca.nengo.util.TimeSeries;
@@ -80,12 +80,12 @@ public class DialogPlotter extends Plotter {
     }
 
     @Override
-    public void doPlot(NEFEnsemble ensemble, String origin) {
+    public void doPlot(NEFGroup ensemble, String origin) {
 
     }
 
     @Override
-    public void doPlot(NEFEnsemble ensemble) {
+    public void doPlot(NEFGroup ensemble) {
 
     }
 

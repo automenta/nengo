@@ -39,7 +39,7 @@ import ca.nengo.math.impl.PostfixFunction;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.NetworkImpl.OriginWrapper;
 import ca.nengo.model.impl.NetworkImpl.TerminationWrapper;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.nef.impl.BiasOrigin;
 import ca.nengo.model.nef.impl.BiasTermination;
 import ca.nengo.model.nef.impl.DecodedOrigin;
@@ -65,7 +65,7 @@ public class ProjectionImpl implements Projection {
 	private final Network myNetwork;
 
 	private boolean myBiasIsEnabled;
-	private NEFEnsemble myInterneurons;
+	private NEFGroup myInterneurons;
 	private BiasOrigin myBiasOrigin;
 	private BiasTermination myDirectBT;
 	private BiasTermination myIndirectBT;
@@ -137,8 +137,8 @@ public class ProjectionImpl implements Projection {
 
 		DecodedOrigin baseOrigin = (DecodedOrigin) myOrigin;
 		DecodedTermination baseTermination = (DecodedTermination) myTermination;
-		NEFEnsemble pre = (NEFEnsemble) baseOrigin.getNode();
-		NEFEnsemble post = (NEFEnsemble) baseTermination.getNode();
+		NEFGroup pre = (NEFGroup) baseOrigin.getNode();
+		NEFGroup post = (NEFGroup) baseTermination.getNode();
 
 		myBiasOrigin = pre.addBiasOrigin(baseOrigin, numInterneurons, getUniqueNodeName(post.getName() + '_' + baseTermination.getName()), excitatory);
 		myInterneurons = myBiasOrigin.getInterneurons();
@@ -154,7 +154,7 @@ public class ProjectionImpl implements Projection {
 
 		myNetwork.addProjection(myBiasOrigin, myDirectBT);
 		myNetwork.addProjection(myBiasOrigin, myInterneuronTermination);
-		myNetwork.addProjection(myInterneurons.getOrigin(NEFEnsemble.X), myIndirectBT);
+		myNetwork.addProjection(myInterneurons.getOrigin(NEFGroup.X), myIndirectBT);
 
 		if (optimize) {
 			float[][] baseWeights = MU.prod(post.getEncoders(), MU.prod(baseTermination.getTransform(), MU.transpose(baseOrigin.getDecoders())));
@@ -189,8 +189,8 @@ public class ProjectionImpl implements Projection {
 		try {
 			DecodedOrigin baseOrigin = (DecodedOrigin) myOrigin;
 			DecodedTermination baseTermination = (DecodedTermination) myTermination;
-			NEFEnsemble pre = (NEFEnsemble) baseOrigin.getNode();
-			NEFEnsemble post = (NEFEnsemble) baseTermination.getNode();
+			NEFGroup pre = (NEFGroup) baseOrigin.getNode();
+			NEFGroup post = (NEFGroup) baseTermination.getNode();
 
 			myNetwork.removeProjection(myDirectBT);
 			myNetwork.removeProjection(myIndirectBT);
@@ -214,7 +214,7 @@ public class ProjectionImpl implements Projection {
 		float[][] result = null;
 
 		if ( (myOrigin instanceof DecodedOrigin) && (myTermination instanceof DecodedTermination)) {
-			float[][] encoders = ((NEFEnsemble) myTermination.getNode()).getEncoders();
+			float[][] encoders = ((NEFGroup) myTermination.getNode()).getEncoders();
 			float[][] transform = ((DecodedTermination) myTermination).getTransform();
 			float[][] decoders = ((DecodedOrigin) myOrigin).getDecoders();
 			result = MU.prod(encoders, MU.prod(transform, MU.transpose(decoders)));
@@ -226,7 +226,7 @@ public class ProjectionImpl implements Projection {
 				result = MU.sum(result, weightBiases);
 			}
 		} else if (myTermination instanceof DecodedTermination) {
-			float[][] encoders = ((NEFEnsemble) myTermination.getNode()).getEncoders();
+			float[][] encoders = ((NEFGroup) myTermination.getNode()).getEncoders();
 			float[][] transform = ((DecodedTermination) myTermination).getTransform();
 			result = MU.prod(encoders, transform);
 		} else {
@@ -274,7 +274,7 @@ public class ProjectionImpl implements Projection {
 	    	transformString.append(getTransformScript(dTermination, "transform = ".length()));
 	    	terminationNodeFullName.append(tempTermination.getNode().getName());
 	    }
-	    else if(tempTermination instanceof EnsembleTermination && 
+	    else if(tempTermination instanceof GroupTermination &&
 	    		tempTermination.getNode() instanceof NetworkArrayImpl)
 	    {
 	    	terminationNodeFullName.deleteCharAt(terminationNodeFullName.length()-1);

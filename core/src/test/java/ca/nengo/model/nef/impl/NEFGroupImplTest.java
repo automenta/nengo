@@ -8,8 +8,8 @@ import ca.nengo.math.impl.AbstractFunction;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
 import ca.nengo.plot.Plotter;
 import ca.nengo.util.MU;
@@ -30,18 +30,18 @@ import junit.framework.TestCase;
  * 
  * @author Bryan Tripp
  */
-public class NEFEnsembleImplTest extends TestCase {
+public class NEFGroupImplTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
 	}
 
 	public void functionalTestAddBiasOrigin() throws StructuralException, SimulationException {
-		NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
+		NEFGroupFactory ef = new NEFGroupFactoryImpl();
 
 		boolean regenerate = false;
-		NEFEnsemble source = ef.make("source", 300, 1, "nefeTest_source", regenerate);
-		NEFEnsemble dest = ef.make("dest", 300, 1, "nefeTest_dest", regenerate);
+		NEFGroup source = ef.make("source", 300, 1, "nefeTest_source", regenerate);
+		NEFGroup dest = ef.make("dest", 300, 1, "nefeTest_dest", regenerate);
 		
 		Function f = new AbstractFunction(1) {
 			private static final long serialVersionUID = 1L;
@@ -58,7 +58,7 @@ public class NEFEnsembleImplTest extends TestCase {
 		network.addNode(dest);
 
 		source.addDecodedTermination("input", MU.I(1), .005f, false); //OK
-		BiasOrigin bo = source.addBiasOrigin(source.getOrigin(NEFEnsemble.X), 200, "interneurons", true); //should have -ve bias decoders
+		BiasOrigin bo = source.addBiasOrigin(source.getOrigin(NEFGroup.X), 200, "interneurons", true); //should have -ve bias decoders
 		network.addNode(bo.getInterneurons()); //should be backwards response functions
 //**		bo.getInterneurons().addDecodedTermination("source", MU.I(1), .005f, false);
 		
@@ -81,7 +81,7 @@ public class NEFEnsembleImplTest extends TestCase {
 //		Plotter.plot(bt[0].getBiasEncoders(), "bias decoders");
 		
 		network.addProjection(input.getOrigin(FunctionInput.ORIGIN_NAME), source.getTermination("input"));
-		network.addProjection(source.getOrigin(NEFEnsemble.X), dest.getTermination("source"));
+		network.addProjection(source.getOrigin(NEFGroup.X), dest.getTermination("source"));
 //*		network.addProjection(bo, bo.getInterneurons().getTermination("source"));
 //*		network.addProjection(bo, bt[0]);
 //*		network.addProjection(bo.getInterneurons().getOrigin(NEFEnsemble.X), bt[1]);
@@ -113,20 +113,20 @@ public class NEFEnsembleImplTest extends TestCase {
 		FunctionInput input = new FunctionInput("input", new Function[]{f}, Units.UNK);
 		network.addNode(input);
 		
-		NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
-		NEFEnsemble pre = ef.make("pre", 400, 1, "nefe_pre", false);
+		NEFGroupFactory ef = new NEFGroupFactoryImpl();
+		NEFGroup pre = ef.make("pre", 400, 1, "nefe_pre", false);
 		pre.addDecodedTermination("input", MU.I(1), tauPSC, false);
 //		DecodedOrigin baseOrigin = (DecodedOrigin) pre.getOrigin(NEFEnsemble.X);
 		network.addNode(pre);
 		
-		NEFEnsemble post = ef.make("post", 200, 1, "nefe_post", false);
+		NEFGroup post = ef.make("post", 200, 1, "nefe_post", false);
 //		DecodedTermination baseTermination = (DecodedTermination) post.addDecodedTermination("pre", MU.I(1), tauPSC, false);
 		network.addNode(post);
 		
 		network.addProjection(input.getOrigin(FunctionInput.ORIGIN_NAME), pre.getTermination("input"));
-		Projection projection = network.addProjection(pre.getOrigin(NEFEnsemble.X), post.getTermination("pre"));
+		Projection projection = network.addProjection(pre.getOrigin(NEFGroup.X), post.getTermination("pre"));
 		
-		Probe pPost = network.getSimulator().addProbe("post", NEFEnsemble.X, true);
+		Probe pPost = network.getSimulator().addProbe("post", NEFGroup.X, true);
 		network.run(0, 2);
 		TimeSeries ideal = pPost.getData();
 		Plotter.plot(pPost.getData(), .005f, "mixed weights result");		
@@ -143,7 +143,7 @@ public class NEFEnsembleImplTest extends TestCase {
 		projection.removeBias();
 		projection.addBias(100, tauPSC/5f, tauPSC, true, true);
 		pPost.reset();
-		Probe pInter = network.getSimulator().addProbe("post:pre:interneurons", NEFEnsemble.X, true);
+		Probe pInter = network.getSimulator().addProbe("post:pre:interneurons", NEFGroup.X, true);
 		network.run(0, 2);
 		diff = new TimeSeriesImpl(ideal.getTimes(), MU.difference(ideal.getValues(), pPost.getData().getValues()), ideal.getUnits()); 
 		Plotter.plot(diff, .01f, "positive weights optimized");
@@ -230,15 +230,15 @@ public class NEFEnsembleImplTest extends TestCase {
 //	}
 	
 	public void testClone() throws StructuralException, CloneNotSupportedException {
-		NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
-		NEFEnsemble ensemble = ef.make("test", 100, 1);
+		NEFGroupFactory ef = new NEFGroupFactoryImpl();
+		NEFGroup ensemble = ef.make("test", 100, 1);
 		long startTime = System.currentTimeMillis();
 		ensemble.clone();
 		System.out.println(System.currentTimeMillis() - startTime);
 	}
 	
 	public static void main(String[] args) {
-		NEFEnsembleImplTest test = new NEFEnsembleImplTest();
+		NEFGroupImplTest test = new NEFGroupImplTest();
 		try {
 //			test.testAddBiasOrigin();
 //			test.functionalTestBiasOriginError();
@@ -254,8 +254,8 @@ public class NEFEnsembleImplTest extends TestCase {
 	
 	public void testKillNeurons() throws StructuralException
 	{
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsembleImpl nef1 = (NEFEnsembleImpl)ef.make("nef1", 1000, 1);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroupImpl nef1 = (NEFGroupImpl)ef.make("nef1", 1000, 1);
 		
 		nef1.killNeurons(0.0f,true);
 		int numDead = countDeadNeurons(nef1);
@@ -275,7 +275,7 @@ public class NEFEnsembleImplTest extends TestCase {
 			fail("Number of dead neurons outside expected range");
 		}
 		
-		NEFEnsembleImpl nef2 = (NEFEnsembleImpl)ef.make("nef2", 1, 1);
+		NEFGroupImpl nef2 = (NEFGroupImpl)ef.make("nef2", 1, 1);
 		nef2.killNeurons(1.0f,true);
 		numDead = countDeadNeurons(nef2);
 		if(numDead != 0)
@@ -286,7 +286,7 @@ public class NEFEnsembleImplTest extends TestCase {
 			fail("Number of dead neurons outside expected range");
 
 	}
-	private int countDeadNeurons(NEFEnsembleImpl pop)
+	private int countDeadNeurons(NEFGroupImpl pop)
 	{
 		Node[] neurons = pop.getNodes();
 		int numDead = 0;
@@ -303,8 +303,8 @@ public class NEFEnsembleImplTest extends TestCase {
 	
 	public void testAddDecodedSignalOrigin() throws StructuralException
 	{
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsembleImpl ensemble = (NEFEnsembleImpl)ef.make("test", 5, 1);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroupImpl ensemble = (NEFGroupImpl)ef.make("test", 5, 1);
 		float[][] vals = new float[2][1];
 		vals[0][0] = 1;
 		vals[1][0] = 1;

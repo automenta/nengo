@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib;
 
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 
 import javax.swing.*;
 import java.awt.*;

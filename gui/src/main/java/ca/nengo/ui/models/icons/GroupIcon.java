@@ -26,10 +26,10 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.icons;
 
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.world.PaintContext;
 import ca.nengo.ui.lib.world.piccolo.WorldObjectImpl;
-import ca.nengo.ui.models.nodes.UIEnsemble;
+import ca.nengo.ui.models.nodes.UIGroup;
 
 import java.awt.*;
 
@@ -38,8 +38,8 @@ import java.awt.*;
  * 
  * @author Shu Wu
  */
-public class EnsembleIcon extends NodeContainerIcon {
-	public EnsembleIcon(UIEnsemble parent) {
+public class GroupIcon extends NodeContainerIcon {
+	public GroupIcon(UIGroup parent) {
 
 		super(parent, new VectorIcon());
 

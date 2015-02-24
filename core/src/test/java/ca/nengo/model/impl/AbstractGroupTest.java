@@ -16,7 +16,7 @@ import java.util.List;
  * 
  * @author Bryan Tripp
  */
-public class AbstractEnsembleTest extends TestCase {
+public class AbstractGroupTest extends TestCase {
 
 	public void testFindCommon1DOrigins() {
 		Origin one = new BasicOrigin(null, "2D", 2, Units.UNK);
@@ -88,7 +88,7 @@ public class AbstractEnsembleTest extends TestCase {
 				return "";
 			}};
 		
-		List<String> origins = AbstractEnsemble.findCommon1DOrigins(nodes);
+		List<String> origins = AbstractGroup.findCommon1DOrigins(nodes);
 		assertEquals(2, origins.size());
 		assertTrue(origins.contains(three.getName()));
 		assertTrue(origins.contains(four.getName()));

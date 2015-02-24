@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.world.piccolo.primitives;
 
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.util.UIEnvironment;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.lib.world.Destroyable;
@@ -86,7 +86,7 @@ public class Universe extends PCanvas implements Destroyable {
 		// statusPanel = new JPanel();
 		// statusPanel.setLayout(new BorderLayout());
 		//
-		// statusPanel.setBackground(Style.COLOR_BACKGROUND);
+		// statusPanel.setBackground(style.COLOR_BACKGROUND);
 		// statusPanel.setBorder(new EtchedBorder());
 		textHolder = getWorld();
 		textLabels = new WorldObjectImpl();

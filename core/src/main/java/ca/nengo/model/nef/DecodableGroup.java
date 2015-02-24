@@ -31,7 +31,7 @@ import ca.nengo.math.Function;
 import ca.nengo.model.*;
 import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.model.nef.impl.DecodedTermination;
-import ca.nengo.model.plasticity.PlasticEnsemble;
+import ca.nengo.model.plasticity.PlasticGroup;
 import ca.nengo.util.Probe;
 
 /**
@@ -47,7 +47,7 @@ import ca.nengo.util.Probe;
  *
  * @author Bryan Tripp
  */
-public interface DecodableEnsemble extends PlasticEnsemble, Probeable {
+public interface DecodableGroup extends PlasticGroup, Probeable {
 
 	/**
 	 * Adds an Origin that corresponds to a decoding of the activities of Nodes in this Ensemble. The decoding

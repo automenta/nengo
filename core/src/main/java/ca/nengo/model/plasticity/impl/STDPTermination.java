@@ -47,7 +47,7 @@ import ca.nengo.model.neuron.Neuron;
  * @author Bryan Tripp
  * @author Jonathan Lai
  */
-public class STDPTermination extends PlasticEnsembleTermination {
+public class STDPTermination extends PlasticGroupTermination {
 
     private static final long serialVersionUID = 1L;
     // Remember 2 spikes in the past, for triplet based learning rules
@@ -226,7 +226,7 @@ public class STDPTermination extends PlasticEnsembleTermination {
 
 
     @Override
-    public PlasticEnsembleTermination clone() throws CloneNotSupportedException {
+    public PlasticGroupTermination clone() throws CloneNotSupportedException {
         STDPTermination result = (STDPTermination) super.clone();
         result.myPostSpikeHistory = myPostSpikeHistory.clone();
         result.myPostSpiking = myPostSpiking.clone();

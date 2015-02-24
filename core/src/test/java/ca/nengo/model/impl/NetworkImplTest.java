@@ -7,8 +7,8 @@ import ca.nengo.TestUtil;
 import ca.nengo.math.Function;
 import ca.nengo.math.impl.ConstantFunction;
 import ca.nengo.model.*;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
-import ca.nengo.model.nef.impl.NEFEnsembleImpl;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
+import ca.nengo.model.nef.impl.NEFGroupImpl;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
 import ca.nengo.util.*;
 import junit.framework.TestCase;
@@ -31,14 +31,14 @@ public class NetworkImplTest extends TestCase {
 	 * Test method for 'ca.bpt.cn.model.impl.NetworkImpl.getNodes()'
 	 */
 	public void testGetNodes() throws StructuralException {
-		Ensemble a = new MockEnsemble("a");
+		Group a = new MockGroup("a");
 		myNetwork.addNode(a);
-		myNetwork.addNode(new MockEnsemble("b"));
+		myNetwork.addNode(new MockGroup("b"));
 
 		assertEquals(2, myNetwork.getNodes().length);
 
 		try {
-			myNetwork.addNode(new MockEnsemble("a"));
+			myNetwork.addNode(new MockGroup("a"));
 			fail("Should have thrown exception due to duplicate ensemble name");
 		} catch (StructuralException e) {
 		} // exception is expected
@@ -86,10 +86,10 @@ public class NetworkImplTest extends TestCase {
 	}
 	
 	public void testNodeNameChange() throws StructuralException {
-		MockEnsemble e1 = new MockEnsemble("one");
+		MockGroup e1 = new MockGroup("one");
 		myNetwork.addNode(e1);
 		
-		MockEnsemble e2 = new MockEnsemble("two");
+		MockGroup e2 = new MockGroup("two");
 		myNetwork.addNode(e2);
 		
 		assertTrue(myNetwork.getNode("one") != null);
@@ -109,10 +109,10 @@ public class NetworkImplTest extends TestCase {
 	
 	public void testKillNeurons() throws StructuralException
 	{
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsembleImpl nef1 = (NEFEnsembleImpl)ef.make("nef1", 1000, 1);
-		NEFEnsembleImpl nef2 = (NEFEnsembleImpl)ef.make("nef2", 1000, 1);
-		NEFEnsembleImpl nef3 = (NEFEnsembleImpl)ef.make("nef3", 1, 1);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroupImpl nef1 = (NEFGroupImpl)ef.make("nef1", 1000, 1);
+		NEFGroupImpl nef2 = (NEFGroupImpl)ef.make("nef2", 1000, 1);
+		NEFGroupImpl nef3 = (NEFGroupImpl)ef.make("nef3", 1, 1);
 		NetworkImpl net = new NetworkImpl();
 		
 		net.addNode(nef1);
@@ -152,7 +152,7 @@ public class NetworkImplTest extends TestCase {
 		if(numDead != 1)
 			fail("Number of dead neurons outside expected range");
 	}
-	private int countDeadNeurons(NEFEnsembleImpl pop)
+	private int countDeadNeurons(NEFGroupImpl pop)
 	{
 		Node[] neurons = pop.getNodes();
 		int numDead = 0;
@@ -169,7 +169,7 @@ public class NetworkImplTest extends TestCase {
 	
 	public void testAddNode() throws StructuralException
 	{
-		Ensemble a = new MockEnsemble("a");
+		Group a = new MockGroup("a");
 		
 		try
 		{
@@ -197,7 +197,7 @@ public class NetworkImplTest extends TestCase {
 	
 	public void testRemoveNode() throws StructuralException, SimulationException
 	{
-		Ensemble a = new MockEnsemble("a");
+		Group a = new MockGroup("a");
 		
 		myNetwork.addNode(a);
 		if(myNetwork.getNode("a") == null)
@@ -217,8 +217,8 @@ public class NetworkImplTest extends TestCase {
 		b.setName("b");
 		myNetwork.addNode(b);
 		
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsembleImpl c = (NEFEnsembleImpl)ef.make("c", 10, 1);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroupImpl c = (NEFGroupImpl)ef.make("c", 10, 1);
 		b.addNode(c);
 		b.getSimulator().addProbe("c", "X", true);
 		
@@ -259,8 +259,8 @@ public class NetworkImplTest extends TestCase {
 	
 	public void testExposeOrigin() throws StructuralException
 	{
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsembleImpl a = (NEFEnsembleImpl)ef.make("a", 10, 1);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroupImpl a = (NEFGroupImpl)ef.make("a", 10, 1);
 		
 		myNetwork.addNode(a);
 		
@@ -283,8 +283,8 @@ public class NetworkImplTest extends TestCase {
 	
 	public void testHideOrigin() throws StructuralException
 	{
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsembleImpl a = (NEFEnsembleImpl)ef.make("a", 10, 1);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroupImpl a = (NEFGroupImpl)ef.make("a", 10, 1);
 		
 		myNetwork.addNode(a);
 		
@@ -359,8 +359,8 @@ public class NetworkImplTest extends TestCase {
 		if(net.getNodeTerminations().size() != 0)
 			fail("Network has terminations when it shouldn't");
 		
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsembleImpl a = (NEFEnsembleImpl)ef.make("a", 10, 1);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroupImpl a = (NEFGroupImpl)ef.make("a", 10, 1);
 		float[][] tmp = new float[1][1];
 		tmp[0][0] = 1;
 		a.addDecodedTermination("in", tmp, 0.007f, false);
@@ -378,8 +378,8 @@ public class NetworkImplTest extends TestCase {
 		if(net.getNodeOrigins().size() != 0)
 			fail("Network has origins when it shouldn't");
 		
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsembleImpl a = (NEFEnsembleImpl)ef.make("a", 10, 1);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroupImpl a = (NEFGroupImpl)ef.make("a", 10, 1);
 		
 		net.addNode(a);
 		
@@ -392,8 +392,8 @@ public class NetworkImplTest extends TestCase {
 	{
 		NetworkImpl net = new NetworkImpl();
 		
-		NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-		NEFEnsembleImpl a = (NEFEnsembleImpl)ef.make("a", 10, 1);
+		NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+		NEFGroupImpl a = (NEFGroupImpl)ef.make("a", 10, 1);
 		a.addDecodedTermination("input", new float[][]{new float[]{1}}, 0.01f, false);
 		
 		net.addNode(a);
@@ -428,8 +428,8 @@ public class NetworkImplTest extends TestCase {
 	    test1.setName("test1");
 	    top.addNode(test1);
 	    
-	    NEFEnsembleFactoryImpl fac = new NEFEnsembleFactoryImpl();
-	    NEFEnsembleImpl testens = (NEFEnsembleImpl)fac.make("test", 100, 1);
+	    NEFGroupFactoryImpl fac = new NEFGroupFactoryImpl();
+	    NEFGroupImpl testens = (NEFGroupImpl)fac.make("test", 100, 1);
 	    testens.addDecodedTermination("input", new float[][]{new float[]{1}}, 0.01f, false);
 	    test1.addNode(testens);
 	    
@@ -451,14 +451,14 @@ public class NetworkImplTest extends TestCase {
 	    	fail("Network nodes did not clone correctly");
 	}
 
-	private static class MockEnsemble implements Ensemble {
+	private static class MockGroup implements Group {
 
 		private static final long serialVersionUID = 1L;
 
 		private String myName;
 		private transient List<VisiblyMutable.Listener> myListeners;
 
-		public MockEnsemble(String name) {
+		public MockGroup(String name) {
 			myName = name;
 		}
 

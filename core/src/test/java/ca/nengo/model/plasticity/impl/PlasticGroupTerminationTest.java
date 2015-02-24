@@ -2,12 +2,12 @@ package ca.nengo.model.plasticity.impl;
 
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.impl.LinearExponentialTermination;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
-import ca.nengo.model.nef.impl.NEFEnsembleImpl;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
+import ca.nengo.model.nef.impl.NEFGroupImpl;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
 import junit.framework.TestCase;
 
-public class PlasticEnsembleTerminationTest extends TestCase {
+public class PlasticGroupTerminationTest extends TestCase {
 
     public void testGetTransform() throws StructuralException {
         float[][] transform = new float[10][];
@@ -15,15 +15,15 @@ public class PlasticEnsembleTerminationTest extends TestCase {
             transform[i] = new float[]{1.0f, 1.0f, 1.0f};
         }
 
-        NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-        NEFEnsembleImpl c = (NEFEnsembleImpl)ef.make("c", 10, 1);
+        NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+        NEFGroupImpl c = (NEFGroupImpl)ef.make("c", 10, 1);
 
         LinearExponentialTermination[] nodeterms = new LinearExponentialTermination[10];
         for(int i = 0; i < nodeterms.length; i++) {
             nodeterms[i] = new LinearExponentialTermination(new SpikingNeuron(null, null, 0.0f, 0.0f, null), null, transform[i], 0.0f);
         }
 
-        PlasticEnsembleTermination term = new PESTermination(c, null, nodeterms);
+        PlasticGroupTermination term = new PESTermination(c, null, nodeterms);
         float[][] rettransform = term.getTransform();
 
         assertTrue(rettransform.length == transform.length);
@@ -46,15 +46,15 @@ public class PlasticEnsembleTerminationTest extends TestCase {
             newtransform[i] = new float[]{0.0f, 0.0f, 0.0f};
         }
 
-        NEFEnsembleFactoryImpl ef = new NEFEnsembleFactoryImpl();
-        NEFEnsembleImpl c = (NEFEnsembleImpl)ef.make("c", 10, 1);
+        NEFGroupFactoryImpl ef = new NEFGroupFactoryImpl();
+        NEFGroupImpl c = (NEFGroupImpl)ef.make("c", 10, 1);
 
         LinearExponentialTermination[] nodeterms = new LinearExponentialTermination[10];
         for(int i = 0; i < nodeterms.length; i++) {
             nodeterms[i] = new LinearExponentialTermination(new SpikingNeuron(null, null, 0.0f, 0.0f, null), null, transform[i], 0.0f);
         }
 
-        PlasticEnsembleTermination term = new PESTermination(c, null, nodeterms);
+        PlasticGroupTermination term = new PESTermination(c, null, nodeterms);
         term.setTransform(newtransform, true);
 
         float[][] rettransform = term.getTransform();

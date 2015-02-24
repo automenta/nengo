@@ -28,7 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.models.nodes.widgets;
 
 import ca.nengo.model.Network;
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.ReversableAction;
 import ca.nengo.ui.lib.actions.StandardAction;

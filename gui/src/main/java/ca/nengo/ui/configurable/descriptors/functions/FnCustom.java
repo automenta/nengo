@@ -39,7 +39,7 @@ import ca.nengo.ui.configurable.managers.ConfigDialog;
 import ca.nengo.ui.configurable.managers.ConfigManager;
 import ca.nengo.ui.configurable.managers.UserConfigurer;
 import ca.nengo.ui.configurable.panels.StringPanel;
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.util.UserMessages;
 
 import javax.swing.*;

@@ -31,7 +31,7 @@ import ca.nengo.model.InstantaneousOutput;
 import ca.nengo.model.PlasticNodeTermination;
 import ca.nengo.model.SpikeOutput;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
 
 /**
@@ -39,7 +39,7 @@ import ca.nengo.model.neuron.impl.SpikingNeuron;
  *
  * @author Trevor Bekolay
  */
-public class PreLearnTermination extends ModulatedPlasticEnsembleTermination  {
+public class PreLearnTermination extends ModulatedPlasticGroupTermination {
 
     private static final long serialVersionUID = 1L;
 
@@ -55,7 +55,7 @@ public class PreLearnTermination extends ModulatedPlasticEnsembleTermination  {
      *        all LinearExponentialTerminations
      * @throws StructuralException If dimensions of different terminations are not all the same
      */
-    public PreLearnTermination(NEFEnsemble ensemble, String name, PlasticNodeTermination[] nodeTerminations) throws StructuralException {
+    public PreLearnTermination(NEFGroup ensemble, String name, PlasticNodeTermination[] nodeTerminations) throws StructuralException {
         super(ensemble, name, nodeTerminations);
         myEncoders = ensemble.getEncoders();
         myGain = new float[nodeTerminations.length];
@@ -85,7 +85,7 @@ public class PreLearnTermination extends ModulatedPlasticEnsembleTermination  {
     }
 
     /**
-     * @see ca.nengo.model.plasticity.impl.PlasticEnsembleTermination#updateTransform(float, int, int)
+     * @see PlasticGroupTermination#updateTransform(float, int, int)
      */
     @Override
     public void updateTransform(float time, int start, int end) throws StructuralException {

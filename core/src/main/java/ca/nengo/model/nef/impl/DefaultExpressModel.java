@@ -7,7 +7,7 @@ import ca.nengo.math.Function;
 import ca.nengo.math.impl.LinearCurveFitter;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.SimulationMode;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.util.MU;
 
 /**
@@ -21,7 +21,7 @@ import ca.nengo.util.MU;
  */
 public class DefaultExpressModel extends AdditiveGaussianExpressModel {
 
-    private NEFEnsemble myEnsemble;
+    private NEFGroup myEnsemble;
     private DecodedOrigin myOrigin;
     private boolean myRadial = false;
     private Function[] myInterpFunctions = null;
@@ -34,11 +34,11 @@ public class DefaultExpressModel extends AdditiveGaussianExpressModel {
     public DefaultExpressModel(DecodedOrigin origin) throws SimulationException {
         super(origin.getDimensions());
 
-        if (!NEFEnsemble.class.isAssignableFrom(origin.getNode().getClass())) {
+        if (!NEFGroup.class.isAssignableFrom(origin.getNode().getClass())) {
             throw new IllegalArgumentException("Expected DecodedOrigin on NEFEnsemble");
         }
 
-        myEnsemble = (NEFEnsemble) origin.getNode();
+        myEnsemble = (NEFGroup) origin.getNode();
         myOrigin = origin;
         update();
     }

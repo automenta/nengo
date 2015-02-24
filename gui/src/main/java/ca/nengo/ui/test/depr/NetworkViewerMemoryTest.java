@@ -34,9 +34,9 @@ import ca.nengo.model.Termination;
 import ca.nengo.model.Units;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
 import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.models.nodes.UINetwork;
 
@@ -65,9 +65,9 @@ public class NetworkViewerMemoryTest {
 		FunctionInput input = new FunctionInput("input", new Function[] { f }, Units.UNK);
 		network.addNode(input);
 
-		NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
+		NEFGroupFactory ef = new NEFGroupFactoryImpl();
 
-		NEFEnsemble integrator = ef.make("integrator", 500, 1, "integrator1", false);
+		NEFGroup integrator = ef.make("integrator", 500, 1, "integrator1", false);
 		network.addNode(integrator);
 		integrator.collectSpikes(true);
 
@@ -84,7 +84,7 @@ public class NetworkViewerMemoryTest {
 
 		Termination fbterm = integrator.addDecodedTermination("feedback",
 				new float[][] { new float[] { 1f } }, tau, false);
-		network.addProjection(integrator.getOrigin(NEFEnsemble.X), fbterm);
+		network.addProjection(integrator.getOrigin(NEFGroup.X), fbterm);
 
 		// System.out.println("Network creation: " + (System.currentTimeMillis()
 		// - start));

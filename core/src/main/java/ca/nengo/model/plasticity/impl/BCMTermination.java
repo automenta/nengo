@@ -42,7 +42,7 @@ import ca.nengo.model.neuron.impl.SpikingNeuron;
  *
  * @author Trevor Bekolay
  */
-public class BCMTermination extends PlasticEnsembleTermination {
+public class BCMTermination extends PlasticGroupTermination {
 
     private static final long serialVersionUID = 1L;
     
@@ -121,7 +121,7 @@ public class BCMTermination extends PlasticEnsembleTermination {
     }
 
     @Override
-    public PlasticEnsembleTermination clone() throws CloneNotSupportedException {
+    public PlasticGroupTermination clone() throws CloneNotSupportedException {
     	throw new CloneNotSupportedException("BCMTermination not cloneable yet.");
     }
 }

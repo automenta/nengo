@@ -27,7 +27,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.models.nodes.widgets;
 
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.models.UINeoNode;
@@ -57,11 +57,11 @@ public class UIDecodedOrigin extends UIOrigin {
 
 	@Override
 	protected void destroyOriginModel() {
-		if (getModel().getNode() instanceof NEFEnsemble) {
+		if (getModel().getNode() instanceof NEFGroup) {
 			if(getExposedName() != null)
 				unExpose();
             try {
-			    ((NEFEnsemble) (getModel().getNode())).removeDecodedOrigin(getModel().getName());
+			    ((NEFGroup) (getModel().getNode())).removeDecodedOrigin(getModel().getName());
             } catch(StructuralException e) {
                 Util.Assert(false, e.getMessage());
             }

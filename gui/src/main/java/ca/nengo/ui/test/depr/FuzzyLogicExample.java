@@ -35,9 +35,9 @@ import ca.nengo.model.StructuralException;
 import ca.nengo.model.Units;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
-import ca.nengo.model.nef.impl.NEFEnsembleFactoryImpl;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
+import ca.nengo.model.nef.impl.NEFGroupFactoryImpl;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.sim.Simulator;
 
@@ -67,16 +67,16 @@ public class FuzzyLogicExample {
 				new ConstantFunction(1, .3f) };
 		FunctionInput in = new FunctionInput("input", functions, Units.UNK);
 
-		NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl();
+		NEFGroupFactory ef = new NEFGroupFactoryImpl();
 
-		NEFEnsemble A = ef.make("A", 100, 1, "A", false);
-		NEFEnsemble B = ef.make("B", 100, 1, "B", false);
-		NEFEnsemble C = ef.make("C", 100, 1, "C", false);
-		NEFEnsemble D = ef.make("D", 100, 1, "D", false);
+		NEFGroup A = ef.make("A", 100, 1, "A", false);
+		NEFGroup B = ef.make("B", 100, 1, "B", false);
+		NEFGroup C = ef.make("C", 100, 1, "C", false);
+		NEFGroup D = ef.make("D", 100, 1, "D", false);
 
-		NEFEnsemble rule1a = ef.make("rule1a", 500, 2, "rule1a", false);
-		NEFEnsemble rule1b = ef.make("rule1b", 500, 2, "rule1b", false);
-		NEFEnsemble rule2 = ef.make("rule2", 200, 1, "rule2", false);
+		NEFGroup rule1a = ef.make("rule1a", 500, 2, "rule1a", false);
+		NEFGroup rule1b = ef.make("rule1b", 500, 2, "rule1b", false);
+		NEFGroup rule2 = ef.make("rule2", 200, 1, "rule2", false);
 		rule2.collectSpikes(true);
 
 		rule1a.addDecodedOrigin("OR", new Function[] { new MAX(2) },
@@ -87,7 +87,7 @@ public class FuzzyLogicExample {
 		rule1b.doneOrigins();
 		rule2.doneOrigins();
 
-		NEFEnsemble output = ef.make("output", 500, 5, "fuzzyoutput", false);
+		NEFGroup output = ef.make("output", 500, 5, "fuzzyoutput", false);
 
 		net.addNode(in);
 		net.addNode(A);
@@ -128,16 +128,16 @@ public class FuzzyLogicExample {
 		rule2.addDecodedTermination("D", new float[][] { new float[] { 1f } },
 				.005f, false);
 
-		net.addProjection(B.getOrigin(NEFEnsemble.X), rule1a
+		net.addProjection(B.getOrigin(NEFGroup.X), rule1a
 				.getTermination("B"));
-		net.addProjection(C.getOrigin(NEFEnsemble.X), rule1a
+		net.addProjection(C.getOrigin(NEFGroup.X), rule1a
 				.getTermination("C"));
-		net.addProjection(A.getOrigin(NEFEnsemble.X), rule1b
+		net.addProjection(A.getOrigin(NEFGroup.X), rule1b
 				.getTermination("A"));
 		net.addProjection(rule1a.getOrigin("OR"), rule1b
 				.getTermination("B or C"));
 		net
-				.addProjection(D.getOrigin(NEFEnsemble.X), rule2
+				.addProjection(D.getOrigin(NEFGroup.X), rule2
 						.getTermination("D"));
 
 		output.addDecodedTermination("rule1", new float[][] {
@@ -149,7 +149,7 @@ public class FuzzyLogicExample {
 
 		net.addProjection(rule1b.getOrigin("AND"), output
 				.getTermination("rule1"));
-		net.addProjection(rule2.getOrigin(NEFEnsemble.X), output
+		net.addProjection(rule2.getOrigin(NEFGroup.X), output
 				.getTermination("rule2"));
 
 		float neg = -.3f;

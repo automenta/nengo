@@ -26,13 +26,13 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.nodes;
 
-import ca.nengo.model.Ensemble;
+import ca.nengo.model.Group;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.ReversableAction;
 import ca.nengo.ui.lib.util.menus.AbstractMenuBuilder;
-import ca.nengo.ui.models.icons.EnsembleIcon;
+import ca.nengo.ui.models.icons.GroupIcon;
 import ca.nengo.ui.models.nodes.widgets.UISpikeProbe;
-import ca.nengo.ui.models.viewers.EnsembleViewer;
+import ca.nengo.ui.models.viewers.GroupViewer;
 import ca.nengo.ui.models.viewers.NodeViewer;
 
 /**
@@ -40,11 +40,11 @@ import ca.nengo.ui.models.viewers.NodeViewer;
  * 
  * @author Shu
  */
-public class UIEnsemble extends UINodeViewable {
+public class UIGroup extends UINodeViewable {
 
 	private UISpikeProbe spikeCollector;
 
-	public UIEnsemble(Ensemble model) {
+	public UIGroup(Group model) {
 		super(model);
 		init();
 	}
@@ -53,7 +53,7 @@ public class UIEnsemble extends UINodeViewable {
 	 * Initializes this instance
 	 */
 	private void init() {
-		setIcon(new EnsembleIcon(this));
+		setIcon(new GroupIcon(this));
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class UIEnsemble extends UINodeViewable {
 
 	@Override
 	protected NodeViewer createViewerInstance() {
-		return new EnsembleViewer(this);
+		return new GroupViewer(this);
 	}
 
 	public void collectSpikes(boolean collect) {
@@ -88,8 +88,8 @@ public class UIEnsemble extends UINodeViewable {
 	}
 
 	@Override
-	public Ensemble getModel() {
-		return (Ensemble) super.getModel();
+	public Group getModel() {
+		return (Group) super.getModel();
 	}
 
 	@Override

@@ -13,18 +13,18 @@ import junit.framework.TestCase;
  * 
  * @author Bryan Tripp
  */
-public class EnsembleTerminationTest extends TestCase {
+public class GroupTerminationTest extends TestCase {
 
 	private static float ourTau = .005f;
 	private static float ourTolerance = 1e-5f;
 	
 	private Termination[] myNodeTerminations;
-	private EnsembleTermination myEnsembleTermination;
+	private GroupTermination myEnsembleTermination;
 	
 	/**
 	 * @param arg0
 	 */
-	public EnsembleTerminationTest(String arg0) {
+	public GroupTerminationTest(String arg0) {
 		super(arg0);
 	}
 
@@ -39,11 +39,11 @@ public class EnsembleTerminationTest extends TestCase {
 			myNodeTerminations[i] = new LinearExponentialTermination(null, ""+i, new float[]{1}, ourTau);
 		}
 		
-		myEnsembleTermination = new EnsembleTermination(null, "test", myNodeTerminations);
+		myEnsembleTermination = new GroupTermination(null, "test", myNodeTerminations);
 	}
 
 	/**
-	 * Test method for {@link ca.nengo.model.impl.EnsembleTermination#setModulatory(boolean)}.
+	 * Test method for {@link GroupTermination#setModulatory(boolean)}.
 	 */
 	public void testSetModulatory() {
 		assertFalse(myEnsembleTermination.getModulatory());
@@ -57,7 +57,7 @@ public class EnsembleTerminationTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link ca.nengo.model.impl.EnsembleTermination#setTau(float)}.
+	 * Test method for {@link GroupTermination#setTau(float)}.
 	 * @throws StructuralException 
 	 */
 	public void testSetTau() throws StructuralException {

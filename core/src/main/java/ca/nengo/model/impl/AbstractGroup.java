@@ -46,11 +46,11 @@ import java.util.*;
  *
  * @author Bryan Tripp
  */
-public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMutable {
+public abstract class AbstractGroup implements Group, Probeable, VisiblyMutable {
 
 	private static final long serialVersionUID = -5498397418584843304L;
 
-	private static final Logger ourLogger = Logger.getLogger(AbstractEnsemble.class);
+	private static final Logger ourLogger = Logger.getLogger(AbstractGroup.class);
 
 	private String myName;
 	private Map<String, List<Integer>> myStateNames; // for Probeable
@@ -62,7 +62,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	private transient List<VisiblyMutable.Listener> myListeners;
 	private Node[] myNodes;
 	private Map<String, Origin> myOrigins;
-	private Map<String, EnsembleTermination> myTerminations;
+	private Map<String, GroupTermination> myTerminations;
 	
 	private transient Map<String, Object> myMetadata;
 
@@ -72,7 +72,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	 * @param name Unique name of Ensemble
 	 * @param nodes Nodes that Ensemble contains
 	 */
-	public AbstractEnsemble(String name, Node[] nodes) {
+	public AbstractGroup(String name, Node[] nodes) {
 		myName = name;
 		myNodes = nodes;
 		mySpikePattern = new SpikePatternImpl(nodes.length);
@@ -91,9 +91,9 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 		    myOrigins.put(origin.getName(), origin);
 		}
 
-		myTerminations = new LinkedHashMap<String, EnsembleTermination>(10);
-		EnsembleTermination[] terminations = findTerminations(this, myNodes);
-		for (EnsembleTermination termination : terminations) {
+		myTerminations = new LinkedHashMap<String, GroupTermination>(10);
+		GroupTermination[] terminations = findTerminations(this, myNodes);
+		for (GroupTermination termination : terminations) {
 		    myTerminations.put(termination.getName(), termination);
 		}
 
@@ -126,7 +126,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#getName()
+	 * @see ca.nengo.model.Group#getName()
 	 */
     public String getName() {
 		return myName;
@@ -141,7 +141,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#getNodes()
+	 * @see ca.nengo.model.Group#getNodes()
 	 */
     public Node[] getNodes() {
 		return myNodes;
@@ -153,7 +153,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	 * could be different for different Node). Note that at Ensemble construction time,
 	 * setMode(SimulationMode.DEFAULT) is called.
 	 *
-	 * @see ca.nengo.model.Ensemble#setMode(ca.nengo.model.SimulationMode)
+	 * @see ca.nengo.model.Group#setMode(ca.nengo.model.SimulationMode)
 	 */
     public void setMode(SimulationMode mode) {
 		myMode = mode;
@@ -171,7 +171,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	 * Note that this reflects the latest mode requested of the Ensemble, and that individual
 	 * Neurons may run in different modes (see setMode).
 	 *
-	 * @see ca.nengo.model.Ensemble#getMode()
+	 * @see ca.nengo.model.Group#getMode()
 	 */
     public SimulationMode getMode() {
 		return myMode;
@@ -181,7 +181,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	/**
 	 * Runs each neuron in the Ensemble.
 	 *
-	 * @see ca.nengo.model.Ensemble#run(float, float)
+	 * @see ca.nengo.model.Group#run(float, float)
 	 */
     public void run(float startTime, float endTime) throws SimulationException {
 		if (mySpikePattern == null) {
@@ -227,14 +227,14 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#getOrigin(java.lang.String)
+	 * @see ca.nengo.model.Group#getOrigin(java.lang.String)
 	 */
     public Origin getOrigin(String name) throws StructuralException {
 		return myOrigins.get(name);
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#getTermination(java.lang.String)
+	 * @see ca.nengo.model.Group#getTermination(java.lang.String)
 	 */
     public Termination getTermination(String name) throws StructuralException {
 		return myTerminations.get(name);
@@ -285,7 +285,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#getTerminations()
+	 * @see ca.nengo.model.Group#getTerminations()
 	 */
     public Termination[] getTerminations() {
 	    ArrayList<Termination> result = new ArrayList<Termination>(10);
@@ -296,14 +296,14 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#collectSpikes(boolean)
+	 * @see ca.nengo.model.Group#collectSpikes(boolean)
 	 */
     public void collectSpikes(boolean collect) {
 		myCollectSpikesFlag = collect;
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#isCollectingSpikes()
+	 * @see ca.nengo.model.Group#isCollectingSpikes()
 	 */
     public boolean isCollectingSpikes() {
 		return myCollectSpikesFlag;
@@ -324,7 +324,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	}
 
 	/**
-	 * @see ca.nengo.model.Ensemble#getSpikePattern()
+	 * @see ca.nengo.model.Group#getSpikePattern()
 	 */
     public SpikePattern getSpikePattern() {
 		if (!myCollectSpikesFlag) {
@@ -422,7 +422,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 		while (it.hasNext()) {
 			String name = it.next();
 			List<Origin> group = groups.get(name);
-			result.add(new EnsembleOrigin(parent, name, group.toArray(new Origin[group.size()])));
+			result.add(new GroupOrigin(parent, name, group.toArray(new Origin[group.size()])));
 		}
 
 		return result.toArray(new Origin[result.size()]);
@@ -485,7 +485,7 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	 * @param nodes Nodes on which to look for Terminations
 	 * @return Ensemble Terminations encompassing Node-level Terminations
 	 */
-	private static EnsembleTermination[] findTerminations(Node parent, Node[] nodes) {
+	private static GroupTermination[] findTerminations(Node parent, Node[] nodes) {
 		Map<String, List<Termination>> groups = new LinkedHashMap<String, List<Termination>>(10);
 
 		for (Node node : nodes) {
@@ -503,18 +503,18 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 		}
 
 		Iterator<String> it = groups.keySet().iterator();
-		List<EnsembleTermination> result = new ArrayList<EnsembleTermination>(10);
+		List<GroupTermination> result = new ArrayList<GroupTermination>(10);
 		while (it.hasNext()) {
 			String name = it.next();
 			List<Termination> group = groups.get(name);
 			try {
-				result.add(new EnsembleTermination(parent, name, group.toArray(new Termination[group.size()])));
+				result.add(new GroupTermination(parent, name, group.toArray(new Termination[group.size()])));
 			} catch (StructuralException e) {
 				throw new Error("Composite Termination should consist only of 1D Terminations, but apparently does not", e);
 			}
 		}
 
-		return result.toArray(new EnsembleTermination[result.size()]);
+		return result.toArray(new GroupTermination[result.size()]);
 	}
 
 	private static Map<String, List<Integer>> findStateNames(Node[] nodes) {
@@ -579,8 +579,8 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 	}
 
 	@Override
-    public Ensemble clone() throws CloneNotSupportedException {
-		AbstractEnsemble result = (AbstractEnsemble) super.clone();
+    public Group clone() throws CloneNotSupportedException {
+		AbstractGroup result = (AbstractGroup) super.clone();
 		
 		/////////////////////////////////////////////////////////////
 		// undo unintentional object.clone() side effects
@@ -602,8 +602,8 @@ public abstract class AbstractEnsemble implements Ensemble, Probeable, VisiblyMu
 			result.myOrigins.put(origin.getName(), origin.clone(result));
 		}
 		
-		result.myTerminations = new LinkedHashMap<String, EnsembleTermination>(myTerminations.size());
-		for (EnsembleTermination termination : myTerminations.values()) {
+		result.myTerminations = new LinkedHashMap<String, GroupTermination>(myTerminations.size());
+		for (GroupTermination termination : myTerminations.values()) {
 			result.myTerminations.put(termination.getName(), termination.clone(result));
 		}
 		

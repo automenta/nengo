@@ -31,7 +31,7 @@ import ca.nengo.math.impl.IndicatorPDF;
 import ca.nengo.model.Node;
 import ca.nengo.model.PlasticNodeTermination;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.util.MU;
 
@@ -70,7 +70,7 @@ public class hPESTermination extends PESTermination  {
      *        all LinearExponentialTerminations
      * @throws StructuralException If dimensions of different terminations are not all the same
      */
-    public hPESTermination(NEFEnsemble ensemble, String name, PlasticNodeTermination[] nodeTerminations, float[] initialTheta) throws StructuralException {
+    public hPESTermination(NEFGroup ensemble, String name, PlasticNodeTermination[] nodeTerminations, float[] initialTheta) throws StructuralException {
         super(ensemble, name, nodeTerminations);
         setOriginName(Neuron.AXON);
         
@@ -113,7 +113,7 @@ public class hPESTermination extends PESTermination  {
 	}
 
     /**
-     * @see ca.nengo.model.plasticity.impl.PlasticEnsembleTermination#updateTransform(float, int, int)
+     * @see PlasticGroupTermination#updateTransform(float, int, int)
      */
     @Override
     public void updateTransform(float time, int start, int end) throws StructuralException {

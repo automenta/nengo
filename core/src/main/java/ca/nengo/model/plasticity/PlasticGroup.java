@@ -28,7 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
  */
 package ca.nengo.model.plasticity;
 
-import ca.nengo.model.Ensemble;
+import ca.nengo.model.Group;
 
 /**
  * <p>
@@ -38,7 +38,7 @@ import ca.nengo.model.Ensemble;
  *
  * @author Trevor Bekolay
  */
-public interface PlasticEnsemble extends Ensemble {
+public interface PlasticGroup extends Group {
 
 	/**
 	 * @return Period after which plasticity rules are evaluated (defaults to every time step).

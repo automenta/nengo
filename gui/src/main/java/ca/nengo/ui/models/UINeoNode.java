@@ -29,7 +29,7 @@ package ca.nengo.ui.models;
 import ca.nengo.io.FileManager;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.ui.AbstractNengo;
@@ -84,11 +84,11 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 		UINeoNode nodeUI = null;
 		if (node instanceof Network) {
 			nodeUI = new UINetwork((Network) node);
-		} else if (node instanceof Ensemble) {
-			if (node instanceof NEFEnsemble) {
-				nodeUI = new UINEFEnsemble((NEFEnsemble) node);
+		} else if (node instanceof Group) {
+			if (node instanceof NEFGroup) {
+				nodeUI = new UINEFGroup((NEFGroup) node);
 			} else {
-				nodeUI = new UIEnsemble((Ensemble) node);
+				nodeUI = new UIGroup((Group) node);
 			}
 		} else if (node instanceof Neuron) {
 			nodeUI = new UINeuron((Neuron) node);
@@ -344,7 +344,7 @@ public abstract class UINeoNode extends UINeoModel implements DroppableX {
 			String name=origin.getName();
 			
 			// don't automatically show these two origins for NEFEnsembles
-			if (this instanceof UINEFEnsemble) {
+			if (this instanceof UINEFGroup) {
 				if (name.equals("AXON") || name.equals("current")) {
 					continue;				
 				}

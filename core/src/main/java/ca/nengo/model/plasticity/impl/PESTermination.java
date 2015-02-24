@@ -30,7 +30,7 @@ package ca.nengo.model.plasticity.impl;
 import ca.nengo.model.Node;
 import ca.nengo.model.PlasticNodeTermination;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
 import ca.nengo.util.MU;
 
@@ -50,7 +50,7 @@ import ca.nengo.util.MU;
  * @author Jonathan Lai
  * @author Trevor Bekolay
  */
-public class PESTermination extends ModulatedPlasticEnsembleTermination  {
+public class PESTermination extends ModulatedPlasticGroupTermination {
 
     private static final long serialVersionUID = 1L;
 
@@ -67,7 +67,7 @@ public class PESTermination extends ModulatedPlasticEnsembleTermination  {
      *        all LinearExponentialTerminations
      * @throws StructuralException If dimensions of different terminations are not all the same
      */
-    public PESTermination(NEFEnsemble ensemble, String name, PlasticNodeTermination[] nodeTerminations) throws StructuralException {
+    public PESTermination(NEFGroup ensemble, String name, PlasticNodeTermination[] nodeTerminations) throws StructuralException {
         super(ensemble, name, nodeTerminations);
         myEncoders = ensemble.getEncoders();
         myGain = new float[nodeTerminations.length];
@@ -110,7 +110,7 @@ public class PESTermination extends ModulatedPlasticEnsembleTermination  {
     }
 
     /**
-     * @see ca.nengo.model.plasticity.impl.PlasticEnsembleTermination#updateTransform(float, int, int)
+     * @see PlasticGroupTermination#updateTransform(float, int, int)
      */
     @Override
     public void updateTransform(float time, int start, int end) throws StructuralException {

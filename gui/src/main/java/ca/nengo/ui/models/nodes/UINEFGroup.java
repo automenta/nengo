@@ -31,7 +31,7 @@ package ca.nengo.ui.models.nodes;
 import ca.nengo.model.Origin;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.Termination;
-import ca.nengo.model.nef.NEFEnsemble;
+import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.model.nef.impl.DecodedOrigin;
 import ca.nengo.plot.Plotter;
 import ca.nengo.ui.configurable.ConfigException;
@@ -55,19 +55,19 @@ import ca.nengo.ui.models.viewers.NodeViewer;
  * 
  * @author Shu Wu
  */
-public class UINEFEnsemble extends UIEnsemble {
+public class UINEFGroup extends UIGroup {
 
 	public static final String typeName = "NEFEnsemble";
 
-	public UINEFEnsemble(NEFEnsemble model) {
+	public UINEFGroup(NEFGroup model) {
 		super(model);
 		init();
 	}
 
 	private void init() {
 		try {
-			if (getModel().getOrigin(NEFEnsemble.X) != null) {
-				showOrigin(NEFEnsemble.X);
+			if (getModel().getOrigin(NEFGroup.X) != null) {
+				showOrigin(NEFGroup.X);
 			}
 		} catch (StructuralException e) {
 			e.printStackTrace();
@@ -158,8 +158,8 @@ public class UINEFEnsemble extends UIEnsemble {
 	}
 
 	@Override
-	public NEFEnsemble getModel() {
-		return (NEFEnsemble) super.getModel();
+	public NEFGroup getModel() {
+		return (NEFGroup) super.getModel();
 	}
 	
 	 @Override

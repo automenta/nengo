@@ -51,7 +51,7 @@ import java.util.Arrays;
  * @author Trevor Bekolay
  * @author Jonathan Lai
  */
-public abstract class ModulatedPlasticEnsembleTermination extends PlasticEnsembleTermination {
+public abstract class ModulatedPlasticGroupTermination extends PlasticGroupTermination {
 
     private static final long serialVersionUID = 1L;
     protected String myModTermName;
@@ -65,7 +65,7 @@ public abstract class ModulatedPlasticEnsembleTermination extends PlasticEnsembl
      *        all LinearExponentialTerminations
      * @throws StructuralException If dimensions of different terminations are not all the same
      */
-    public ModulatedPlasticEnsembleTermination(Node node, String name, PlasticNodeTermination[] nodeTerminations) throws StructuralException {
+    public ModulatedPlasticGroupTermination(Node node, String name, PlasticNodeTermination[] nodeTerminations) throws StructuralException {
         super(node, name, nodeTerminations);
     }
 
@@ -121,8 +121,8 @@ public abstract class ModulatedPlasticEnsembleTermination extends PlasticEnsembl
     }
     
     @Override
-    public ModulatedPlasticEnsembleTermination clone(Node node) throws CloneNotSupportedException {
-    	ModulatedPlasticEnsembleTermination result = (ModulatedPlasticEnsembleTermination)super.clone(node);
+    public ModulatedPlasticGroupTermination clone(Node node) throws CloneNotSupportedException {
+    	ModulatedPlasticGroupTermination result = (ModulatedPlasticGroupTermination)super.clone(node);
     	result.myModInput = (myModInput != null) ? myModInput.clone() : null;
     	return result;
     }

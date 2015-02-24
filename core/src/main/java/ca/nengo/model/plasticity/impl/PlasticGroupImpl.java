@@ -28,7 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.model.plasticity.impl;
 
 import ca.nengo.model.*;
-import ca.nengo.model.impl.EnsembleImpl;
+import ca.nengo.model.impl.GroupImpl;
 import ca.nengo.model.impl.NodeFactory;
 import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.nef.impl.DecodedTermination;
@@ -46,7 +46,7 @@ import java.util.*;
  *
  * @author Trevor Bekolay
  */
-public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
+public class PlasticGroupImpl extends GroupImpl implements TaskSpawner {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,7 +54,7 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
     private float myLastPlasticityTime;
     private boolean myLearning = true;
 
-    protected Map<String, PlasticEnsembleTermination> myPlasticEnsembleTerminations;
+    protected Map<String, PlasticGroupTermination> myPlasticEnsembleTerminations;
 
     private ArrayList<LearningTask> myTasks;
 
@@ -64,17 +64,17 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
      * @throws StructuralException if the given Nodes contain Terminations with the same
      *      name but different dimensions
      */
-    public PlasticEnsembleImpl(String name, Node[] nodes) {
+    public PlasticGroupImpl(String name, Node[] nodes) {
         super(name, nodes);
         myTasks = new ArrayList<LearningTask>();
-        myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticEnsembleTermination>(6);
+        myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticGroupTermination>(6);
         myLastPlasticityTime = 0.0f;
     }
 
-    public PlasticEnsembleImpl(String name, NodeFactory factory, int n) throws StructuralException {
+    public PlasticGroupImpl(String name, NodeFactory factory, int n) throws StructuralException {
         super(name, factory, n);
         myTasks = new ArrayList<LearningTask>();
-        myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticEnsembleTermination>(6);
+        myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticGroupTermination>(6);
         myLastPlasticityTime = 0.0f;
     }
 
@@ -83,7 +83,7 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
     }
 
     public void setLearning(boolean learning) {
-        for (PlasticEnsembleTermination pet : myPlasticEnsembleTerminations.values()) {
+        for (PlasticGroupTermination pet : myPlasticEnsembleTerminations.values()) {
             pet.setLearning(learning);
         }
         myLearning = learning;
@@ -102,21 +102,21 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
     }
 
     /**
-     * @see ca.nengo.model.plasticity.PlasticEnsemble#setPlasticityInterval(float)
+     * @see ca.nengo.model.plasticity.PlasticGroup#setPlasticityInterval(float)
      */
     public void setPlasticityInterval(float time) {
         myPlasticityInterval = time;
     }
 
     /**
-     * @see ca.nengo.model.plasticity.PlasticEnsemble#getPlasticityInterval()
+     * @see ca.nengo.model.plasticity.PlasticGroup#getPlasticityInterval()
      */
     public float getPlasticityInterval() {
         return myPlasticityInterval;
     }
 
     /**
-     * @see ca.nengo.model.Ensemble#run(float, float)
+     * @see ca.nengo.model.Group#run(float, float)
      */
     @Override
     public void run(float startTime, float endTime) throws SimulationException {
@@ -134,18 +134,18 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
 
     public void setStates(float endTime) throws SimulationException {
         if (myLastPlasticityTime < endTime) {
-            for (PlasticEnsembleTermination pet : myPlasticEnsembleTerminations.values()) {
+            for (PlasticGroupTermination pet : myPlasticEnsembleTerminations.values()) {
                 try {
                     Origin origin = this.getOrigin(pet.getOriginName());
                     pet.setOriginState(origin.getName(), origin.getValues(), endTime);
                     pet.setTerminationState(endTime);
 
-                    if (pet instanceof ModulatedPlasticEnsembleTermination) {
+                    if (pet instanceof ModulatedPlasticGroupTermination) {
                         DecodedTermination modTerm = (DecodedTermination)
-                        		this.getTermination(((ModulatedPlasticEnsembleTermination) pet).getModTermName());
+                        		this.getTermination(((ModulatedPlasticGroupTermination) pet).getModTermName());
 
                         InstantaneousOutput input = new RealOutputImpl(modTerm.getOutput(), Units.UNK, endTime);
-                        ((ModulatedPlasticEnsembleTermination) pet).setModTerminationState
+                        ((ModulatedPlasticGroupTermination) pet).setModTerminationState
                         	(modTerm.getName(), input, endTime);
                     }
                 }
@@ -183,7 +183,7 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
     }
 
     /**
-     * @see ca.nengo.model.Ensemble#getTerminations()
+     * @see ca.nengo.model.Group#getTerminations()
      */
     @Override
     public Termination[] getTerminations() {
@@ -213,8 +213,8 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
     }
 
     @Override
-    public PlasticEnsembleImpl clone() throws CloneNotSupportedException {
-        PlasticEnsembleImpl result = (PlasticEnsembleImpl) super.clone();
+    public PlasticGroupImpl clone() throws CloneNotSupportedException {
+        PlasticGroupImpl result = (PlasticGroupImpl) super.clone();
         
         result.myTasks = new ArrayList<LearningTask>(myTasks.size());
         for (LearningTask task : myTasks) {
@@ -222,9 +222,9 @@ public class PlasticEnsembleImpl extends EnsembleImpl implements TaskSpawner {
         }
         
         
-        result.myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticEnsembleTermination>(6);
-        for (Map.Entry<String, PlasticEnsembleTermination> stringPlasticEnsembleTerminationEntry : myPlasticEnsembleTerminations.entrySet()) {
-        	PlasticEnsembleTermination term = stringPlasticEnsembleTerminationEntry.getValue();
+        result.myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticGroupTermination>(6);
+        for (Map.Entry<String, PlasticGroupTermination> stringPlasticEnsembleTerminationEntry : myPlasticEnsembleTerminations.entrySet()) {
+        	PlasticGroupTermination term = stringPlasticEnsembleTerminationEntry.getValue();
         	result.myPlasticEnsembleTerminations.put(stringPlasticEnsembleTerminationEntry.getKey(), term.clone(result));
         }
         

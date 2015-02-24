@@ -40,8 +40,8 @@ import ca.nengo.math.impl.ConstantFunction;
 import ca.nengo.math.impl.TimeSeriesFunction;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
-import ca.nengo.model.nef.DecodableEnsemble;
-import ca.nengo.model.plasticity.impl.PlasticEnsembleImpl;
+import ca.nengo.model.nef.DecodableGroup;
+import ca.nengo.model.plasticity.impl.PlasticGroupImpl;
 import ca.nengo.util.DataUtils;
 import ca.nengo.util.MU;
 import ca.nengo.util.Probe;
@@ -56,7 +56,7 @@ import java.util.*;
  *
  * @author Bryan Tripp
  */
-public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements DecodableEnsemble {
+public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGroup {
 
 	private static final long serialVersionUID = 1L;
 
@@ -67,7 +67,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
 	private Map<String, LinearApproximator> myApproximators;
 	private float myTime; //used to support Probeable
 	
-	private static final Logger ourLogger = Logger.getLogger(DecodableEnsembleImpl.class);
+	private static final Logger ourLogger = Logger.getLogger(DecodableGroupImpl.class);
 
 	/**
 	 * @param name Name of the Ensemble
@@ -75,7 +75,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
 	 * @param factory Source of LinearApproximators to use in decoding output
 	 * @throws StructuralException if super constructor fails
 	 */
-	public DecodableEnsembleImpl(String name, Node[] nodes, ApproximatorFactory factory) throws StructuralException {
+	public DecodableGroupImpl(String name, Node[] nodes, ApproximatorFactory factory) throws StructuralException {
 		super(name, nodes);
 
 		myDecodedOrigins = new LinkedHashMap<String, DecodedOrigin>(10);
@@ -86,7 +86,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.DecodableEnsemble#addDecodedOrigin(java.lang.String, ca.nengo.math.Function[], java.lang.String, ca.nengo.model.Network, ca.nengo.util.Probe, float, float)
+	 * @see ca.nengo.model.nef.DecodableGroup#addDecodedOrigin(java.lang.String, ca.nengo.math.Function[], java.lang.String, ca.nengo.model.Network, ca.nengo.util.Probe, float, float)
 	 */
     public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
 			Probe probe, float startTime, float endTime) throws StructuralException, SimulationException {
@@ -115,7 +115,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.DecodableEnsemble#addDecodedOrigin(java.lang.String, ca.nengo.math.Function[], java.lang.String, ca.nengo.model.Network, ca.nengo.util.Probe, ca.nengo.model.Termination, float[][], float)
+	 * @see ca.nengo.model.nef.DecodableGroup#addDecodedOrigin(java.lang.String, ca.nengo.math.Function[], java.lang.String, ca.nengo.model.Network, ca.nengo.util.Probe, ca.nengo.model.Termination, float[][], float)
 	 */
     public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
 			Probe probe, Termination termination, float[][] evalPoints, float transientTime) throws StructuralException, SimulationException {
@@ -243,7 +243,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
      *      output dimension must match the dimension of this Ensemble.
      * @return Added Termination
      * @throws StructuralException if termination name is taken
-     * @see ca.nengo.model.nef.NEFEnsemble#addDecodedTermination(java.lang.String, float[][], float, boolean)
+     * @see ca.nengo.model.nef.NEFGroup#addDecodedTermination(java.lang.String, float[][], float, boolean)
      */
     public Termination addDecodedTermination(String name, float[][] matrix, float tauPSC, boolean isModulatory)
             throws StructuralException {
@@ -289,7 +289,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
      * @param isModulatory Is the termination modulatory?
      * @return The added Termination
      * @throws StructuralException if termination name is taken
-     * @see ca.nengo.model.nef.NEFEnsemble#addDecodedTermination(java.lang.String, float[][], float[], float[], float, boolean)
+     * @see ca.nengo.model.nef.NEFGroup#addDecodedTermination(java.lang.String, float[][], float[], float[], float, boolean)
      */
     public Termination addDecodedTermination(String name, float[][] matrix, float[] tfNumerator, float[] tfDenominator,
             float passthrough, boolean isModulatory) throws StructuralException {
@@ -323,7 +323,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
     }
 
     /**
-     * @see ca.nengo.model.nef.NEFEnsemble#removeDecodedTermination(java.lang.String)
+     * @see ca.nengo.model.nef.NEFGroup#removeDecodedTermination(java.lang.String)
      */
     public DecodedTermination removeDecodedTermination(String name) throws StructuralException {
         if (myDecodedTerminations.containsKey(name)) {
@@ -338,7 +338,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
     }
 
     /**
-     * @see ca.nengo.model.nef.NEFEnsemble#removeDecodedTermination(java.lang.String)
+     * @see ca.nengo.model.nef.NEFGroup#removeDecodedTermination(java.lang.String)
      */
     public DecodedOrigin removeDecodedOrigin(String name) throws StructuralException {
         if (myDecodedOrigins.containsKey(name)) {
@@ -363,7 +363,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
     }
 
 	/**
-	 * @see ca.nengo.model.nef.DecodableEnsemble#doneOrigins()
+	 * @see ca.nengo.model.nef.DecodableGroup#doneOrigins()
 	 */
     public void doneOrigins() {
 		myApproximators.clear();
@@ -388,7 +388,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
     }
 
 	/**
-	 * @see ca.nengo.model.Ensemble#getOrigins()
+	 * @see ca.nengo.model.Group#getOrigins()
 	 */
 	@Override
     public Origin[] getOrigins() {
@@ -422,7 +422,7 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
     }
 
     /**
-     * @see ca.nengo.model.Ensemble#getTerminations()
+     * @see ca.nengo.model.Group#getTerminations()
      */
     @Override
     public Termination[] getTerminations() {
@@ -538,8 +538,8 @@ public class DecodableEnsembleImpl extends PlasticEnsembleImpl implements Decoda
 	}
 	
 	@Override
-	public DecodableEnsembleImpl clone() throws CloneNotSupportedException {
-		DecodableEnsembleImpl result = (DecodableEnsembleImpl) super.clone();
+	public DecodableGroupImpl clone() throws CloneNotSupportedException {
+		DecodableGroupImpl result = (DecodableGroupImpl) super.clone();
 
 		result.myApproximatorFactory = myApproximatorFactory.clone();
 		result.myApproximators = new HashMap<String, LinearApproximator>(5);

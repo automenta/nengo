@@ -26,7 +26,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 
 package ca.nengo.ui.models.viewers;
 
-import ca.nengo.model.Ensemble;
+import ca.nengo.model.Group;
 import ca.nengo.model.Network;
 import ca.nengo.model.Node;
 import ca.nengo.model.Probeable;
@@ -34,7 +34,7 @@ import ca.nengo.model.neuron.Neuron;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.models.UINeoNode;
-import ca.nengo.ui.models.nodes.UIEnsemble;
+import ca.nengo.ui.models.nodes.UIGroup;
 import ca.nengo.ui.models.nodes.UINetwork;
 import ca.nengo.ui.models.nodes.UINeuron;
 import ca.nengo.util.Probe;
@@ -47,13 +47,13 @@ import java.util.HashMap;
  * 
  * @author Shu
  */
-public class EnsembleViewer extends NodeViewer {
+public class GroupViewer extends NodeViewer {
 
 	/**
 	 * @param ensembleUI
 	 *            Parent Ensemble UI Wrapper
 	 */
-	public EnsembleViewer(UIEnsemble ensembleUI) {
+	public GroupViewer(UIGroup ensembleUI) {
 		super(ensembleUI);
 	}
 
@@ -66,14 +66,14 @@ public class EnsembleViewer extends NodeViewer {
 	}
 
 	@Override
-	public Ensemble getModel() {
+	public Group getModel() {
 
-		return (Ensemble) super.getModel();
+		return (Group) super.getModel();
 	}
 
 	@Override
-	public UIEnsemble getViewerParent() {
-		return (UIEnsemble) super.getViewerParent();
+	public UIGroup getViewerParent() {
+		return (UIGroup) super.getViewerParent();
 	}
 
 	@Override
@@ -110,9 +110,9 @@ public class EnsembleViewer extends NodeViewer {
         				UINeuron neuronUI = new UINeuron(neuron);
 
         				addUINode(neuronUI, false, false);
-        			} else if (node instanceof Ensemble) {
-        				Ensemble ensemble = (Ensemble)node;
-        				UIEnsemble ensembleUI = new UIEnsemble(ensemble);
+        			} else if (node instanceof Group) {
+        				Group group = (Group)node;
+        				UIGroup ensembleUI = new UIGroup(group);
         				addUINode(ensembleUI,false,false);
         				
         			} else if (node instanceof Network) {

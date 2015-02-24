@@ -6,7 +6,7 @@
 //import ca.nengo.ui.data.DataListView;
 //import ca.nengo.ui.data.SimulatorDataModel;
 //import ca.nengo.ui.lib.AuxillarySplitPane;
-//import ca.nengo.ui.lib.Style.NengoStyle;
+//import ca.nengo.ui.lib.style.NengoStyle;
 //import ca.nengo.ui.lib.actions.ZoomToFitAction;
 //import ca.nengo.ui.lib.objects.models.ModelObject;
 //import ca.nengo.ui.lib.util.UIEnvironment;

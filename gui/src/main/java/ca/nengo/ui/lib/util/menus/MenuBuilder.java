@@ -1,6 +1,6 @@
 package ca.nengo.ui.lib.util.menus;
 
-import ca.nengo.ui.lib.Style.NengoStyle;
+import ca.nengo.ui.lib.style.NengoStyle;
 import ca.nengo.ui.lib.actions.StandardAction;
 
 import javax.swing.*;

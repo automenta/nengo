@@ -34,8 +34,8 @@ import ca.nengo.math.impl.*;
 import ca.nengo.math.impl.GradientDescentApproximator.Constraints;
 import ca.nengo.model.Node;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.nef.NEFEnsemble;
-import ca.nengo.model.nef.NEFEnsembleFactory;
+import ca.nengo.model.nef.NEFGroup;
+import ca.nengo.model.nef.NEFGroupFactory;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.impl.LIFNeuronFactory;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
@@ -65,7 +65,7 @@ public class BiasOrigin extends DecodedOrigin {
 
 	private static final long serialVersionUID = 1L;
 
-	private NEFEnsemble myInterneurons;
+	private NEFGroup myInterneurons;
 	private float[][] myConstantOutputs;
 
 	/**
@@ -78,7 +78,7 @@ public class BiasOrigin extends DecodedOrigin {
 	 * @param excitatory Excitatory or inhibitory?
 	 * @throws StructuralException if DecodedOrigin can't be created
 	 */
-	public BiasOrigin(NEFEnsemble ensemble, String name, Node[] nodes, String nodeOrigin,
+	public BiasOrigin(NEFGroup ensemble, String name, Node[] nodes, String nodeOrigin,
 	        float[][] constantOutputs, int numInterneurons, boolean excitatory) throws StructuralException {
 		super(ensemble, name, nodes, nodeOrigin,
 				new Function[]{new ConstantFunction(ensemble.getDimension(), 0f)},
@@ -160,7 +160,7 @@ public class BiasOrigin extends DecodedOrigin {
 		return excitatory ? 1f / max : -1f / max; //this makes the bias function peak at 1 (or -1)
 	}
 
-	private NEFEnsemble createInterneurons(String name, int num, boolean excitatoryProjection) throws StructuralException {
+	private NEFGroup createInterneurons(String name, int num, boolean excitatoryProjection) throws StructuralException {
 		final Function f;
 		if (excitatoryProjection) {
 			f = new IdentityFunction(1, 0);
@@ -173,9 +173,9 @@ public class BiasOrigin extends DecodedOrigin {
 			};
 		}
 
-		NEFEnsembleFactory ef = new NEFEnsembleFactoryImpl() {
+		NEFGroupFactory ef = new NEFGroupFactoryImpl() {
 			private static final long serialVersionUID = 1L;
-			protected void addDefaultOrigins(NEFEnsemble ensemble) {} //wait until some neurons are adjusted
+			protected void addDefaultOrigins(NEFGroup ensemble) {} //wait until some neurons are adjusted
 		};
 		ef.setEncoderFactory(new Rectifier(ef.getEncoderFactory(), true));
 		ef.setEvalPointFactory(new BiasedVG(new RandomHypersphereVG(false, 0.5f, 0f), 0, excitatoryProjection ? .5f : -.5f));
@@ -187,7 +187,7 @@ public class BiasOrigin extends DecodedOrigin {
 		ef.setApproximatorFactory(new GradientDescentApproximator.Factory(
 				new GradientDescentApproximator.CoefficientsSameSign(true), false));
 
-		NEFEnsemble result = ef.make(name, num, 1);
+		NEFGroup result = ef.make(name, num, 1);
 
 		//TODO: bounding neurons for inhibitory projection
 		//set intercepts of first few neurons to 1 (outside normal range)
@@ -197,7 +197,7 @@ public class BiasOrigin extends DecodedOrigin {
 			neuron.setBias(1-neuron.getScale());
 		}
 
-		DecodedOrigin o = (DecodedOrigin) result.addDecodedOrigin(NEFEnsemble.X, new Function[]{f}, Neuron.AXON);
+		DecodedOrigin o = (DecodedOrigin) result.addDecodedOrigin(NEFGroup.X, new Function[]{f}, Neuron.AXON);
 
 		float[][] decoders = o.getDecoders();
 		for (int i = 0; i < n; i++) {
@@ -212,7 +212,7 @@ public class BiasOrigin extends DecodedOrigin {
 	 * @return An ensemble of interneurons through which this Origin must project (in parallel with its
 	 * 		direct projection) to compensate for the bias introduced by making all weights the same sign.
 	 */
-	public NEFEnsemble getInterneurons() {
+	public NEFGroup getInterneurons() {
 		return myInterneurons;
 	}
 

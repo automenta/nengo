@@ -19,7 +19,7 @@ import java.util.Map;
  *
  * @author Bryan Tripp
  */
-public class EnsembleImplTest extends TestCase {
+public class GroupImplTest extends TestCase {
 
 	@Override
     protected void setUp() throws Exception {
@@ -32,17 +32,17 @@ public class EnsembleImplTest extends TestCase {
 				new Termination[]{new BasicTermination(null, new SimpleLTISystem(1, 1, 1), null, "existing")});
 		MockExpandableNode node2 = new MockExpandableNode("2", new Origin[0],
 				new Termination[]{new BasicTermination(null, new SimpleLTISystem(1, 1, 1), null, "existing")});
-		EnsembleImpl ensemble = new EnsembleImpl("ensemble", new Node[]{node1, node2});
+		GroupImpl ensemble = new GroupImpl("ensemble", new Node[]{node1, node2});
 		ensemble.addTermination("new", MU.uniform(2, 2, 1), .005f, false);
 
-		EnsembleImpl copy = ensemble.clone();
+		GroupImpl copy = ensemble.clone();
         System.out.println("Termination Length");
         System.out.println( copy.getTerminations().length);
 		assertEquals(2, copy.getTerminations().length);
 		copy.removeTermination("new");
         System.out.println("Termination Name");
         System.out.println( copy.getTermination("existing").getClass().getName());
-		assertTrue(copy.getTermination("existing") instanceof EnsembleTermination);
+		assertTrue(copy.getTermination("existing") instanceof GroupTermination);
 //		try {
 //			copy.removeTermination("existing");
 //			fail("Should have thrown exception (can't remove non-expanded terminations)");
