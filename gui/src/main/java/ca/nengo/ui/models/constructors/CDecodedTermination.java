@@ -25,7 +25,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.models.constructors;
 
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.Target;
 import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.ui.configurable.*;
 import ca.nengo.ui.configurable.descriptors.PBoolean;
@@ -72,7 +72,7 @@ public class CDecodedTermination extends ProjectionConstructor {
 	protected Object createModel(ConfigResult configuredProperties, String uniqueName) throws ConfigException {
 				
 
-		Termination term = null;
+		Target term = null;
 		try {
 			term = nefEnsembleParent.addDecodedTermination(uniqueName,
 					(float[][]) configuredProperties.getValue(pTransformMatrix), (Float) configuredProperties

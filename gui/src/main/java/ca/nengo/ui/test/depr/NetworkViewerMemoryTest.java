@@ -30,7 +30,7 @@ import ca.nengo.math.Function;
 import ca.nengo.math.impl.ConstantFunction;
 import ca.nengo.model.Network;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.Target;
 import ca.nengo.model.Units;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.impl.NetworkImpl;
@@ -76,13 +76,13 @@ public class NetworkViewerMemoryTest {
 
 		float tau = .05f;
 
-		Termination interm = integrator.addDecodedTermination("input",
+		Target interm = integrator.addDecodedTermination("input",
 				new float[][] { new float[] { tau } }, tau, false);
 		// Termination interm = integrator.addDecodedTermination("input", new
 		// float[][]{new float[]{1f}}, tau);
 		network.addProjection(input.getOrigin(FunctionInput.ORIGIN_NAME), interm);
 
-		Termination fbterm = integrator.addDecodedTermination("feedback",
+		Target fbterm = integrator.addDecodedTermination("feedback",
 				new float[][] { new float[] { 1f } }, tau, false);
 		network.addProjection(integrator.getOrigin(NEFGroup.X), fbterm);
 

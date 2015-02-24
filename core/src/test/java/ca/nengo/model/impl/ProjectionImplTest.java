@@ -22,30 +22,30 @@ import junit.framework.TestCase;
 public class ProjectionImplTest extends TestCase {
 
 	private Projection myProjection;
-	private Origin myOrigin;
-	private Termination myTermination;
+	private Source mySource;
+	private Target myTarget;
 
 	@Override
     protected void setUp() throws Exception {
 		super.setUp();
 
-		myOrigin = new MockOrigin("mock origin", 1);
-		myTermination = new MockTermination("mock termination", 1);
-		myProjection = new ProjectionImpl(myOrigin, myTermination, null);
+		mySource = new MockSource("mock origin", 1);
+		myTarget = new MockTarget("mock termination", 1);
+		myProjection = new ProjectionImpl(mySource, myTarget, null);
 	}
 
 	/*
 	 * Test method for 'ca.bpt.cn.model.impl.ProjectionImpl.getOrigin()'
 	 */
 	public void testGetOrigin() {
-		assertEquals(myOrigin, myProjection.getOrigin());
+		assertEquals(mySource, myProjection.getOrigin());
 	}
 
 	/*
 	 * Test method for 'ca.bpt.cn.model.impl.ProjectionImpl.getTermination()'
 	 */
 	public void testGetTermination() {
-		assertEquals(myTermination, myProjection.getTermination());
+		assertEquals(myTarget, myProjection.getTermination());
 	}
 
 //	public void testAddBias() throws StructuralException, SimulationException {
@@ -141,8 +141,8 @@ public class ProjectionImplTest extends TestCase {
 		post.addDecodedTermination("input", MU.I(2), .01f, false);
 		Projection p = network.addProjection(pre.getOrigin(NEFGroup.X), post.getTermination("input"));
 
-		DecodedOrigin o = (DecodedOrigin) pre.getOrigin(NEFGroup.X);
-		DecodedTermination t = (DecodedTermination) post.getTermination("input");
+		DecodedSource o = (DecodedSource) pre.getOrigin(NEFGroup.X);
+		DecodedTarget t = (DecodedTarget) post.getTermination("input");
 		float[][] directWeights = MU.prod(post.getEncoders(), MU.prod(t.getTransform(), MU.transpose(o.getDecoders())));
 		System.out.println("Direct weights: " + MU.min(directWeights) + " to " + MU.max(directWeights));
 
@@ -158,8 +158,8 @@ public class ProjectionImplTest extends TestCase {
 		getError(reference, mixed);
 
 		p.addBias(300, .005f, .01f, true, false);
-		BiasOrigin bo = (BiasOrigin) pre.getOrigin("post_input");
-		BiasTermination bt = (BiasTermination) post.getTermination("input (bias)");
+		BiasSource bo = (BiasSource) pre.getOrigin("post_input");
+		BiasTarget bt = (BiasTarget) post.getTermination("input (bias)");
 		assertTrue(MU.min(getNetWeights(directWeights, bo, bt)) > -1e-10);
 		network.run(-1.5f, 1);
 //		Plotter.plot(probe.getData(), "positive non-optimal");
@@ -169,8 +169,8 @@ public class ProjectionImplTest extends TestCase {
 		p.removeBias();
 
 		p.addBias(300, .005f, .01f, true, true);
-		bo = (BiasOrigin) pre.getOrigin("post_input");
-		bt = (BiasTermination) post.getTermination("input (bias)");
+		bo = (BiasSource) pre.getOrigin("post_input");
+		bt = (BiasTarget) post.getTermination("input (bias)");
 		assertTrue(MU.min(getNetWeights(directWeights, bo, bt)) > -1e-10);
 		network.run(-1.5f, 1);
 //		Plotter.plot(probe.getData(), "positive optimal");
@@ -192,7 +192,7 @@ public class ProjectionImplTest extends TestCase {
 		return result;
 	}
 
-	private static float[][] getNetWeights(float[][] directWeights, BiasOrigin bo, BiasTermination bt) {
+	private static float[][] getNetWeights(float[][] directWeights, BiasSource bo, BiasTarget bt) {
 		float[][] biasWeights = MU.prod(MU.transpose(new float[][]{bt.getBiasEncoders()}), MU.transpose(bo.getDecoders()));
 		System.out.println("Bias weights: " + MU.min(biasWeights) + " to " + MU.max(biasWeights));
 
@@ -202,14 +202,14 @@ public class ProjectionImplTest extends TestCase {
 		return netWeights;
 	}
 
-	public static class MockOrigin implements Origin {
+	public static class MockSource implements Source {
 
 		private static final long serialVersionUID = 1L;
 
 		private String myName;
 		private int myDimensions;
 
-		public MockOrigin(String name, int dimensions) {
+		public MockSource(String name, int dimensions) {
 			myName = name;
 			myDimensions = dimensions;
 
@@ -231,11 +231,11 @@ public class ProjectionImplTest extends TestCase {
 			myDimensions = dim;
 		}
 
-		public InstantaneousOutput getValues() {
+		public InstantaneousOutput get() {
 			throw new RuntimeException("not implemented");
 		}
 		
-		public  void setValues(InstantaneousOutput val) {
+		public  void accept(InstantaneousOutput val) {
 			throw new RuntimeException("not implemented");
 		}
 
@@ -252,23 +252,23 @@ public class ProjectionImplTest extends TestCase {
 		}
 
 		@Override
-		public Origin clone() throws CloneNotSupportedException {
-			return (Origin) super.clone();
+		public Source clone() throws CloneNotSupportedException {
+			return (Source) super.clone();
 		}
 		
-		public Origin clone(Node node) throws CloneNotSupportedException {
+		public Source clone(Node node) throws CloneNotSupportedException {
 			return this.clone();
 		}
 	}
 
-	public static class MockTermination implements Termination {
+	public static class MockTarget implements Target {
 
 		private static final long serialVersionUID = 1L;
 
 		private final String myName;
 		private final int myDimensions;
 
-		public MockTermination(String name, int dimensions) {
+		public MockTarget(String name, int dimensions) {
 			myName = name;
 			myDimensions = dimensions;
 		}
@@ -307,7 +307,7 @@ public class ProjectionImplTest extends TestCase {
 		public void setTau(float tau) throws StructuralException {
 		}
 		
-		public InstantaneousOutput getInput() {
+		public InstantaneousOutput get() {
 			throw new RuntimeException("not implemented");
 		}
 
@@ -318,12 +318,12 @@ public class ProjectionImplTest extends TestCase {
 		}
 
 		@Override
-		public MockTermination clone() throws CloneNotSupportedException {
+		public MockTarget clone() throws CloneNotSupportedException {
 			return this.clone(null);
 		}
 		
-		public MockTermination clone(Node node) throws CloneNotSupportedException {
-			return (MockTermination)super.clone();
+		public MockTarget clone(Node node) throws CloneNotSupportedException {
+			return (MockTarget)super.clone();
 		}
 
 	}

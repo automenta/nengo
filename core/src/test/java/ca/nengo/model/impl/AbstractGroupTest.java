@@ -19,24 +19,24 @@ import java.util.List;
 public class AbstractGroupTest extends TestCase {
 
 	public void testFindCommon1DOrigins() {
-		Origin one = new BasicOrigin(null, "2D", 2, Units.UNK);
-		Origin two = new BasicOrigin(null, "unique", 1, Units.UNK);
-		Origin three = new BasicOrigin(null, "shared1", 1, Units.UNK);
-		Origin four = new BasicOrigin(null, "shared2", 1, Units.UNK);
+		Source one = new BasicSource(null, "2D", 2, Units.UNK);
+		Source two = new BasicSource(null, "unique", 1, Units.UNK);
+		Source three = new BasicSource(null, "shared1", 1, Units.UNK);
+		Source four = new BasicSource(null, "shared2", 1, Units.UNK);
 		
-		List<Origin> shared = new ArrayList<Origin>(3);
+		List<Source> shared = new ArrayList<Source>(3);
 		shared.add(one);
 		shared.add(three);
 		shared.add(four);
 		
-		List<Origin> notshared = new ArrayList<Origin>(4);
+		List<Source> notshared = new ArrayList<Source>(4);
 		notshared.add(one);
 		notshared.add(three);
 		notshared.add(four);
 		notshared.add(two);
 		
 		Node[] nodes = new Node[3];
-		nodes[0] = new AbstractNode("a", shared, new ArrayList<Termination>(1)) {
+		nodes[0] = new AbstractNode("a", shared, new ArrayList<Target>(1)) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -53,7 +53,7 @@ public class AbstractGroupTest extends TestCase {
 			public String toScript(HashMap<String, Object> scriptData) throws ScriptGenException {
 				return "";
 			}};		
-		nodes[1] = new AbstractNode("b", shared, new ArrayList<Termination>(1)) {
+		nodes[1] = new AbstractNode("b", shared, new ArrayList<Target>(1)) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -70,7 +70,7 @@ public class AbstractGroupTest extends TestCase {
 			public String toScript(HashMap<String, Object> scriptData) throws ScriptGenException {
 				return "";
 			}};		
-		nodes[2] = new AbstractNode("c", notshared, new ArrayList<Termination>(1)) {
+		nodes[2] = new AbstractNode("c", notshared, new ArrayList<Target>(1)) {
 			private static final long serialVersionUID = 1L;
 
 			@Override

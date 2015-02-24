@@ -301,7 +301,7 @@ public class PyramidalNetwork extends NetworkImpl
      * @return Exposed network origin X (from the soma)
      * @throws StructuralException if origin doesn't exist
      */
-    public Origin getOrigin() throws StructuralException {
+    public Source getOrigin() throws StructuralException {
         return this.getOrigin("X");
     }
 

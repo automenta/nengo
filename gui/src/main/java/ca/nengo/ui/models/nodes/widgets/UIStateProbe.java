@@ -36,8 +36,10 @@ import ca.nengo.ui.lib.util.menus.MenuBuilder;
 import ca.nengo.ui.lib.util.menus.PopupMenuBuilder;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.nodes.UIGroup;
+import ca.nengo.ui.models.nodes.UINodeViewable;
 import ca.nengo.ui.models.tooltips.TooltipBuilder;
 import ca.nengo.ui.models.viewers.GroupViewer;
+import ca.nengo.ui.models.viewers.NodeViewer;
 import ca.nengo.util.Probe;
 
 import javax.swing.*;
@@ -64,9 +66,9 @@ public class UIStateProbe extends UIProbe {
 		Probe probe;
 		try {
 			if (nodeAttachedTo.getParentViewer() instanceof GroupViewer) {
-				GroupViewer groupViewer = (GroupViewer) nodeAttachedTo.getParentViewer();
+				NodeViewer groupViewer = nodeAttachedTo.getParentViewer();
 
-				UIGroup ensemble = groupViewer.getViewerParent();
+				UINodeViewable ensemble = groupViewer.getViewerParent();
 				Network network = ensemble.getNetworkParent().getModel();
 
 				probe = network.getSimulator().addProbe(ensemble.getName(),

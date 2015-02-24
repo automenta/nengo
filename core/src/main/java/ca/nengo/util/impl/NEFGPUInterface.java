@@ -2,15 +2,15 @@ package ca.nengo.util.impl;
 
 import ca.nengo.math.impl.MultiLevelKLNetworkPartitioner;
 import ca.nengo.model.*;
-import ca.nengo.model.impl.GroupTermination;
+import ca.nengo.model.impl.GroupTarget;
 import ca.nengo.model.impl.NetworkArrayImpl;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.impl.NetworkImpl.OriginWrapper;
-import ca.nengo.model.impl.NetworkImpl.TerminationWrapper;
+import ca.nengo.model.impl.NetworkImpl.SourceWrapper;
+import ca.nengo.model.impl.NetworkImpl.TargetWrapper;
 import ca.nengo.model.impl.RealOutputImpl;
 import ca.nengo.model.nef.NEFGroup;
-import ca.nengo.model.nef.impl.DecodedOrigin;
-import ca.nengo.model.nef.impl.DecodedTermination;
+import ca.nengo.model.nef.impl.DecodedSource;
+import ca.nengo.model.nef.impl.DecodedTarget;
 import ca.nengo.model.nef.impl.NEFGroupImpl;
 import ca.nengo.model.neuron.impl.LIFSpikeGenerator;
 import ca.nengo.model.neuron.impl.SpikingNeuron;
@@ -183,8 +183,8 @@ public class NEFGPUInterface {
 		// Most of this function is devoted to this task.
 		int i = 0, j = 0, k = 0, numEnsemblesCollectingSpikes = 0;
 		NEFGroup workingNode;
-		Termination[] terminations;
-		DecodedOrigin[] origins;
+		Target[] targets;
+		DecodedSource[] origins;
 
 		float[][][][] terminationTransforms = new float[myGPUEnsembles.length][][][];
 		int[][] isDecodedTermination = new int[myGPUEnsembles.length][];
@@ -236,27 +236,27 @@ public class NEFGPUInterface {
 			
 			networkArrayData.endIndex = networkArrayOffset;
 				
-			Termination[] networkArrayTerminations = workingArray.getTerminations();
-			networkArrayData.numTerminations = networkArrayTerminations.length;
+			Target[] networkArrayTargets = workingArray.getTerminations();
+			networkArrayData.numTerminations = networkArrayTargets.length;
 			
 			
-			for(j = 0; j < networkArrayTerminations.length; j++){
-				networkArrayData.totalInputSize += networkArrayTerminations[j].getDimensions();
+			for(j = 0; j < networkArrayTargets.length; j++){
+				networkArrayData.totalInputSize += networkArrayTargets[j].getDimensions();
 			}
 			
 			totalInputSize += networkArrayData.totalInputSize;
 			
-			Origin[] networkArrayOrigins;
+			Source[] networkArraySources;
 			if(workingArray instanceof NEFGroupImpl)
 			{
-				networkArrayOrigins = ((NEFGroupImpl) workingArray).getDecodedOrigins();
+				networkArraySources = ((NEFGroupImpl) workingArray).getDecodedOrigins();
 			}else{
-				networkArrayOrigins = workingArray.getOrigins();
+				networkArraySources = workingArray.getOrigins();
 			}
-			networkArrayData.numOrigins = networkArrayOrigins.length;
+			networkArrayData.numOrigins = networkArraySources.length;
 			
-			for(j = 0; j < networkArrayOrigins.length; j++){
-				networkArrayData.totalOutputSize += networkArrayOrigins[j].getDimensions();
+			for(j = 0; j < networkArraySources.length; j++){
+				networkArrayData.totalOutputSize += networkArraySources[j].getDimensions();
 			}
 			
 			if(workingArray instanceof NEFGroupImpl){
@@ -270,25 +270,25 @@ public class NEFGPUInterface {
 
 			networkArrayDataArray[i] = networkArrayData.getAsArray();
 			
-			inputOnGPU[i] = new boolean[networkArrayTerminations.length];
-			outputRequiredOnCPU[i] = new int[networkArrayOrigins.length];
+			inputOnGPU[i] = new boolean[networkArrayTargets.length];
+			outputRequiredOnCPU[i] = new int[networkArraySources.length];
 			
-			for(j = 0; j < networkArrayTerminations.length; j++){
-				Termination termination = networkArrayTerminations[j];
-				boolean terminationWrapped = termination instanceof TerminationWrapper;
+			for(j = 0; j < networkArrayTargets.length; j++){
+				Target target = networkArrayTargets[j];
+				boolean terminationWrapped = target instanceof TargetWrapper;
 				if(terminationWrapped)
-					termination = ((TerminationWrapper) termination).getBaseTermination();
+					target = ((TargetWrapper) target).getBaseTermination();
 				
 				k = 0;
 				boolean projectionMatches = false;
 				
 				while(!projectionMatches && k < myGPUProjections.length){
-					Termination projectionTermination = myGPUProjections[k].getTermination();
-					boolean projectionTerminationWrapped = projectionTermination instanceof TerminationWrapper;
+					Target projectionTarget = myGPUProjections[k].getTermination();
+					boolean projectionTerminationWrapped = projectionTarget instanceof TargetWrapper;
 					if(projectionTerminationWrapped)
-						projectionTermination = ((TerminationWrapper) projectionTermination).getBaseTermination();
+						projectionTarget = ((TargetWrapper) projectionTarget).getBaseTermination();
 					
-					projectionMatches = termination == projectionTermination;
+					projectionMatches = target == projectionTarget;
 					
 					if(projectionMatches)
 						break;
@@ -299,7 +299,7 @@ public class NEFGPUInterface {
 				if (projectionMatches) {
 					adjustedProjections[k][2] = i;
 					adjustedProjections[k][3] = j;
-					adjustedProjections[k][4] = termination.getDimensions();
+					adjustedProjections[k][4] = target.getDimensions();
 					adjustedProjections[k][5] = -1;
 	
 					inputOnGPU[i][j] = true;
@@ -308,38 +308,38 @@ public class NEFGPUInterface {
 				}
 			}
 			
-			for (j = 0; j < networkArrayOrigins.length; j++) {
-				Origin origin = networkArrayOrigins[j];
-				boolean originWrapped = origin instanceof OriginWrapper;
+			for (j = 0; j < networkArraySources.length; j++) {
+				Source source = networkArraySources[j];
+				boolean originWrapped = source instanceof SourceWrapper;
 				if(originWrapped)
-					origin = ((OriginWrapper) origin).getWrappedOrigin();
+					source = ((SourceWrapper) source).getWrappedOrigin();
 				
 				for (k = 0; k < myGPUProjections.length; k++) {
-					Origin projectionOrigin = myGPUProjections[k].getOrigin();
-					boolean projectionOriginWrapped = projectionOrigin instanceof OriginWrapper;
+					Source projectionSource = myGPUProjections[k].getOrigin();
+					boolean projectionOriginWrapped = projectionSource instanceof SourceWrapper;
 					
 					if(projectionOriginWrapped)
-						projectionOrigin = ((OriginWrapper) projectionOrigin).getWrappedOrigin();
+						projectionSource = ((SourceWrapper) projectionSource).getWrappedOrigin();
 					
-					if (origin == projectionOrigin) {
+					if (source == projectionSource) {
 						adjustedProjections[k][0] = i;
 						adjustedProjections[k][1] = j;
 					}
 				}
 				
-				outputRequiredOnCPU[i][j] = (origin.getRequiredOnCPU() || requireAllOutputsOnCPU) ? 1 : 0;
+				outputRequiredOnCPU[i][j] = (source.getRequiredOnCPU() || requireAllOutputsOnCPU) ? 1 : 0;
 				
 				// even if its not explicitly required on the CPU, it might be implicitly
 				// if it is attached to a projection whose termination is on the CPU
 				if(outputRequiredOnCPU[i][j] == 0){
     				for (k = 0; k < nonGPUProjections.length; k++) {
-    					Origin projectionOrigin = nonGPUProjections[k].getOrigin();
-                        boolean projectionOriginWrapped = projectionOrigin instanceof OriginWrapper;
+    					Source projectionSource = nonGPUProjections[k].getOrigin();
+                        boolean projectionOriginWrapped = projectionSource instanceof SourceWrapper;
                         
                         if(projectionOriginWrapped)
-                            projectionOrigin = ((OriginWrapper) projectionOrigin).getWrappedOrigin();
+                            projectionSource = ((SourceWrapper) projectionSource).getWrappedOrigin();
                     
-                        if (origin == projectionOrigin){
+                        if (source == projectionSource){
                             outputRequiredOnCPU[i][j] = 1;
                         }
     				}
@@ -361,23 +361,23 @@ public class NEFGPUInterface {
 			
 			isSpikingEnsemble[i] = (workingNode.getMode() == SimulationMode.DEFAULT) ? 1 : 0;
 
-			terminations = workingNode.getTerminations();
+			targets = workingNode.getTerminations();
 
 			int terminationDim = 0;
 			ensembleData.maxTransformDimension = 0;
 
-			terminationTransforms[i] = new float[terminations.length][][];
-			terminationTau[i] = new float[terminations.length];
-			isDecodedTermination[i] = new int[terminations.length];
+			terminationTransforms[i] = new float[targets.length][][];
+			terminationTau[i] = new float[targets.length];
+			isDecodedTermination[i] = new int[targets.length];
 			
-			for (j = 0; j < terminations.length; j++) {
+			for (j = 0; j < targets.length; j++) {
 
-				if (terminations[j] instanceof DecodedTermination) {
-					terminationTransforms[i][j] = ((DecodedTermination) terminations[j])
+				if (targets[j] instanceof DecodedTarget) {
+					terminationTransforms[i][j] = ((DecodedTarget) targets[j])
 							.getTransform();
-					terminationTau[i][j] = terminations[j].getTau();
+					terminationTau[i][j] = targets[j].getTau();
 
-					terminationDim = terminations[j].getDimensions();
+					terminationDim = targets[j].getDimensions();
 					ensembleData.totalInputSize += terminationDim;
 
 					if (terminationDim > ensembleData.maxTransformDimension) {
@@ -387,7 +387,7 @@ public class NEFGPUInterface {
 					isDecodedTermination[i][j] = 1;
 					
 					ensembleData.numDecodedTerminations++;
-				} else if (terminations[j] instanceof GroupTermination) {
+				} else if (targets[j] instanceof GroupTarget) {
 					terminationTransforms[i][j] = new float[1][1];
 					
 					
@@ -395,12 +395,12 @@ public class NEFGPUInterface {
 					// currently it assumes all neurons in the ensemble have the same weight for each non-decoded termination
 					// (mainly just to support gates which have uniform negative weights).
 					// When we do learning, will have to extract the whole weight matrix.
-					Termination[] neuronTerminations = ((GroupTermination) terminations[j]).getNodeTerminations();
-					terminationTransforms[i][j][0] = ((PlasticNodeTermination) neuronTerminations[0]).getWeights();
-					terminationTau[i][j] = terminations[j].getTau();
+					Target[] neuronTargets = ((GroupTarget) targets[j]).getNodeTerminations();
+					terminationTransforms[i][j][0] = ((PlasticNodeTarget) neuronTargets[0]).getWeights();
+					terminationTau[i][j] = targets[j].getTau();
 					isDecodedTermination[i][j] = 0;
 
-					terminationDim = terminations[j].getDimensions();
+					terminationDim = targets[j].getDimensions();
 					
 					ensembleData.totalInputSize += terminationDim;
 					ensembleData.nonDecodedTransformSize += terminationDim;
@@ -454,24 +454,24 @@ public class NEFGPUInterface {
 		spikeOutput = new float [myGPUEnsembles.length][];
 		
 		for (i = 0; i < myGPUNetworkArrays.length; i++) {
-			terminations = myGPUNetworkArrays[i].getTerminations();
-			representedInputValues[i] = new float[terminations.length][];
+			targets = myGPUNetworkArrays[i].getTerminations();
+			representedInputValues[i] = new float[targets.length][];
 		}
 
 		for (i = 0; i < myGPUNetworkArrays.length; i++) {
-			Origin[] networkArrayOrigins;
+			Source[] networkArraySources;
 			if(myGPUNetworkArrays[i] instanceof NEFGroupImpl)
 			{
-				networkArrayOrigins = ((NEFGroupImpl) myGPUNetworkArrays[i]).getDecodedOrigins();
+				networkArraySources = ((NEFGroupImpl) myGPUNetworkArrays[i]).getDecodedOrigins();
 			}else{
-				networkArrayOrigins = myGPUNetworkArrays[i].getOrigins();
+				networkArraySources = myGPUNetworkArrays[i].getOrigins();
 			}
 
-			representedOutputValues[i] = new float[networkArrayOrigins.length][];
+			representedOutputValues[i] = new float[networkArraySources.length][];
 
-			for (j = 0; j < networkArrayOrigins.length; j++) {
+			for (j = 0; j < networkArraySources.length; j++) {
 				if(outputRequiredOnCPU[i][j] != 0){
-					representedOutputValues[i][j] = new float[networkArrayOrigins[j].getDimensions()];
+					representedOutputValues[i][j] = new float[networkArraySources[j].getDimensions()];
 				}else{
 					representedOutputValues[i][j] = null;
 				}
@@ -506,17 +506,17 @@ public class NEFGPUInterface {
 				
 				int count, i, j;
 				float[] inputRow = new float[0];
-				Termination[] terminations;
+				Target[] targets;
 				
 				// get the input data from the terminations
 				for (i = 0; i < myGPUNetworkArrays.length; i++) {
-					terminations = myGPUNetworkArrays[i].getTerminations();
-					count = terminations.length;
+					targets = myGPUNetworkArrays[i].getTerminations();
+					count = targets.length;
 					
 					for (j = 0; j < count; j++) {
 						// we only get input for non-GPU terminations
 						if (!inputOnGPU[i][j]) {
-							inputRow = ((RealOutput) terminations[j].getInput()).getValues();
+							inputRow = ((RealOutput) targets[j].get()).getValues();
 								
 							representedInputValues[i][j] = inputRow;
 						}
@@ -528,24 +528,24 @@ public class NEFGPUInterface {
 	
 				
 				// Put data computed by GPU in the origins
-				Origin[] origins;
+				Source[] sources;
 				for (i = 0; i < myGPUNetworkArrays.length; i++) {
 	
 					if(myGPUNetworkArrays[i] instanceof NEFGroupImpl)
 					{
-						origins = ((NEFGroupImpl) myGPUNetworkArrays[i]).getDecodedOrigins();
+						sources = ((NEFGroupImpl) myGPUNetworkArrays[i]).getDecodedOrigins();
 					}else{
-						origins = myGPUNetworkArrays[i].getOrigins();
+						sources = myGPUNetworkArrays[i].getOrigins();
 					}
 					
-					count = origins.length;
+					count = sources.length;
 	
 					for (j = 0; j < count; j++) {
 						float[] currentRepOutput = representedOutputValues[i][j];
 						if(currentRepOutput != null){
-							origins[j].setValues(new RealOutputImpl(
-									currentRepOutput.clone(),
-    								Units.UNK, endTime));
+							sources[j].accept(new RealOutputImpl(
+                                    currentRepOutput.clone(),
+                                    Units.UNK, endTime));
 						}
 					}
 				}

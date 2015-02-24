@@ -29,10 +29,10 @@ package ca.nengo.model.impl;
 
 import ca.nengo.math.Function;
 import ca.nengo.model.*;
-import ca.nengo.model.nef.impl.DecodedOrigin;
-import ca.nengo.model.nef.impl.DecodedTermination;
+import ca.nengo.model.nef.impl.DecodedSource;
+import ca.nengo.model.nef.impl.DecodedTarget;
 import ca.nengo.model.nef.impl.NEFGroupImpl;
-import ca.nengo.model.plasticity.impl.PESTermination;
+import ca.nengo.model.plasticity.impl.PESTarget;
 import ca.nengo.util.MU;
 import ca.nengo.util.TimeSeries;
 import ca.nengo.util.impl.TimeSeriesImpl;
@@ -60,7 +60,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 	private final int[] myNodeDimensions;
 	
 	private NEFGroupImpl[] myNodes;
-	private Map<String, Origin> myOrigins;
+	private Map<String, Source> myOrigins;
 	private int myNeurons;
 
 	
@@ -102,7 +102,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 		
 		myNeurons = 0;
 		
-		myOrigins = new HashMap<String, Origin>(10);
+		myOrigins = new HashMap<String, Source>(10);
 		
 		for (int i = 0; i < nodes.length; i++) {
 			super.addNode(nodes[i]);
@@ -121,15 +121,15 @@ public class NetworkArrayImpl extends NetworkImpl {
      * @throws StructuralException
 	 */
 	public void createEnsembleOrigin(String name) throws StructuralException {
-		Origin[] origins = new Origin[myNumNodes];
+		Source[] sources = new Source[myNumNodes];
 		for (int i = 0; i < myNumNodes; i++) {
-			origins[i] = myNodes[i].getOrigin(name);
+			sources[i] = myNodes[i].getOrigin(name);
 		}
-		createEnsembleOrigin(name, origins);
+		createEnsembleOrigin(name, sources);
 	}
 	
-	private void createEnsembleOrigin(String name, Origin[] origins) {
-		myOrigins.put(name, new ArrayOrigin(this, name, origins));
+	private void createEnsembleOrigin(String name, Source[] sources) {
+		myOrigins.put(name, new ArraySource(this, name, sources));
 		this.exposeOrigin(this.myOrigins.get(name), name);
 	}
 	
@@ -153,10 +153,10 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * @return Origin that encapsulates all of the internal node origins
 	 * @throws StructuralException
 	 */
-	public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin) throws StructuralException {
-		DecodedOrigin[] origins = new DecodedOrigin[myNumNodes];
+	public Source addDecodedOrigin(String name, Function[] functions, String nodeOrigin) throws StructuralException {
+		DecodedSource[] origins = new DecodedSource[myNumNodes];
 		for (int i = 0; i < myNumNodes; i++) {
-			origins[i] = (DecodedOrigin) myNodes[i].addDecodedOrigin(name,  functions,  nodeOrigin);
+			origins[i] = (DecodedSource) myNodes[i].addDecodedOrigin(name,  functions,  nodeOrigin);
 		}
 		this.createEnsembleOrigin(name, origins);
 		return this.getOrigin(name);
@@ -176,7 +176,7 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * @return Origin that encapsulates all of the internal node origins
 	 * @throws StructuralException
 	 */
-	public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin, boolean splitFunctions) throws StructuralException {
+	public Source addDecodedOrigin(String name, Function[] functions, String nodeOrigin, boolean splitFunctions) throws StructuralException {
 		if(!splitFunctions)
 			return addDecodedOrigin(name, functions, nodeOrigin);
 		
@@ -184,13 +184,13 @@ public class NetworkArrayImpl extends NetworkImpl {
 			System.err.println("Warning, trying to split functions but function list length does " +
 					"not match network array dimension");
 		
-		DecodedOrigin[] origins = new DecodedOrigin[myNumNodes];
+		DecodedSource[] origins = new DecodedSource[myNumNodes];
 		int f=0;
 		for (int i = 0; i < myNumNodes; i++) {
 			Function[] oFuncs = new Function[myNodeDimensions[i]];
 			for (int d=0; d < myNodeDimensions[i]; d++)
 				oFuncs[d] = functions[f++];
-			origins[i] = (DecodedOrigin) myNodes[i].addDecodedOrigin(name,  oFuncs,  nodeOrigin);
+			origins[i] = (DecodedSource) myNodes[i].addDecodedOrigin(name,  oFuncs,  nodeOrigin);
 		}
 		this.createEnsembleOrigin(name, origins);
 		return this.getOrigin(name);
@@ -212,14 +212,14 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * @return Termination that encapsulates all of the internal node terminations
 	 * @throws StructuralException
 	 */
-	public Termination addTermination(String name, float[][] matrix, float tauPSC) throws StructuralException {
+	public Target addTermination(String name, float[][] matrix, float tauPSC) throws StructuralException {
 		return addTermination(name, matrix, tauPSC, false);
 	}
 	
-	public Termination addTermination(String name, float[][] weights, float tauPSC, boolean modulatory) throws StructuralException {
+	public Target addTermination(String name, float[][] weights, float tauPSC, boolean modulatory) throws StructuralException {
 		assert weights.length == myNeurons;
 		
-		Termination[] terminations = new Termination[myNumNodes];
+		Target[] targets = new Target[myNumNodes];
 		
 		for (int i = 0; i < myNumNodes; i++) {
 			int nodeNeuronCount = myNodes[i].getNeurons();
@@ -227,10 +227,10 @@ public class NetworkArrayImpl extends NetworkImpl {
 			float[][] matrix = MU.copy(weights, i * nodeNeuronCount, 0, nodeNeuronCount, -1);
 			assert matrix[0].length == myNodeDimensions[i];
 
-			terminations[i] = myNodes[i].addTermination(name, matrix, tauPSC, modulatory);
+			targets[i] = myNodes[i].addTermination(name, matrix, tauPSC, modulatory);
 		}
 		
-		exposeTermination(new GroupTermination(this, name, terminations), name);
+		exposeTermination(new GroupTarget(this, name, targets), name);
 		return getTermination(name);
 	}
 	
@@ -250,21 +250,21 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * @return Termination that encapsulates all of the internal node terminations
 	 * @throws StructuralException
 	 */
-	public Termination addTermination(String name, float[][][] matrix, float tauPSC) throws StructuralException {
+	public Target addTermination(String name, float[][][] matrix, float tauPSC) throws StructuralException {
 		return addTermination(name, matrix, tauPSC, false);
 	}
 	
-	public Termination addTermination(String name, float[][][] weights, float tauPSC, boolean modulatory) throws StructuralException {
+	public Target addTermination(String name, float[][][] weights, float tauPSC, boolean modulatory) throws StructuralException {
 		assert weights.length == myNumNodes && weights[0].length == myNeurons;
 		
-		Termination[] terminations = new Termination[myNumNodes];
+		Target[] targets = new Target[myNumNodes];
 		
 		for (int i = 0; i < myNumNodes; i++) {
 			assert weights[i][0].length == myNodeDimensions[i];
-			terminations[i] = myNodes[i].addTermination(name, weights[i], tauPSC, modulatory);
+			targets[i] = myNodes[i].addTermination(name, weights[i], tauPSC, modulatory);
 		}
 		
-		exposeTermination(new GroupTermination(this, name, terminations), name);
+		exposeTermination(new GroupTarget(this, name, targets), name);
 		return getTermination(name);
 	}
 
@@ -285,25 +285,25 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * @return Termination that encapsulates all of the internal node terminations
 	 * @throws StructuralException
 	 */
-	public Termination addDecodedTermination(String name, float[][] matrix, float tauPSC) throws StructuralException {
+	public Target addDecodedTermination(String name, float[][] matrix, float tauPSC) throws StructuralException {
 		return addDecodedTermination(name, matrix, tauPSC, false);
 	}
 	
-	public Termination addDecodedTermination(String name, float[][] matrix, float tauPSC, boolean modulatory) throws StructuralException {
+	public Target addDecodedTermination(String name, float[][] matrix, float tauPSC, boolean modulatory) throws StructuralException {
 		assert matrix.length == myDimension;
 		
-		Termination[] terminations = new Termination[myNumNodes];
+		Target[] targets = new Target[myNumNodes];
 		
 		int dimCount = 0;
 		
 		for (int i = 0; i < myNumNodes; i++) {
 			float[][] submatrix = MU.copy(matrix, dimCount, 0, myNodeDimensions[i], -1);
 
-			terminations[i] = myNodes[i].addDecodedTermination(name, submatrix, tauPSC, modulatory);
+			targets[i] = myNodes[i].addDecodedTermination(name, submatrix, tauPSC, modulatory);
 			dimCount += myNodeDimensions[i];
 		}
 		
-		exposeTermination(new GroupTermination(this, name, terminations), name);
+		exposeTermination(new GroupTarget(this, name, targets), name);
 		return getTermination(name);
 	}	
 	
@@ -325,42 +325,42 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * 
 	 * @return the new termination
 	 */
-	public Termination addIndexTermination(String name, float[][] matrix, float tauPSC) throws StructuralException {
+	public Target addIndexTermination(String name, float[][] matrix, float tauPSC) throws StructuralException {
 		return addIndexTermination(name, matrix, tauPSC, false, null);
 	}
 	
 
-	public Termination addIndexTermination(String name, float[][] matrix, float tauPSC, boolean isModulatory) throws StructuralException {
+	public Target addIndexTermination(String name, float[][] matrix, float tauPSC, boolean isModulatory) throws StructuralException {
 		return addIndexTermination(name, matrix, tauPSC, isModulatory, null);
 	}
 		
-	public Termination addIndexTermination(String name, float[][] matrix, float tauPSC, int[] index) throws StructuralException {
+	public Target addIndexTermination(String name, float[][] matrix, float tauPSC, int[] index) throws StructuralException {
 		return addIndexTermination(name, matrix, tauPSC, false, index);
 	}
 	
-	public Termination addIndexTermination(String name, float[][] matrix, float tauPSC, boolean isModulatory, int[] index) throws StructuralException {
+	public Target addIndexTermination(String name, float[][] matrix, float tauPSC, boolean isModulatory, int[] index) throws StructuralException {
 		if(index == null){
 			index = new int[myNumNodes];
 			for(int i=0; i < index.length; i++)
 				index[i] = i;
 		}
 		
-		ArrayList<Termination> terminations = new ArrayList<Termination>();
+		ArrayList<Target> targets = new ArrayList<Target>();
 
 		int count=0;
 		for(int i=0; i < myNumNodes; i++) {
 			for(int j=0; j < index.length; j++) {
 				if(index[j] == i) {
-					Termination t = myNodes[i].addTermination(name, MU.copy(matrix,count*myNodes[i].getNeurons(),0,myNodes[i].getNeurons(),-1),
+					Target t = myNodes[i].addTermination(name, MU.copy(matrix,count*myNodes[i].getNeurons(),0,myNodes[i].getNeurons(),-1),
 							tauPSC, isModulatory);
 					count++;
-					terminations.add(t);
+					targets.add(t);
 					break;
 				}
 			}
 		}
 		
-		GroupTermination term = new GroupTermination(this, name, terminations.toArray(new Termination[terminations.size()]));
+		GroupTarget term = new GroupTarget(this, name, targets.toArray(new Target[targets.size()]));
 		exposeTermination(term,name);
 		return getTermination(name);
 	}
@@ -389,32 +389,32 @@ public class NetworkArrayImpl extends NetworkImpl {
 	/**
 	 * @see ca.nengo.model.Network#getTerminations()
 	 */
-	public Termination[] getTerminations() {
-		Termination[] terminations = super.getTerminations();
-		ArrayList<Termination> decodedTerminations = new ArrayList<Termination>();
-		ArrayList<Termination> nonDecodedTerminations = new ArrayList<Termination>();
-		GroupTermination baseTermination;
-		for(int i=0; i < terminations.length; i++) {
-			if(terminations[i] instanceof NetworkImpl.TerminationWrapper)
-				baseTermination = (GroupTermination)((NetworkImpl.TerminationWrapper)terminations[i]).getBaseTermination();
+	public Target[] getTerminations() {
+		Target[] targets = super.getTerminations();
+		ArrayList<Target> decodedTargets = new ArrayList<Target>();
+		ArrayList<Target> nonDecodedTargets = new ArrayList<Target>();
+		GroupTarget baseTermination;
+		for(int i=0; i < targets.length; i++) {
+			if(targets[i] instanceof TargetWrapper)
+				baseTermination = (GroupTarget)((TargetWrapper) targets[i]).getBaseTermination();
 			else
-				baseTermination = (GroupTermination)terminations[i];
+				baseTermination = (GroupTarget) targets[i];
 			
-			Termination[] nodeTerminations = baseTermination.getNodeTerminations();
-			if(nodeTerminations != null) {
-				if(nodeTerminations[0] instanceof DecodedTermination)
-					decodedTerminations.add(terminations[i]);
-				else if(nodeTerminations[0] instanceof GroupTermination)
-					nonDecodedTerminations.add(terminations[i]);
+			Target[] nodeTargets = baseTermination.getNodeTerminations();
+			if(nodeTargets != null) {
+				if(nodeTargets[0] instanceof DecodedTarget)
+					decodedTargets.add(targets[i]);
+				else if(nodeTargets[0] instanceof GroupTarget)
+					nonDecodedTargets.add(targets[i]);
 			}
 		}
-		nonDecodedTerminations.addAll(decodedTerminations);
+		nonDecodedTargets.addAll(decodedTargets);
 		
-		return nonDecodedTerminations.toArray(new Termination[nonDecodedTerminations.size()]);
+		return nonDecodedTargets.toArray(new Target[nonDecodedTargets.size()]);
 		
 	}
 	
-	public Termination addPlasticTermination(String name, float[][] weights, float tauPSC, float[][] decoders) throws StructuralException {
+	public Target addPlasticTermination(String name, float[][] weights, float tauPSC, float[][] decoders) throws StructuralException {
 		return addPlasticTermination(name, weights, tauPSC, decoders, null);
 	}
 	
@@ -430,10 +430,10 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * @return Termination that encapsulates all of the internal node terminations
 	 * @throws StructuralException
 	 */
-	public Termination addPlasticTermination(String name, float[][] weights, float tauPSC, float[][] decoders, WeightFunc weightFunc) throws StructuralException {
+	public Target addPlasticTermination(String name, float[][] weights, float tauPSC, float[][] decoders, WeightFunc weightFunc) throws StructuralException {
 		assert weights.length == myNeurons;
 		
-		Termination[] terminations = new Termination[myNumNodes];
+		Target[] targets = new Target[myNumNodes];
 		int d=0;
 		
 		int nodeDs = myNodes[0].getDimension();
@@ -446,11 +446,11 @@ public class NetworkArrayImpl extends NetworkImpl {
 			if(weightFunc != null)
 				w = weightFunc.call(w);
 			
-			terminations[i] = myNodes[i].addPESTermination(name, w, tauPSC, false);
+			targets[i] = myNodes[i].addPESTermination(name, w, tauPSC, false);
 			d += myNodes[i].getDimension();
 		}
 		
-		exposeTermination(new GroupTermination(this, name, terminations), name);
+		exposeTermination(new GroupTarget(this, name, targets), name);
 		return getTermination(name);
 	}
 	
@@ -522,9 +522,9 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 */
 	public void learn(String learnTerm, String modTerm, float rate, boolean oja) {
 		for(int i=0; i < myNumNodes; i++) {
-			PESTermination term;
+			PESTarget term;
 			try {
-				term = (PESTermination)myNodes[i].getTermination(learnTerm);
+				term = (PESTarget)myNodes[i].getTermination(learnTerm);
 			}
 			catch(StructuralException se) {
 				//term does not exist on this node
@@ -591,13 +591,13 @@ public class NetworkArrayImpl extends NetworkImpl {
 			}
 			
 			// Clone array origins and ensemble terminations
-			for (Origin exposedOrigin : getOrigins()) {
-				Origin clonedOrigin = ((OriginWrapper) exposedOrigin).getBaseOrigin().clone(result);
-				result.exposeOrigin(clonedOrigin, exposedOrigin.getName());
+			for (Source exposedSource : getOrigins()) {
+				Source clonedSource = ((SourceWrapper) exposedSource).getBaseOrigin().clone(result);
+				result.exposeOrigin(clonedSource, exposedSource.getName());
 			}
-			for (Termination exposedTermination : getTerminations()) {
-				Termination clonedTermination = ((TerminationWrapper) exposedTermination).getBaseTermination().clone(result);
-				result.exposeTermination(clonedTermination, exposedTermination.getName());
+			for (Target exposedTarget : getTerminations()) {
+				Target clonedTarget = ((TargetWrapper) exposedTarget).getBaseTermination().clone(result);
+				result.exposeTermination(clonedTarget, exposedTarget.getName());
 			}
 			
 			return result;
@@ -616,22 +616,22 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * Origin representing the concatenation of origins on each of the
 	 * ensembles within the network array.
 	 */
-	public static class ArrayOrigin extends BasicOrigin {
+	public static class ArraySource extends BasicSource {
 
 		private static final long serialVersionUID = 1L;
 		
 		private final String myName;
 		private final NetworkArrayImpl myParent;
-		private Origin[] myOrigins;
+		private Source[] mySources;
 		private int myDimensions;
 
-		public ArrayOrigin(NetworkArrayImpl parent, String name, Origin[] origins) {
+		public ArraySource(NetworkArrayImpl parent, String name, Source[] sources) {
 			myParent = parent;
 			myName = name;
-			myOrigins = origins;
+			mySources = sources;
 			myDimensions = 0;
-			for(int i=0; i < myOrigins.length; i++)
-				myDimensions += myOrigins[i].getDimensions();
+			for(int i=0; i < mySources.length; i++)
+				myDimensions += mySources[i].getDimensions();
 		}
 		
 		public String getName() {
@@ -642,11 +642,11 @@ public class NetworkArrayImpl extends NetworkImpl {
 			return myDimensions;
 		}
 		
-		public Origin[] getNodeOrigins(){
-			return myOrigins;
+		public Source[] getNodeOrigins(){
+			return mySources;
 		}
 		
-		public void setValues(InstantaneousOutput values) {
+		public void accept(InstantaneousOutput values) {
 			float time = values.getTime();
 			Units units = values.getUnits();
 
@@ -668,29 +668,29 @@ public class NetworkArrayImpl extends NetworkImpl {
 			}
 			
 			int d=0;
-			for(int i=0; i < myOrigins.length; i++) {
-				float[] ovals = new float[myOrigins[i].getDimensions()];
+			for(int i=0; i < mySources.length; i++) {
+				float[] ovals = new float[mySources[i].getDimensions()];
 				for(int j=0; j < ovals.length; j++)
 					ovals[j] = vals[d++];
 				
 				if(values instanceof RealOutput)
-					myOrigins[i].setValues(new RealOutputImpl(ovals, units, time));
+					mySources[i].accept(new RealOutputImpl(ovals, units, time));
 				else if(values instanceof PreciseSpikeOutput) {
-					myOrigins[i].setValues(new PreciseSpikeOutputImpl(ovals, units, time));
+					mySources[i].accept(new PreciseSpikeOutputImpl(ovals, units, time));
 				}
 				else if(values instanceof SpikeOutput) {
 					boolean[] ospikes = new boolean[ovals.length];
 					for(int j=0; j < ospikes.length; j++)
 						ospikes[j] = vals[j] == 1.0 ? true : false;
-					myOrigins[i].setValues(new SpikeOutputImpl(ospikes, units, time));
+					mySources[i].accept(new SpikeOutputImpl(ospikes, units, time));
 				}
 				
 			}
 			
 		}
 
-		public InstantaneousOutput getValues() throws SimulationException {
-			InstantaneousOutput v0 = myOrigins[0].getValues();
+		public InstantaneousOutput get()  {
+			InstantaneousOutput v0 = mySources[0].get();
 			
 			Units unit = v0.getUnits();
 			float time = v0.getTime();
@@ -698,8 +698,8 @@ public class NetworkArrayImpl extends NetworkImpl {
 			if(v0 instanceof PreciseSpikeOutputImpl) {
 				float[] vals = new float[myDimensions];
 				int d=0;
-				for(int i=0; i < myOrigins.length; i++) {
-					float[] ovals = ((PreciseSpikeOutputImpl)myOrigins[i].getValues()).getSpikeTimes();
+				for(int i=0; i < mySources.length; i++) {
+					float[] ovals = ((PreciseSpikeOutputImpl) mySources[i].get()).getSpikeTimes();
 					for(int j=0; j < ovals.length; j++)
 						vals[d++] = ovals[j];
 				}
@@ -708,8 +708,8 @@ public class NetworkArrayImpl extends NetworkImpl {
 			} else if(v0 instanceof RealOutputImpl) {
 				float[] vals = new float[myDimensions];
 				int d=0;
-				for(int i=0; i < myOrigins.length; i++) {
-					float[] ovals = ((RealOutputImpl)myOrigins[i].getValues()).getValues();
+				for(int i=0; i < mySources.length; i++) {
+					float[] ovals = ((RealOutputImpl) mySources[i].get()).getValues();
 					for(int j=0; j < ovals.length; j++)
 						vals[d++] = ovals[j];
 				}
@@ -718,8 +718,8 @@ public class NetworkArrayImpl extends NetworkImpl {
 			} else if(v0 instanceof SpikeOutputImpl) {
 				boolean[] vals = new boolean[myDimensions];
 				int d=0;
-				for(int i=0; i < myOrigins.length; i++) {
-					boolean[] ovals = ((SpikeOutputImpl)myOrigins[i].getValues()).getValues();
+				for(int i=0; i < mySources.length; i++) {
+					boolean[] ovals = ((SpikeOutputImpl) mySources[i].get()).getValues();
 					for(int j=0; j < ovals.length; j++)
 						vals[d++] = ovals[j];
 				}
@@ -736,34 +736,34 @@ public class NetworkArrayImpl extends NetworkImpl {
 		}
 		
 		public boolean getRequiredOnCPU() {
-			for(int i=0; i < myOrigins.length; i++)
-				if(myOrigins[i].getRequiredOnCPU())
+			for(int i=0; i < mySources.length; i++)
+				if(mySources[i].getRequiredOnCPU())
 					return true;
 			return false;
 		}
 		
 		public void setRequiredOnCPU(boolean req) {
-			for(int i=0; i < myOrigins.length; i++)
-				myOrigins[i].setRequiredOnCPU(req);
+			for(int i=0; i < mySources.length; i++)
+				mySources[i].setRequiredOnCPU(req);
 		}
 		
-		public ArrayOrigin clone() throws CloneNotSupportedException {
+		public ArraySource clone() throws CloneNotSupportedException {
 			//this is how it was implemented in networkarray, but I don't think it will work (myOrigins needs to be updated to the cloned origins)
-			return new ArrayOrigin(myParent, myName, myOrigins);
+			return new ArraySource(myParent, myName, mySources);
 		}
 		
-		public ArrayOrigin clone(Node node) throws CloneNotSupportedException {
+		public ArraySource clone(Node node) throws CloneNotSupportedException {
 			if( !(node instanceof NetworkArrayImpl) ){
 				throw new CloneNotSupportedException("Error cloning ArrayOrigin: Invalid node type");
 			}
 			
 			try {
-				ArrayOrigin result = (ArrayOrigin) super.clone();
+				ArraySource result = (ArraySource) super.clone();
 				
-				DecodedOrigin[] origins = new DecodedOrigin[myOrigins.length];
-				for (int i = 0; i < myOrigins.length; i++)
-					origins[i] = (DecodedOrigin) ((NetworkArrayImpl) node).getNodes()[i].getOrigin(myOrigins[i].getName());
-				result.myOrigins = origins;
+				DecodedSource[] origins = new DecodedSource[mySources.length];
+				for (int i = 0; i < mySources.length; i++)
+					origins[i] = (DecodedSource) ((NetworkArrayImpl) node).getNodes()[i].getOrigin(mySources[i].getName());
+				result.mySources = origins;
 				
 				return result;
 			} catch (StructuralException e) {
@@ -774,13 +774,13 @@ public class NetworkArrayImpl extends NetworkImpl {
 		}
 		
 		public float[][] getDecoders() {
-			if(! (myOrigins[0] instanceof DecodedOrigin))
+			if(! (mySources[0] instanceof DecodedSource))
 				return null;
 			
 			int neurons = myParent.getNeurons();
-			float[][] decoders = new float[neurons*myOrigins.length][myDimensions];
-			for(int i=0; i < myOrigins.length; i++) {
-				MU.copyInto(((DecodedOrigin)myOrigins[i]).getDecoders(), decoders, i*neurons, i*myOrigins[i].getDimensions(), neurons);
+			float[][] decoders = new float[neurons* mySources.length][myDimensions];
+			for(int i=0; i < mySources.length; i++) {
+				MU.copyInto(((DecodedSource) mySources[i]).getDecoders(), decoders, i*neurons, i* mySources[i].getDimensions(), neurons);
 			}
 			return decoders;
 		}
@@ -790,20 +790,20 @@ public class NetworkArrayImpl extends NetworkImpl {
 	 * Origin representing the concatenation of origins on each of the
 	 * ensembles within the network array.
 	 */
-	public static class ArraySummedOrigin extends BasicOrigin {
+	public static class ArraySummedSource extends BasicSource {
 
 		private static final long serialVersionUID = 1L;
 		
 		private final String myName;
 		private final NetworkArrayImpl myParent;
-		private Origin[] myOrigins;
+		private Source[] mySources;
 		private final int myDimensions;
 
-		public ArraySummedOrigin(NetworkArrayImpl parent, String name, Origin[] origins) {
+		public ArraySummedSource(NetworkArrayImpl parent, String name, Source[] sources) {
 			myParent = parent;
 			myName = name;
-			myOrigins = origins;
-			myDimensions = myOrigins[0].getDimensions();
+			mySources = sources;
+			myDimensions = mySources[0].getDimensions();
 		}
 		
 		public String getName() {
@@ -814,25 +814,25 @@ public class NetworkArrayImpl extends NetworkImpl {
 			return myDimensions;
 		}
 		
-		public Origin[] getNodeOrigins(){
-			return myOrigins;
+		public Source[] getNodeOrigins(){
+			return mySources;
 		}
 		
-		public void setValues(InstantaneousOutput values) {
+		public void accept(InstantaneousOutput values) {
 			// TODO: Implement this? 
 			return;
 		}
 
-		public InstantaneousOutput getValues() throws SimulationException {
-			InstantaneousOutput v0 = myOrigins[0].getValues();
+		public InstantaneousOutput get()  {
+			InstantaneousOutput v0 = mySources[0].get();
 			
 			Units unit = v0.getUnits();
 			float time = v0.getTime();
 			
 			if(v0 instanceof RealOutputImpl) {
-				float[] vals = new float[myOrigins[0].getDimensions()];
-				for(int i = 0; i < myOrigins.length; i++) {
-					float[] ovals = ((RealOutputImpl)myOrigins[i].getValues()).getValues();
+				float[] vals = new float[mySources[0].getDimensions()];
+				for(int i = 0; i < mySources.length; i++) {
+					float[] ovals = ((RealOutputImpl) mySources[i].get()).getValues();
 					for(int j = 0; j < ovals.length; j++)
 						vals[j] += ovals[j];
 				}
@@ -849,34 +849,34 @@ public class NetworkArrayImpl extends NetworkImpl {
 		}
 		
 		public boolean getRequiredOnCPU() {
-			for(int i=0; i < myOrigins.length; i++)
-				if(myOrigins[i].getRequiredOnCPU())
+			for(int i=0; i < mySources.length; i++)
+				if(mySources[i].getRequiredOnCPU())
 					return true;
 			return false;
 		}
 		
 		public void setRequiredOnCPU(boolean req) {
-			for(int i=0; i < myOrigins.length; i++)
-				myOrigins[i].setRequiredOnCPU(req);
+			for(int i=0; i < mySources.length; i++)
+				mySources[i].setRequiredOnCPU(req);
 		}
 		
-		public ArraySummedOrigin clone() throws CloneNotSupportedException {
+		public ArraySummedSource clone() throws CloneNotSupportedException {
 			//this is how it was implemented in networkarray, but I don't think it will work (myOrigins needs to be updated to the cloned origins)
-			return new ArraySummedOrigin(myParent, myName, myOrigins);
+			return new ArraySummedSource(myParent, myName, mySources);
 		}
 		
-		public ArraySummedOrigin clone(Node node) throws CloneNotSupportedException {
+		public ArraySummedSource clone(Node node) throws CloneNotSupportedException {
 			if( !(node instanceof NetworkArrayImpl) ){
 				throw new CloneNotSupportedException("Error cloning ArrayOrigin: Invalid node type");
 			}
 			
 			try {
-				ArraySummedOrigin result = (ArraySummedOrigin) super.clone();
+				ArraySummedSource result = (ArraySummedSource) super.clone();
 				
-				DecodedOrigin[] origins = new DecodedOrigin[myOrigins.length];
-				for (int i = 0; i < myOrigins.length; i++)
-					origins[i] = (DecodedOrigin) ((NetworkArrayImpl) node).getNodes()[i].getOrigin(myOrigins[i].getName());
-				result.myOrigins = origins;
+				DecodedSource[] origins = new DecodedSource[mySources.length];
+				for (int i = 0; i < mySources.length; i++)
+					origins[i] = (DecodedSource) ((NetworkArrayImpl) node).getNodes()[i].getOrigin(mySources[i].getName());
+				result.mySources = origins;
 				
 				return result;
 			} catch (StructuralException e) {

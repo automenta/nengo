@@ -81,7 +81,7 @@ public class IzhikevichSpikeGeneratorTest extends TestCase {
 		LinearSynapticIntegrator integrator = new LinearSynapticIntegrator();
 		IzhikevichSpikeGenerator generator = new IzhikevichSpikeGenerator(IzhikevichSpikeGenerator.Preset.REGULAR_SPIKING);
 		ExpandableSpikingNeuron neuron = new ExpandableSpikingNeuron(integrator, generator, 1, 0, "neuron");		
-		Termination t = neuron.addTermination("input", MU.I(1), .001f, false);
+		Target t = neuron.addTermination("input", MU.I(1), .001f, false);
 		
 		FunctionInput input = new FunctionInput("input", new Function[]{new ConstantFunction(1, I)}, Units.UNK);
 		

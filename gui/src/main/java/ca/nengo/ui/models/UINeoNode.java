@@ -30,7 +30,7 @@ import ca.nengo.io.FileManager;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.FunctionInput;
 import ca.nengo.model.nef.NEFGroup;
-import ca.nengo.model.nef.impl.DecodedOrigin;
+import ca.nengo.model.nef.impl.DecodedSource;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.ui.AbstractNengo;
 import ca.nengo.ui.actions.*;
@@ -52,6 +52,7 @@ import ca.nengo.ui.models.NodeContainer.ContainerException;
 import ca.nengo.ui.models.nodes.*;
 import ca.nengo.ui.models.nodes.widgets.*;
 import ca.nengo.ui.models.tooltips.TooltipBuilder;
+import ca.nengo.ui.models.viewers.GroupViewer;
 import ca.nengo.ui.models.viewers.NetworkViewer;
 import ca.nengo.ui.models.viewers.NodeViewer;
 import ca.nengo.util.Probe;
@@ -269,12 +270,12 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 		/*
 		 * Build the "show origins" menu
 		 */
-		Origin[] origins = getModel().getOrigins();
-		if (origins.length > 0) {
+		Source[] sources = getModel().getOrigins();
+		if (sources.length > 0) {
 
 			AbstractMenuBuilder originsMenu = originsAndTerminations.addSubMenu("Show origin");
 
-			for (Origin element : origins) {
+			for (Source element : sources) {
 				originsMenu.addAction(new ShowOriginAction(element.getName()));
 			}
 
@@ -283,12 +284,12 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 		/*
 		 * Build the "show origins" menu
 		 */
-		Termination[] terminations = getModel().getTerminations();
-		if (terminations.length > 0) {
+		Target[] targets = getModel().getTerminations();
+		if (targets.length > 0) {
 
 			AbstractMenuBuilder terminationsMenu = originsAndTerminations.addSubMenu("Show termination");
 
-			for (Termination element : terminations) {
+			for (Target element : targets) {
 				terminationsMenu.addAction(new ShowTerminationAction(element.getName()));
 			}
 
@@ -309,33 +310,33 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 	protected void modelUpdated() {
 		super.modelUpdated();
 
-		Origin[] modelOrigins = getModel().getOrigins();
-		HashSet<Origin> modelOriginSet = new HashSet<Origin>(modelOrigins.length);
-        Collections.addAll(modelOriginSet, modelOrigins);
+		Source[] modelSources = getModel().getOrigins();
+		HashSet<Source> modelSourceSet = new HashSet<Source>(modelSources.length);
+        Collections.addAll(modelSourceSet, modelSources);
 
-		Termination[] modelTerminations = getModel().getTerminations();
-		HashSet<Termination> modelTerminationSet = new HashSet<Termination>(
-				modelTerminations.length);
-        Collections.addAll(modelTerminationSet, modelTerminations);
+		Target[] modelTargets = getModel().getTerminations();
+		HashSet<Target> modelTargetSet = new HashSet<Target>(
+				modelTargets.length);
+        Collections.addAll(modelTargetSet, modelTargets);
 
 		for (WorldObject wo : getChildren()) {
 			if (wo instanceof ModelObject) {
 				Object model = ((ModelObject) wo).getModel();
 
-				if (model instanceof Termination) {
-					if (!modelTerminationSet.contains(model)) {
+				if (model instanceof Target) {
+					if (!modelTargetSet.contains(model)) {
 						wo.destroy();
 						this.showPopupMessage("Termination removed: " + wo.getName());
 					} else {
-						modelTerminationSet.remove(model);
+						modelTargetSet.remove(model);
 					}
 				}
-				if (wo instanceof Origin) {
-					if (!modelOriginSet.contains(model)) {
+				if (wo instanceof Source) {
+					if (!modelSourceSet.contains(model)) {
 						wo.destroy();
 						this.showPopupMessage("Origin removed: " + wo.getName());
 					} else {
-						modelOriginSet.remove(model);
+						modelSourceSet.remove(model);
 					}
 				}
 			}
@@ -343,11 +344,11 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 		}
 		
 		// Ensure that any new origins and terminations are shown
-		for (Termination term:modelTerminationSet) {
+		for (Target term: modelTargetSet) {
 			this.showTermination(term.getName());
 		}
-		for (Origin origin:modelOriginSet) {
-			String name=origin.getName();
+		for (Source source : modelSourceSet) {
+			String name= source.getName();
 			
 			// don't automatically show these two origins for NEFEnsembles
 			if (this instanceof UINEFGroup) {
@@ -355,7 +356,7 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 					continue;				
 				}
 			}
-			this.showOrigin(origin.getName());
+			this.showOrigin(source.getName());
 		}
 	}
 
@@ -376,18 +377,18 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 
 		WorldObject probeHolder = null;
 
-		Origin origin = null;
+		Source source = null;
 		try {
-			origin = getModel().getOrigin(probeUI.getName());
+			source = getModel().getOrigin(probeUI.getName());
 
 		} catch (StructuralException e1) {
             e1.printStackTrace();
 		}
 
-		if (origin != null) {
-			probeHolder = showOrigin(origin.getName());
-		} else if (origin == null) {
-			Termination term = null;
+		if (source != null) {
+			probeHolder = showOrigin(source.getName());
+		} else if (source == null) {
+			Target term = null;
 			try {
 				term = getModel().getTermination(probeUI.getName());
 
@@ -553,7 +554,7 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 
 		WorldImpl viewer = getWorld();
 		if (viewer != null && viewer instanceof NodeViewer) {
-			return (NodeViewer) viewer;
+			return (GroupViewer) viewer;
 		} else {
 			return null;
 		}
@@ -731,9 +732,9 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 	 */
 	public void showAllOrigins() {
 
-		Origin[] origins = getModel().getOrigins();
+		Source[] sources = getModel().getOrigins();
 
-		for (Origin element : origins) {
+		for (Source element : sources) {
 			UIOrigin originUI = showOrigin(element.getName());
 			originUI.setWidgetVisible(true);
 		}
@@ -745,10 +746,10 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 	 */
 	public void showAllDecodedOrigins() {
 
-		Origin[] origins = getModel().getOrigins();
+		Source[] sources = getModel().getOrigins();
 
-		for (Origin element : origins) {
-			if (element instanceof DecodedOrigin) {
+		for (Source element : sources) {
+			if (element instanceof DecodedSource) {
 				UIOrigin originUI = showOrigin(element.getName());
 				originUI.setWidgetVisible(true);
 			}
@@ -762,9 +763,9 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 	 */
 	public void showAllTerminations() {
 
-		Termination[] terminations = getModel().getTerminations();
+		Target[] targets = getModel().getTerminations();
 
-		for (Termination element : terminations) {
+		for (Target element : targets) {
 			UITermination termUI = showTermination(element.getName());
 			termUI.setWidgetVisible(true);
 		}
@@ -784,9 +785,9 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 		if (originUI == null) {
 			// try to create it
 			try {
-				Origin originModel = getModel().getOrigin(originName);
-				if (originModel != null) {
-					originUI = UIOrigin.createOriginUI(this, originModel);
+				Source sourceModel = getModel().getOrigin(originName);
+				if (sourceModel != null) {
+					originUI = UIOrigin.createOriginUI(this, sourceModel);
 					addWidget(originUI);
 				} else {
 					Util.Assert(false, "Could not find origin: " + originName);
@@ -857,7 +858,7 @@ public abstract class UINeoNode<N extends Node> extends UINeoModel<N> implements
 			// Otherwise try to create it
 			try {
 
-				Termination termModel = getModel().getTermination(terminationName);
+				Target termModel = getModel().getTermination(terminationName);
 				if (termModel != null) {
 					termUI = UITermination.createTerminationUI(this, termModel);
 					addWidget(termUI);

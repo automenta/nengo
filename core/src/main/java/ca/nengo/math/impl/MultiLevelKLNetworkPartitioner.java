@@ -2,12 +2,12 @@ package ca.nengo.math.impl;
 
 import ca.nengo.math.NetworkPartitioner;
 import ca.nengo.model.Node;
-import ca.nengo.model.Origin;
+import ca.nengo.model.Source;
 import ca.nengo.model.Projection;
-import ca.nengo.model.Termination;
+import ca.nengo.model.Target;
 import ca.nengo.model.impl.NetworkImpl;
-import ca.nengo.model.impl.NetworkImpl.OriginWrapper;
-import ca.nengo.model.impl.NetworkImpl.TerminationWrapper;
+import ca.nengo.model.impl.NetworkImpl.SourceWrapper;
+import ca.nengo.model.impl.NetworkImpl.TargetWrapper;
 import ca.nengo.model.nef.impl.NEFGroupImpl;
 import org.jgrapht.Graph;
 import org.jgrapht.WeightedGraph;
@@ -578,20 +578,20 @@ public class MultiLevelKLNetworkPartitioner implements NetworkPartitioner {
 	
 		for(Projection proj : projections){
 			
-			Termination projectionTermination = proj.getTermination();
-			boolean projectionTerminationWrapped = projectionTermination instanceof TerminationWrapper;
+			Target projectionTarget = proj.getTermination();
+			boolean projectionTerminationWrapped = projectionTarget instanceof TargetWrapper;
 			if(projectionTerminationWrapped)
-				projectionTermination = ((TerminationWrapper) projectionTermination).getBaseTermination();
+				projectionTarget = ((TargetWrapper) projectionTarget).getBaseTermination();
 			
-			Node terminationNode = projectionTermination.getNode();
+			Node terminationNode = projectionTarget.getNode();
 
-			Origin projectionOrigin = proj.getOrigin();
-			boolean projectionOriginWrapped = projectionOrigin instanceof OriginWrapper;
+			Source projectionSource = proj.getOrigin();
+			boolean projectionOriginWrapped = projectionSource instanceof SourceWrapper;
 			
 			if(projectionOriginWrapped)
-				projectionOrigin = ((OriginWrapper) projectionOrigin).getWrappedOrigin();
+				projectionSource = ((SourceWrapper) projectionSource).getWrappedOrigin();
 			
-			Node originNode = projectionOrigin.getNode();
+			Node originNode = projectionSource.getNode();
 			
 			//Don't add self loops, since they are irrelevant to the min-cut computation 
 			//(and it allows us to use a SimpleWeightedGraph object).
@@ -600,7 +600,7 @@ public class MultiLevelKLNetworkPartitioner implements NetworkPartitioner {
 				NodeVertex originVertex = nodeToVertex.get(originNode);  
 				
 				DefaultWeightedEdge edge = networkGraph.addEdge(originVertex, terminationVertex);
-				int edgeWeight = projectionTermination.getDimensions();
+				int edgeWeight = projectionTarget.getDimensions();
 				
 				if(edge != null){
 					networkGraph.setEdgeWeight(edge, (double)edgeWeight);

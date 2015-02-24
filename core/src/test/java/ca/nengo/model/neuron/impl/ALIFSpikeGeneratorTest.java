@@ -129,7 +129,7 @@ public class ALIFSpikeGeneratorTest extends TestCase {
 	public void testAdaptation() throws StructuralException, SimulationException {
 		NetworkImpl network = new NetworkImpl();
 		LinearSynapticIntegrator integrator = new LinearSynapticIntegrator(.001f, Units.ACU);
-		Termination t = integrator.addTermination("input", new float[]{1}, .005f, false);
+		Target t = integrator.addTermination("input", new float[]{1}, .005f, false);
 		ALIFSpikeGenerator generator = new ALIFSpikeGenerator(.0005f, .02f, .2f, .05f);
 		SpikingNeuron neuron = new SpikingNeuron(integrator, generator, 2, 5, "neuron");
 		network.addNode(neuron);
@@ -184,10 +184,10 @@ public class ALIFSpikeGeneratorTest extends TestCase {
 			neuron.setMode(SimulationMode.CONSTANT_RATE);
 			neuron.setRadialInput(-1);
 			neuron.run(0, 0);
-			RealOutput low = (RealOutput) neuron.getOrigin(Neuron.AXON).getValues();
+			RealOutput low = (RealOutput) neuron.getOrigin(Neuron.AXON).get();
 			neuron.setRadialInput(1);
 			neuron.run(0, 0);
-			RealOutput high = (RealOutput) neuron.getOrigin(Neuron.AXON).getValues();
+			RealOutput high = (RealOutput) neuron.getOrigin(Neuron.AXON).get();
 			slope = (high.getValues()[0] - low.getValues()[0]) / 2f;
 			System.out.println("high: " + high.getValues()[0] + " low: " + low.getValues()[0] + " slope: " + slope);
 			neuron.setMode(mode);

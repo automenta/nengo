@@ -56,7 +56,7 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 	private static final long serialVersionUID = 1L;
 
 	protected ExpandableNode[] myExpandableNodes;
-	protected Map<String, Termination> myExpandedTerminations;
+	protected Map<String, Target> myExpandedTerminations;
 
 	/**
 	 * @param name Name of Ensemble
@@ -66,7 +66,7 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 		super(name, nodes);
 
 		myExpandableNodes = findExpandable(nodes);
-		myExpandedTerminations = new LinkedHashMap<String, Termination>(10);
+		myExpandedTerminations = new LinkedHashMap<String, Target>(10);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 		super(name, make(factory, n));
 
 		myExpandableNodes = findExpandable(this.getNodes());
-		myExpandedTerminations = new LinkedHashMap<String, Termination>(10);
+		myExpandedTerminations = new LinkedHashMap<String, Target>(10);
 	}
 
 	private static Node[] make(NodeFactory factory, int n) throws StructuralException {
@@ -109,7 +109,7 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
      * @see ca.nengo.model.Node#getTermination(java.lang.String)
      */
     @Override
-    public Termination getTermination(String name) throws StructuralException {
+    public Target getTermination(String name) throws StructuralException {
         return myExpandedTerminations.containsKey(name) ?
                 myExpandedTerminations.get(name) : super.getTermination(name);
     }
@@ -117,14 +117,14 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 	/**
 	 * @see ca.nengo.model.Group#getTerminations()
 	 */
-	public Termination[] getTerminations() {
-		ArrayList<Termination> result = new ArrayList<Termination>(10);
+	public Target[] getTerminations() {
+		ArrayList<Target> result = new ArrayList<Target>(10);
 		result.addAll(myExpandedTerminations.values());
 
-		Termination[] composites = super.getTerminations();
+		Target[] composites = super.getTerminations();
         Collections.addAll(result, composites);
 
-		return result.toArray(new Termination[result.size()]);
+		return result.toArray(new Target[result.size()]);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 	 *
 	 * @see ca.nengo.model.ExpandableNode#addTermination(java.lang.String, float[][], float, boolean)
 	 */
-    public synchronized Termination addTermination(String name, float[][] weights, float tauPSC, boolean modulatory) throws StructuralException {
+    public synchronized Target addTermination(String name, float[][] weights, float tauPSC, boolean modulatory) throws StructuralException {
     	return addTermination(name, weights, new IndicatorPDF(tauPSC,tauPSC), null, modulatory);
 	}
     
@@ -152,8 +152,8 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 	 *
 	 * @see ca.nengo.model.ExpandableNode#addTermination(java.lang.String, float[][], float, boolean)
 	 */
-    public synchronized Termination addTermination(String name, float[][] weights, PDF tauPSC, PDF delays, boolean modulatory) throws StructuralException {
-    	for(Termination t : getTerminations()) {
+    public synchronized Target addTermination(String name, float[][] weights, PDF tauPSC, PDF delays, boolean modulatory) throws StructuralException {
+    	for(Target t : getTerminations()) {
         	if(t.getName().equals(name))
         		throw new StructuralException("The ensemble already contains a termination named " + name);
         }
@@ -165,7 +165,7 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 
 		int dimension = weights[0].length;
 
-		Termination[] components = new Termination[myExpandableNodes.length];
+		Target[] components = new Target[myExpandableNodes.length];
 		for (int i = 0; i < myExpandableNodes.length; i++) {
 			if (weights[i].length != dimension) {
 				throw new StructuralException("Equal numbers of weights are needed for termination onto each node");
@@ -182,7 +182,7 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 			}
 		}
 
-		GroupTermination result = new GroupTermination(this, name, components);
+		GroupTarget result = new GroupTarget(this, name, components);
 		myExpandedTerminations.put(name, result);
 
 		fireVisibleChangeEvent();
@@ -195,9 +195,9 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 	 * @see ca.nengo.model.ExpandableNode#removeTermination(java.lang.String)
 	 */
 	@Override
-    public synchronized Termination removeTermination(String name) throws StructuralException {
+    public synchronized Target removeTermination(String name) throws StructuralException {
 		if (myExpandedTerminations.containsKey(name)) {
-		    Termination result = myExpandedTerminations.remove(name);
+		    Target result = myExpandedTerminations.remove(name);
 			for (ExpandableNode myExpandableNode : myExpandableNodes) {
 				myExpandableNode.removeTermination(name);
 			}
@@ -226,8 +226,8 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 			result.myExpandableNodes[i] = myExpandableNodes[i].clone();
 		}
 		
-		result.myExpandedTerminations = new LinkedHashMap<String, Termination>(10);
-		for (Map.Entry<String, Termination> stringTerminationEntry : myExpandedTerminations.entrySet()) {
+		result.myExpandedTerminations = new LinkedHashMap<String, Target>(10);
+		for (Map.Entry<String, Target> stringTerminationEntry : myExpandedTerminations.entrySet()) {
 			result.myExpandedTerminations.put(stringTerminationEntry.getKey(),
                     stringTerminationEntry.getValue().clone(result));
 		}
@@ -238,7 +238,7 @@ public class GroupImpl extends AbstractGroup implements ExpandableNode {
 	public void reset(boolean randomize) {
 		super.reset(randomize);
 		
-		for(Termination t: myExpandedTerminations.values())
+		for(Target t: myExpandedTerminations.values())
 			t.reset(randomize);
 	}
 

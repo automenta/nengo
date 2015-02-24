@@ -51,7 +51,7 @@ public class NEFUtil {
 	 * 		steps in a simulation, and neuron states are maintained across steps.  
 	 * @return Outputs from the given Origin for given inputs
 	 */
-	public static float[][] getOutput(DecodedOrigin origin, float[][] input, SimulationMode mode) {		
+	public static float[][] getOutput(DecodedSource origin, float[][] input, SimulationMode mode) {
 		float[][] output = null;
 		float dt = .001f;
 		
@@ -74,7 +74,7 @@ public class NEFUtil {
 				for (int i = 0; i < input.length; i++) {
 					if (mode.equals(SimulationMode.DIRECT) || mode.equals(SimulationMode.EXPRESS)) {
 						origin.run(input[i], 0f, 1f);
-						output[i] = ((RealOutput) origin.getValues()).getValues();					
+						output[i] = ((RealOutput) origin.get()).getValues();
 					} else {
 						for (int j = 0; j < nodes.length; j++) {
 							float radialInput = 0;
@@ -92,7 +92,7 @@ public class NEFUtil {
 							}
 						}
 						origin.run(null, (float) i * dt, (float) (i+1) * dt);
-						output[i] = ((RealOutput) origin.getValues()).getValues();
+						output[i] = ((RealOutput) origin.get()).getValues();
 					}				
 				}
 				ensemble.setMode(oldMode);

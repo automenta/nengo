@@ -58,7 +58,7 @@ public class NEFGroupImplTest extends TestCase {
 		network.addNode(dest);
 
 		source.addDecodedTermination("input", MU.I(1), .005f, false); //OK
-		BiasOrigin bo = source.addBiasOrigin(source.getOrigin(NEFGroup.X), 200, "interneurons", true); //should have -ve bias decoders
+		BiasSource bo = source.addBiasOrigin(source.getOrigin(NEFGroup.X), 200, "interneurons", true); //should have -ve bias decoders
 		network.addNode(bo.getInterneurons()); //should be backwards response functions
 //**		bo.getInterneurons().addDecodedTermination("source", MU.I(1), .005f, false);
 		

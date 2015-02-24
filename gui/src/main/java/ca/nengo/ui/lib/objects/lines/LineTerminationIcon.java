@@ -18,22 +18,24 @@ public class LineTerminationIcon extends WorldObjectImpl {
 	static final int LINE_IN_HEIGHT = 30;
 
 	static final int LINE_IN_WIDTH = 30;
+    private final Area a1;
 
-	private Color myColor = NengoStyle.COLOR_LINEIN;
+    private Color myColor = NengoStyle.COLOR_LINEIN;
 
 	public LineTerminationIcon() {
 		super();
 		this.setBounds(0, 0, LINE_IN_WIDTH, LINE_IN_HEIGHT);
-	}
+
+        a1 = new Area(new Ellipse2D.Double(0, 0, LINE_IN_WIDTH,
+                LINE_IN_HEIGHT));
+        a1.exclusiveOr(new Area(new Ellipse2D.Double(5.0, 5.0,
+                LINE_IN_WIDTH - 10.0, LINE_IN_HEIGHT - 10.0)));
+    }
 
 	@Override
 	public void paint(PaintContext paintContext) {
 		super.paint(paintContext);
 
-		Area a1 = new Area(new Ellipse2D.Double(0, 0, LINE_IN_WIDTH,
-				LINE_IN_HEIGHT));
-		a1.exclusiveOr(new Area(new Ellipse2D.Double(5.0, 5.0,
-				LINE_IN_WIDTH - 10.0, LINE_IN_HEIGHT - 10.0)));
 		Graphics2D g2 = paintContext.getGraphics();
 		g2.setColor(getColor());
 		g2.fill(a1);

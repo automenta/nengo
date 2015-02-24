@@ -28,11 +28,11 @@ package ca.nengo.ui.models.nodes;
 
 //import java.util.List;
 
-import ca.nengo.model.Origin;
+import ca.nengo.model.Source;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.Target;
 import ca.nengo.model.nef.NEFGroup;
-import ca.nengo.model.nef.impl.DecodedOrigin;
+import ca.nengo.model.nef.impl.DecodedSource;
 import ca.nengo.plot.Plotter;
 import ca.nengo.ui.configurable.ConfigException;
 import ca.nengo.ui.lib.actions.ActionException;
@@ -90,10 +90,10 @@ public class UINEFGroup extends UIGroup {
 			}
 
 		});
-		Origin[] origins = getModel().getOrigins();
+		Source[] sources = getModel().getOrigins();
 
-		for (Origin element : origins) {
-			if (element instanceof DecodedOrigin) {
+		for (Source element : sources) {
+			if (element instanceof DecodedSource) {
 				if(getModel().getDimension() > 1)
 					plotMenu.addAction(new PlotDecodedOriginMSE(element.getName()));
 				else
@@ -122,7 +122,7 @@ public class UINEFGroup extends UIGroup {
 	public UITermination addDecodedTermination() {
 
 		try {
-			Termination term = (Termination) ModelFactory.constructModel(this,
+			Target term = (Target) ModelFactory.constructModel(this,
 					new CDecodedTermination(getModel()));
 
 			UITermination termUI = UITermination.createTerminationUI(this, term);
@@ -141,9 +141,9 @@ public class UINEFGroup extends UIGroup {
 
 		try {
 
-			Origin origin = (Origin) ModelFactory.constructModel(this, new CDecodedOrigin(
+			Source source = (Source) ModelFactory.constructModel(this, new CDecodedOrigin(
 					getModel()));
-			UIOrigin originUI = UIOrigin.createOriginUI(this, origin);
+			UIOrigin originUI = UIOrigin.createOriginUI(this, source);
 
 			addWidget(originUI);
 			showPopupMessage("New decoded ORIGIN added");

@@ -32,10 +32,10 @@ package ca.nengo.model.neuron.impl;
 
 import ca.nengo.model.Node;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.Target;
 import ca.nengo.model.Units;
-import ca.nengo.model.impl.DelayedLinearExponentialTermination;
-import ca.nengo.model.impl.LinearExponentialTermination;
+import ca.nengo.model.impl.DelayedLinearExponentialTarget;
+import ca.nengo.model.impl.LinearExponentialTarget;
 import ca.nengo.model.neuron.ExpandableSynapticIntegrator;
 import ca.nengo.model.neuron.SynapticIntegrator;
 import ca.nengo.util.TimeSeries1D;
@@ -70,7 +70,7 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	private Node myNode;
 	private float myMaxTimeStep;
 	private Units myCurrentUnits;
-	private Map<String, LinearExponentialTermination> myTerminations;
+	private Map<String, LinearExponentialTarget> myTerminations;
 
 	/**
 	 * @param maxTimeStep Maximum length of integration time step. Shorter steps may be used to better match
@@ -80,7 +80,7 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	public LinearSynapticIntegrator(float maxTimeStep, Units currentUnits) {
 		myMaxTimeStep = maxTimeStep * 1.01f; //increased slightly because float/float != integer
 		myCurrentUnits = currentUnits;
-		myTerminations = new HashMap<String, LinearExponentialTermination>(10);
+		myTerminations = new HashMap<String, LinearExponentialTarget>(10);
 	}
 
 	/**
@@ -124,12 +124,12 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	}
 
 	//update current in all Terminations
-	private static float update(Collection<LinearExponentialTermination> terminations, boolean spikes, float intTime, float decayTime) {
+	private static float update(Collection<LinearExponentialTarget> terminations, boolean spikes, float intTime, float decayTime) {
 		float result = 0f;
 
-		Iterator<LinearExponentialTermination> it = terminations.iterator();
+		Iterator<LinearExponentialTarget> it = terminations.iterator();
 		while (it.hasNext()) {
-			LinearExponentialTermination t = it.next();
+			LinearExponentialTarget t = it.next();
 			float current = t.updateCurrent(spikes, intTime, decayTime);
 			if (!t.getModulatory()) {
                 result += current;
@@ -143,7 +143,7 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	 * @see ca.nengo.model.Resettable#reset(boolean)
 	 */
 	public void reset(boolean randomize) {
-		Iterator<LinearExponentialTermination> it = myTerminations.values().iterator();
+		Iterator<LinearExponentialTarget> it = myTerminations.values().iterator();
 		while (it.hasNext()) {
 			it.next().reset(false);
 		}
@@ -180,32 +180,32 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	/**
 	 * @see ca.nengo.model.neuron.SynapticIntegrator#getTerminations()
 	 */
-	public Termination[] getTerminations() {
-        Collection<LinearExponentialTermination> var = myTerminations.values();
-        return var.toArray(new Termination[var.size()]);
+	public Target[] getTerminations() {
+        Collection<LinearExponentialTarget> var = myTerminations.values();
+        return var.toArray(new Target[var.size()]);
 	}
 
 	/**
 	 * @see ca.nengo.model.neuron.ExpandableSynapticIntegrator#addTermination(java.lang.String, float[], float, boolean)
 	 */
-	public Termination addTermination(String name, float[] weights, float tauPSC, boolean modulatory) throws StructuralException {
+	public Target addTermination(String name, float[] weights, float tauPSC, boolean modulatory) throws StructuralException {
 		if (myTerminations.containsKey(name)) {
 			throw new StructuralException("This SynapticIntegrator already has a Termination named " + name);
 		}
 
-		LinearExponentialTermination result = new LinearExponentialTermination(myNode, name, weights, tauPSC);
+		LinearExponentialTarget result = new LinearExponentialTarget(myNode, name, weights, tauPSC);
 		result.setModulatory(modulatory);
 		myTerminations.put(name, result);
 
 		return result;
 	}
 	
-	public Termination addTermination(String name, float[] weights, float tauPSC, float delay, boolean modulatory) throws StructuralException {
+	public Target addTermination(String name, float[] weights, float tauPSC, float delay, boolean modulatory) throws StructuralException {
 		if (myTerminations.containsKey(name)) {
 			throw new StructuralException("This SynapticIntegrator already has a Termination named " + name);
 		}
 		
-		DelayedLinearExponentialTermination result = new DelayedLinearExponentialTermination(myNode, name, 
+		DelayedLinearExponentialTarget result = new DelayedLinearExponentialTarget(myNode, name,
 				weights, tauPSC, (int)(delay/myMaxTimeStep));
 		result.setModulatory(modulatory);
 		myTerminations.put(name,  result);
@@ -216,14 +216,14 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	/**
 	 * @see ca.nengo.model.neuron.ExpandableSynapticIntegrator#removeTermination(java.lang.String)
 	 */
-	public Termination removeTermination(String name) {
+	public Target removeTermination(String name) {
 		return myTerminations.remove(name);
 	}
 
 	/**
 	 * @see ca.nengo.model.neuron.SynapticIntegrator#getTermination(java.lang.String)
 	 */
-	public Termination getTermination(String name) {
+	public Target getTermination(String name) {
 		return myTerminations.get(name);
 	}
 
@@ -233,7 +233,7 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	public void setNode(Node node) {
 		myNode = node;
 
-		for (LinearExponentialTermination t : myTerminations.values()) {
+		for (LinearExponentialTarget t : myTerminations.values()) {
 			t.setNode(myNode);
 		}
 	}
@@ -242,8 +242,8 @@ public class LinearSynapticIntegrator implements ExpandableSynapticIntegrator {
 	public LinearSynapticIntegrator clone() throws CloneNotSupportedException {
 		LinearSynapticIntegrator result = (LinearSynapticIntegrator) super.clone();
 
-		result.myTerminations = new HashMap<String, LinearExponentialTermination>(10);
-		for (LinearExponentialTermination oldTerm : myTerminations.values()) {
+		result.myTerminations = new HashMap<String, LinearExponentialTarget>(10);
+		for (LinearExponentialTarget oldTerm : myTerminations.values()) {
 			result.myTerminations.put(oldTerm.getName(), oldTerm.clone(result.myNode));
 		}
 

@@ -28,7 +28,7 @@ package ca.nengo.ui.models.nodes.widgets;
 
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.nef.NEFGroup;
-import ca.nengo.model.nef.impl.DecodedOrigin;
+import ca.nengo.model.nef.impl.DecodedSource;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.models.UINeoNode;
 
@@ -41,7 +41,7 @@ public class UIDecodedOrigin extends UIOrigin {
 
 	public static final String typeName = "Decoded Origin";
 
-	protected UIDecodedOrigin(UINeoNode ensembleProxy, DecodedOrigin origin) {
+	protected UIDecodedOrigin(UINeoNode ensembleProxy, DecodedSource origin) {
 		super(ensembleProxy, origin);
 		setName(origin.getName());
 	}

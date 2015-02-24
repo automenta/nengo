@@ -91,7 +91,7 @@ public class NodeThread extends Thread {
 		
 		for (int i = myStartIndexInProjections; i < myEndIndexInProjections; i++) {
 			
-			InstantaneousOutput values = myProjections[i].getOrigin().getValues();
+			InstantaneousOutput values = myProjections[i].getOrigin().get();
 			myProjections[i].getTermination().setValues(values);
 		}
 		

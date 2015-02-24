@@ -31,7 +31,7 @@ import ca.nengo.model.*;
 import ca.nengo.model.impl.GroupImpl;
 import ca.nengo.model.impl.NodeFactory;
 import ca.nengo.model.impl.RealOutputImpl;
-import ca.nengo.model.nef.impl.DecodedTermination;
+import ca.nengo.model.nef.impl.DecodedTarget;
 import ca.nengo.util.TaskSpawner;
 import ca.nengo.util.ThreadTask;
 import ca.nengo.util.impl.LearningTask;
@@ -54,7 +54,7 @@ public class PlasticGroupImpl extends GroupImpl implements TaskSpawner {
     private float myLastPlasticityTime;
     private boolean myLearning = true;
 
-    protected Map<String, PlasticGroupTermination> myPlasticEnsembleTerminations;
+    protected Map<String, PlasticGroupTarget> myPlasticEnsembleTerminations;
 
     private ArrayList<LearningTask> myTasks;
 
@@ -67,14 +67,14 @@ public class PlasticGroupImpl extends GroupImpl implements TaskSpawner {
     public PlasticGroupImpl(String name, Node[] nodes) {
         super(name, nodes);
         myTasks = new ArrayList<LearningTask>();
-        myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticGroupTermination>(6);
+        myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticGroupTarget>(6);
         myLastPlasticityTime = 0.0f;
     }
 
     public PlasticGroupImpl(String name, NodeFactory factory, int n) throws StructuralException {
         super(name, factory, n);
         myTasks = new ArrayList<LearningTask>();
-        myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticGroupTermination>(6);
+        myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticGroupTarget>(6);
         myLastPlasticityTime = 0.0f;
     }
 
@@ -83,17 +83,17 @@ public class PlasticGroupImpl extends GroupImpl implements TaskSpawner {
     }
 
     public void setLearning(boolean learning) {
-        for (PlasticGroupTermination pet : myPlasticEnsembleTerminations.values()) {
+        for (PlasticGroupTarget pet : myPlasticEnsembleTerminations.values()) {
             pet.setLearning(learning);
         }
         myLearning = learning;
     }
 
-    protected static boolean isPopulationPlastic(Termination[] terminations) {
+    protected static boolean isPopulationPlastic(Target[] targets) {
         boolean result = true;
 
-        for (int i=0; i < terminations.length; i++) {
-            if (!(terminations[i] instanceof PlasticNodeTermination)) {
+        for (int i=0; i < targets.length; i++) {
+            if (!(targets[i] instanceof PlasticNodeTarget)) {
                 result = false;
             }
         }
@@ -134,18 +134,18 @@ public class PlasticGroupImpl extends GroupImpl implements TaskSpawner {
 
     public void setStates(float endTime) throws SimulationException {
         if (myLastPlasticityTime < endTime) {
-            for (PlasticGroupTermination pet : myPlasticEnsembleTerminations.values()) {
+            for (PlasticGroupTarget pet : myPlasticEnsembleTerminations.values()) {
                 try {
-                    Origin origin = this.getOrigin(pet.getOriginName());
-                    pet.setOriginState(origin.getName(), origin.getValues(), endTime);
+                    Source source = this.getOrigin(pet.getOriginName());
+                    pet.setOriginState(source.getName(), source.get(), endTime);
                     pet.setTerminationState(endTime);
 
-                    if (pet instanceof ModulatedPlasticGroupTermination) {
-                        DecodedTermination modTerm = (DecodedTermination)
-                        		this.getTermination(((ModulatedPlasticGroupTermination) pet).getModTermName());
+                    if (pet instanceof ModulatedPlasticGroupTarget) {
+                        DecodedTarget modTerm = (DecodedTarget)
+                        		this.getTermination(((ModulatedPlasticGroupTarget) pet).getModTermName());
 
                         InstantaneousOutput input = new RealOutputImpl(modTerm.getOutput(), Units.UNK, endTime);
-                        ((ModulatedPlasticGroupTermination) pet).setModTerminationState
+                        ((ModulatedPlasticGroupTarget) pet).setModTerminationState
                         	(modTerm.getName(), input, endTime);
                     }
                 }
@@ -177,7 +177,7 @@ public class PlasticGroupImpl extends GroupImpl implements TaskSpawner {
      * @see ca.nengo.model.Node#getTermination(java.lang.String)
      */
     @Override
-    public Termination getTermination(String name) throws StructuralException {
+    public Target getTermination(String name) throws StructuralException {
         return myPlasticEnsembleTerminations.containsKey(name) ?
                 myPlasticEnsembleTerminations.get(name) : super.getTermination(name);
     }
@@ -186,15 +186,15 @@ public class PlasticGroupImpl extends GroupImpl implements TaskSpawner {
      * @see ca.nengo.model.Group#getTerminations()
      */
     @Override
-    public Termination[] getTerminations() {
-        ArrayList<Termination> result = new ArrayList<Termination>(10);
-        Termination[] composites = super.getTerminations();
+    public Target[] getTerminations() {
+        ArrayList<Target> result = new ArrayList<Target>(10);
+        Target[] composites = super.getTerminations();
         Collections.addAll(result, composites);
 
-        for (Termination t : myPlasticEnsembleTerminations.values()) {
+        for (Target t : myPlasticEnsembleTerminations.values()) {
             result.add(t);
         }
-        return result.toArray(new Termination[result.size()]);
+        return result.toArray(new Target[result.size()]);
     }
 
     /**
@@ -222,9 +222,9 @@ public class PlasticGroupImpl extends GroupImpl implements TaskSpawner {
         }
         
         
-        result.myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticGroupTermination>(6);
-        for (Map.Entry<String, PlasticGroupTermination> stringPlasticEnsembleTerminationEntry : myPlasticEnsembleTerminations.entrySet()) {
-        	PlasticGroupTermination term = stringPlasticEnsembleTerminationEntry.getValue();
+        result.myPlasticEnsembleTerminations = new LinkedHashMap<String, PlasticGroupTarget>(6);
+        for (Map.Entry<String, PlasticGroupTarget> stringPlasticEnsembleTerminationEntry : myPlasticEnsembleTerminations.entrySet()) {
+        	PlasticGroupTarget term = stringPlasticEnsembleTerminationEntry.getValue();
         	result.myPlasticEnsembleTerminations.put(stringPlasticEnsembleTerminationEntry.getKey(), term.clone(result));
         }
         

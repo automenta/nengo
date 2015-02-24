@@ -144,29 +144,29 @@ public class LinkSegmentModelImpl implements LinkSegmentModel {
 	/**
 	 * @see ca.nengo.model.Node#getOrigin(java.lang.String)
 	 */
-	public Origin getOrigin(String name) throws StructuralException {
+	public Source getOrigin(String name) throws StructuralException {
 		throw new StructuralException("A LinkSegmentModel itself has no Origins (neural output arises from component SkeletalMuscles)");
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getOrigins()
 	 */
-	public Origin[] getOrigins() {
-		return new Origin[0];
+	public Source[] getOrigins() {
+		return new Source[0];
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTermination(java.lang.String)
 	 */
-	public Termination getTermination(String name) throws StructuralException {
+	public Target getTermination(String name) throws StructuralException {
 		throw new StructuralException("A LinkSegmentModel itself has no Terminations (neural input is to component SkeletalMuscles)");
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
-	public Termination[] getTerminations() {
-		return new Termination[0];
+	public Target[] getTerminations() {
+		return new Target[0];
 	}
 
 	/**

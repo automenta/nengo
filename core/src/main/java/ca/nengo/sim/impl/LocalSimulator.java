@@ -31,7 +31,7 @@ package ca.nengo.sim.impl;
 import ca.nengo.model.*;
 import ca.nengo.model.impl.NetworkImpl;
 import ca.nengo.model.impl.SocketUDPNode;
-import ca.nengo.model.plasticity.impl.PlasticGroupTermination;
+import ca.nengo.model.plasticity.impl.PlasticGroupTarget;
 import ca.nengo.sim.Simulator;
 import ca.nengo.sim.SimulatorEvent;
 import ca.nengo.sim.SimulatorListener;
@@ -233,7 +233,7 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
             myNodeThreadPool.step(startTime, endTime);
         }else{
             for (Projection myProjection : myProjections) {
-                InstantaneousOutput values = myProjection.getOrigin().getValues();
+                InstantaneousOutput values = myProjection.getOrigin().get();
                 myProjection.getTermination().setValues(values);
             }
 
@@ -284,12 +284,12 @@ public class LocalSimulator implements Simulator, java.io.Serializable {
      */
     public synchronized void resetNetwork(boolean randomize, boolean saveWeights) {
         if (saveWeights) {
-            Termination[] terms;
+            Target[] terms;
             for (Node myNode : myNodes) {
                 terms = myNode.getTerminations();
-                for (Termination term : terms) {
-                    if (term instanceof PlasticGroupTermination) {
-                        ((PlasticGroupTermination) term).saveTransform();
+                for (Target term : terms) {
+                    if (term instanceof PlasticGroupTarget) {
+                        ((PlasticGroupTarget) term).saveTransform();
                     }
                 }
             }

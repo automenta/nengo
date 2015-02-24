@@ -66,7 +66,7 @@ public abstract class NodeViewer extends ElasticWorld implements Interactable {
     /**
      * Children of NEO nodes
      */
-    protected final Hashtable<Node, UINeoNode> neoNodesChildren = new Hashtable<Node, UINeoNode>();
+    protected final Map<Node, UINeoNode> neoNodesChildren = new HashMap<Node, UINeoNode>();
 
     /**
      * @param nodeContainer
@@ -118,7 +118,7 @@ public abstract class NodeViewer extends ElasticWorld implements Interactable {
      * @param moveCameraToNode
      *            whether to move the camera to where the node is
      */
-    protected void addUINode(UINeoNode node, boolean dropInCenterOfCamera, boolean moveCameraToNode) {
+    protected UINeoNode addUINode(UINeoNode node, boolean dropInCenterOfCamera, boolean moveCameraToNode) {
 
         /**
          * Moves the camera to where the node is positioned, if it's not dropped
@@ -136,6 +136,7 @@ public abstract class NodeViewer extends ElasticWorld implements Interactable {
             getGround().addChild(node);
         }
 
+        return node;
     }
 
     public Point2D localToView(Point2D localPoint) {

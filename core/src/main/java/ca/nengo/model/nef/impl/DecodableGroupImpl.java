@@ -60,8 +60,8 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 
 	private static final long serialVersionUID = 1L;
 
-	protected Map<String, DecodedOrigin> myDecodedOrigins;
-	protected Map<String, DecodedTermination> myDecodedTerminations;
+	protected Map<String, DecodedSource> myDecodedOrigins;
+	protected Map<String, DecodedTarget> myDecodedTerminations;
 
 	private ApproximatorFactory myApproximatorFactory;
 	private Map<String, LinearApproximator> myApproximators;
@@ -78,8 +78,8 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 	public DecodableGroupImpl(String name, Node[] nodes, ApproximatorFactory factory) throws StructuralException {
 		super(name, nodes);
 
-		myDecodedOrigins = new LinkedHashMap<String, DecodedOrigin>(10);
-        myDecodedTerminations = new LinkedHashMap<String, DecodedTermination>(10);
+		myDecodedOrigins = new LinkedHashMap<String, DecodedSource>(10);
+        myDecodedTerminations = new LinkedHashMap<String, DecodedTarget>(10);
 		myApproximatorFactory = factory;
 		myApproximators = new HashMap<String, LinearApproximator>(10);
 		myTime = 0;
@@ -88,7 +88,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 	/**
 	 * @see ca.nengo.model.nef.DecodableGroup#addDecodedOrigin(java.lang.String, ca.nengo.math.Function[], java.lang.String, ca.nengo.model.Network, ca.nengo.util.Probe, float, float)
 	 */
-    public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
+    public Source addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
 			Probe probe, float startTime, float endTime) throws StructuralException, SimulationException {
 
 	    if (myDecodedOrigins.containsKey(name)) {
@@ -106,7 +106,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 		float[][] valuesT = MU.transpose(values);
 
 		LinearApproximator approximator = myApproximatorFactory.getApproximator(evalPoints, valuesT);
-		DecodedOrigin result = new DecodedOrigin(this, name, getNodes(), nodeOrigin, functions, approximator);
+		DecodedSource result = new DecodedSource(this, name, getNodes(), nodeOrigin, functions, approximator);
 		result.setMode(getMode());
 
         myDecodedOrigins.put(name, result);
@@ -115,10 +115,10 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 	}
 
 	/**
-	 * @see ca.nengo.model.nef.DecodableGroup#addDecodedOrigin(java.lang.String, ca.nengo.math.Function[], java.lang.String, ca.nengo.model.Network, ca.nengo.util.Probe, ca.nengo.model.Termination, float[][], float)
+	 * @see ca.nengo.model.nef.DecodableGroup#addDecodedOrigin(java.lang.String, ca.nengo.math.Function[], java.lang.String, ca.nengo.model.Network, ca.nengo.util.Probe, ca.nengo.model.Target, float[][], float)
 	 */
-    public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
-			Probe probe, Termination termination, float[][] evalPoints, float transientTime) throws StructuralException, SimulationException {
+    public Source addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
+			Probe probe, Target target, float[][] evalPoints, float transientTime) throws StructuralException, SimulationException {
 
 	    if (myDecodedOrigins.containsKey(name)) {
             throw new StructuralException("The ensemble already contains a origin named " + name);
@@ -132,11 +132,11 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 			}
 			FunctionInput fi = new FunctionInput("DECODING SIMULATION INPUT", f, Units.UNK);
 			environment.addNode(fi);
-			environment.addProjection(fi.getOrigin(FunctionInput.ORIGIN_NAME), termination);
+			environment.addProjection(fi.getOrigin(FunctionInput.ORIGIN_NAME), target);
 			probe.reset();
 			environment.run(0, transientTime);
 			TimeSeries result = probe.getData();
-			environment.removeProjection(termination);
+			environment.removeProjection(target);
 			environment.removeNode(fi.getName());
 
 			values[i] = new float[result.getDimension()];
@@ -151,7 +151,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 		}
 
 		LinearApproximator approximator = myApproximatorFactory.getApproximator(evalPoints, values);
-		DecodedOrigin result = new DecodedOrigin(this, name, getNodes(), nodeOrigin, functions, approximator);
+		DecodedSource result = new DecodedSource(this, name, getNodes(), nodeOrigin, functions, approximator);
 		result.setMode(getMode());
 		myDecodedOrigins.put(name, result);
 		fireVisibleChangeEvent();
@@ -175,7 +175,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 	 * @throws StructuralException if origin name is taken
 	 * @throws SimulationException if environment can't run
 	 */
-	public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
+	public Source addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
 			Probe probe, Probe state, float startTime, float endTime, float tau) throws StructuralException, SimulationException {
 
 	    if (myDecodedOrigins.containsKey(name)) {
@@ -220,7 +220,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 		}
 
 		LinearApproximator approximator = myApproximatorFactory.getApproximator(evalPoints, valuesT);
-		DecodedOrigin result = new DecodedOrigin(this, name, getNodes(), nodeOrigin, functions, approximator);
+		DecodedSource result = new DecodedSource(this, name, getNodes(), nodeOrigin, functions, approximator);
 		result.setMode(getMode());
 
 		myDecodedOrigins.put(name, result);
@@ -245,10 +245,10 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
      * @throws StructuralException if termination name is taken
      * @see ca.nengo.model.nef.NEFGroup#addDecodedTermination(java.lang.String, float[][], float, boolean)
      */
-    public Termination addDecodedTermination(String name, float[][] matrix, float tauPSC, boolean isModulatory)
+    public Target addDecodedTermination(String name, float[][] matrix, float tauPSC, boolean isModulatory)
             throws StructuralException {
 
-    	for(Termination t : getTerminations()) {
+    	for(Target t : getTerminations()) {
         	if(t.getName().equals(name))
         		throw new StructuralException("The ensemble already contains a termination named " + name);
         }
@@ -265,7 +265,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 
         EulerIntegrator integrator = new EulerIntegrator(tauPSC / 10f);
 
-        DecodedTermination result = new DecodedTermination(this, name, matrix, dynamics, integrator);
+        DecodedTarget result = new DecodedTarget(this, name, matrix, dynamics, integrator);
         if (isModulatory) {
             result.setModulatory(isModulatory);
         }
@@ -291,10 +291,10 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
      * @throws StructuralException if termination name is taken
      * @see ca.nengo.model.nef.NEFGroup#addDecodedTermination(java.lang.String, float[][], float[], float[], float, boolean)
      */
-    public Termination addDecodedTermination(String name, float[][] matrix, float[] tfNumerator, float[] tfDenominator,
+    public Target addDecodedTermination(String name, float[][] matrix, float[] tfNumerator, float[] tfDenominator,
             float passthrough, boolean isModulatory) throws StructuralException {
 
-    	for(Termination t : getTerminations()) {
+    	for(Target t : getTerminations()) {
         	if(t.getName().equals(name))
         		throw new StructuralException("The ensemble already contains a termination named " + name);
         }
@@ -312,7 +312,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 
         EulerIntegrator integrator = new EulerIntegrator(1f / (10f * (float) fastest));
 
-        DecodedTermination result = new DecodedTermination(this, name, matrix, dynamics, integrator);
+        DecodedTarget result = new DecodedTarget(this, name, matrix, dynamics, integrator);
         if (isModulatory) {
             result.setModulatory(isModulatory);
         }
@@ -325,9 +325,9 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
     /**
      * @see ca.nengo.model.nef.NEFGroup#removeDecodedTermination(java.lang.String)
      */
-    public DecodedTermination removeDecodedTermination(String name) throws StructuralException {
+    public DecodedTarget removeDecodedTermination(String name) throws StructuralException {
         if (myDecodedTerminations.containsKey(name)) {
-            DecodedTermination result = myDecodedTerminations.remove(name);
+            DecodedTarget result = myDecodedTerminations.remove(name);
             fireVisibleChangeEvent();
 
             return result;
@@ -340,9 +340,9 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
     /**
      * @see ca.nengo.model.nef.NEFGroup#removeDecodedTermination(java.lang.String)
      */
-    public DecodedOrigin removeDecodedOrigin(String name) throws StructuralException {
+    public DecodedSource removeDecodedOrigin(String name) throws StructuralException {
         if (myDecodedOrigins.containsKey(name)) {
-            DecodedOrigin result = myDecodedOrigins.remove(name);
+            DecodedSource result = myDecodedOrigins.remove(name);
             fireVisibleChangeEvent();
 
             return result;
@@ -356,9 +356,9 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
      * Used to get decoded terminations to give to GPU.
      * @return all DecodedTerminations
      */
-    public DecodedTermination[] getDecodedTerminations(){
-        Collection<DecodedTermination> var = myDecodedTerminations.values();
-        return var.toArray(new DecodedTermination[var.size()]);
+    public DecodedTarget[] getDecodedTerminations(){
+        Collection<DecodedTarget> var = myDecodedTerminations.values();
+        return var.toArray(new DecodedTarget[var.size()]);
         //return (OrderedTerminations != null) ? (DecodedTermination[])OrderedTerminations.toArray(new DecodedTermination[0]) : new DecodedTermination[0];
     }
 
@@ -373,7 +373,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 	 * @see ca.nengo.model.Node#getOrigin(java.lang.String)
 	 */
 	@Override
-    public Origin getOrigin(String name) throws StructuralException {
+    public Source getOrigin(String name) throws StructuralException {
 		return myDecodedOrigins.containsKey(name) ?
 		        myDecodedOrigins.get(name) : super.getOrigin(name);
 	}
@@ -382,7 +382,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
      * @see ca.nengo.model.Node#getTermination(java.lang.String)
      */
     @Override
-    public Termination getTermination(String name) throws StructuralException {
+    public Target getTermination(String name) throws StructuralException {
         return myDecodedTerminations.containsKey(name) ?
                 myDecodedTerminations.get(name) : super.getTermination(name);
     }
@@ -391,49 +391,49 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 	 * @see ca.nengo.model.Group#getOrigins()
 	 */
 	@Override
-    public Origin[] getOrigins() {
-        ArrayList<Origin> result = new ArrayList<Origin>(10);
-        Origin[] composites = super.getOrigins();
+    public Source[] getOrigins() {
+        ArrayList<Source> result = new ArrayList<Source>(10);
+        Source[] composites = super.getOrigins();
         Collections.addAll(result, composites);
 
         // getOrigins is called by NEFEnsembleImpl in the constructor
         if (myDecodedOrigins == null) {
-            return result.toArray(new Origin[result.size()]);
+            return result.toArray(new Source[result.size()]);
         }
 
 
-        for (Origin o : myDecodedOrigins.values()) {
+        for (Source o : myDecodedOrigins.values()) {
             result.add(o);
         }
-        return result.toArray(new Origin[result.size()]);
+        return result.toArray(new Source[result.size()]);
 	}
 
     /**
      * Used to get decoded origins to give to GPU.
      * @return All DecodedOrigins
      */
-    public DecodedOrigin[] getDecodedOrigins(){
-        ArrayList<DecodedOrigin> result = new ArrayList<DecodedOrigin>(10);
+    public DecodedSource[] getDecodedOrigins(){
+        ArrayList<DecodedSource> result = new ArrayList<DecodedSource>(10);
 
-        for (DecodedOrigin o : myDecodedOrigins.values()) {
+        for (DecodedSource o : myDecodedOrigins.values()) {
             result.add(o);
         }
-        return result.toArray(new DecodedOrigin[result.size()]);
+        return result.toArray(new DecodedSource[result.size()]);
     }
 
     /**
      * @see ca.nengo.model.Group#getTerminations()
      */
     @Override
-    public Termination[] getTerminations() {
-        ArrayList<Termination> result = new ArrayList<Termination>(10);
-        Termination[] composites = super.getTerminations();
+    public Target[] getTerminations() {
+        ArrayList<Target> result = new ArrayList<Target>(10);
+        Target[] composites = super.getTerminations();
         Collections.addAll(result, composites);
 
-        for (Termination t : myDecodedTerminations.values()) {
+        for (Target t : myDecodedTerminations.values()) {
             result.add(t);
         }
-        return result.toArray(new Termination[result.size()]);
+        return result.toArray(new Target[result.size()]);
     }
 
 	/**
@@ -443,7 +443,7 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
     public void run(float startTime, float endTime) throws SimulationException {
 		super.run(startTime, endTime);
 
-		for (DecodedOrigin o : myDecodedOrigins.values()) {
+		for (DecodedSource o : myDecodedOrigins.values()) {
             o.run(null, startTime, endTime);
         }
 
@@ -475,27 +475,27 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
     public TimeSeries getHistory(String stateName) throws SimulationException {
 		TimeSeries result = null;
 
-		Origin origin = myDecodedOrigins.get(stateName);
-		DecodedTermination t = myDecodedTerminations.get(stateName);
+		Source source = myDecodedOrigins.get(stateName);
+		DecodedTarget t = myDecodedTerminations.get(stateName);
 
-		if (origin != null) {
+		if (source != null) {
 			if (t != null)
 				ourLogger.warn("Warning, probe set on ensemble with matching origin/termination names (\"" + 
 						stateName + "\"), probing origin by default");
 			
-		    origin.setRequiredOnCPU(true);
-			float[] vals = ((RealOutput) origin.getValues()).getValues();
+		    source.setRequiredOnCPU(true);
+			float[] vals = ((RealOutput) source.get()).getValues();
 			Units[] units = new Units[vals.length];
 			for (int i = 0; i < vals.length; i++) {
-				units[i] = origin.getValues().getUnits();
+				units[i] = source.get().getUnits();
 			}
 			result = new TimeSeriesImpl(new float[]{myTime}, new float[][]{vals}, units);
 		} else if (t != null) {
-			result = t.getHistory(DecodedTermination.OUTPUT);
+			result = t.getHistory(DecodedTarget.OUTPUT);
     	} else if (t == null && stateName.endsWith(":STP")) {
                 String originName = stateName.substring(0,stateName.length()-4);
                 try {
-                    DecodedOrigin o = (DecodedOrigin) getOrigin(originName);
+                    DecodedSource o = (DecodedSource) getOrigin(originName);
                     result = o.getSTPHistory();
                 } catch (StructuralException e) {
                     throw new SimulationException(e);
@@ -530,10 +530,10 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 	}
 
 	public void stopProbing(String stateName){
-		Origin origin = myDecodedOrigins.get(stateName);
+		Source source = myDecodedOrigins.get(stateName);
 		
-		if (origin != null) {
-		    origin.setRequiredOnCPU(false);
+		if (source != null) {
+		    source.setRequiredOnCPU(false);
 		}
 	}
 	
@@ -543,10 +543,10 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 
 		result.myApproximatorFactory = myApproximatorFactory.clone();
 		result.myApproximators = new HashMap<String, LinearApproximator>(5);
-		result.myDecodedOrigins = new LinkedHashMap<String,DecodedOrigin>(10);
-		for (DecodedOrigin oldOrigin : myDecodedOrigins.values()) {
+		result.myDecodedOrigins = new LinkedHashMap<String,DecodedSource>(10);
+		for (DecodedSource oldOrigin : myDecodedOrigins.values()) {
 			try {
-				DecodedOrigin newOrigin = oldOrigin.clone(result);
+				DecodedSource newOrigin = oldOrigin.clone(result);
 				result.myDecodedOrigins.put(newOrigin.getName(), newOrigin);
 				newOrigin.reset(false);
 			} catch (CloneNotSupportedException e) {
@@ -554,15 +554,15 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 			}
 		}
 		
-        result.myDecodedTerminations = new LinkedHashMap<String,DecodedTermination>(10);
-        for (Map.Entry<String, DecodedTermination> stringDecodedTerminationEntry : myDecodedTerminations.entrySet()) {
-            DecodedTermination t = stringDecodedTerminationEntry.getValue().clone(result);
+        result.myDecodedTerminations = new LinkedHashMap<String,DecodedTarget>(10);
+        for (Map.Entry<String, DecodedTarget> stringDecodedTerminationEntry : myDecodedTerminations.entrySet()) {
+            DecodedTarget t = stringDecodedTerminationEntry.getValue().clone(result);
             result.myDecodedTerminations.put(stringDecodedTerminationEntry.getKey(), t);
         }
 
         //change scaling terminations references to the new copies
         for (String key : result.myDecodedTerminations.keySet()) {
-            DecodedTermination t = result.myDecodedTerminations.get(key);
+            DecodedTarget t = result.myDecodedTerminations.get(key);
             if (t.getScaling() != null) {
                 t.setScaling(result.myDecodedTerminations.get(t.getScaling().getName()));
             }
@@ -575,11 +575,11 @@ public class DecodableGroupImpl extends PlasticGroupImpl implements DecodableGro
 	{
 		super.reset(randomize);
 		
-		for (DecodedTermination termination : myDecodedTerminations.values()) {
+		for (DecodedTarget termination : myDecodedTerminations.values()) {
             termination.reset(randomize);
 		}
 
-		for (DecodedOrigin origin : myDecodedOrigins.values()) {
+		for (DecodedSource origin : myDecodedOrigins.values()) {
 			origin.reset(randomize);
 		}
 	}

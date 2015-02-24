@@ -44,27 +44,27 @@ public abstract class AbstractNode implements Node {
 
 	private String myName;
 	private SimulationMode myMode;
-	private final Map<String, Origin> myOrigins;
-	private final Map<String, Termination> myTerminations;
+	private final Map<String, Source> myOrigins;
+	private final Map<String, Target> myTerminations;
 	private String myDocumentation;
 	private transient List<VisiblyMutable.Listener> myListeners;
 
 	/**
 	 * @param name Name of Node
-	 * @param origins List of Origins from the Node
-	 * @param terminations List of Terminations onto the Node
+	 * @param sources List of Origins from the Node
+	 * @param targets List of Terminations onto the Node
 	 */
-	public AbstractNode(String name, List<Origin> origins, List<Termination> terminations) {
+	public AbstractNode(String name, List<Source> sources, List<Target> targets) {
 		myName = name;
 		myMode = SimulationMode.DEFAULT;
 
-		myOrigins = new LinkedHashMap<String, Origin>(10);
-		for (Origin o : origins) {
+		myOrigins = new LinkedHashMap<String, Source>(10);
+		for (Source o : sources) {
 			myOrigins.put(o.getName(), o);
 		}
 
-		myTerminations = new LinkedHashMap<String, Termination>(10);
-		for (Termination t : terminations) {
+		myTerminations = new LinkedHashMap<String, Target>(10);
+		for (Target t : targets) {
 			myTerminations.put(t.getName(), t);
 		}
 	}
@@ -98,31 +98,31 @@ public abstract class AbstractNode implements Node {
 	/**
 	 * @see ca.nengo.model.Node#getOrigin(java.lang.String)
 	 */
-	public Origin getOrigin(String name) throws StructuralException {
+	public Source getOrigin(String name) throws StructuralException {
 		return myOrigins.get(name);
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getOrigins()
 	 */
-	public Origin[] getOrigins() {
-        java.util.Collection<Origin> var = myOrigins.values();
-        return var.toArray(new Origin[var.size()]);
+	public Source[] getOrigins() {
+        java.util.Collection<Source> var = myOrigins.values();
+        return var.toArray(new Source[var.size()]);
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTermination(java.lang.String)
 	 */
-	public Termination getTermination(String name) throws StructuralException {
+	public Target getTermination(String name) throws StructuralException {
 		return myTerminations.get(name);
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
-	public Termination[] getTerminations() {
-        java.util.Collection<Termination> var = myTerminations.values();
-        return var.toArray(new Termination[var.size()]);
+	public Target[] getTerminations() {
+        java.util.Collection<Target> var = myTerminations.values();
+        return var.toArray(new Target[var.size()]);
 	}
 
 	/**

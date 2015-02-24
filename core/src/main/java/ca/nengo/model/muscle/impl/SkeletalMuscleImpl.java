@@ -37,7 +37,7 @@ import ca.nengo.dynamics.impl.EulerIntegrator;
 import ca.nengo.dynamics.impl.RK45Integrator;
 import ca.nengo.dynamics.impl.SimpleLTISystem;
 import ca.nengo.model.*;
-import ca.nengo.model.impl.BasicTermination;
+import ca.nengo.model.impl.BasicTarget;
 import ca.nengo.model.muscle.SkeletalMuscle;
 import ca.nengo.util.MU;
 import ca.nengo.util.ScriptGenException;
@@ -63,7 +63,7 @@ public class SkeletalMuscleImpl implements SkeletalMuscle {
 	private static final long serialVersionUID = 1L;
 
 	private String myName;
-	private final BasicTermination myTermination;
+	private final BasicTarget myTermination;
 	private DynamicalSystem myEADynamics; //excitation-activation dynamics
 	private DynamicalSystem myAFDynamics; //activation-force dynamics
 	private Integrator myIntegrator;
@@ -95,7 +95,7 @@ public class SkeletalMuscleImpl implements SkeletalMuscle {
 		myIntegrator = new RK45Integrator();
 	}
 
-	private BasicTermination makeTermination() {
+	private BasicTarget makeTermination() {
 		Units[] units = Units.uniform(Units.UNK, 1);
 		DynamicalSystem myEADynamics = new SimpleLTISystem(new float[]{-1f/.005f}, MU.I(1), MU.I(1), new float[1], units) {
 			private static final long serialVersionUID = 1L;
@@ -106,7 +106,7 @@ public class SkeletalMuscleImpl implements SkeletalMuscle {
 				return super.f(t, u);
 			}
 		};
-		return new BasicTermination(this, myEADynamics, new EulerIntegrator(.001f), SkeletalMuscle.EXCITATION_TERMINATION);
+		return new BasicTarget(this, myEADynamics, new EulerIntegrator(.001f), SkeletalMuscle.EXCITATION_TERMINATION);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class SkeletalMuscleImpl implements SkeletalMuscle {
 	/**
 	 * @see ca.nengo.model.Node#getOrigin(java.lang.String)
 	 */
-	public Origin getOrigin(String name) throws StructuralException {
+	public Source getOrigin(String name) throws StructuralException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -150,7 +150,7 @@ public class SkeletalMuscleImpl implements SkeletalMuscle {
 	/**
 	 * @see ca.nengo.model.Node#getOrigins()
 	 */
-	public Origin[] getOrigins() {
+	public Source[] getOrigins() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -158,7 +158,7 @@ public class SkeletalMuscleImpl implements SkeletalMuscle {
 	/**
 	 * @see ca.nengo.model.Node#getTermination(java.lang.String)
 	 */
-	public Termination getTermination(String name) throws StructuralException {
+	public Target getTermination(String name) throws StructuralException {
 		if (name.equals(SkeletalMuscle.EXCITATION_TERMINATION)) {
 			return myTermination;
 		} else {
@@ -169,8 +169,8 @@ public class SkeletalMuscleImpl implements SkeletalMuscle {
 	/**
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
-	public Termination[] getTerminations() {
-		return new Termination[]{myTermination};
+	public Target[] getTerminations() {
+		return new Target[]{myTermination};
 	}
 
 	/**

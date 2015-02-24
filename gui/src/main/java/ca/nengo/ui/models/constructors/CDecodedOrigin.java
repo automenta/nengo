@@ -29,7 +29,7 @@ package ca.nengo.ui.models.constructors;
 //import java.util.List;
 
 import ca.nengo.math.Function;
-import ca.nengo.model.Origin;
+import ca.nengo.model.Source;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.nef.NEFGroup;
 import ca.nengo.ui.configurable.*;
@@ -86,17 +86,17 @@ public class CDecodedOrigin extends ProjectionConstructor {
 
 	@Override
 	protected Object createModel(ConfigResult configuredProperties, String uniqueName) throws ConfigException {
-		Origin origin = null;
+		Source source = null;
 
 		try {
-			origin = enfEnsembleParent.addDecodedOrigin(uniqueName, (Function[]) configuredProperties
+			source = enfEnsembleParent.addDecodedOrigin(uniqueName, (Function[]) configuredProperties
 					.getValue(pFunctions), "AXON");//(String) configuredProperties.getValue(pNodeOrigin));
 
 		} catch (StructuralException e) {
 			throw new ConfigException(e.getMessage());
 		}
 
-		return origin;
+		return source;
 	}
 
 

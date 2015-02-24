@@ -51,7 +51,7 @@ import java.util.HashMap;
  *
  * @author Bryan Tripp
  */
-public interface Network extends Node, Probeable {
+public interface Network extends Group, Probeable {
 
 	/**
 	 * @param node Node to add to the Network
@@ -59,10 +59,6 @@ public interface Network extends Node, Probeable {
 	 */
 	public void addNode(Node node) throws StructuralException;
 
-	/**
-	 * @return All the Nodes in the Network
-	 */
-	public Node[] getNodes();
 
 	/**
 	 * @param name Name of Node to remove
@@ -82,14 +78,14 @@ public interface Network extends Node, Probeable {
 	 * Ensembles (or ExternalInputs). Both the Origin and Termination must be set up
 	 * before calling this method. The way to do this will depend on the Ensemble.
 	 *
-	 * @param origin Origin (data source) of Projection.
-	 * @param termination Termination (data destination) of Projection.
+	 * @param source Origin (data source) of Projection.
+	 * @param target Termination (data destination) of Projection.
 	 * @return The created Projection
 	 * @throws StructuralException if the given Origin and Termination have different dimensions,
 	 * 		or if there is already an Origin connected to the given Termination (note that an
 	 * 		Origin can project to multiple Terminations though).
 	 */
-	public Projection addProjection(Origin origin, Termination termination) throws StructuralException;
+	public Projection addProjection(Source source, Target target) throws StructuralException;
 
 	/**
 	 * @return All Projections in this Network
@@ -97,29 +93,29 @@ public interface Network extends Node, Probeable {
 	public Projection[] getProjections();
 
 	/**
-	 * @param termination Termination of Projection to remove
+	 * @param target Termination of Projection to remove
 	 * @throws StructuralException if there exists no Projection between the specified
 	 * 		Origin and Termination
 	 */
-	public void removeProjection(Termination termination) throws StructuralException;
+	public void removeProjection(Target target) throws StructuralException;
 
 	/**
 	 * Declares the given Origin as available for connection outside the Network
 	 * via getOrigins(). This Origin should not be connected within	this Network.
 	 *
-	 * @param origin An Origin within this Network that is to connect to something
+	 * @param source An Origin within this Network that is to connect to something
 	 * 		outside this Network
 	 * @param name Name of the Origin as it will appear outside this Network
 	 */
-	public void exposeOrigin(Origin origin, String name);
+	public void exposeOrigin(Source source, String name);
 
 
 	/**
-	 * @param insideOrigin Origin inside the network
+	 * @param insideSource Origin inside the network
 	 * @return Name of the exposed origin given the inner origin. null if no
 	 *   such origin is exposed.
 	 */
-	public String getExposedOriginName(Origin insideOrigin);
+	public String getExposedOriginName(Source insideSource);
 
 	/**
 	 * Undoes exposeOrigin(x, x, name).
@@ -133,11 +129,11 @@ public interface Network extends Node, Probeable {
 	 * Declares the given Termination as available for connection from outside the Network
 	 * via getTerminations(). This Termination should not be connected within this Network.
 	 *
-	 * @param termination A Termination within this Network that is to connect to something
+	 * @param target A Termination within this Network that is to connect to something
 	 * 		outside this Network
 	 * @param name Name of the Termination as it will appear outside this Network
 	 */
-	public void exposeTermination(Termination termination, String name);
+	public void exposeTermination(Target target, String name);
 
 	/**
 	 * Undoes exposeTermination(x, x, name).
@@ -147,11 +143,11 @@ public interface Network extends Node, Probeable {
 	public void hideTermination(String name);
 
 	/**
-	 * @param insideTermination Termination inside the network
+	 * @param insideTarget Termination inside the network
 	 * @return Name of the exposed termination given the inner termination or
      *   null if no such termination is exposed.
 	 */
-	public String getExposedTerminationName(Termination insideTermination);
+	public String getExposedTerminationName(Target insideTarget);
 
 	/**
 	 * Declares the given Probeable state as being available for Probing from outside this

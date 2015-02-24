@@ -22,13 +22,13 @@ import junit.framework.TestCase;
 public class NEFUtilTest extends TestCase {
 
 	/**
-	 * Test method for {@link ca.nengo.model.nef.impl.NEFUtil#getOutput(ca.nengo.model.nef.impl.DecodedOrigin, float[][], ca.nengo.model.SimulationMode)}.
+	 * Test method for {@link ca.nengo.model.nef.impl.NEFUtil#getOutput(DecodedSource, float[][], ca.nengo.model.SimulationMode)}.
 	 * @throws StructuralException 
 	 */
 	public void testGetOutput() throws StructuralException {
 		NEFGroupFactory ef = new NEFGroupFactoryImpl();
 		NEFGroup ensemble = ef.make("test", 70, new float[]{1, 1, 1});
-		DecodedOrigin origin = (DecodedOrigin) ensemble.addDecodedOrigin("test", 
+		DecodedSource origin = (DecodedSource) ensemble.addDecodedOrigin("test",
 				new Function[]{new PostfixFunction("x1", 3), new PostfixFunction("x2", 3)}, Neuron.AXON);
 		
 		float[][] input = MU.uniform(500, 3, 1);

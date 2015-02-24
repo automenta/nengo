@@ -25,7 +25,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.models.nodes.widgets;
 
 import ca.nengo.model.*;
-import ca.nengo.model.nef.impl.DecodedOrigin;
+import ca.nengo.model.nef.impl.DecodedSource;
 import ca.nengo.ui.lib.util.UserMessages;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.icons.ModelIcon;
@@ -51,15 +51,15 @@ public abstract class UIOrigin extends Widget {
 	 * @param uiNodeParent
 	 *            UINeoNode to attach the UITermination object to the right
 	 *            parent.
-	 * @param origin
+	 * @param source
 	 * @return UI Origin Wrapper
 	 */
-	public static UIOrigin createOriginUI(UINeoNode uiNodeParent, Origin origin) {
+	public static UIOrigin createOriginUI(UINeoNode uiNodeParent, Source source) {
 
-		if (origin instanceof DecodedOrigin) {
-			return new UIDecodedOrigin(uiNodeParent, (DecodedOrigin) origin);
+		if (source instanceof DecodedSource) {
+			return new UIDecodedOrigin(uiNodeParent, (DecodedSource) source);
 		} else {
-			return new UIGenericOrigin(uiNodeParent, origin);
+			return new UIGenericOrigin(uiNodeParent, source);
 		}
 	}
 
@@ -71,8 +71,8 @@ public abstract class UIOrigin extends Widget {
 
 	private Color lineWellDefaultColor;
 
-	protected UIOrigin(UINeoNode nodeParent, Origin origin) {
-		super(nodeParent, origin);
+	protected UIOrigin(UINeoNode nodeParent, Source source) {
+		super(nodeParent, source);
 
 		init();
 	}
@@ -93,14 +93,14 @@ public abstract class UIOrigin extends Widget {
 
 		tooltips.addProperty("Dimensions", String.valueOf(getModel().getDimensions()));
 
-		try {
-			InstantaneousOutput value = getModel().getValues();
+		//try {
+			InstantaneousOutput value = getModel().get();
 
 			tooltips.addProperty("Time: ", String.valueOf(value.getTime()));
 			tooltips.addProperty("Units: ", String.valueOf(value.getUnits()));
 
-		} catch (SimulationException e) {
-		}
+		/*} catch (SimulationException e) {
+		}*/
 
 	}
 
@@ -193,8 +193,8 @@ public abstract class UIOrigin extends Widget {
 	}
 
 	@Override
-	public Origin getModel() {
-		return (Origin) super.getModel();
+	public Source getModel() {
+		return (Source) super.getModel();
 	}
 
 	@Override
@@ -227,8 +227,8 @@ public abstract class UIOrigin extends Widget {
 
 class UIGenericOrigin extends UIOrigin {
 
-	protected UIGenericOrigin(UINeoNode nodeParent, Origin origin) {
-		super(nodeParent, origin);
+	protected UIGenericOrigin(UINeoNode nodeParent, Source source) {
+		super(nodeParent, source);
 	}
 
 	@Override

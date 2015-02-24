@@ -28,10 +28,10 @@ public class GroupImplTest extends TestCase {
 
 	public void testClone() throws StructuralException, CloneNotSupportedException {
         System.out.println("EnsembleImplTest");
-		MockExpandableNode node1 = new MockExpandableNode("1", new Origin[0],
-				new Termination[]{new BasicTermination(null, new SimpleLTISystem(1, 1, 1), null, "existing")});
-		MockExpandableNode node2 = new MockExpandableNode("2", new Origin[0],
-				new Termination[]{new BasicTermination(null, new SimpleLTISystem(1, 1, 1), null, "existing")});
+		MockExpandableNode node1 = new MockExpandableNode("1", new Source[0],
+				new Target[]{new BasicTarget(null, new SimpleLTISystem(1, 1, 1), null, "existing")});
+		MockExpandableNode node2 = new MockExpandableNode("2", new Source[0],
+				new Target[]{new BasicTarget(null, new SimpleLTISystem(1, 1, 1), null, "existing")});
 		GroupImpl ensemble = new GroupImpl("ensemble", new Node[]{node1, node2});
 		ensemble.addTermination("new", MU.uniform(2, 2, 1), .005f, false);
 
@@ -42,7 +42,7 @@ public class GroupImplTest extends TestCase {
 		copy.removeTermination("new");
         System.out.println("Termination Name");
         System.out.println( copy.getTermination("existing").getClass().getName());
-		assertTrue(copy.getTermination("existing") instanceof GroupTermination);
+		assertTrue(copy.getTermination("existing") instanceof GroupTarget);
 //		try {
 //			copy.removeTermination("existing");
 //			fail("Should have thrown exception (can't remove non-expanded terminations)");
@@ -55,15 +55,15 @@ public class GroupImplTest extends TestCase {
 
 		private static final long serialVersionUID = 1L;
 
-		private final Map<String, Termination> myExpandedTerminations;
+		private final Map<String, Target> myExpandedTerminations;
 
-		public MockExpandableNode(String name, Origin[] origins, Termination[] terminations) {
-			super(name, Arrays.asList(origins), Arrays.asList(terminations));
-			myExpandedTerminations = new LinkedHashMap<String, Termination>(10);
+		public MockExpandableNode(String name, Source[] sources, Target[] targets) {
+			super(name, Arrays.asList(sources), Arrays.asList(targets));
+			myExpandedTerminations = new LinkedHashMap<String, Target>(10);
 		}
 
-		public Termination addTermination(String name, float[][] weights, float tauPSC, boolean modulatory) throws StructuralException {
-			Termination result = new BasicTermination(this, new SimpleLTISystem(1, 1, 1), null, name);
+		public Target addTermination(String name, float[][] weights, float tauPSC, boolean modulatory) throws StructuralException {
+			Target result = new BasicTarget(this, new SimpleLTISystem(1, 1, 1), null, name);
 			myExpandedTerminations.put(name, result);
 			return result;
 		}
@@ -72,12 +72,12 @@ public class GroupImplTest extends TestCase {
 			return 1;
 		}
 
-		public Termination removeTermination(String name) throws StructuralException {
+		public Target removeTermination(String name) throws StructuralException {
 			return myExpandedTerminations.remove(name);
 		}
 
 		@Override
-		public Termination getTermination(String name) throws StructuralException {
+		public Target getTermination(String name) throws StructuralException {
 			if (myExpandedTerminations.containsKey(name)) {
 				return myExpandedTerminations.get(name);
 			} else {
@@ -86,10 +86,10 @@ public class GroupImplTest extends TestCase {
 		}
 
 		@Override
-		public Termination[] getTerminations() {
-			Termination[] result = new Termination[super.getTerminations().length + myExpandedTerminations.size()];
+		public Target[] getTerminations() {
+			Target[] result = new Target[super.getTerminations().length + myExpandedTerminations.size()];
 			int i = 0;
-			for (Termination t : myExpandedTerminations.values()) {
+			for (Target t : myExpandedTerminations.values()) {
 				result[i++] = t;
 			}
 			System.arraycopy(super.getTerminations(), 0, result, i++, super.getTerminations().length);

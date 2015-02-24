@@ -28,8 +28,8 @@ package ca.nengo.ui.models.nodes.widgets;
 
 import ca.nengo.model.Network;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.nef.impl.DecodedTermination;
+import ca.nengo.model.Target;
+import ca.nengo.model.nef.impl.DecodedTarget;
 import ca.nengo.ui.lib.actions.ActionException;
 import ca.nengo.ui.lib.actions.StandardAction;
 import ca.nengo.ui.lib.objects.lines.ILineTermination;
@@ -50,7 +50,7 @@ import java.awt.*;
  * 
  * @author Shu Wu
  */
-public abstract class UITermination<T extends Termination> extends Widget<T> implements ILineTermination {
+public abstract class UITermination<T extends Target> extends Widget<T> implements ILineTermination {
 
 	/**
 	 * Factory method for creating a UI Wrapper around a termination
@@ -58,16 +58,16 @@ public abstract class UITermination<T extends Termination> extends Widget<T> imp
 	 * @param uiNodeParent
 	 *            UINeoNode to attach the UITermination object to the right
 	 *            parent.
-	 * @param termination
+	 * @param target
 	 * @return UI Termination Wrapper
 	 */
-	public static UITermination createTerminationUI(UINeoNode uiNodeParent, Termination termination) {
+	public static UITermination createTerminationUI(UINeoNode uiNodeParent, Target target) {
 	    if (uiNodeParent instanceof UINetwork) {
-	        return new UINetworkTermination((UINetwork)uiNodeParent, termination);
-	    } else if (termination instanceof DecodedTermination) {
-			return new UIDecodedTermination(uiNodeParent, (DecodedTermination) termination);
+	        return new UINetworkTermination((UINetwork)uiNodeParent, target);
+	    } else if (target instanceof DecodedTarget) {
+			return new UIDecodedTermination(uiNodeParent, (DecodedTarget) target);
 		} else {
-			return new UIGenericTermination(uiNodeParent, termination);
+			return new UIGenericTermination(uiNodeParent, target);
 		}
 	}
 
@@ -276,7 +276,7 @@ public abstract class UITermination<T extends Termination> extends Widget<T> imp
 
 class UIGenericTermination extends UITermination implements ILineTermination {
 
-	protected UIGenericTermination(UINeoNode nodeParent, Termination term) {
+	protected UIGenericTermination(UINeoNode nodeParent, Target term) {
 		super(nodeParent, term);
 	}
 

@@ -3,19 +3,14 @@ package ca.nengo.ui.models.plot;
 
 import ca.nengo.model.*;
 import ca.nengo.model.impl.AbstractNode;
-import ca.nengo.model.impl.PassthroughTermination;
+import ca.nengo.model.impl.DirectTarget;
 import ca.nengo.ui.lib.world.PaintContext;
-import ca.nengo.ui.lib.world.piccolo.primitives.PXNode;
 import ca.nengo.ui.models.UIBuilder;
 import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.icons.EmptyIcon;
 import ca.nengo.ui.models.nodes.widgets.UITermination;
 import ca.nengo.util.ScriptGenException;
-import org.piccolo2d.PNode;
-import org.piccolo2d.event.PInputEventListener;
-import org.piccolo2d.extras.pswing.PSwing;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Deque;
@@ -25,7 +20,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class LinePlot extends AbstractNode implements UIBuilder {
 
-    final Termination input = new PassthroughTermination(this, "input", 1);
+    final Target input = new DirectTarget(this, "input", 1);
     private String label = "?";
 
     Deque<Float> history = new ConcurrentLinkedDeque<>(); //TODO use seomthing more efficient
@@ -44,8 +39,10 @@ public class LinePlot extends AbstractNode implements UIBuilder {
             addWidget(UITermination.createTerminationUI(this, getInput()));
 
 
+
             repaint();
 
+            /*
             JComponent jt;
             //PSwing pp = new PSwing(jt = new JTextField("button"));
             PSwing pp = new PSwing(jt = new JSlider());
@@ -53,8 +50,11 @@ public class LinePlot extends AbstractNode implements UIBuilder {
             jt.revalidate();
             jt.grabFocus();
             jt.setDoubleBuffered(false);
+            */
+
+
             //pp.setScale(2.0);
-            PInputEventListener x;
+          //  PInputEventListener x;
 //            pp.addInputEventListener(x = new PInputEventListener() {
 //
 //                @Override
@@ -68,9 +68,7 @@ public class LinePlot extends AbstractNode implements UIBuilder {
 //                    }
 //                }
 //            });
-
-
-            getPiccolo().addChild(pp);
+            //getPiccolo().addChild(pp);
 
 
 
@@ -112,7 +110,7 @@ public class LinePlot extends AbstractNode implements UIBuilder {
                 g.setColor(Color.getHSBColor((float)Math.sin(v), 1, 1));
                 g.fillRect((int) x, (int) y, (int) dx, (int) dx);
 
-                System.out.println(x + ' '  + v);
+                //System.out.println(x + ' '  + v);
                 x += dx;
             }
 
@@ -124,7 +122,7 @@ public class LinePlot extends AbstractNode implements UIBuilder {
 
 
 
-    private Termination getInput() {
+    private Target getInput() {
         return input;
     }
 
@@ -143,16 +141,16 @@ public class LinePlot extends AbstractNode implements UIBuilder {
 
         label = "?";
 
-        if ((input!=null && input.getInput()!=null)) {
-            InstantaneousOutput i = input.getInput();
+        if ((input!=null && input.get()!=null)) {
+            InstantaneousOutput i = input.get();
             if (i instanceof SpikeOutput) {
-                SpikeOutput so = (SpikeOutput) input.getInput();
+                SpikeOutput so = (SpikeOutput) input.get();
                 boolean[] v = so.getValues();
                 push( v[0]  ? 1f : 0f);
                 label = (Arrays.toString(v));
             }
             else if (i instanceof RealOutput) {
-                float[] v = ((RealOutput) input.getInput()).getValues();
+                float[] v = ((RealOutput) input.get()).getValues();
                 push(v[0]);
                 label = (Arrays.toString(v));
             }

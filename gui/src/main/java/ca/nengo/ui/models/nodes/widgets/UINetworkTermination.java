@@ -22,13 +22,13 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.ui.models.nodes.widgets;
 
 import ca.nengo.model.Network;
-import ca.nengo.model.Termination;
+import ca.nengo.model.Target;
 import ca.nengo.ui.models.nodes.UINetwork;
 
 /**
  * UI Wrapper for a Network Termination
  */
-public class UINetworkTermination<T extends Termination> extends UITermination<T> {
+public class UINetworkTermination<T extends Target> extends UITermination<T> {
 
     protected UINetworkTermination(UINetwork network, T term) {
         super(network, term);

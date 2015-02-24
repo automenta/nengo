@@ -54,7 +54,7 @@ public class LinearSynapticIntegratorTest extends TestCase {
 		si.addTermination("two", new float[]{1f}, 1f, false);
 		si.addTermination("three", new float[]{1f}, 1f, true);
 
-		Termination[] t = si.getTerminations();
+		Target[] t = si.getTerminations();
 		
 		InstantaneousOutput spike = new SpikeOutputImpl(new boolean[]{true}, Units.SPIKES, 0);
 		
@@ -77,7 +77,7 @@ public class LinearSynapticIntegratorTest extends TestCase {
 		ExpandableSynapticIntegrator si = new LinearSynapticIntegrator(.001f, Units.ACU);
 		si.addTermination("test", new float[]{1f}, 1f, false);
 		
-		Termination t = si.getTerminations()[0];
+		Target t = si.getTerminations()[0];
 		t.setValues(new SpikeOutputImpl(new boolean[]{true}, Units.SPIKES, 0));		
 		for (int i = 0; i < 10; i++) {
 			si.run(.001f * ((float) i), .001f * ((float) i+1));			

@@ -5,7 +5,7 @@ import ca.nengo.model.Node;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.Units;
-import ca.nengo.model.impl.LinearExponentialTermination;
+import ca.nengo.model.impl.LinearExponentialTarget;
 import ca.nengo.model.impl.NodeFactory;
 import ca.nengo.model.neuron.SynapticIntegrator;
 
@@ -37,8 +37,8 @@ public class GruberNeuronFactory implements NodeFactory {
 	public Node make(String name) throws StructuralException {
 		GruberSpikeGenerator generator = new GruberSpikeGenerator();
 		LinearSynapticIntegrator integrator = new LinearSynapticIntegrator(.001f, Units.uAcm2);
-		LinearExponentialTermination dopamineTermination
-			= (LinearExponentialTermination) integrator.addTermination(DOPAMINE, new float[]{1}, .05f, true);
+		LinearExponentialTarget dopamineTermination
+			= (LinearExponentialTarget) integrator.addTermination(DOPAMINE, new float[]{1}, .05f, true);
 
 		float scale = myScalePDF.sample()[0];
 //		float scale = 3;
@@ -61,7 +61,7 @@ public class GruberNeuronFactory implements NodeFactory {
 
 		private static final long serialVersionUID = 1L;
 
-		private final LinearExponentialTermination myDopamineTermination;
+		private final LinearExponentialTarget myDopamineTermination;
 		private final GruberSpikeGenerator mySpikeGenerator;
 
 		/**
@@ -73,7 +73,7 @@ public class GruberNeuronFactory implements NodeFactory {
 		 * @param dopamineTermination Termination through which the dopamine signal is transmitted
 		 */
 		public GruberNeuron(SynapticIntegrator integrator, GruberSpikeGenerator generator, float scale, float bias,
-		        String name, LinearExponentialTermination dopamineTermination) {
+		        String name, LinearExponentialTarget dopamineTermination) {
 			super(integrator, generator, scale, bias, name);
 
 			myDopamineTermination = dopamineTermination;

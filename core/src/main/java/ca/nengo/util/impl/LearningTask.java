@@ -3,7 +3,7 @@ package ca.nengo.util.impl;
 import ca.nengo.model.SimulationException;
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.plasticity.impl.PlasticGroupImpl;
-import ca.nengo.model.plasticity.impl.PlasticGroupTermination;
+import ca.nengo.model.plasticity.impl.PlasticGroupTarget;
 import ca.nengo.util.ThreadTask;
 
 /**
@@ -18,7 +18,7 @@ import ca.nengo.util.ThreadTask;
 public class LearningTask implements ThreadTask {
 
     private PlasticGroupImpl myParent;
-    private PlasticGroupTermination myTermination;
+    private PlasticGroupTarget myTermination;
 
     private final int startIdx;
     private final int endIdx;
@@ -30,7 +30,7 @@ public class LearningTask implements ThreadTask {
      * @param start Starting index for the set of terminations to learn on
      * @param end Ending index for the set of terminations to learn on
      */
-    public LearningTask(PlasticGroupImpl parent, PlasticGroupTermination termination, int start, int end) {
+    public LearningTask(PlasticGroupImpl parent, PlasticGroupTarget termination, int start, int end) {
         myParent = parent;
         myTermination = termination;
         startIdx = start;
@@ -94,13 +94,13 @@ public class LearningTask implements ThreadTask {
     public LearningTask clone(PlasticGroupImpl parent)
     throws CloneNotSupportedException {
     	try {
-    		return this.clone(parent, (PlasticGroupTermination)parent.getTermination(myTermination.getName()));
+    		return this.clone(parent, (PlasticGroupTarget)parent.getTermination(myTermination.getName()));
     	} catch (StructuralException e) {
     		throw new CloneNotSupportedException("Error cloning LearningTask: " + e.getMessage());
     	}
     }
     
-    public LearningTask clone(PlasticGroupImpl parent, PlasticGroupTermination term)
+    public LearningTask clone(PlasticGroupImpl parent, PlasticGroupTarget term)
     throws CloneNotSupportedException {
     	LearningTask result = (LearningTask) super.clone();
     	result.myParent = parent;

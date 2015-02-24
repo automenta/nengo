@@ -28,7 +28,7 @@ package ca.nengo.ui.models.nodes.widgets;
 
 import ca.nengo.model.StructuralException;
 import ca.nengo.model.nef.NEFGroup;
-import ca.nengo.model.nef.impl.DecodedTermination;
+import ca.nengo.model.nef.impl.DecodedTarget;
 import ca.nengo.ui.lib.util.Util;
 import ca.nengo.ui.models.UINeoNode;
 
@@ -37,11 +37,11 @@ import ca.nengo.ui.models.UINeoNode;
  * 
  * @author Shu Wu
  */
-public class UIDecodedTermination extends UITermination<DecodedTermination> {
+public class UIDecodedTermination extends UITermination<DecodedTarget> {
 
 	public static final String typeName = "Decoded Termination";
 
-	protected UIDecodedTermination(UINeoNode ensembleProxy, DecodedTermination term) {
+	protected UIDecodedTermination(UINeoNode ensembleProxy, DecodedTarget term) {
 		super(ensembleProxy, term);
 		setName(term.getName());
 	}

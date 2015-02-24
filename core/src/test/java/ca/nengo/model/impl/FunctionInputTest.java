@@ -40,16 +40,16 @@ public class FunctionInputTest extends TestCase {
 	 */
 	public void testGetValues() throws StructuralException, SimulationException {
 		FunctionInput input = new FunctionInput("test", new Function[]{new ConstantFunction(1, 1f), new ConstantFunction(1, 2f)}, Units.UNK);
-		Origin origin = input.getOrigin(FunctionInput.ORIGIN_NAME);
-		assertEquals(2, origin.getValues().getDimension());
-		assertEquals(2, ((RealOutput) origin.getValues()).getValues().length);
+		Source source = input.getOrigin(FunctionInput.ORIGIN_NAME);
+		assertEquals(2, source.get().getDimension());
+		assertEquals(2, ((RealOutput) source.get()).getValues().length);
 		
 		input.run(0f, 1f);
-		assertEquals(2, origin.getValues().getDimension());
-		assertEquals(2, ((RealOutput) origin.getValues()).getValues().length);
-		float value = ((RealOutput) origin.getValues()).getValues()[0];
+		assertEquals(2, source.get().getDimension());
+		assertEquals(2, ((RealOutput) source.get()).getValues().length);
+		float value = ((RealOutput) source.get()).getValues()[0];
 		assertTrue(value > .9f);
-		value = ((RealOutput) origin.getValues()).getValues()[1];
+		value = ((RealOutput) source.get()).getValues()[1];
 		assertTrue(value > 1.9f);
 	}
 

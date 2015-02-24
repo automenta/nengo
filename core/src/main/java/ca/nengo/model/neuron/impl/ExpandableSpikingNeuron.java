@@ -29,7 +29,7 @@ package ca.nengo.model.neuron.impl;
 
 import ca.nengo.model.ExpandableNode;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
+import ca.nengo.model.Target;
 import ca.nengo.model.neuron.ExpandableSynapticIntegrator;
 import ca.nengo.model.neuron.SpikeGenerator;
 import ca.nengo.model.neuron.SynapticIntegrator;
@@ -72,7 +72,7 @@ public class ExpandableSpikingNeuron extends SpikingNeuron implements Expandable
 	/**
 	 * @see ca.nengo.model.ExpandableNode#addTermination(java.lang.String, float[][], float, boolean)
 	 */
-    public Termination addTermination(String name, float[][] weights, float tauPSC, boolean modulatory) throws StructuralException {
+    public Target addTermination(String name, float[][] weights, float tauPSC, boolean modulatory) throws StructuralException {
     	if ( !(mySynapticIntegrator instanceof ExpandableSynapticIntegrator) ) {
 			throw new StructuralException("Underlying SynapticIntegrator is not expandable");
 		}
@@ -85,7 +85,7 @@ public class ExpandableSpikingNeuron extends SpikingNeuron implements Expandable
 		return mySynapticIntegrator.addTermination(name, weights[0], tauPSC, modulatory);
 	}
     
-    public Termination addDelayedTermination(String name, float[][] weights, float tauPSC, float delay, boolean modulatory) throws StructuralException {
+    public Target addDelayedTermination(String name, float[][] weights, float tauPSC, float delay, boolean modulatory) throws StructuralException {
     	if ( !(mySynapticIntegrator instanceof LinearSynapticIntegrator) ) {
 			throw new StructuralException("Underlying SynapticIntegrator is not a LinearSynapticIntegrator");
 		}
@@ -109,7 +109,7 @@ public class ExpandableSpikingNeuron extends SpikingNeuron implements Expandable
 	/**
 	 * @see ca.nengo.model.ExpandableNode#removeTermination(java.lang.String)
 	 */
-    public Termination removeTermination(String name) throws StructuralException {
+    public Target removeTermination(String name) throws StructuralException {
 		if ( !(mySynapticIntegrator instanceof ExpandableSynapticIntegrator) ) {
 			throw new StructuralException("Underlying SynapticIntegrator is not expandable");
 		}

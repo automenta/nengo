@@ -59,7 +59,7 @@ import java.util.*;
  * 
  * @author Shu Wu
  */
-public class NetworkViewer extends NodeViewer implements NodeContainer {
+public class NetworkViewer extends GroupViewer<Network,UINetwork> implements NodeContainer {
     private static final boolean ELASTIC_LAYOUT_ENABLED_DEFAULT = false;
     private final File layoutFile;
     private final File backupLayoutFile;
@@ -87,13 +87,13 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
         return true;
     }
 
-    private HashSet<Origin> exposedOrigins;
-    private HashSet<Termination> exposedTerminations;
+    private HashSet<Source> exposedSources;
+    private HashSet<Target> exposedTargets;
 
     @Override
     protected void initialize() {
-        exposedOrigins = new HashSet<Origin>(getModel().getOrigins().length);
-        exposedTerminations = new HashSet<Termination>(getModel().getTerminations().length);
+        exposedSources = new HashSet<Source>(getModel().getOrigins().length);
+        exposedTargets = new HashSet<Target>(getModel().getTerminations().length);
 
         super.initialize();
         addLayoutButtons();
@@ -177,81 +177,8 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
         newItemPositionY=y;
     }
 
-
-    /**
-     * Construct UI Nodes from the NEO Network model
-     */
-    protected void updateViewFromModel(boolean isFirstUpdate) {
-
-        /*
-         * Get the current children and map them
-         */
-        HashMap<Node, UINeoNode> currentNodes = new HashMap<Node, UINeoNode>(
-                getGround().getChildrenCount());
-
-        Enumeration<UINeoNode> en = neoNodesChildren.elements();
-        while (en.hasMoreElements()) {
-            UINeoNode node = en.nextElement();
-            if (!node.isDestroyed()) {
-                Util.Assert(node.getModel() != null);
-                currentNodes.put(node.getModel(), node);
-            }
-        }
-        neoNodesChildren.clear();
-
-        /*
-         * Construct Nodes from the Network model
-         */
-        Node[] nodes = getModel().getNodes();
-
-        for (Node node : nodes) {
-            if (getUINode(node) == null) {
-                UINeoNode nodeUI = currentNodes.get(node);
-
-                if (nodeUI == null) {
-                    /*
-                     * Create UI Wrappers here
-                     */
-                    nodeUI = UINeoNode.createNodeUI(node);
-
-
-                    if (newItemPositionX != null && newItemPositionY != null) {
-                        nodeUI.setOffset(newItemPositionX, newItemPositionY);
-                        neoNodesChildren.put(nodeUI.getModel(), nodeUI);
-                        getGround().addChildFancy(nodeUI, false);
-
-                    } else {
-                        boolean centerAndNotify = !isFirstUpdate;
-                        addUINode(nodeUI, centerAndNotify, false);
-                        if (centerAndNotify) {
-                            nodeUI.showPopupMessage("Node " + node.getName() + " added to Network");
-                        }
-                    }
-                } else {
-                    neoNodesChildren.put(nodeUI.getModel(), nodeUI);
-                }
-
-            } else {
-                Util.Assert(false, "Trying to add node which already exists");
-            }
-        }
-
-        newItemPositionX=null;
-        newItemPositionY=null;
-
-
-        /*
-         * Prune existing nodes by deleting them
-         */
-        for (Node node : currentNodes.keySet()) {
-            // Remove nodes which are no longer referenced by the network model
-            if (getUINode(node) == null) {
-                UINeoNode nodeUI = currentNodes.get(node);
-                nodeUI.showPopupMessage("Node " + nodeUI.getName() + " removed from Network");
-                nodeUI.destroy();
-            }
-        }
-
+    @Override
+    protected void afterViewUpdated(boolean isFirstUpdate) {
         /*
          * Create projection map
          */
@@ -259,7 +186,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
                 getModel().getProjections().length);
         Collections.addAll(projectionsToAdd, getModel().getProjections());
 
-        HashMap<Termination, Projection> projectionMap = new HashMap<Termination, Projection>(
+        HashMap<Target, Projection> projectionMap = new HashMap<Target, Projection>(
                 projectionsToAdd.size());
 
         for (Projection projection : projectionsToAdd) {
@@ -279,15 +206,15 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
                 if (terminationUI.getConnector() != null) {
                     UIOrigin originUI = terminationUI.getConnector().getOriginUI();
 
-                    Termination termination = terminationUI.getModel();
-                    Origin origin = originUI.getModel();
+                    Target target = terminationUI.getModel();
+                    Source source = originUI.getModel();
 
-                    Projection projection = projectionMap.get(termination);
-                    if (projection != null && projection.getOrigin() == origin) {
+                    Projection projection = projectionMap.get(target);
+                    if (projection != null && projection.getOrigin() == source) {
                         /*
                          * Projection already exists
                          */
-                        projectionsToAdd.remove(projectionMap.get(termination));
+                        projectionsToAdd.remove(projectionMap.get(target));
 
                     } else {
                         projectionsToRemove.add(terminationUI.getConnector());
@@ -313,15 +240,15 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
          * Construct projections
          */
         for (Projection projection : projectionsToAdd) {
-            Origin origin = projection.getOrigin();
-            Termination term = projection.getTermination();
+            Source source = projection.getOrigin();
+            Target term = projection.getTermination();
 
-            UINeoNode nodeOrigin = getUINode(origin.getNode());
+            UINeoNode nodeOrigin = getUINode(source.getNode());
 
             UINeoNode nodeTerm = getUINode(term.getNode());
 
             if (nodeOrigin != null && nodeTerm != null) {
-                UIOrigin originUI = nodeOrigin.showOrigin(origin.getName());
+                UIOrigin originUI = nodeOrigin.showOrigin(source.getName());
                 UITermination termUI = nodeTerm.showTermination(term.getName());
 
                 originUI.connectTo(termUI, false);
@@ -332,7 +259,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
             } else {
                 if (nodeOrigin == null) {
                     Util.Assert(false, "Could not find a Origin attached to a projection: "
-                            + origin.getNode().getName());
+                            + source.getNode().getName());
                 }
                 if (nodeTerm == null) {
                     Util.Assert(false, "Could not find a Termination attached to a projection: "
@@ -345,24 +272,49 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
         updateViewExposed();
     }
 
+    @Override
+    protected UINeoNode createUINode(Node node, boolean isFirstUpdate) {
+                    /*
+                     * Create UI Wrappers here
+                     */
+        UINeoNode nodeUI = UINeoNode.createNodeUI(node);
+
+
+        if (newItemPositionX != null && newItemPositionY != null) {
+            nodeUI.setOffset(newItemPositionX, newItemPositionY);
+            neoNodesChildren.put(nodeUI.getModel(), nodeUI);
+            getGround().addChildFancy(nodeUI, false);
+
+        } else {
+            boolean centerAndNotify = !isFirstUpdate;
+            addUINode(nodeUI, centerAndNotify, false);
+            if (centerAndNotify) {
+                nodeUI.showPopupMessage("Node " + node.getName() + " added to Network");
+            }
+        }
+
+        return nodeUI;
+    }
+
+
     private void updateViewExposed() {
         /*
          * Get exposed Origins and Terminations
          */
-        HashSet<Origin> exposedOriginsTemp = new HashSet<Origin>(getModel().getOrigins().length);
-        HashSet<Termination> exposedTerminationsTemp = new HashSet<Termination>(
+        HashSet<Source> exposedOriginsTemp = new HashSet<Source>(getModel().getOrigins().length);
+        HashSet<Target> exposedTerminationsTemp = new HashSet<Target>(
                 getModel().getTerminations().length);
 
-        for (Origin origin : getModel().getOrigins()) {
-            if (origin instanceof NetworkImpl.OriginWrapper) {
-                NetworkImpl.OriginWrapper originWr = (NetworkImpl.OriginWrapper) origin;
+        for (Source source : getModel().getOrigins()) {
+            if (source instanceof NetworkImpl.SourceWrapper) {
+                NetworkImpl.SourceWrapper originWr = (NetworkImpl.SourceWrapper) source;
                 exposedOriginsTemp.add(originWr.getWrappedOrigin());
             }
         }
 
-        for (Termination termination : getModel().getTerminations()) {
-            if (termination instanceof NetworkImpl.TerminationWrapper) {
-                NetworkImpl.TerminationWrapper terminationWr = (NetworkImpl.TerminationWrapper) termination;
+        for (Target target : getModel().getTerminations()) {
+            if (target instanceof NetworkImpl.TargetWrapper) {
+                NetworkImpl.TargetWrapper terminationWr = (NetworkImpl.TargetWrapper) target;
                 exposedTerminationsTemp.add(terminationWr.getWrappedTermination());
             }
         }
@@ -371,14 +323,14 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
          * Check to see if terminations have been added or removed
          */
         boolean exposedOriginsChanged = false;
-        if (exposedOriginsTemp.size() != exposedOrigins.size()) {
+        if (exposedOriginsTemp.size() != exposedSources.size()) {
             exposedOriginsChanged = true;
         } else {
             /*
              * Iterate through origins to see if any have changed
              */
-            for (Origin origin : exposedOriginsTemp) {
-                if (!exposedOrigins.contains(origin)) {
+            for (Source source : exposedOriginsTemp) {
+                if (!exposedSources.contains(source)) {
                     break;
                 }
                 exposedOriginsChanged = true;
@@ -386,18 +338,18 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
         }
         // Copy changed exposed origins if needed
         if (exposedOriginsChanged) {
-            exposedOrigins = exposedOriginsTemp;
+            exposedSources = exposedOriginsTemp;
         }
 
         boolean exposedTerminationsChanged = false;
-        if (exposedTerminationsTemp.size() != exposedTerminations.size()) {
+        if (exposedTerminationsTemp.size() != exposedTargets.size()) {
             exposedTerminationsChanged = true;
         } else {
             /*
              * Iterate through Termination to see if any have changed
              */
-            for (Termination termination : exposedTerminationsTemp) {
-                if (!exposedTerminations.contains(termination)) {
+            for (Target target : exposedTerminationsTemp) {
+                if (!exposedTargets.contains(target)) {
                     break;
                 }
                 exposedTerminationsChanged = true;
@@ -405,7 +357,7 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
         }
         // Copy changed exposed terminations if needed
         if (exposedTerminationsChanged) {
-            exposedTerminations = exposedTerminationsTemp;
+            exposedTargets = exposedTerminationsTemp;
         }
 
         if (exposedTerminationsChanged || exposedOriginsChanged) {
@@ -418,13 +370,13 @@ public class NetworkViewer extends NodeViewer implements NodeContainer {
 
                     if (exposedOriginsChanged) {
                         for (UIOrigin originUI : nodeUI.getVisibleOrigins()) {
-                            boolean isExposed = exposedOrigins.contains(originUI.getModel());
+                            boolean isExposed = exposedSources.contains(originUI.getModel());
                             originUI.setExposed(isExposed);
                         }
                     }
                     if (exposedTerminationsChanged) {
                         for (UITermination terminationUI : nodeUI.getVisibleTerminations()) {
-                            boolean isExposed = exposedTerminations.contains(terminationUI.getModel());
+                            boolean isExposed = exposedTargets.contains(terminationUI.getModel());
                             terminationUI.setExposed(isExposed);
                         }
                     }

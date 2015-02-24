@@ -28,7 +28,7 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.model.neuron.impl;
 
 import ca.nengo.model.*;
-import ca.nengo.model.impl.BasicOrigin;
+import ca.nengo.model.impl.BasicSource;
 import ca.nengo.model.nef.NEFNode;
 import ca.nengo.model.neuron.Neuron;
 import ca.nengo.model.neuron.SpikeGenerator;
@@ -57,8 +57,8 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 
 	private SynapticIntegrator myIntegrator;
 	private SpikeGenerator myGenerator;
-	private SpikeGeneratorOrigin mySpikeOrigin;
-	private BasicOrigin myCurrentOrigin;
+	private SpikeGeneratorSource mySpikeOrigin;
+	private BasicSource myCurrentOrigin;
 	private float myUnscaledCurrent;
 	private TimeSeries1D myCurrent;
 	private String myName;
@@ -93,7 +93,7 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 		}
 		setGenerator(generator);
 
-		myCurrentOrigin = new BasicOrigin(this, CURRENT, 1, Units.ACU);
+		myCurrentOrigin = new BasicSource(this, CURRENT, 1, Units.ACU);
 		myCurrentOrigin.setValues(0, 0, new float[]{0});
 		myName = name;
 		myScale = scale;
@@ -129,14 +129,14 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 	/**
 	 * @see ca.nengo.model.neuron.Neuron#getOrigins()
 	 */
-	public Origin[] getOrigins() {
-		return new Origin[]{mySpikeOrigin, myCurrentOrigin};
+	public Source[] getOrigins() {
+		return new Source[]{mySpikeOrigin, myCurrentOrigin};
 	}
 
 	/**
 	 * @see ca.nengo.model.neuron.Neuron#getOrigin(java.lang.String)
 	 */
-	public Origin getOrigin(String name) throws StructuralException {
+	public Source getOrigin(String name) throws StructuralException {
 //		assert (name.equals(Neuron.AXON) || name.equals(CURRENT)); //this is going to be called a lot, so let's skip the exception
 		//Shu: I added the exception back in because the UI needs it for reflection.
         switch (name) {
@@ -189,7 +189,7 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 		if (stateName.equals("I")) {
 			result = myCurrent;
 		} else if (stateName.equals("rate")) {
-			InstantaneousOutput output = mySpikeOrigin.getValues();
+			InstantaneousOutput output = mySpikeOrigin.get();
 			float[] times = myCurrent.getTimes();
 			float rate = 0;
 			if (output instanceof RealOutput) {
@@ -291,20 +291,20 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 	 */
 	public void setGenerator(SpikeGenerator generator) {
 		myGenerator = generator;
-		mySpikeOrigin = new SpikeGeneratorOrigin(this, generator);
+		mySpikeOrigin = new SpikeGeneratorSource(this, generator);
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
-	public Termination[] getTerminations() {
+	public Target[] getTerminations() {
 		return myIntegrator.getTerminations();
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTermination(java.lang.String)
 	 */
-	public Termination getTermination(String name) throws StructuralException {
+	public Target getTermination(String name) throws StructuralException {
 		return myIntegrator.getTermination(name);
 	}
 
@@ -367,7 +367,7 @@ public class SpikingNeuron implements Neuron, Probeable, NEFNode {
 		result.myIntegrator.setNode(result);
 
 		result.myListeners = new ArrayList<Listener>(5);
-		result.mySpikeOrigin = new SpikeGeneratorOrigin(result, result.myGenerator);
+		result.mySpikeOrigin = new SpikeGeneratorSource(result, result.myGenerator);
 
 		if (myNoise!=null) {
             result.setNoise(myNoise.clone());

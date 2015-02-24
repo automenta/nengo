@@ -37,13 +37,13 @@ import ca.nengo.math.impl.ConstantFunction;
 import ca.nengo.math.impl.IdentityFunction;
 import ca.nengo.math.impl.PostfixFunction;
 import ca.nengo.model.*;
-import ca.nengo.model.impl.NetworkImpl.OriginWrapper;
-import ca.nengo.model.impl.NetworkImpl.TerminationWrapper;
+import ca.nengo.model.impl.NetworkImpl.SourceWrapper;
+import ca.nengo.model.impl.NetworkImpl.TargetWrapper;
 import ca.nengo.model.nef.NEFGroup;
-import ca.nengo.model.nef.impl.BiasOrigin;
-import ca.nengo.model.nef.impl.BiasTermination;
-import ca.nengo.model.nef.impl.DecodedOrigin;
-import ca.nengo.model.nef.impl.DecodedTermination;
+import ca.nengo.model.nef.impl.BiasSource;
+import ca.nengo.model.nef.impl.BiasTarget;
+import ca.nengo.model.nef.impl.DecodedSource;
+import ca.nengo.model.nef.impl.DecodedTarget;
 import ca.nengo.util.MU;
 import ca.nengo.util.ScriptGenException;
 
@@ -60,25 +60,25 @@ public class ProjectionImpl implements Projection {
 
 	private static final long serialVersionUID = 1L;
 
-	private final Origin myOrigin;
-	private final Termination myTermination;
+	private final Source mySource;
+	private final Target myTarget;
 	private final Network myNetwork;
 
 	private boolean myBiasIsEnabled;
 	private NEFGroup myInterneurons;
-	private BiasOrigin myBiasOrigin;
-	private BiasTermination myDirectBT;
-	private BiasTermination myIndirectBT;
-	private DecodedTermination myInterneuronTermination;
+	private BiasSource myBiasOrigin;
+	private BiasTarget myDirectBT;
+	private BiasTarget myIndirectBT;
+	private DecodedTarget myInterneuronTermination;
 
 	/**
-	 * @param origin  The Origin at the start of this Projection
-	 * @param termination  The Termination at the end of this Projection
+	 * @param source  The Origin at the start of this Projection
+	 * @param target  The Termination at the end of this Projection
 	 * @param network The Network of which this Projection is a part
 	 */
-	public ProjectionImpl(Origin origin, Termination termination, Network network) {
-		myOrigin = origin;
-		myTermination = termination;
+	public ProjectionImpl(Source source, Target target, Network network) {
+		mySource = source;
+		myTarget = target;
 		myNetwork = network;
 
 		myBiasIsEnabled = false;
@@ -90,15 +90,15 @@ public class ProjectionImpl implements Projection {
 	/**
 	 * @see ca.nengo.model.Projection#getOrigin()
 	 */
-	public Origin getOrigin() {
-		return myOrigin;
+	public Source getOrigin() {
+		return mySource;
 	}
 
 	/**
 	 * @see ca.nengo.model.Projection#getTermination()
 	 */
-	public Termination getTermination() {
-		return myTermination;
+	public Target getTermination() {
+		return myTarget;
 	}
 
 	/**
@@ -131,26 +131,26 @@ public class ProjectionImpl implements Projection {
 	 * @see ca.nengo.model.Projection#addBias(int, float, float, boolean, boolean)
 	 */
 	public void addBias(int numInterneurons, float tauInterneurons, float tauBias, boolean excitatory, boolean optimize) throws StructuralException {
-		if ( !(myOrigin instanceof DecodedOrigin) || !(myTermination instanceof DecodedTermination)) {
+		if ( !(mySource instanceof DecodedSource) || !(myTarget instanceof DecodedTarget)) {
 			throw new RuntimeException("This feature is only implemented for projections from DecodedOrigins to DecodedTerminations");
 		}
 
-		DecodedOrigin baseOrigin = (DecodedOrigin) myOrigin;
-		DecodedTermination baseTermination = (DecodedTermination) myTermination;
+		DecodedSource baseOrigin = (DecodedSource) mySource;
+		DecodedTarget baseTermination = (DecodedTarget) myTarget;
 		NEFGroup pre = (NEFGroup) baseOrigin.getNode();
 		NEFGroup post = (NEFGroup) baseTermination.getNode();
 
 		myBiasOrigin = pre.addBiasOrigin(baseOrigin, numInterneurons, getUniqueNodeName(post.getName() + '_' + baseTermination.getName()), excitatory);
 		myInterneurons = myBiasOrigin.getInterneurons();
 		myNetwork.addNode(myInterneurons);
-		BiasTermination[] bt = post.addBiasTerminations(baseTermination, tauBias, myBiasOrigin.getDecoders(), baseOrigin.getDecoders());
+		BiasTarget[] bt = post.addBiasTerminations(baseTermination, tauBias, myBiasOrigin.getDecoders(), baseOrigin.getDecoders());
 		myDirectBT = bt[0];
 		myIndirectBT = bt[1];
 		if (!excitatory) {
             myIndirectBT.setStaticBias(new float[]{-1});
         }
 		float[][] tf = new float[][]{new float[]{0, 1/tauInterneurons/tauInterneurons}, new float[]{2/tauInterneurons, 1/tauInterneurons/tauInterneurons}};
-		myInterneuronTermination = (DecodedTermination) myInterneurons.addDecodedTermination("bias", MU.I(1), tf[0], tf[1], 0, false);
+		myInterneuronTermination = (DecodedTarget) myInterneurons.addDecodedTermination("bias", MU.I(1), tf[0], tf[1], 0, false);
 
 		myNetwork.addProjection(myBiasOrigin, myDirectBT);
 		myNetwork.addProjection(myBiasOrigin, myInterneuronTermination);
@@ -187,8 +187,8 @@ public class ProjectionImpl implements Projection {
 	 */
 	public void removeBias() {
 		try {
-			DecodedOrigin baseOrigin = (DecodedOrigin) myOrigin;
-			DecodedTermination baseTermination = (DecodedTermination) myTermination;
+			DecodedSource baseOrigin = (DecodedSource) mySource;
+			DecodedTarget baseTermination = (DecodedTarget) myTarget;
 			NEFGroup pre = (NEFGroup) baseOrigin.getNode();
 			NEFGroup post = (NEFGroup) baseTermination.getNode();
 
@@ -213,10 +213,10 @@ public class ProjectionImpl implements Projection {
 	public float[][] getWeights() {
 		float[][] result = null;
 
-		if ( (myOrigin instanceof DecodedOrigin) && (myTermination instanceof DecodedTermination)) {
-			float[][] encoders = ((NEFGroup) myTermination.getNode()).getEncoders();
-			float[][] transform = ((DecodedTermination) myTermination).getTransform();
-			float[][] decoders = ((DecodedOrigin) myOrigin).getDecoders();
+		if ( (mySource instanceof DecodedSource) && (myTarget instanceof DecodedTarget)) {
+			float[][] encoders = ((NEFGroup) myTarget.getNode()).getEncoders();
+			float[][] transform = ((DecodedTarget) myTarget).getTransform();
+			float[][] decoders = ((DecodedSource) mySource).getDecoders();
 			result = MU.prod(encoders, MU.prod(transform, MU.transpose(decoders)));
 
 			if (myBiasIsEnabled) {
@@ -225,9 +225,9 @@ public class ProjectionImpl implements Projection {
 				float[][] weightBiases = MU.prod(MU.transpose(new float[][]{biasEncoders}), MU.transpose(biasDecoders));
 				result = MU.sum(result, weightBiases);
 			}
-		} else if (myTermination instanceof DecodedTermination) {
-			float[][] encoders = ((NEFGroup) myTermination.getNode()).getEncoders();
-			float[][] transform = ((DecodedTermination) myTermination).getTransform();
+		} else if (myTarget instanceof DecodedTarget) {
+			float[][] encoders = ((NEFGroup) myTarget.getNode()).getEncoders();
+			float[][] transform = ((DecodedTarget) myTarget).getTransform();
 			result = MU.prod(encoders, transform);
 		} else {
 			//TODO: add getWeights() to Termination, implement in EnsembleTermination from LinearExponentialTermination.getWeights()
@@ -247,40 +247,40 @@ public class ProjectionImpl implements Projection {
 	    py.append(String.format("%1s.connect(", pythonNetworkName));
 	    
 	    StringBuilder originNodeFullName = new StringBuilder();
-	    Origin tempOrigin = myOrigin;
+	    Source tempSource = mySource;
 
-	    while(tempOrigin instanceof OriginWrapper)
+	    while(tempSource instanceof SourceWrapper)
 	    {
-	    	originNodeFullName.append(tempOrigin.getNode().getName()).append('.');
-	    	tempOrigin = ((OriginWrapper) tempOrigin).getWrappedOrigin();
+	    	originNodeFullName.append(tempSource.getNode().getName()).append('.');
+	    	tempSource = ((SourceWrapper) tempSource).getWrappedOrigin();
 	    }
 	    
 	    StringBuilder terminationNodeFullName = new StringBuilder();
-	    Termination tempTermination = myTermination;
+	    Target tempTarget = myTarget;
 
-	    while(tempTermination instanceof TerminationWrapper)
+	    while(tempTarget instanceof TargetWrapper)
 	    {
-	    	terminationNodeFullName.append(tempTermination.getNode().getName()).append('.');
-	    	tempTermination = ((TerminationWrapper) tempTermination).getWrappedTermination();
+	    	terminationNodeFullName.append(tempTarget.getNode().getName()).append('.');
+	    	tempTarget = ((TargetWrapper) tempTarget).getWrappedTermination();
 	    }
 	    
-	    DecodedTermination dTermination; 
+	    DecodedTarget dTermination;
 	    StringBuilder transformString = new StringBuilder();
 	    
 	    transformString.append('[');
-	    if(tempTermination instanceof DecodedTermination)
+	    if(tempTarget instanceof DecodedTarget)
 	    {
-	    	dTermination = (DecodedTermination) tempTermination;
+	    	dTermination = (DecodedTarget) tempTarget;
 	    	transformString.append(getTransformScript(dTermination, "transform = ".length()));
-	    	terminationNodeFullName.append(tempTermination.getNode().getName());
+	    	terminationNodeFullName.append(tempTarget.getNode().getName());
 	    }
-	    else if(tempTermination instanceof GroupTermination &&
-	    		tempTermination.getNode() instanceof NetworkArrayImpl)
+	    else if(tempTarget instanceof GroupTarget &&
+	    		tempTarget.getNode() instanceof NetworkArrayImpl)
 	    {
 	    	terminationNodeFullName.deleteCharAt(terminationNodeFullName.length()-1);
 	    	
 	    	boolean first = true;
-	    	for(Node node : tempTermination.getNode().getChildren())
+	    	for(Node node : tempTarget.getNode().getChildren())
 	    	{
 	    		if(first)
 	    		{
@@ -292,7 +292,7 @@ public class ProjectionImpl implements Projection {
 	    		// this relies on the decoded terminations in the child nodes having the 
 	    		// same name as the ensemble termination that contains them
 	    		try{
-	    			dTermination = (DecodedTermination) node.getTermination(tempTermination.getName());
+	    			dTermination = (DecodedTarget) node.getTermination(tempTarget.getName());
 	    		}catch(Exception e){
 	    			dTermination = null;
 	    		}
@@ -310,26 +310,26 @@ public class ProjectionImpl implements Projection {
 	    // Now handle origin function if there is one
 	    
 	    String functionName = "";
-	    if(tempOrigin instanceof BasicOrigin && tempOrigin.getNode() instanceof FunctionInput)
+	    if(tempSource instanceof BasicSource && tempSource.getNode() instanceof FunctionInput)
 	    {
-	    	originNodeFullName.append(tempOrigin.getNode().getName());
+	    	originNodeFullName.append(tempSource.getNode().getName());
 	    }
 	    else
 	    {
-		    DecodedOrigin dOrigin; 
-		    if(tempOrigin instanceof DecodedOrigin)
+		    DecodedSource dOrigin;
+		    if(tempSource instanceof DecodedSource)
 		    {
-		    	dOrigin = (DecodedOrigin) tempOrigin;
-		    	originNodeFullName.append(tempOrigin.getNode().getName());
+		    	dOrigin = (DecodedSource) tempSource;
+		    	originNodeFullName.append(tempSource.getNode().getName());
 		    }
-		    else if(tempOrigin instanceof NetworkArrayImpl.ArrayOrigin && 
-		    		tempOrigin.getNode() instanceof NetworkArrayImpl)
+		    else if(tempSource instanceof NetworkArrayImpl.ArraySource &&
+		    		tempSource.getNode() instanceof NetworkArrayImpl)
 		    {
 		    	originNodeFullName.deleteCharAt(originNodeFullName.length()-1);
-		    	Node node = tempOrigin.getNode().getChildren()[0];
+		    	Node node = tempSource.getNode().getChildren()[0];
 		    	
 		    	try{
-		    		dOrigin = (DecodedOrigin) node.getOrigin(tempOrigin.getName());
+		    		dOrigin = (DecodedSource) node.getOrigin(tempSource.getName());
 		    	}catch(StructuralException e){
 		    		dOrigin = null;
 		    	}
@@ -357,7 +357,7 @@ public class ProjectionImpl implements Projection {
 	    return py.toString();
 	}
 	
-	String getTransformScript(DecodedTermination dTermination, int offset) {
+	String getTransformScript(DecodedTarget dTermination, int offset) {
 		StringBuilder transformString = new StringBuilder();
 		float[][] transform = dTermination.getTransform();
 	    
@@ -383,7 +383,7 @@ public class ProjectionImpl implements Projection {
 	    return transformString.toString();
 	}
 	
-	String addFunctionScript(StringBuilder py, DecodedOrigin dOrigin) throws ScriptGenException
+	String addFunctionScript(StringBuilder py, DecodedSource dOrigin) throws ScriptGenException
 	{
 		StringBuilder funcString = new StringBuilder();
 	    boolean first = true;

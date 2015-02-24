@@ -58,11 +58,11 @@ public class NetworkImplTest extends TestCase {
 	 * Test method for 'ca.bpt.cn.model.impl.NetworkImpl.getProjections()'
 	 */
 	public void testGetProjections() throws StructuralException {
-		Origin o1 = new ProjectionImplTest.MockOrigin("o1", 1);
-		Origin o2 = new ProjectionImplTest.MockOrigin("o2", 1);
-		Termination t1 = new ProjectionImplTest.MockTermination("t1", 1);
-		Termination t2 = new ProjectionImplTest.MockTermination("t2", 1);
-		Termination t3 = new ProjectionImplTest.MockTermination("t3", 2);
+		Source o1 = new ProjectionImplTest.MockSource("o1", 1);
+		Source o2 = new ProjectionImplTest.MockSource("o2", 1);
+		Target t1 = new ProjectionImplTest.MockTarget("t1", 1);
+		Target t2 = new ProjectionImplTest.MockTarget("t2", 1);
+		Target t3 = new ProjectionImplTest.MockTarget("t3", 2);
 
 		myNetwork.addProjection(o1, t1);
 		myNetwork.addProjection(o1, t2);
@@ -483,11 +483,11 @@ public class NetworkImplTest extends TestCase {
 //			throw new RuntimeException("not implemented");
 //		}
 
-		public Origin[] getOrigins() {
+		public Source[] getOrigins() {
 			throw new RuntimeException("not implemented");
 		}
 
-		public Termination[] getTerminations() {
+		public Target[] getTerminations() {
 			throw new RuntimeException("not implemented");
 		}
 
@@ -508,11 +508,11 @@ public class NetworkImplTest extends TestCase {
 			throw new RuntimeException("not implemented");
 		}
 
-		public Origin getOrigin(String name) throws StructuralException {
+		public Source getOrigin(String name) throws StructuralException {
 			throw new RuntimeException("not implemented");
 		}
 
-		public Termination getTermination(String name)
+		public Target getTermination(String name)
 				throws StructuralException {
 			throw new RuntimeException("not implemented");
 		}

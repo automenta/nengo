@@ -43,29 +43,29 @@ public class MockNode implements Node, Cloneable {
 	/**
 	 * @see ca.nengo.model.Node#getOrigin(java.lang.String)
 	 */
-	public Origin getOrigin(String name) throws StructuralException {
+	public Source getOrigin(String name) throws StructuralException {
 		return null;
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getOrigins()
 	 */
-	public Origin[] getOrigins() {
-		return new Origin[0];
+	public Source[] getOrigins() {
+		return new Source[0];
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTermination(java.lang.String)
 	 */
-	public Termination getTermination(String name) throws StructuralException {
+	public Target getTermination(String name) throws StructuralException {
 		return null;
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
-	public Termination[] getTerminations() {
-		return new Termination[0];
+	public Target[] getTerminations() {
+		return new Target[0];
 	}
 
 	/**

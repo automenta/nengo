@@ -33,12 +33,12 @@ a recipient may use your version of this file under either the MPL or the GPL Li
 package ca.nengo.model.nef;
 
 import ca.nengo.math.Function;
-import ca.nengo.model.Origin;
+import ca.nengo.model.Source;
 import ca.nengo.model.StructuralException;
-import ca.nengo.model.Termination;
-import ca.nengo.model.nef.impl.BiasOrigin;
-import ca.nengo.model.nef.impl.BiasTermination;
-import ca.nengo.model.nef.impl.DecodedTermination;
+import ca.nengo.model.Target;
+import ca.nengo.model.nef.impl.BiasSource;
+import ca.nengo.model.nef.impl.BiasTarget;
+import ca.nengo.model.nef.impl.DecodedTarget;
 
 /**
  * <p>A group of Nodes that represent a scalar, vector, or function, as
@@ -83,7 +83,7 @@ public interface NEFGroup extends DecodableGroup {
 	 * @throws StructuralException if functions do not all have the same input dimension as the
 	 * 		dimension of this ensemble
 	 */
-	public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin) throws StructuralException;
+	public Source addDecodedOrigin(String name, Function[] functions, String nodeOrigin) throws StructuralException;
 
 	/**
 	 * Adds a BiasOrigin, which operates in parallel with an existing Origin, such that the effective weights of the
@@ -98,7 +98,7 @@ public interface NEFGroup extends DecodableGroup {
 	 * @return Resulting BiasOrigin
 	 * @throws StructuralException if given Origin is not a DecodedOrigin or if there is a construction problem
 	 */
-	public BiasOrigin addBiasOrigin(Origin existing, int numInterneurons, String name, boolean excitatory) throws StructuralException;
+	public BiasSource addBiasOrigin(Source existing, int numInterneurons, String name, boolean excitatory) throws StructuralException;
 
 	/**
 	 * Adds a new Termination into this Ensemble, at which information is to be received
@@ -119,7 +119,7 @@ public interface NEFGroup extends DecodableGroup {
 	 * @return The resulting Termination
 	 * @throws StructuralException if given transformation matrix is not a matrix
 	 */
-	public Termination addDecodedTermination(String name, float[][] matrix, float tauPSC, boolean isModulatory)
+	public Target addDecodedTermination(String name, float[][] matrix, float tauPSC, boolean isModulatory)
 		throws StructuralException;
 
 	/**
@@ -138,7 +138,7 @@ public interface NEFGroup extends DecodableGroup {
 	 * @throws StructuralException if given transformation matrix is not a matrix or there is a problem
 	 * 		with the transfer function
 	 */
-	public Termination addDecodedTermination(String name, float[][] matrix, float[] tfNumerator, float[] tfDenominator,
+	public Target addDecodedTermination(String name, float[][] matrix, float[] tfNumerator, float[] tfDenominator,
 			float passthrough, boolean isModulatory) throws StructuralException;
 
 	/**
@@ -154,7 +154,7 @@ public interface NEFGroup extends DecodableGroup {
 	 * 		the interneuron ensemble associated with the BiasOrigin (see BiasOrigin.getInterneurons())
 	 * @throws StructuralException if can't be added
 	 */
-	public BiasTermination[] addBiasTerminations(DecodedTermination baseTermination,
+	public BiasTarget[] addBiasTerminations(DecodedTarget baseTermination,
 			float interneuronTauPSC, float[][] biasDecoder, float[][] functionDecoders) throws StructuralException;
 
 	/**

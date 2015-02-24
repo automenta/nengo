@@ -22,7 +22,7 @@ import ca.nengo.util.MU;
 public class DefaultExpressModel extends AdditiveGaussianExpressModel {
 
     private NEFGroup myEnsemble;
-    private DecodedOrigin myOrigin;
+    private DecodedSource myOrigin;
     private boolean myRadial = false;
     private Function[] myInterpFunctions = null;
     private float[] myNoiseSD;
@@ -31,7 +31,7 @@ public class DefaultExpressModel extends AdditiveGaussianExpressModel {
      * @param origin The DecodedOrigin for which spike effects are to be modelled
      * @throws SimulationException
      */
-    public DefaultExpressModel(DecodedOrigin origin) throws SimulationException {
+    public DefaultExpressModel(DecodedSource origin) throws SimulationException {
         super(origin.getDimensions());
 
         if (!NEFGroup.class.isAssignableFrom(origin.getNode().getClass())) {
@@ -73,7 +73,7 @@ public class DefaultExpressModel extends AdditiveGaussianExpressModel {
         }
     }
 
-    private float[][] setNoise(DecodedOrigin origin) {
+    private float[][] setNoise(DecodedSource origin) {
         int nSamples = 500;
 
         float input0 = .5f; //our example input will be [.5; 0; 0; ...], because [0] may not have typical enough firing rates

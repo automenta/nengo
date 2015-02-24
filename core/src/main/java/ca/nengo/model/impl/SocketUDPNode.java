@@ -74,8 +74,8 @@ public class SocketUDPNode implements Node, Resettable {
 
 	private String myName;
 	private int myDimension;
-	private Map<String, PassthroughTermination> myTerminations;
-	private BasicOrigin myOrigin;
+	private Map<String, DirectTarget> myTerminations;
+	private BasicSource myOrigin;
 	private String myDocumentation;
 	private transient List<VisiblyMutable.Listener> myListeners;
 
@@ -110,7 +110,7 @@ public class SocketUDPNode implements Node, Resettable {
 		                 int socketTimeout, boolean ignoreTimestamp) throws UnknownHostException {
 		myName = name;
 		myDimension = dimension;
-		myTerminations = new HashMap<String, PassthroughTermination>(10);
+		myTerminations = new HashMap<String, DirectTarget>(10);
 
 		myLocalPort = localPort;
 		myGivenLocalPort = localPort; // Stored 
@@ -131,7 +131,7 @@ public class SocketUDPNode implements Node, Resettable {
 			myIsSender = true;
 		if (myLocalPort > 0) {
 			myIsReceiver = true;
-			myOrigin = new BasicOrigin(this, ORIGIN, recvDimension, Units.UNK);
+			myOrigin = new BasicSource(this, ORIGIN, recvDimension, Units.UNK);
 		}
 
 		reset(false);
@@ -282,7 +282,7 @@ public class SocketUDPNode implements Node, Resettable {
 	/**
 	 * @see ca.nengo.model.Node#getOrigin(java.lang.String)
 	 */
-	public Origin getOrigin(String name) throws StructuralException {
+	public Source getOrigin(String name) throws StructuralException {
 		if (myOrigin != null && myOrigin.getName().equals(name)) {
 			return myOrigin;
 		} else {
@@ -293,21 +293,21 @@ public class SocketUDPNode implements Node, Resettable {
 	/**
 	 * @see ca.nengo.model.Node#getOrigins()
 	 */
-	public Origin[] getOrigins() {
+	public Source[] getOrigins() {
 		if (myOrigin != null)
-			return new Origin[]{myOrigin};
+			return new Source[]{myOrigin};
 		else
-			return new Origin[0];
+			return new Source[0];
 	}
 
-	public Termination addTermination(String name, float[][] transform)
+	public Target addTermination(String name, float[][] transform)
 			throws StructuralException {
-		for (Termination t : getTerminations()) {
+		for (Target t : getTerminations()) {
 			if (t.getName().equals(name))
 				throw new StructuralException("This node already contains a termination named " + name);
 		}
 
-		PassthroughTermination result = new PassthroughTermination(this, name, transform);
+		DirectTarget result = new DirectTarget(this, name, transform);
 		myTerminations.put(name, result);
 		return result;
 	}
@@ -315,7 +315,7 @@ public class SocketUDPNode implements Node, Resettable {
 	/**
 	 * @see ca.nengo.model.Node#getTermination(java.lang.String)
 	 */
-	public Termination getTermination(String name) throws StructuralException {
+	public Target getTermination(String name) throws StructuralException {
 		if (myTerminations.containsKey(name)) {
 			return myTerminations.get(name);
 		} else {
@@ -326,9 +326,9 @@ public class SocketUDPNode implements Node, Resettable {
 	/**
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
-	public Termination[] getTerminations() {
-        Collection<PassthroughTermination> var = myTerminations.values();
-        return var.toArray(new PassthroughTermination[var.size()]);
+	public Target[] getTerminations() {
+        Collection<DirectTarget> var = myTerminations.values();
+        return var.toArray(new DirectTarget[var.size()]);
 	}
 
 	/**
@@ -347,9 +347,9 @@ public class SocketUDPNode implements Node, Resettable {
 			else {
 				// TODO: Test with spiking outputs?
 				float[] values = new float[myDimension];
-				Iterator<PassthroughTermination> it = myTerminations.values().iterator();
+				Iterator<DirectTarget> it = myTerminations.values().iterator();
 				while (it.hasNext()) {
-					PassthroughTermination termination = it.next();
+					DirectTarget termination = it.next();
 					InstantaneousOutput io = termination.getValues();
 					if (io instanceof RealOutput) {
 						values = MU.sum(values, ((RealOutput) io).getValues());
@@ -413,7 +413,7 @@ public class SocketUDPNode implements Node, Resettable {
 			else if (foundFutureItem || startTime < myNextUpdate) {
 				// Buffer contained item in the future, so skip waiting for a new packet to arrive, and hurry 
 				// the heck up.
-				values = ((RealOutputImpl) myOrigin.getValues()).getValues().clone();
+				values = ((RealOutputImpl) myOrigin.get()).getValues().clone();
 			}
 			else {
 				// If no items were found in queue, wait on socket for new data.
@@ -443,7 +443,7 @@ public class SocketUDPNode implements Node, Resettable {
 							// Note: we break out of the while loop because receiving future timestamps means this 
 							//       system is (potentially) running slow.
 							mySocketBuffer.add(tempValues.clone());
-							values = ((RealOutputImpl) myOrigin.getValues()).getValues().clone();
+							values = ((RealOutputImpl) myOrigin.get()).getValues().clone();
 							break;
 						}
 						// Past timestamp encountered. Just ignore it, and wait for another packet.
@@ -451,14 +451,14 @@ public class SocketUDPNode implements Node, Resettable {
 				}
 				catch (SocketTimeoutException e){
 					// If a timeout occurs, don't really do anything, just keep the origin at the previous value.
-					values = ((RealOutputImpl) myOrigin.getValues()).getValues().clone();
+					values = ((RealOutputImpl) myOrigin.get()).getValues().clone();
 				}
 				catch (Exception e){
 					// TODO: Handle this better
 					throw new SimulationException(e);
 				}
 			}
-			myOrigin.setValues(new RealOutputImpl(values, Units.UNK, endTime));
+			myOrigin.accept(new RealOutputImpl(values, Units.UNK, endTime));
 		}
 		if (startTime >= myNextUpdate)
 			myNextUpdate += myUpdateInterval;
@@ -471,14 +471,14 @@ public class SocketUDPNode implements Node, Resettable {
 		float time = 0;
 		myNextUpdate = 0;
 		if (myOrigin != null) {
-			try {
-				if (myOrigin.getValues() != null) {
-	                myOrigin.getValues().getTime();
+			//try {
+				if (myOrigin.get() != null) {
+	                myOrigin.get().getTime();
 	            }
-			} catch (SimulationException e) {
+			/*} catch (SimulationException e) {
 				ourLogger.warn("Exception getting time from existing output during reset", e);
-			}
-			myOrigin.setValues(new RealOutputImpl(new float[myOrigin.getDimensions()], Units.UNK, time));
+			}*/
+			myOrigin.accept(new RealOutputImpl(new float[myOrigin.getDimensions()], Units.UNK, time));
 			myOrigin.reset(randomize);
 		}
 		mySocketBuffer.clear();
@@ -542,9 +542,9 @@ public class SocketUDPNode implements Node, Resettable {
 				
 				if (myOrigin != null)
 					result.myOrigin = myOrigin.clone(result);
-				result.myTerminations = new HashMap<String, PassthroughTermination>(10);
-				for (PassthroughTermination oldTerm : myTerminations.values()) {
-					PassthroughTermination newTerm = oldTerm.clone(result);
+				result.myTerminations = new HashMap<String, DirectTarget>(10);
+				for (DirectTarget oldTerm : myTerminations.values()) {
+					DirectTarget newTerm = oldTerm.clone(result);
 					result.myTerminations.put(newTerm.getName(), newTerm);
 				}
 	

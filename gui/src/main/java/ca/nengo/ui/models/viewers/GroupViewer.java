@@ -37,23 +37,25 @@ import ca.nengo.ui.models.UINeoNode;
 import ca.nengo.ui.models.nodes.UIGroup;
 import ca.nengo.ui.models.nodes.UINetwork;
 import ca.nengo.ui.models.nodes.UINeuron;
+import ca.nengo.ui.models.nodes.UINodeViewable;
 import ca.nengo.util.Probe;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Viewer for peeking into an Ensemble
  * 
  * @author Shu
  */
-public class GroupViewer extends NodeViewer {
+public class GroupViewer<N extends Group, G extends UINodeViewable> extends NodeViewer {
 
 	/**
 	 * @param ensembleUI
 	 *            Parent Ensemble UI Wrapper
 	 */
-	public GroupViewer(UIGroup ensembleUI) {
+	public GroupViewer(G ensembleUI) {
 		super(ensembleUI);
 	}
 
@@ -66,14 +68,14 @@ public class GroupViewer extends NodeViewer {
 	}
 
 	@Override
-	public Group getModel() {
+	public N getModel() {
 
-		return (Group) super.getModel();
+		return (N) super.getModel();
 	}
 
 	@Override
-	public UIGroup getViewerParent() {
-		return (UIGroup) super.getViewerParent();
+	public G getViewerParent() {
+		return (G) super.getViewerParent();
 	}
 
 	@Override
@@ -84,12 +86,11 @@ public class GroupViewer extends NodeViewer {
         HashMap<Node, UINeoNode> currentNodes = new HashMap<Node, UINeoNode>(
                 getGround().getChildrenCount());
 
-        Enumeration<UINeoNode> en = neoNodesChildren.elements();
-        while (en.hasMoreElements()) {
-            UINeoNode node = en.nextElement();
+        for (Map.Entry<Node,UINeoNode> e : neoNodesChildren.entrySet()) {
+            UINeoNode node = e.getValue();
             if (!node.isDestroyed()) {
-                Util.Assert(node.getModel() != null);
-                currentNodes.put(node.getModel(), node);
+                //Util.Assert(node.getModel() != null);
+                currentNodes.put(e.getKey(), node);
             }
         }
         neoNodesChildren.clear();
@@ -104,25 +105,7 @@ public class GroupViewer extends NodeViewer {
                 UINeoNode nodeUI = currentNodes.get(node);
 
                 if (nodeUI == null) {
-                	if (node instanceof Neuron) {
-        				Neuron neuron = (Neuron) node;
-
-        				UINeuron neuronUI = new UINeuron(neuron);
-
-        				addUINode(neuronUI, false, false);
-        			} else if (node instanceof Group) {
-        				Group group = (Group)node;
-        				UIGroup ensembleUI = new UIGroup(group);
-        				addUINode(ensembleUI,false,false);
-        				
-        			} else if (node instanceof Network) {
-        				Network network = (Network)node;
-        				UINetwork networkUI = new UINetwork(network);
-        				addUINode(networkUI, false, false);
-        			} else {
-        				UserMessages.showError("Unsupported node type " + node.getClass().getSimpleName()
-        						+ " in EnsembleViewer");
-        			}
+                    nodeUI = createUINode(node, isFirstUpdate);
                 } else {
                     neoNodesChildren.put(nodeUI.getModel(), nodeUI);
                 }
@@ -140,41 +123,69 @@ public class GroupViewer extends NodeViewer {
             // Remove nodes which are no longer referenced by the network model
             if (getUINode(node) == null) {
                 UINeoNode nodeUI = currentNodes.get(node);
+                nodeUI.showPopupMessage("Node " + nodeUI.getName() + " removed from Network");
                 nodeUI.destroy();
             }
         }
 
-		if (getViewerParent().getNetworkParent() != null) {
+        afterViewUpdated(isFirstUpdate);
+	}
+
+    protected void afterViewUpdated(boolean isFirstUpdate) {
+
+        if (getViewerParent().getNetworkParent() != null) {
 			/*
 			 * Construct probes
 			 */
-			Probe[] probes = getViewerParent().getNetworkParent().getSimulator().getProbes();
+            Probe[] probes = getViewerParent().getNetworkParent().getSimulator().getProbes();
 
-			for (Probe probe : probes) {
-				Probeable target = probe.getTarget();
+            for (Probe probe : probes) {
+                Probeable target = probe.getTarget();
 
-				if(target != null){
-					if (!(target instanceof Node)) {
-						UserMessages.showError("Unsupported target type for probe");
-					} else {
-	
-						if (probe.isInEnsemble() && probe.getEnsembleName() == getModel().getName()) {
-							Node node = (Node) target;
-	
-							UINeoNode nodeUI = getUINode(node);
-							if(nodeUI  != null){
-								nodeUI.showProbe(probe);
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		applyDefaultLayout();
-	}
+                if(target != null){
+                    if (!(target instanceof Node)) {
+                        UserMessages.showError("Unsupported target type for probe");
+                    } else {
 
-	@Override
+                        if (probe.isInEnsemble() && probe.getEnsembleName() == getModel().getName()) {
+                            Node node = (Node) target;
+
+                            UINeoNode nodeUI = getUINode(node);
+                            if(nodeUI  != null){
+                                nodeUI.showProbe(probe);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        applyDefaultLayout();
+    }
+    protected UINeoNode createUINode(Node node, boolean isFirstUpdate) {
+        if (node instanceof Neuron) {
+            Neuron neuron = (Neuron) node;
+
+            UINeuron neuronUI = new UINeuron(neuron);
+
+            return addUINode(neuronUI, false, false);
+        } else if (node instanceof Group) {
+            Group group = (Group)node;
+            UIGroup ensembleUI = new UIGroup(group);
+            return addUINode(ensembleUI,false,false);
+
+        } else if (node instanceof Network) {
+            Network network = (Network)node;
+            UINetwork networkUI = new UINetwork(network);
+            return addUINode(networkUI, false, false);
+        } else {
+            UserMessages.showError("Unsupported node type " + node.getClass().getSimpleName()
+                    + " in EnsembleViewer");
+        }
+        return null;
+    }
+
+    @Override
 	protected void removeChildModel(Node node) {
 		Util.Assert(false, "Cannot remove model");
 	}

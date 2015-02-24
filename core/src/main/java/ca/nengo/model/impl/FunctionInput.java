@@ -72,7 +72,7 @@ public class FunctionInput implements Node, Probeable {
 	private Units myUnits;
 	private float myTime;
 //	private float[] myValues;
-	private BasicOrigin myOrigin;
+	private BasicSource myOrigin;
 	private String myDocumentation;
 	private transient List<VisiblyMutable.Listener> myListeners;
 
@@ -85,7 +85,7 @@ public class FunctionInput implements Node, Probeable {
 	 * @throws StructuralException if functions are not all 1D functions of time
 	 */
 	public FunctionInput(String name, Function[] functions, Units units) throws StructuralException {
-		myOrigin = new BasicOrigin(this, FunctionInput.ORIGIN_NAME, functions.length, units);
+		myOrigin = new BasicSource(this, FunctionInput.ORIGIN_NAME, functions.length, units);
 		setFunctions(functions);
 
 		myName = name;
@@ -185,7 +185,7 @@ public class FunctionInput implements Node, Probeable {
 			throw new SimulationException("State " + stateName + " is unknown");
 		}
 
-		float[] values = ((RealOutput) myOrigin.getValues()).getValues();
+		float[] values = ((RealOutput) myOrigin.get()).getValues();
 		result = new TimeSeriesImpl(new float[]{myTime}, new float[][]{values}, Units.uniform(myUnits, values.length));
 
 		return result;
@@ -203,7 +203,7 @@ public class FunctionInput implements Node, Probeable {
 	/**
 	 * @see ca.nengo.model.Node#getOrigin(java.lang.String)
 	 */
-	public Origin getOrigin(String name) throws StructuralException {
+	public Source getOrigin(String name) throws StructuralException {
 		if (!ORIGIN_NAME.equals(name)) {
 			throw new StructuralException("This Node only has origin FunctionInput.ORIGIN_NAME");
 		}
@@ -214,22 +214,22 @@ public class FunctionInput implements Node, Probeable {
 	/**
 	 * @see ca.nengo.model.Node#getOrigins()
 	 */
-	public Origin[] getOrigins() {
-		return new Origin[]{myOrigin};
+	public Source[] getOrigins() {
+		return new Source[]{myOrigin};
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTermination(java.lang.String)
 	 */
-	public Termination getTermination(String name) throws StructuralException {
+	public Target getTermination(String name) throws StructuralException {
 		throw new StructuralException("This node has no Terminations");
 	}
 
 	/**
 	 * @see ca.nengo.model.Node#getTerminations()
 	 */
-	public Termination[] getTerminations() {
-		return new Termination[0];
+	public Target[] getTerminations() {
+		return new Target[0];
 	}
 
 	/**
@@ -373,15 +373,13 @@ public class FunctionInput implements Node, Probeable {
 		}
 		result.myFunctions = functions;
 
-		result.myOrigin = new BasicOrigin(result, FunctionInput.ORIGIN_NAME, functions.length, myUnits);
+		result.myOrigin = new BasicSource(result, FunctionInput.ORIGIN_NAME, functions.length, myUnits);
 		if (myOrigin.getNoise() != null) {
             result.myOrigin.setNoise(myOrigin.getNoise().clone());
         }
-		try {
-			result.myOrigin.setValues(myOrigin.getValues());
-		} catch (SimulationException e) {
-			throw new CloneNotSupportedException("Problem copying origin values: " + e.getMessage());
-		}
+
+		result.myOrigin.accept(myOrigin.get());
+
 
 		result.myListeners = new ArrayList<Listener>(5);
 

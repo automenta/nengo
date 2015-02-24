@@ -38,6 +38,7 @@ import ca.nengo.util.impl.ProbeTask;
  * 
  * @author Bryan Tripp
  */
+//TODO implement as a Source
 public interface Probe {
 
 	/**

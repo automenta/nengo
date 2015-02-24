@@ -29,8 +29,8 @@ package ca.nengo.model.nef;
 
 import ca.nengo.math.Function;
 import ca.nengo.model.*;
-import ca.nengo.model.nef.impl.DecodedOrigin;
-import ca.nengo.model.nef.impl.DecodedTermination;
+import ca.nengo.model.nef.impl.DecodedSource;
+import ca.nengo.model.nef.impl.DecodedTarget;
 import ca.nengo.model.plasticity.PlasticGroup;
 import ca.nengo.util.Probe;
 
@@ -67,7 +67,7 @@ public interface DecodableGroup extends PlasticGroup, Probeable {
 	 * @throws StructuralException May arise in instantiating the Origin
 	 * @throws SimulationException If there is a problem running the simulation
 	 */
-	public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
+	public Source addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
 			Probe probe, float startTime, float endTime) throws StructuralException, SimulationException;
 
 	/**
@@ -82,7 +82,7 @@ public interface DecodableGroup extends PlasticGroup, Probeable {
 	 * @param nodeOrigin The name of the Node-level Origin to decode
 	 * @param environment A Network in which the Ensemble runs (may include inputs, feedback, etc)
 	 * @param probe A Probe that is connected to the named Node-level Origin
-	 * @param termination The Termination through which input is to be applied to the Ensemble
+	 * @param target The Termination through which input is to be applied to the Ensemble
 	 * @param evalPoints The set of vector inputs that are to be applied at the above Termination
 	 * @param transientTime The amount of time the Network is to run with each input, so that transients die away
 	 * 		(output is averaged over the last 10% of each simulation)
@@ -91,8 +91,8 @@ public interface DecodableGroup extends PlasticGroup, Probeable {
 	 * @throws StructuralException May arise in instantiating the Origin
 	 * @throws SimulationException If there is a problem running the simulations
 	 */
-	public Origin addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
-			Probe probe, Termination termination, float[][] evalPoints, float transientTime) throws StructuralException, SimulationException;
+	public Source addDecodedOrigin(String name, Function[] functions, String nodeOrigin, Network environment,
+			Probe probe, Target target, float[][] evalPoints, float transientTime) throws StructuralException, SimulationException;
 
 	/**
 	 * This method can optionally be called after all decoded Origins have been added, in order to free
@@ -105,13 +105,13 @@ public interface DecodableGroup extends PlasticGroup, Probeable {
 	 * @return The removed DecodedOrigin
 	 * @throws StructuralException if DecodedOrigin doesn't exist
 	 */
-	public DecodedOrigin removeDecodedOrigin(String name) throws StructuralException;
+	public DecodedSource removeDecodedOrigin(String name) throws StructuralException;
 
 	/**
      * @param name Name of an existing termination to remove
 	 * @return The removed DecodedTermination
 	 * @throws StructuralException if DecodedTermination doesn't exist
      */
-    public DecodedTermination removeDecodedTermination(String name) throws StructuralException;
+    public DecodedTarget removeDecodedTermination(String name) throws StructuralException;
 
 }
